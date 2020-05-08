@@ -12,6 +12,10 @@
       "shell_cmd": "cd $project_path; echo \"\nST3 is Building: make all\n---\n\"; make all; echo \"\n\""
     },
     {
+      "name": "Generate Doxygen",
+      "shell_cmd": "cd $project_path; echo \"\nST3 is launching Doxygen\n---\n\"; doxygen Doxyfile; echo \"\n\""
+    },
+    {
       "name": "Test sublime build system vars",
       "shell_cmd": "echo packages ...........: $packages && echo project ............: $project && echo project_path .......: $project_path && echo project_name .......: $project_name && echo project_extension ..: $project_extension && echo project_base_name ..: $project_base_name && echo project_path-regex .: ${project_path/^.*[\\/|\\\\]//} && echo file ...............: $file && echo file_path ..........: $file_path && echo file_name ..........: $file_name && echo file_extension .....: $file_extension && echo file_base_name .....: $file_base_name && echo file_path-regex ....: ${file_path/^.*[\\/|\\\\]//}"
     }
