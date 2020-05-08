@@ -93,10 +93,13 @@ The following text block summarizes how the files are arranged inside this folde
 │   │   ├── include_1.h
 │   │   └── include_2.h
 │   └── main.c
-└── out/
-    ├── bin/
-    ├── lib/
-    └── obj/
+├── out/
+│   ├── bin/
+│   ├── lib/
+│   └── obj/
+└── .github/
+    └── workflows/
+        └── make-and-doxygen.yml
 ```
 
 ### Running the tests
