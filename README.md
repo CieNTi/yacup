@@ -54,7 +54,7 @@ The following text block summarizes how the files are arranged inside this folde
 ```
 ├── .gitignore
 ├── Doxyfile
-├── LICENSE
+├── LICENSE.txt
 ├── Makefile
 ├── README.md
 ├── yacup.sublime-project
@@ -142,4 +142,4 @@ This project is licensed under the AGPL-3.0 License:
  along with this program.  If not, see <https://www.gnu.org/licenses/>.
 ```
 
-See the [LICENSE](LICENSE) file for full details.
+See the [LICENSE.txt](LICENSE.txt) file for full details.
