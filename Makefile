@@ -20,13 +20,15 @@ default: all
 
 # Makefile absolute path
 MFDIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
+# Remove trailing slash
+MFDIR := $(MFDIR:/=)
 
 # Base input folders
-IDIR = $(addprefix $(MFDIR), $(wildcard util/*/yacup))
-SDIR = $(MFDIR)src
+IDIR = $(addprefix $(MFDIR)/, $(wildcard util/*/yacup))
+SDIR = $(MFDIR)
 
 # Base output folders
-OUTD = $(MFDIR)out
+OUTD = $(MFDIR)/out
 BDIR = $(OUTD)/bin
 LDIR = $(OUTD)/lib
 ODIR = $(OUTD)/obj
@@ -37,9 +39,10 @@ LS = ls -al
 CP = cp
 RM = rm -rf
 CC = gcc
+OBJCOPY = objcopy
 
 # Flags, libs, ...
-CFLAGS = $(addprefix "-I", $(IDIR)) -Wall -pedantic-errors
+CFLAGS = $(addprefix -I, $(IDIR)) -Wall -pedantic-errors
 LDLIBS = -lm
 
 # Wildcard target that look for .c file based on .o name
@@ -76,6 +79,7 @@ prepare:
 
 .PHONY: debug
 debug:
+	$(eval CFLAGS += -DYACUP_DEBUG)
 	@echo "-----"
 	@echo "Variables:"
 	@echo "  MFDIR ....: $(MFDIR)"
