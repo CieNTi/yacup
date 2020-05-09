@@ -54,12 +54,22 @@ $(ODIR)/%.o: $(SDIR)/%.c
 	@echo "-----"
 
 # Targets ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Simple test for `rb`
+RB_OBJS=util/rb/test/simple.o
+test_rb_simple: $(addprefix $(ODIR)/, $(RB_OBJS))
+	@echo "-----\nSetting '$@()' as the new 'main()'"
+	$(OBJCOPY) --redefine-sym $@=main $^
+	@echo "\nLinking | << $^\n        | >> $(BDIR)/$@"
+	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BDIR)/$@
+	@echo "\nExecuting '$@': $(BDIR)/$@\n-----"
+	@$(BDIR)/$@
+	@echo "-----"
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # My Little Phonies
 .PHONY: all
-all: clean debug prepare
+all: clean debug prepare test_rb_simple
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""

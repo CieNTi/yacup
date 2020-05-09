@@ -72,7 +72,7 @@ The following text block summarizes how the files are arranged inside this folde
 │   │   │       ├── file_b.h
 │   │   │       └── types.h
 │   │   ├── private.h
-│   │   └── tests/
+│   │   └── test/
 │   │       ├── test_ab_a.c
 │   │       └── test_ab_b.c
 │   └── mod_xy/
@@ -85,7 +85,7 @@ The following text block summarizes how the files are arranged inside this folde
 │       │       ├── file_y.h
 │       │       └── types.h
 │       ├── private.h
-│       └── tests/
+│       └── test/
 │           ├── test_ab_x.c
 │           └── test_ab_y.c
 ├── src/
