@@ -45,6 +45,47 @@ OBJCOPY = objcopy
 CFLAGS = $(addprefix -I, $(IDIR)) -Wall -pedantic-errors
 LDLIBS = -lm
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Targets for 'util' folder
+# ~~~~~~~~~~~~~~~~~~~~~~~~~
+# Test to check rb's driver_v1 functionality
+test_rb_driver_v1_objs=util/rb/test/test_rb_driver_v1.o
+test_rb_driver_v1: $(addprefix $(ODIR)/, $(test_rb_driver_v1_objs))
+	@echo "-----"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@echo "-----"
+
+# Simple test for `rb`
+test_rb_simple_objs=util/rb/test/test_rb_simple.o
+test_rb_simple: $(addprefix $(ODIR)/, $(test_rb_simple_objs))
+	@echo "-----"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@echo "-----"
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Targets for 'src' folder
+# ~~~~~~~~~~~~~~~~~~~~~~~~
+# Test app compounding all other tests defined here
+test_yacup_objs=$(test_rb_driver_v1_objs) \
+                $(test_rb_simple_objs)    \
+                src/test_yacup.o
+test_yacup: $(addprefix $(ODIR)/, $(test_yacup_objs))
+	@echo "-----"
+	make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@echo "-----"
+
+# Normal app (main() function is there)
+an_app_objs=some/object/file.o
+an_app: $(addprefix $(ODIR)/, $(an_app_objs))
+	@echo "-----"
+	@echo "\nLinking | << $+\n        | >> $(BDIR)/$@"
+	$(CC) $+ $(CFLAGS) $(LDLIBS) -o $(BDIR)/$@
+	@echo "\nExecuting '$@': $(BDIR)/$@\n-----"
+	@$(BDIR)/$@
+	@echo "-----"
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 # Wildcard target that look for .c file based on .o name
 $(ODIR)/%.o: $(SDIR)/%.c
 	@echo "-----"
@@ -53,48 +94,33 @@ $(ODIR)/%.o: $(SDIR)/%.c
 	$(CC) -c $< $(CFLAGS) -o $@
 	@echo "-----"
 
-# Targets ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Targets for 'util' folder ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Test to check rb's driver_v1 functionality
-test_rb_driver_v1_objs=util/rb/test/driver_v1.o
-test_rb_driver_v1: $(addprefix $(ODIR)/, $(test_rb_driver_v1_objs))
-	@echo "-----\nSetting '$@()' as the new 'main()'"
-	$(OBJCOPY) --redefine-sym $@=main $^
-	@echo "\nLinking | << $^\n        | >> $(BDIR)/$@"
-	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BDIR)/$@
-	@echo "\nExecuting '$@': $(BDIR)/$@\n-----"
-	@$(BDIR)/$@
-	@echo "-----"
-
-# Simple test for `rb`
-test_rb_simple_objs=util/rb/test/simple.o
-test_rb_simple: $(addprefix $(ODIR)/, $(test_rb_simple_objs))
-	@echo "-----\nSetting '$@()' as the new 'main()'"
-	$(OBJCOPY) --redefine-sym $@=main $^
-	@echo "\nLinking | << $^\n        | >> $(BDIR)/$@"
-	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BDIR)/$@
-	@echo "\nExecuting '$@': $(BDIR)/$@\n-----"
-	@$(BDIR)/$@
-	@echo "-----"
-
-# Targets for 'src' folder ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Test app compounding all other tests defined here
-test_yacup_objs=$(test_rb_driver_v1_objs) \
-                $(test_rb_simple_objs)    \
-                src/test_yacup.o
-test_yacup: $(addprefix $(ODIR)/, $(test_yacup_objs))
-	@echo "-----\nSetting '$@()' as the new 'main()'"
-	$(OBJCOPY) --redefine-sym $@=main $(lastword $^)
-	@echo "\nLinking | << $^\n        | >> $(BDIR)/$@"
-	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BDIR)/$@
-	@echo "\nExecuting '$@': $(BDIR)/$@\n-----"
-	@$(BDIR)/$@
-	@echo "-----"
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
 # My Little Phonies
+.PHONY: test_bin
+test_bin:
+	@if [ "$(TB_OBJ)"  = "" -o "$(TB_OBJS)" = "" -o "$(TB_NAME)" = "" ];  \
+	then                                                                        \
+	  echo "-----";                                                             \
+	  echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::";             \
+	  echo ":: This is not supposed to be called this way, son ::";             \
+	  echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::";             \
+	  echo ":: TB_OBJ .........: $(TB_OBJ)";                                    \
+	  echo ":: TB_OBJS ........: $(TB_OBJS)";                                   \
+	  echo ":: TB_NAME ........: $(TB_NAME)";                                   \
+	  echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::";             \
+	  echo "-----";                                                             \
+	  exit 1;                                                                   \
+  fi
+	@echo "-----\nSetting '$(TB_NAME)()' as the new 'main()'"
+	$(OBJCOPY) --redefine-sym $(TB_NAME)=main $(TB_OBJ)
+	@echo "\nLinking | << $(TB_OBJS)\n        | >> $(BDIR)/$(TB_NAME)"
+	$(CC) $(TB_OBJS) $(CFLAGS) $(LDLIBS) -o $(BDIR)/$(TB_NAME)
+	@echo "\nExecuting '$(TB_NAME)': $(BDIR)/$(TB_NAME)\n-----"
+	@$(BDIR)/$(TB_NAME)
+	@echo "-----"
+
 .PHONY: all
 all: clean debug prepare test_yacup test_rb_simple test_rb_driver_v1
+#all: clean debug prepare test_rb_simple
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""
