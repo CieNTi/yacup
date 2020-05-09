@@ -54,9 +54,20 @@ $(ODIR)/%.o: $(SDIR)/%.c
 	@echo "-----"
 
 # Targets ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Test to check rb's driver_v1 functionality
+test_rb_driver_v1_objs=util/rb/test/driver_v1.o
+test_rb_driver_v1: $(addprefix $(ODIR)/, $(test_rb_driver_v1_objs))
+	@echo "-----\nSetting '$@()' as the new 'main()'"
+	$(OBJCOPY) --redefine-sym $@=main $^
+	@echo "\nLinking | << $^\n        | >> $(BDIR)/$@"
+	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BDIR)/$@
+	@echo "\nExecuting '$@': $(BDIR)/$@\n-----"
+	@$(BDIR)/$@
+	@echo "-----"
+
 # Simple test for `rb`
-RB_OBJS=util/rb/test/simple.o
-test_rb_simple: $(addprefix $(ODIR)/, $(RB_OBJS))
+test_rb_simple_objs=util/rb/test/simple.o
+test_rb_simple: $(addprefix $(ODIR)/, $(test_rb_simple_objs))
 	@echo "-----\nSetting '$@()' as the new 'main()'"
 	$(OBJCOPY) --redefine-sym $@=main $^
 	@echo "\nLinking | << $^\n        | >> $(BDIR)/$@"
@@ -69,7 +80,7 @@ test_rb_simple: $(addprefix $(ODIR)/, $(RB_OBJS))
 
 # My Little Phonies
 .PHONY: all
-all: clean debug prepare test_rb_simple
+all: clean debug prepare test_rb_simple test_rb_driver_v1
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""

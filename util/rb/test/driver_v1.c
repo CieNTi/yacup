@@ -1,4 +1,4 @@
-/* simple.c - Simple test for `rb`
+/* driver_v1.c - Test to check rb's driver_v1 functionality
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -46,7 +46,7 @@
  * @ingroup    template
  * @version    v1.0.0
  */
-int test_rb_simple(int argc, const char* argv[])
+int test_rb_driver_v1(int argc, const char* argv[])
 {
   printf("Hi! from "__FILE__"\n");
   return 0;
