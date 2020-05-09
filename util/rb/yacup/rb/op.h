@@ -1,4 +1,4 @@
-/* operations.h - Ring buffers operations for yacup project
+/* op.h - Ring buffers operations for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -40,21 +40,6 @@ struct rb;
 struct rb_op
 {
   /**
-   * @brief      Create and initialize a ring-buffer. User needs to previously
-   *             reserve a buffer
-   *
-   * @param      buffer  Buffer to store the data, created by the user
-   * @param[in]  size    Size in bytes of the buffer
-   *
-   * @return     One of:
-   *             | Value         | Meaning          |
-   *             | :-----------: | :--------------- |
-   *             | `struct rb *` | Ok               |
-   *             | `NULL`        | Error            |
-   */
-  struct rb * (*create)(uint8_t *buffer, size_t size);
-
-  /**
    * @brief      Checks if the ring-buffer is valid or not
    *
    * @param      rb    Pointer to a ring-buffer previously created with create()
@@ -73,14 +58,6 @@ struct rb_op
    * @param      rb    Pointer to a ring-buffer previously created with create()
    */
   void (*reset)(struct rb *rb);
-
-  /**
-   * @brief      Destroy a ring-buffer and free its resources. User needs to
-   *             destroy the buffer
-   *
-   * @param      rb    Pointer to a ring-buffer previously created with create()
-   */
-  void (*destroy)(struct rb *rb);
 
   /**
    * @brief      Add a byte to a ring-buffer head, overwritting if needed
@@ -109,6 +86,24 @@ struct rb_op
    *             | `!= 0` | Error            |
    */
   int (*pull)(struct rb *rb, uint8_t *byte);
+
+  /**
+   * @brief      Write a byte by position on a ring-buffer, without updating
+   *             head/tail.
+   *
+   * @param      rb        Pointer to a ring-buffer previously created with
+   *                       create()
+   * @param[in]  byte      Byte to be written into the ring-buffer
+   * @param[in]  position  Position to read, thinking as if ring-buffer is
+   *                       linear
+   *
+   * @return     One of:
+   *             | Value  | Meaning          |
+   *             | :----: | :--------------- |
+   *             | `== 0` | Ok               |
+   *             | `!= 0` | Error            |
+   */
+  int (*write)(struct rb *rb, uint8_t byte, size_t position);
 
   /**
    * @brief      Read a byte by position from a ring-buffer, without deleting it
