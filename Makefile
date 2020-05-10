@@ -48,14 +48,14 @@ LDLIBS = -lm
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Targets for 'util' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
-# Test to check rb's driver_v1 functionality
+# Test to check `rb` package driver_v1 functionality
 test_rb_driver_v1_objs=util/rb/test/test_rb_driver_v1.o
 test_rb_driver_v1: $(addprefix $(ODIR)/, $(test_rb_driver_v1_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
 
-# Simple test for `rb`
+# Simple test for `rb` package
 test_rb_simple_objs=util/rb/test/test_rb_simple.o
 test_rb_simple: $(addprefix $(ODIR)/, $(test_rb_simple_objs))
 	@echo "-----"
@@ -69,7 +69,7 @@ test_rb_simple: $(addprefix $(ODIR)/, $(test_rb_simple_objs))
 # Test app compounding all other tests defined here
 test_yacup_objs=$(test_rb_driver_v1_objs) \
                 $(test_rb_simple_objs)    \
-                src/test_yacup.o
+                src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_objs))
 	@echo "-----"
 	make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
@@ -120,7 +120,6 @@ test_bin:
 
 .PHONY: all
 all: clean debug prepare test_yacup test_rb_simple test_rb_driver_v1
-#all: clean debug prepare test_rb_simple
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""
