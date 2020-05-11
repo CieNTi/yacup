@@ -48,7 +48,7 @@ struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
       /* Invalid driver? */
       (driver == NULL))
   {
-    _dbg("!| rb_create: Invalid buffer, size or driver\n");
+    _dbg("rb_create: Invalid buffer, size or driver\n");
     return NULL;
   }
 
@@ -58,7 +58,7 @@ struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
   /* It was possible to allocate it? */
   if (rb == NULL)
   {
-    _dbg("!| rb_create: Impossible to malloc() a rb\n");
+    _dbg("rb_create: Impossible to malloc() a rb\n");
     return NULL;
   }
 
@@ -71,7 +71,7 @@ struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
     /* Deallocate rb and fail miserably */
     free(rb);
     rb = NULL;
-    _dbg("!| rb_create: Impossible to assign rb operations\n");
+    _dbg("rb_create: Impossible to assign rb operations\n");
     return NULL;
   }
 
@@ -91,7 +91,7 @@ struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
     /* Deallocate rb and fail miserably */
     free(rb);
     rb = NULL;
-    _dbg("!| rb_create: Impossible to assign rb operations\n");
+    _dbg("rb_create: Impossible to assign rb operations\n");
     return NULL;
   }
   else
@@ -105,6 +105,9 @@ struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
  * Read `yacup/rb.h` for complete information. */
 void rb_destroy(struct rb *rb)
 {
+  /* Free the previously (m)allocated storage */
+  free(rb);
+
   /* It is a void, just return */
   return;
 }
@@ -113,6 +116,16 @@ void rb_destroy(struct rb *rb)
  * Read `yacup/rb.h` for complete information. */
 void rb_reset(struct rb *rb)
 {
+  /* Validate it */
+  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  {
+    _dbg("rb_reset: Failed\n");
+    return;
+  }
+
+  /* Call operation */
+  rb->op->reset(rb);
+
   /* It is a void, just return */
   return;
 }
@@ -121,56 +134,105 @@ void rb_reset(struct rb *rb)
  * Read `yacup/rb.h` for complete information. */
 int rb_push(struct rb *rb, uint8_t byte)
 {
-  /* Fail */
-  return 1;
+  /* Validate it */
+  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  {
+    _dbg("rb_push: Invalid\n");
+    return 1;
+  }
+
+  /* Call operation and return its value */
+  return (rb->op->push(rb, byte));
 }
 
 /* Read and delete a byte from a ring-buffer tail.
  * Read `yacup/rb.h` for complete information. */
 int rb_pull(struct rb *rb, uint8_t *byte)
 {
-  /* Fail */
-  return 1;
+  /* Validate it */
+  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  {
+    _dbg("rb_pull: Invalid\n");
+    return 1;
+  }
+
+  /* Call operation and return its value */
+  return (rb->op->pull(rb, byte));
 }
 
 /* Write a byte by position on a ring-buffer, without updating head/tail.
  * Read `yacup/rb.h` for complete information. */
 int rb_write(struct rb *rb, uint8_t byte, size_t position)
 {
-  /* Fail */
-  return 1;
+  /* Validate it */
+  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  {
+    _dbg("rb_write: Failed\n");
+    return 1;
+  }
+
+  /* Call operation and return its value */
+  return (rb->op->write(rb, byte, position));
 }
 
 /* Read a byte by position from a ring-buffer, without deleting it.
  * Read `yacup/rb.h` for complete information. */
 int rb_read(struct rb *rb, uint8_t *byte, size_t position)
 {
-  /* Fail */
-  return 1;
+  /* Validate it */
+  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  {
+    _dbg("rb_read: Failed\n");
+    return 1;
+  }
+
+  /* Call operation and return its value */
+  return (rb->op->read(rb, byte, position));
 }
 
 /* Returns max available size of a ring-buffer buffer.
  * Read `yacup/rb.h` for complete information. */
 size_t rb_size(struct rb *rb)
 {
-  /* Fail */
-  return 1;
+  /* Validate it */
+  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  {
+    _dbg("rb_size: Failed\n");
+    return 0;
+  }
+
+  /* Call operation and return its value */
+  return (rb->op->size(rb));
 }
 
 /* Returns available data size inside a ring-buffer.
  * Read `yacup/rb.h` for complete information. */
 size_t rb_len(struct rb *rb)
 {
-  /* Fail */
-  return 1;
+  /* Validate it */
+  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  {
+    _dbg("rb_len: Failed\n");
+    return 0;
+  }
+
+  /* Call operation and return its value */
+  return (rb->op->len(rb));
 }
 
 /* Check if a ring-buffer is full or not.
  * Read `yacup/rb.h` for complete information. */
 uint8_t rb_full(struct rb *rb)
 {
-  /* Fail */
-  return 1;
+  /* Validate it */
+  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  {
+    _dbg("rb_full: Failed\n");
+    return 0;
+  }
+
+  /* Call operation and return its value */
+  return (rb->op->full(rb));
 }
 
 #undef YCP_NAME
