@@ -91,6 +91,9 @@ Functions</h2></td></tr>
 <tr class="memitem:gac0f2228420376f4db7e1274f2b41667c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__template.html#gac0f2228420376f4db7e1274f2b41667c">main</a> (int argc, const char *argv[])</td></tr>
 <tr class="memdesc:gac0f2228420376f4db7e1274f2b41667c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main of the mains.  <a href="group__template.html#gac0f2228420376f4db7e1274f2b41667c">More...</a><br /></td></tr>
 <tr class="separator:gac0f2228420376f4db7e1274f2b41667c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6f3629bbf2e4772601d46ddfd5941e30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__template.html#ga6f3629bbf2e4772601d46ddfd5941e30">rb_print_info</a> (struct <a class="el" href="structrb.html">rb</a> *<a class="el" href="structrb.html">rb</a>)</td></tr>
+<tr class="memdesc:ga6f3629bbf2e4772601d46ddfd5941e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print <code>rb</code> information to STDOUT.  <a href="group__template.html#ga6f3629bbf2e4772601d46ddfd5941e30">More...</a><br /></td></tr>
+<tr class="separator:ga6f3629bbf2e4772601d46ddfd5941e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>Template module from template files xD. </p>
@@ -147,12 +150,12 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Warning  </td></tr>
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
 </table>
 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>v1.0.0 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="source_8c_source.html#l00052">52</a> of file <a class="el" href="source_8c_source.html">source.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="source_8c_source.html#l00053">53</a> of file <a class="el" href="source_8c_source.html">source.c</a>.</p>
 
 </div>
 </div>
@@ -198,7 +201,7 @@ Functions</h2></td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Warning  </td></tr>
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
 </table>
 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>v1.0.0 </dd></dl>
@@ -243,9 +246,53 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ga6f3629bbf2e4772601d46ddfd5941e30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6f3629bbf2e4772601d46ddfd5941e30">&#9670;&nbsp;</a></span>rb_print_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rb_print_info </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structrb.html">rb</a> *&#160;</td>
+          <td class="paramname"><em>rb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;debug.h&gt;</code></p>
+
+<p>Print <code>rb</code> information to STDOUT. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rb</td><td>Pointer to a ring-buffer previously created with <a class="el" href="group__rb.html#ga806e75d4f1a2ef3320509f069ab76894" title="Create and initialize a ring-buffer. User needs to previously reserve a buffer.">rb_create()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="debug_8c_source.html#l00037">37</a> of file <a class="el" href="debug_8c_source.html">debug.c</a>.</p>
+
+<p class="reference">References <a class="el" href="rb_8h_source.html#l00058">rb::buffer</a>, <a class="el" href="rb_8h_source.html#l00068">rb::head</a>, <a class="el" href="rb_8h_source.html#l00078">rb::head_of</a>, <a class="el" href="op_8h_source.html#l00151">rb_op::len</a>, <a class="el" href="rb_8h_source.html#l00083">rb::op</a>, <a class="el" href="rb_8h_source.html#l00063">rb::size</a>, <a class="el" href="rb_8h_source.html#l00073">rb::tail</a>, and <a class="el" href="op_8h_source.html#l00054">rb_op::validate</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__rb__driver__v1_8c_source.html#l00049">test_rb_driver_v1()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__template_ga6f3629bbf2e4772601d46ddfd5941e30_icgraph.png" border="0" usemap="#group__template_ga6f3629bbf2e4772601d46ddfd5941e30_icgraph" alt=""/></div>
+<map name="group__template_ga6f3629bbf2e4772601d46ddfd5941e30_icgraph" id="group__template_ga6f3629bbf2e4772601d46ddfd5941e30_icgraph">
+<area shape="rect" title="Print rb information to STDOUT." alt="" coords="309,5,403,32"/>
+<area shape="rect" href="group__util__test.html#ga0d6706a9d8bb1cfe78fc205f278f4088" title="Tests driver_v1 API and functionality." alt="" coords="139,5,261,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
 </div><!-- contents -->
-<div class="ttc" id="astructnice__structure_html_a56ed84df35de10bdb65e72b184309497"><div class="ttname"><a href="structnice__structure.html#a56ed84df35de10bdb65e72b184309497">nice_structure::buffer</a></div><div class="ttdeci">uint8_t * buffer</div><div class="ttdoc">Pointer to bytes uint8_t buffer.</div><div class="ttdef"><b>Definition:</b> <a href="header_8h_source.html#l00062">header.h:62</a></div></div>
-<div class="ttc" id="astructnice__structure_html"><div class="ttname"><a href="structnice__structure.html">nice_structure</a></div><div class="ttdoc">A nice structure briefly described.</div><div class="ttdef"><b>Definition:</b> <a href="header_8h_source.html#l00055">header.h:56</a></div></div>
+<div class="ttc" id="astructnice__structure_html_a56ed84df35de10bdb65e72b184309497"><div class="ttname"><a href="structnice__structure.html#a56ed84df35de10bdb65e72b184309497">nice_structure::buffer</a></div><div class="ttdeci">uint8_t * buffer</div><div class="ttdoc">Pointer to bytes uint8_t buffer.</div><div class="ttdef"><b>Definition:</b> <a href="header_8h_source.html#l00061">header.h:61</a></div></div>
+<div class="ttc" id="astructnice__structure_html"><div class="ttname"><a href="structnice__structure.html">nice_structure</a></div><div class="ttdoc">A nice structure briefly described.</div><div class="ttdef"><b>Definition:</b> <a href="header_8h_source.html#l00054">header.h:55</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

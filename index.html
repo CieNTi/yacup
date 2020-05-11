@@ -121,7 +121,7 @@ $(function() {
 <div class="line">│   │   │       ├── file_b.h</div>
 <div class="line">│   │   │       └── types.h</div>
 <div class="line">│   │   ├── private.h</div>
-<div class="line">│   │   └── tests/</div>
+<div class="line">│   │   └── test/</div>
 <div class="line">│   │       ├── test_ab_a.c</div>
 <div class="line">│   │       └── test_ab_b.c</div>
 <div class="line">│   └── mod_xy/</div>
@@ -134,21 +134,154 @@ $(function() {
 <div class="line">│       │       ├── file_y.h</div>
 <div class="line">│       │       └── types.h</div>
 <div class="line">│       ├── private.h</div>
-<div class="line">│       └── tests/</div>
+<div class="line">│       └── test/</div>
 <div class="line">│           ├── test_ab_x.c</div>
 <div class="line">│           └── test_ab_y.c</div>
 <div class="line">├── src/</div>
+<div class="line">│   ├── test/</div>
+<div class="line">│   │   └── test_some.c</div>
 <div class="line">│   ├── yacup/</div>
 <div class="line">│   │   ├── include_1.h</div>
 <div class="line">│   │   └── include_2.h</div>
 <div class="line">│   └── main.c</div>
-<div class="line">└── out/</div>
-<div class="line">    ├── bin/</div>
-<div class="line">    ├── lib/</div>
-<div class="line">    └── obj/</div>
+<div class="line">├── out/</div>
+<div class="line">│   ├── bin/</div>
+<div class="line">│   ├── lib/</div>
+<div class="line">│   └── obj/</div>
+<div class="line">└── .github/</div>
+<div class="line">    └── workflows/</div>
+<div class="line">        └── make-and-doxygen.yml</div>
 </div><!-- fragment --><h2>Running the tests</h2>
-<div class="fragment"><div class="line">$ echo &quot;Still need an explanation of this :D&quot;</div>
-</div><!-- fragment --><h1>Built using</h1>
+<p>The provided <code>Makefile</code> is designed in a way that creating and executing test will be easy.</p>
+<h3>Create tests: Coding the sources</h3>
+<p>In order to take advantage of our <code>Makefile</code> features:</p>
+<ul>
+<li>Source file have to be named like the test, ex: <code>test_about_something.c</code></li>
+<li>A function named like the test have to be defined inside the source file, and have to follow the same structure than a common <code><a class="el" href="group__template.html#gac0f2228420376f4db7e1274f2b41667c" title="The main of the mains.">main()</a></code>, ex: <code>int test_about_something(int argc, const char* argv[])</code>. This will be valid as a <code><a class="el" href="group__template.html#gac0f2228420376f4db7e1274f2b41667c" title="The main of the mains.">main()</a></code> at the very end of the building process, without any extra user intervention (it is further explained).</li>
+<li>This function will return <code>0</code> for success and any other value for error</li>
+<li>Test name have to be unique, therefore, both file and function names have to be unique along the project, as at some point it will converge in a single call if a tests batch is executed.</li>
+<li>Location of this file depends on the user, but following the file arrangement proposed, it should be one of the following:<ul>
+<li>For a utility test: <code>util/util_name/test/test_about_something.c</code></li>
+<li>For a project app test: <code>src/test/test_about_something.c</code></li>
+</ul>
+</li>
+</ul>
+<p>All of this is summarized in the following project app test example:</p>
+<blockquote class="doxtable">
+<p><b>File</b>: <code>src/test/test_about_something.c</code> </p>
+</blockquote>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><span class="comment"></span> </div>
+<div class="line"><span class="comment">/**</span></div>
+<div class="line"><span class="comment"> * @brief      The main of the mains</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * @param[in]  argc  The count of arguments</span></div>
+<div class="line"><span class="comment"> * @param      argv  The arguments array</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * @return     One of:</span></div>
+<div class="line"><span class="comment"> *             | Value  | Meaning          |</span></div>
+<div class="line"><span class="comment"> *             | :----: | :--------------- |</span></div>
+<div class="line"><span class="comment"> *             | `== 0` | Ok               |</span></div>
+<div class="line"><span class="comment"> *             | `!= 0` | Error            |</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * @ingroup    app_test</span></div>
+<div class="line"><span class="comment"> * @version    v1.0.0</span></div>
+<div class="line"><span class="comment"> */</span></div>
+<div class="line"><span class="keywordtype">int</span> test_about_something(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[])</div>
+<div class="line">{</div>
+<div class="line">  printf(<span class="stringliteral">&quot;Hi! from &quot;</span>__FILE__<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line">  <span class="keywordflow">return</span> 0;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Once this file is correctly created and defined, it is time to declare the test inside the <code>Makefile</code>.</p>
+<h3>Declare tests: Changing the <code>Makefile</code></h3>
+<p>The provided <code>Makefile</code> contains a set of targets and <em>phony</em> targets to ease the development process without the need of tweaking too much the compiling process.</p>
+<p>The developer will only have to define a target recipe as described below, adjusting the test name and object prerequisites (simply by replacing the <code>.c</code> extension with <code>.o</code>). It is recommended to follow both the proposed encoding and the location, as this is how it was shown to work perfectly.</p>
+<p>Assuming the previous <code>test_about_something</code> example, would be as follows for an utility test:</p>
+<div class="fragment"><div class="line"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+<div class="line"># Targets for &#39;util&#39; folder</div>
+<div class="line"># ~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+<div class="line"># Test to check `util_name` driver_v1 functionality</div>
+<div class="line">test_about_something_objs=util/util_name/test/test_about_something.o</div>
+<div class="line">test_about_something: $(addprefix $(ODIR)/, $(test_about_something_objs))</div>
+<div class="line">    @echo &quot;-----&quot;</div>
+<div class="line">    @make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS=&quot;$+&quot;</div>
+<div class="line">    @echo &quot;-----&quot;</div>
+<div class="line"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+</div><!-- fragment --><p>Or, as stated previously, for a project app test:</p>
+<div class="fragment"><div class="line"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+<div class="line"># Targets for &#39;src&#39; folder</div>
+<div class="line"># ~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+<div class="line"># Test to check some app functionality</div>
+<div class="line">test_about_something_objs=src/test/test_about_something.o</div>
+<div class="line">test_about_something: $(addprefix $(ODIR)/, $(test_about_something_objs))</div>
+<div class="line">    @echo &quot;-----&quot;</div>
+<div class="line">    @make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS=&quot;$+&quot;</div>
+<div class="line">    @echo &quot;-----&quot;</div>
+<div class="line"># ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+</div><!-- fragment --><h3>Preparing the building environment</h3>
+<p>Two targets are provided for that purpose: <code>make clean</code> and <code>make prepare</code>.</p>
+<p>The following output is obtained if we execute both in a single call:</p>
+<div class="fragment"><div class="line">$ make clean prepare</div>
+<div class="line">-----</div>
+<div class="line">Cleaning environment ...</div>
+<div class="line">rm -rf *~ /yacup/out/bin /yacup/out/lib /yacup/out/obj /yacup/out /yacup/util/util_name/yacup/*~</div>
+<div class="line">-----</div>
+<div class="line">-----</div>
+<div class="line">Preparing environment ...</div>
+<div class="line">Creating | &#39;/yacup/out/bin&#39;</div>
+<div class="line">         | &#39;/yacup/out/lib&#39;</div>
+<div class="line">         | &#39;/yacup/out/obj&#39;</div>
+<div class="line">-----</div>
+</div><!-- fragment --><h3>Debugging <code>make</code> calls</h3>
+<p>A debugging target is also provided, just to show what <code>make</code> sees at execution time, and shows as follows:</p>
+<div class="fragment"><div class="line">$ make debug</div>
+<div class="line">-----</div>
+<div class="line">Variables:</div>
+<div class="line">  MFDIR ....: /yacup</div>
+<div class="line">  IDIR .....: /yacup/util/util_name/yacup</div>
+<div class="line">  SDIR .....: /yacup</div>
+<div class="line">  BDIR .....: /yacup/out/bin</div>
+<div class="line">  LDIR .....: /yacup/out/lib</div>
+<div class="line">  ODIR .....: /yacup/out/obj</div>
+<div class="line">  MKDIR ....: mkdir</div>
+<div class="line">  LS .......: ls -al</div>
+<div class="line">  CP .......: cp</div>
+<div class="line">  RM .......: rm -rf</div>
+<div class="line">  CC .......: gcc</div>
+<div class="line">  CFLAGS ...: -I/yacup/util/util_name/yacup -Wall -pedantic-errors -DYACUP_DEBUG</div>
+<div class="line">  LDLIBS ...: -lm</div>
+<div class="line">-----</div>
+</div><!-- fragment --><h3>Execute tests: Command line and CI/CD</h3>
+<p>The previously created tests already include an execution step, so calling them will triggers compile, link and execution tasks.</p>
+<p>Assuming the proposed example, if <code>make test_about_something</code> is executed, the following output is shown:</p>
+<div class="fragment"><div class="line">$ make test_about_something</div>
+<div class="line">-----</div>
+<div class="line">Compiling | &lt;&lt; /yacup/util/util_name/test/test_about_something.c</div>
+<div class="line">          | &gt;&gt; /yacup/out/obj/util/util_name/test/test_about_something.o</div>
+<div class="line">mkdir -p /yacup/out/obj/util/util_name/test</div>
+<div class="line">gcc -c /yacup/util/util_name/test/test_about_something.c -I/yacup/util/util_name/yacup -Wall -pedantic-errors -o /yacup/out/obj/util/util_name/test/test_about_something.o</div>
+<div class="line">-----</div>
+<div class="line">-----</div>
+<div class="line">make[1]: Entering directory &#39;/yacup&#39;</div>
+<div class="line">-----</div>
+<div class="line">Setting &#39;test_about_something()&#39; as the new &#39;main()&#39;</div>
+<div class="line">objcopy --redefine-sym test_about_something=main /yacup/out/obj/util/util_name/test/test_about_something.o</div>
+<div class="line"> </div>
+<div class="line">Linking | &lt;&lt; /yacup/out/obj/util/util_name/test/test_about_something.o</div>
+<div class="line">        | &gt;&gt; /yacup/out/bin/test_about_something</div>
+<div class="line">gcc /yacup/out/obj/util/util_name/test/test_about_something.o -I/yacup/util/util_name/yacup -Wall -pedantic-errors -lm -o /yacup/out/bin/test_about_something</div>
+<div class="line"> </div>
+<div class="line">Executing &#39;test_about_something&#39;: /yacup/out/bin/test_about_something</div>
+<div class="line">-----</div>
+<div class="line">Hi! from /yacup/util/util_name/test/test_about_something.c</div>
+<div class="line">-----</div>
+<div class="line">make[1]: Leaving directory &#39;/yacup&#39;</div>
+<div class="line">-----</div>
+</div><!-- fragment --><p>Generated binaries, if apply, are found inside <code>bin</code> folder after a successful make call. Each executable is already tweaked so the original <code>test_about_something</code> function of each test source, is now mapped to a <code>main</code> one, allowing a direct, error-free execution.</p>
+<blockquote class="doxtable">
+<p><b>TO-DO</b>: CI/CD </p>
+</blockquote>
+<h1>Built using</h1>
 <ul>
 <li><a href="https://www.gnu.org/software/make/">GNU Make</a></li>
 <li><a href="http://www.doxygen.nl/">Doxygen</a></li>

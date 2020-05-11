@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fn_5fpt_1',['fn_pt',['../structnice__structure.html#a7c9382f3c479c9850f22b012d54959ef',1,'nice_structure']]]
+  ['buffer_1',['buffer',['../structnice__structure.html#a56ed84df35de10bdb65e72b184309497',1,'nice_structure::buffer()'],['../structrb.html#a56ed84df35de10bdb65e72b184309497',1,'rb::buffer()']]]
 ];

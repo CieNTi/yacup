@@ -1,0 +1,4 @@
+<map id="rb" name="rb">
+<area shape="rect" id="node1" title="Structure that defines a ring buffer." alt="" coords="13,95,52,121"/>
+<area shape="rect" id="node2" href="$structrb__op.html" title="Structure that defines valid operations on ring buffers." alt="" coords="5,5,60,32"/>
+</map>

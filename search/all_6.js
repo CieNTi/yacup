@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['yacup_3a_20yet_20another_20c_20utilities_20package_8',['yacup: Yet Another C Utilities Package',['../index.html',1,'']]]
+  ['main_8',['main',['../group__template.html#gac0f2228420376f4db7e1274f2b41667c',1,'source.c']]]
 ];

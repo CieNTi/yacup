@@ -1,0 +1,13 @@
+<map id="test_rb_driver_v1" name="test_rb_driver_v1">
+<area shape="rect" id="node1" title="Tests driver_v1 API and functionality." alt="" coords="5,233,128,260"/>
+<area shape="rect" id="node2" href="$group__rb.html#ga806e75d4f1a2ef3320509f069ab76894" title="Create and initialize a ring&#45;buffer. User needs to previously reserve a buffer." alt="" coords="185,5,261,32"/>
+<area shape="rect" id="node3" href="$group__rb__driver.html#ga2677aa065ac57faf87002c11c5a73871" title="Check if a nice_structure is valid or not." alt="" coords="176,56,269,83"/>
+<area shape="rect" id="node4" href="$group__rb.html#gaceac7bcf58fd1c07fba15782ee62e158" title="Check if a ring&#45;buffer is full or not." alt="" coords="194,107,251,133"/>
+<area shape="rect" id="node5" href="$group__rb.html#ga41b099989b3349b04773ceadf276f470" title="Returns available data size inside a ring&#45;buffer." alt="" coords="194,157,251,184"/>
+<area shape="rect" id="node6" href="$group__template.html#ga6f3629bbf2e4772601d46ddfd5941e30" title="Print rb information to STDOUT." alt="" coords="176,208,269,235"/>
+<area shape="rect" id="node7" href="$group__rb.html#gad4a09b70178f9e847a660c51b1170aef" title="Read and delete a byte from a ring&#45;buffer tail." alt="" coords="193,259,253,285"/>
+<area shape="rect" id="node8" href="$group__rb.html#gafbfb992566219b55192d15ac6df26e80" title="Add a byte to a ring&#45;buffer head, overwritting if needed." alt="" coords="189,309,257,336"/>
+<area shape="rect" id="node9" href="$group__rb.html#gafdb7caa667d6371c53b02b73cdad85ca" title="Read a byte by position from a ring&#45;buffer, without updating head/tail." alt="" coords="190,360,255,387"/>
+<area shape="rect" id="node10" href="$group__rb.html#ga7872afd788d2f46f71a85acaa6e095f4" title="Reset a ring&#45;buffer by cleaning its content and making it empty." alt="" coords="188,411,257,437"/>
+<area shape="rect" id="node11" href="$group__rb.html#gad5afa11ed29c92c613138d041955d947" title="Write a byte by position on a ring&#45;buffer, without updating head/tail." alt="" coords="189,461,257,488"/>
+</map>

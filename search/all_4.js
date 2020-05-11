@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['nice_5finit_4',['nice_init',['../group__template.html#ga2b7e84a075d5be7fcd71e15a0df3157f',1,'header.h']]],
-  ['nice_5fis_5fnot_5fnice_5',['nice_is_not_nice',['../group__template.html#gae36be5dc1c62f3b812d06156ea1a587f',1,'header.h']]],
-  ['nice_5fstructure_6',['nice_structure',['../structnice__structure.html',1,'']]]
+  ['head_5',['head',['../structrb.html#a75844ce74940ef333d11ae090e07c9af',1,'rb']]],
+  ['head_5fof_6',['head_of',['../structrb.html#a24739de82db358dbccd56b12644868e6',1,'rb']]]
 ];
