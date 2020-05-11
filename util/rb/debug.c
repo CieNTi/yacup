@@ -36,7 +36,7 @@
  * Read `yacup/rb/debug.h` for complete information. */
 void rb_print_info(struct rb *rb)
 {
-  if (rb->op->validate(rb))
+  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
   {
     _dbg("Provided rb is not valid\n");
     return;
@@ -52,7 +52,7 @@ void rb_print_info(struct rb *rb)
          rb->head,
          rb->tail,
          rb->head_of,
-         rb_len(rb)
+         rb->op->len(rb)
          );
   for (idx = 0; idx < rb->size; idx++)
   {
