@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup rb
+ * @addtogroup rb_api
  * @{
  */
 

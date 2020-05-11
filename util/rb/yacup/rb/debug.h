@@ -22,23 +22,8 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup template
+ * @addtogroup debug_functions
  * @{
- *   @brief      Template module from template files xD
- *   @details    A more elaborated description with an example:
- *   ```c
- *   struct nice_structure nice_var =
- *   {
- *     .buffer = NULL,
- *     .len    = 0,
- *     .fn_pt  = NULL
- *   };
- *   ```
- *   @author     CieNTi <cienti@cienti.com>
- *   @date       2020
- *   
- *   @version    v1.0.0
- *   @since      v1.0.0
  */
 
 /* C libraries */
@@ -46,7 +31,7 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Print `rb` information to STDOUT
+ * @brief      Print `rb` information to STDOUT (size, head, tail, ...)
  *
  * @param      rb    Pointer to a ring-buffer previously created with
  *                   rb_create()

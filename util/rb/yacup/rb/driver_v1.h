@@ -35,21 +35,18 @@ extern "C" {
  * @brief      Ring-buffer operations driver v1
  * @details    Composes a `rb_op` structure and returns it as a pointer.
  * 
- *             This set of operations belongs to a first driver implementation,
- *             where a ring-buffer tail byte is overwritten if pushing over a
- *             full `rb`. This operation is performed without any warning or
- *             error.
- *             
- *             If it is needed to preserve data under this circumstances, a new
- *             driver have to be implemented.
+ * This set of operations belongs to a first driver implementation, where a
+ * ring-buffer tail byte is overwritten if pushing over a full `rb`. This
+ * operation is performed without any warning or error.
+ * 
+ * If it is needed to preserve data under this circumstances, a new
+ * driver have to be implemented.
  *
  * @return     One of:
  *             | Value            | Meaning          |
  *             | :--------------: | :--------------- |
  *             | `struct rb_op *` | Ok               |
  *             | `NULL`           | Error            |
- *
- * @version    v1.0.0
  */
 struct rb_op *rb_driver_v1(void);
 
