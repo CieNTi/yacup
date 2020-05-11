@@ -18,20 +18,17 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <yacup/rb.h>
+#include <yacup/rb/op.h>
 #include <yacup/rb/debug.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
+#undef YCP_NAME
+#define YCP_NAME "util/rb/debug"
+#include <time.h>
+#include <stdio.h>
+#include <string.h>
+#ifndef _dbg
+  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
 #endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -39,10 +36,17 @@
  * Read `yacup/rb/debug.h` for complete information. */
 void rb_print_info(struct rb *rb)
 {
+  if (rb->op->validate(rb))
+  {
+    _dbg("Provided rb is not valid\n");
+    return;
+  }
+
+  /* Required vars */
   size_t idx = 0;
 
   /* Show data */
-  printf("[s: %3lu, h: %3lu, t: %3lu, of: %1u, len: %3lu]"
+  _dbg("[s: %3lu, h: %3lu, t: %3lu, of: %1u, len: %3lu]"
          "[buf:",
          rb->size,
          rb->head,
@@ -50,12 +54,13 @@ void rb_print_info(struct rb *rb)
          rb->head_of,
          rb_len(rb)
          );
-  fflush(stdout);
-
   for (idx = 0; idx < rb->size; idx++)
   {
     printf(" %02X", rb->buffer[idx]);
   }
   printf("]\n");
+  fflush(stdout);
   return; 
 }
+
+#undef YCP_NAME

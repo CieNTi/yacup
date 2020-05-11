@@ -20,12 +20,14 @@
 #include "yacup/rb/op.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#undef YCP_NAME
+#define YCP_NAME "util/rb/driver_v1"
 #ifdef YACUP_DEBUG
   #include <time.h>
   #include <stdio.h>
   #include <string.h>
   #ifndef _dbg
-    #define _dbg(...) printf(__VA_ARGS__)
+    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
   #endif
 #else
   #ifndef _dbg
@@ -161,3 +163,5 @@ struct rb_op *rb_driver_v1(void)
   /* And return it as a pointer */
   return &rb_driver_v1_op;
 }
+
+#undef YCP_NAME

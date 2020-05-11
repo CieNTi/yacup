@@ -14,15 +14,17 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#include <stdio.h>
+//#include <stdio.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#undef YCP_NAME
+#define YCP_NAME "util/rb/test/test_rb_simple"
 #ifdef YACUP_DEBUG
   #include <time.h>
   #include <stdio.h>
   #include <string.h>
   #ifndef _dbg
-    #define _dbg(...) printf(__VA_ARGS__)
+    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
   #endif
 #else
   #ifndef _dbg

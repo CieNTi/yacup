@@ -17,12 +17,14 @@
 #include <stdio.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#undef YCP_NAME
+#define YCP_NAME "app/test/test_yacup"
 #ifdef YACUP_DEBUG
   #include <time.h>
   #include <stdio.h>
   #include <string.h>
   #ifndef _dbg
-    #define _dbg(...) printf(__VA_ARGS__)
+    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
   #endif
 #else
   #ifndef _dbg
@@ -59,3 +61,5 @@ int test_yacup(int argc, const char* argv[])
   printf("Hi! from "__FILE__"\n");
   return 0;
 }
+
+#undef YCP_NAME

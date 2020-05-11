@@ -21,17 +21,13 @@
 #include "yacup/rb/driver_v1.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
+#undef YCP_NAME
+#define YCP_NAME "util/rb/test/test_rb_driver_v1"
+#include <time.h>
+#include <stdio.h>
+#include <string.h>
+#ifndef _dbg
+  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
 #endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -68,9 +64,14 @@ int test_rb_driver_v1(int argc, const char* argv[])
   struct rb *rb0 = rb_create(rb_test_buf, SIMPLE_TEST_BUF_LEN, rb_driver_v1);
   if (rb0 == NULL)
   {
-    printf("!| simple: Cannot create a rb\n");
+    _dbg("Cannot create a rb\n");
     return 1;
   }
 
+  /* Debug it! */
+  rb_print_info(rb0);
+
   return 0;
 }
+
+#undef YCP_NAME

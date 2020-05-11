@@ -19,12 +19,14 @@
 #include "yacup/header.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#undef YCP_NAME
+#define YCP_NAME "template/source"
 #ifdef YACUP_DEBUG
   #include <time.h>
   #include <stdio.h>
   #include <string.h>
   #ifndef _dbg
-    #define _dbg(...) printf(__VA_ARGS__)
+    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
   #endif
 #else
   #ifndef _dbg
@@ -52,3 +54,5 @@ int main(int argc, const char* argv[])
 {
   return 1;
 }
+
+#undef YCP_NAME

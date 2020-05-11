@@ -21,12 +21,14 @@
 #include "yacup/rb/op.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#undef YCP_NAME
+#define YCP_NAME "util/rb/rb"
 #ifdef YACUP_DEBUG
   #include <time.h>
   #include <stdio.h>
   #include <string.h>
   #ifndef _dbg
-    #define _dbg(...) printf(__VA_ARGS__)
+    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
   #endif
 #else
   #ifndef _dbg
@@ -66,10 +68,10 @@ struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
   /* Do we have operations? */
   if (rb->op == NULL)
   {
-    _dbg("!| rb_create: Impossible to assign rb operations\n");
     /* Deallocate rb and fail miserably */
     free(rb);
     rb = NULL;
+    _dbg("!| rb_create: Impossible to assign rb operations\n");
     return NULL;
   }
 
@@ -83,8 +85,20 @@ struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
   /* Clean buffer and put it into a known state */
   rb->op->reset(rb);
 
-  /* And finish! */
-  return rb;
+  /* Finally, check if driver validates it */
+  if (rb->op->validate(rb))
+  {
+    /* Deallocate rb and fail miserably */
+    free(rb);
+    rb = NULL;
+    _dbg("!| rb_create: Impossible to assign rb operations\n");
+    return NULL;
+  }
+  else
+  {
+    /* And finish! */
+    return rb;
+  }
 }
 
 /* Destroy a ring-buffer and free its resources.
@@ -158,3 +172,5 @@ uint8_t rb_full(struct rb *rb)
   /* Fail */
   return 1;
 }
+
+#undef YCP_NAME
