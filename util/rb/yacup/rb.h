@@ -99,29 +99,7 @@ struct rb
  *             | `struct rb *` | Ok               |
  *             | `NULL`        | Error            |
  */
-struct rb *rb_create(uint8_t *buffer, size_t size);
-
-/**
- * @brief      Checks if the ring-buffer is valid or not
- *
- * @param      rb    Pointer to a ring-buffer previously created with
- *                   rb_create()
- *
- * @return     One of:
- *             | Value  | Meaning          |
- *             | :----: | :--------------- |
- *             | `== 0` | Ok               |
- *             | `!= 0` | Error            |
- */
-int rb_validate(struct rb *rb);
-
-/**
- * @brief      Reset a ring-buffer by cleaning its content and making it empty
- *
- * @param      rb    Pointer to a ring-buffer previously created with
- *                   rb_create()
- */
-void rb_reset(struct rb *rb);
+struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void));
 
 /**
  * @brief      Destroy a ring-buffer and free its resources. User needs to
@@ -131,6 +109,14 @@ void rb_reset(struct rb *rb);
  *                   rb_create()
  */
 void rb_destroy(struct rb *rb);
+
+/**
+ * @brief      Reset a ring-buffer by cleaning its content and making it empty
+ *
+ * @param      rb    Pointer to a ring-buffer previously created with
+ *                   rb_create()
+ */
+void rb_reset(struct rb *rb);
 
 /**
  * @brief      Add a byte to a ring-buffer head, overwritting if needed
@@ -163,7 +149,25 @@ int rb_push(struct rb *rb, uint8_t byte);
 int rb_pull(struct rb *rb, uint8_t *byte);
 
 /**
- * @brief      Read a byte by position from a ring-buffer, without deleting it
+ * @brief      Write a byte by position on a ring-buffer, without updating
+ *             head/tail.
+ *
+ * @param      rb        Pointer to a ring-buffer previously created with
+ *                       create()
+ * @param[in]  byte      Byte to be written into the ring-buffer
+ * @param[in]  position  Position to read, thinking as if ring-buffer is linear
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
+ */
+int rb_write(struct rb *rb, uint8_t byte, size_t position);
+
+/**
+ * @brief      Read a byte by position from a ring-buffer, without updating
+ *             head/tail.
  *
  * @param      rb        Pointer to a ring-buffer previously created with
  *                       rb_create()

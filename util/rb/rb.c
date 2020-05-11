@@ -39,8 +39,52 @@
  * Read `yacup/rb.h` for complete information. */
 struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
 {
-  /* Fail */
-  return 1;
+  if (/* Invalid buffer? */
+      (buf == NULL) ||
+      /* Invalid size? */
+      (size == 0) ||
+      /* Invalid driver? */
+      (driver == NULL))
+  {
+    _dbg("!| rb_create: Invalid buffer, size or driver\n");
+    return NULL;
+  }
+
+  /* Allocate ring-buffer storage */
+  struct rb *rb = malloc(sizeof(struct rb));
+
+  /* It was possible to allocate it? */
+  if (rb == NULL)
+  {
+    _dbg("!| rb_create: Impossible to malloc() a rb\n");
+    return NULL;
+  }
+
+  /* Assign driver operations */
+  rb->op = driver();
+
+  /* Do we have operations? */
+  if (rb->op == NULL)
+  {
+    _dbg("!| rb_create: Impossible to assign rb operations\n");
+    /* Deallocate rb and fail miserably */
+    free(rb);
+    rb = NULL;
+    return NULL;
+  }
+
+  /* Let's assign its properties */
+  rb->buffer = buf;
+  rb->size = size;
+  rb->head = 0;
+  rb->tail = 0;
+  rb->head_of = 0;
+
+  /* Clean buffer and put it into a known state */
+  rb->op->reset(rb);
+
+  /* And finish! */
+  return rb;
 }
 
 /* Destroy a ring-buffer and free its resources.

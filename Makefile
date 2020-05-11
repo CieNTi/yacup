@@ -48,8 +48,10 @@ LDLIBS = -lm
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Targets for 'util' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
-# Test to check `rb` package driver_v1 functionality
-test_rb_driver_v1_objs=util/rb/test/test_rb_driver_v1.o
+# Test to check `rb` driver_v1 functionality
+test_rb_driver_v1_objs=util/rb/rb.o \
+                       util/rb/driver_v1.o \
+                       util/rb/test/test_rb_driver_v1.o
 test_rb_driver_v1: $(addprefix $(ODIR)/, $(test_rb_driver_v1_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
