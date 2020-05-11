@@ -53,24 +53,20 @@ static int validate(struct rb *rb)
       /* Head >= tail */          
       (((rb->size * rb->head_of) + rb->head) < rb->tail))
   {
-    _dbg("!| validate ~~~~~~~~~~~~~~~~~~~~~~\n"
-         "!| - rb cannot be null .....: %s\n"
-         "!| - Buffer cannot be null .: %s\n"
-         "!| - Size cannot be 0 ......: %s\n"
-         "!| - Head has to be valid ..: %s\n"
-         "!| - Tail has to be valid ..: %s\n"
-         "!| - Head >= tail ..........: %s\n"
-         "!| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n",
-         (rb == NULL)?"FAIL":"OK",
-         (rb->buffer == NULL)?"FAIL":"OK",
-         (rb->size == 0)?"FAIL":"OK",
-         (rb->head >= rb->size)?"FAIL":"OK",
-         (rb->tail >= rb->size)?"FAIL":"OK",
-         (((rb->size * rb->head_of) + rb->head) < rb->tail)?"FAIL":"OK"
-         );
-    _dbg("!| validate: head(%02X) vs size(%02X)\n",
-         (unsigned)rb->head,
-         (unsigned)rb->size);
+    _dbg("validate ~~~~~~~~~~~~~~~~~~~~~~\n");
+    _dbg("- rb cannot be null .....: %4s\n",
+         (rb == NULL)?"FAIL":"OK");
+    _dbg("- Buffer cannot be null .: %4s\n",
+         (rb->buffer == NULL)?"FAIL":"OK");
+    _dbg("- Size cannot be 0 ......: %4s\n",
+         (rb->size == 0)?"FAIL":"OK");
+    _dbg("- Head has to be valid ..: %4s\n",
+         (rb->head >= rb->size)?"FAIL":"OK");
+    _dbg("- Tail has to be valid ..: %4s\n",
+         (rb->tail >= rb->size)?"FAIL":"OK");
+    _dbg("- Head >= tail ..........: %4s\n",
+         (((rb->size * rb->head_of) + rb->head) < rb->tail)?"FAIL":"OK");
+    _dbg("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     return 1;
   }
 
@@ -79,67 +75,130 @@ static int validate(struct rb *rb)
 }
 
 /* Reset a ring-buffer by cleaning its content and making it empty.
+ * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
  * Read `yacup/rb/op.h` for complete information. */
 static void reset(struct rb *rb)
 {
+  /* Put properties to reset state */
+  rb->head = 0;
+  rb->tail = 0;
+  rb->head_of = 0;
+
+  /* Clear data */
+  for (rb->head = 0; rb->head < rb->size; rb->head++)
+  {
+    rb->buffer[rb->head] = 0x00;
+  }
+  rb->head = 0;
+
   /* It is a void, just return */
   return;
 }
 
 /* Add a byte to a ring-buffer head, overwritting if needed.
+ * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
  * Read `yacup/rb/op.h` for complete information. */
 static int push(struct rb *rb, uint8_t byte)
 {
-  /* Fail */
-  return 1;
+  /* Add the data, overwritting if needed */
+  rb->buffer[rb->head] = byte;
+
+  if (rb->op->full(rb))
+  {
+    rb->tail++;
+  }
+  rb->head++;
+
+  /* Normalize head index */
+  if (rb->head >= rb->size)
+  {
+    rb->head -= rb->size;
+    rb->head_of = 1;
+  }
+
+  /* Normalize tail index */
+  if (rb->tail >= rb->size)
+  {
+    rb->tail -= rb->size;
+  }
+
+  /* Ok! */
+  return 0;
 }
 
 /* Read and delete a byte from a ring-buffer tail.
+ * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
  * Read `yacup/rb/op.h` for complete information. */
 static int pull(struct rb *rb, uint8_t *byte)
 {
-  /* Fail */
-  return 1;
+  if (rb->op->len(rb) == 0)
+  {
+    _dbg("pull: Pulling from empty rb not allowed\n");
+    return 1;
+  }
+
+  /* Extract the data */
+  *byte = rb->buffer[rb->tail];
+  rb->buffer[rb->tail] = 0x00;
+  rb->tail++;
+
+  /* Normalize tail index */
+  if (rb->tail >= rb->size)
+  {
+    rb->tail -= rb->size;
+    rb->head_of = 0;
+  }
+
+  /* Ok! */
+  return 0;
 }
 
 /* Write a byte by position on a ring-buffer, without updating head/tail.
+ * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
  * Read `yacup/rb/op.h` for complete information. */
 static int write(struct rb *rb, uint8_t byte, size_t position)
 {
-  /* Fail */
-  return 1;
+  /* Use position as index over tail, with overflow management */
+  rb->buffer[(rb->tail + position) % rb->size] = byte;
+
+  /* Ok! */
+  return 0;
 }
 
 /* Read a byte by position from a ring-buffer, without deleting it.
+ * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
  * Read `yacup/rb/op.h` for complete information. */
 static int read(struct rb *rb, uint8_t *byte, size_t position)
 {
-  /* Fail */
-  return 1;
+  /* Use position as index over tail, with overflow management */
+  *byte = rb->buffer[(rb->tail + position) % rb->size];
+
+  /* Ok! */
+  return 0;
 }
 
 /* Returns max available size of a ring-buffer buffer.
+ * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
  * Read `yacup/rb/op.h` for complete information. */
 static size_t size(struct rb *rb)
 {
-  /* Fail */
-  return 1;
+  return rb->size;
 }
 
 /* Returns available data size inside a ring-buffer.
+ * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
  * Read `yacup/rb/op.h` for complete information. */
 static size_t len(struct rb *rb)
 {
-  /* Fail */
-  return 1;
+  return (((rb->size * rb->head_of) + rb->head) - rb->tail);
 }
 
 /* Check if a ring-buffer is full or not.
+ * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
  * Read `yacup/rb/op.h` for complete information. */
 static uint8_t full(struct rb *rb)
 {
-  /* Fail */
-  return 1;
+  return ((rb->head_of == 1) && (rb->head == rb->tail));
 }
 
 /* Check if a ring-buffer is full or not.
