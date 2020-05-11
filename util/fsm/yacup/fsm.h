@@ -94,7 +94,7 @@ struct fsm
   /**
    * @brief      Name of the finite state machine, useful to track many of them
    */
-  uint8_t *name;
+  char *name;
 
   /**
    * @brief      Saves finite state machine configuration (enabled, auto, ...)

@@ -16,7 +16,6 @@
  */
 #include <stdint.h>
 #include <stddef.h>
-//#include <stdlib.h>
 #include "yacup/fsm.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

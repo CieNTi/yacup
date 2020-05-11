@@ -27,8 +27,20 @@ extern "C" {
  */
 
 /* C libraries */
-//#include <stdint.h>
-//#include <stddef.h>
+#include <stddef.h>
+#include <yacup/fsm.h>
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/**
+ * @brief      Internal data fsm_simple will use
+ */
+struct fsm_simple_data
+{
+  /**
+   * @brief      Number of cycles the FSM passed over state_1
+   */
+  size_t cycles;
+};
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -36,14 +48,16 @@ extern "C" {
  * @details    This FSM just starts, execute state_1 5 times and stop
  *
  * @param      name  FSM name (data is not saved, only the pointer)
+ * @param      fsm   fsm pointer to work with. Valid if returns without errors
+ * @param      data  Pointer to FSM data
  *
  * @return     One of:
- *             | Value          | Meaning          |
- *             | :------------: | :--------------- |
- *             | `struct fsm *` | Ok               |
- *             | `NULL`         | Error            |
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
  */
-struct fsm *fsm_simple_create(char *name);
+int fsm_simple_setup(struct fsm *fsm);
 
 /** @} */
 

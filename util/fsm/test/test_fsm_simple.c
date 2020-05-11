@@ -27,17 +27,11 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME
 #define YCP_NAME "util/fsm/test/test_fsm_simple"
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
+#include <time.h>
+#include <stdio.h>
+#include <string.h>
+#ifndef _dbg
+  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
 #endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -61,15 +55,28 @@ int test_fsm_simple(int argc, const char* argv[])
   /* Testbench vars */
   #define MAX_CYCLES 20
   uint32_t current_cycle = MAX_CYCLES;
-  struct timespec loop_wait_ms = { .tv_sec = 0, .tv_nsec = 100 * 1000000 };
+
+  /* FSM data */
+  struct fsm_simple_data fsm_simple0_data;
+  struct fsm fsm_simple0 =
+  {
+    .name = "fsm_simple0",
+    .data = &fsm_simple0_data
+  };
 
   /* fsm (fsm_simple.c) */
-  struct fsm *fsm_simple0 = fsm_simple_create("fsm_simple0");
+  _dbg("Setting up the fsm\n");
+  if (fsm_simple_setup(&fsm_simple0))
+  {
+    _dbg("- Cannot setup the FSM. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
 
   /* Basics: enable + auto-restart + start as soon as possible */
-  fsm_enable(fsm_simple0);
-  fsm_set_loop(fsm_simple0);
-  fsm_request_start(fsm_simple0);
+  fsm_enable(&fsm_simple0);
+  fsm_set_loop(&fsm_simple0);
+  fsm_request_start(&fsm_simple0);
 
   /* fsm cycles */
   while (current_cycle--)
@@ -81,15 +88,15 @@ int test_fsm_simple(int argc, const char* argv[])
            MAX_CYCLES - current_cycle);
 
     /* Test the fsm */
-    fsm_do_cycle(fsm_simple0);
+    fsm_do_cycle(&fsm_simple0);
 
     /* Finish cycle */
-    fsm_print_stats(fsm_simple0);
+    fsm_print_stats(&fsm_simple0);
     printf("\n");
     fflush(stdout);
 
     /* Simulate some time spent on the cycle */
-    nanosleep(&loop_wait_ms, NULL);
+    nanosleep(&(struct timespec){ .tv_sec = 0, .tv_nsec = 100*1000000 }, NULL);
   }
   return 0;
 }

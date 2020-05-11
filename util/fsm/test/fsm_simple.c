@@ -16,8 +16,10 @@
  */
 #include <stdint.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <yacup/fsm.h>
+
+/* Header located near this file, used as an external header in app */
+#include "fsm_simple.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME
@@ -36,16 +38,8 @@
 #endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/*                              ~~~~~~~~~~~~~~~~                              *
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~[ Private fsm data ]~~~~~~~~~~~~~~~~~~~~~~~~~~~ *
- *                              ~~~~~~~~~~~~~~~~                              */
-struct data
-{
-  uint32_t cycles;
-};
-
 /* Ease access from fsm->data */
-#define FSM_DATA(x) ((struct data *)(x->data))
+#define FSM_DATA(x) ((struct fsm_simple_data *)(x->data))
 
 
 /*                                   ~~~~~~                                   *
@@ -80,11 +74,11 @@ static uint32_t state_1(struct fsm *fsm)
   /* This state will be executed 5 times */
   if (FSM_DATA(fsm)->cycles++ < 4)
   {
-    printf(YCP_NAME" | state_1: Entering cycle #%u\n", FSM_DATA(fsm)->cycles);
+    printf(YCP_NAME" | state_1: Entering cycle #%lu\n", FSM_DATA(fsm)->cycles);
   }
   else
   {
-    printf(YCP_NAME" | state_1: Stopping cycle #%u\n", FSM_DATA(fsm)->cycles);
+    printf(YCP_NAME" | state_1: Stopping cycle #%lu\n", FSM_DATA(fsm)->cycles);
     fsm->next = stop;
   }
   return 0;
@@ -103,39 +97,32 @@ static uint32_t stop(struct fsm *fsm)
 }
 
 
-/*                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                    *
- * ~~~~~~~~~~~~~~~~~~[ fsm constructor for external access ]~~~~~~~~~~~~~~~~~ *
- *                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                    */
-/* Create and initialize a `fsm_simple` type FSM.
+/*                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                     *
+ * ~~~~~~~~~~~~~~~~~~[ fsm initializer for external usage ]~~~~~~~~~~~~~~~~~~ *
+ *                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                     */
+/* Initialize a `fsm_simple` type FSM.
  * Read `yacup/fsm/debug.h` for complete information. */
-struct fsm *fsm_simple_create(char *name)
+//int fsm_simple_setup(char *name, struct fsm *fsm, struct fsm_simple_data *data)
+int fsm_simple_setup(struct fsm *fsm)
 {
-  /* Allocate fsm storage */
-  struct fsm *fsm = malloc(sizeof(struct fsm));
-
   /* It was possible to allocate it? */
   if (fsm == NULL)
   {
-    _dbg("fsm_simple_create: Impossible to malloc() a fsm\n");
-    return NULL;
+    _dbg("fsm_simple_create: Invalid fsm\n");
+    return 1;
   }
-  _dbg("fsm_simple_create: Ok to malloc() a fsm\n");
-
-  struct data *data = malloc(sizeof(struct data));
 
   /* It was possible to allocate it? */
-  if (data == NULL)
+  if (fsm->data == NULL)
   {
-    _dbg("fsm_simple_create: Impossible to malloc() data\n");
-    return NULL;
+    _dbg("fsm_simple_create: Invalid fsm data\n");
+    return 1;
   }
-  _dbg("fsm_simple_create: Ok to malloc() data\n");
 
   /* Fill the data */
-  data->cycles = 0;
+  FSM_DATA(fsm)->cycles = 0;
 
   /* Fill the fsm */
-  fsm->name = (uint8_t *)name;
   fsm->config = 0;
   fsm->state = FSM_NEW;
   fsm->stats[FSM_NEW] = 0;
@@ -143,12 +130,11 @@ struct fsm *fsm_simple_create(char *name)
   fsm->stats[FSM_RUN] = 0;
   fsm->stats[FSM_ERROR] = 0;
   fsm->stats[FSM_ALL] = 0;
-  fsm->data = &data;
   fsm->start = start;
   fsm->stop = stop;
 
   /* Let's go! */
-  return fsm;
+  return 0;
 }
 
 #undef YCP_NAME
