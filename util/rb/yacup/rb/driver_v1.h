@@ -32,13 +32,22 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Check if a nice_structure is valid or not
+ * @brief      Ring-buffer operations driver v1
+ * @details    Composes a `rb_op` structure and returns it as a pointer.
+ * 
+ *             This set of operations belongs to a first driver implementation,
+ *             where a ring-buffer tail byte is overwritten if pushing over a
+ *             full `rb`. This operation is performed without any warning or
+ *             error.
+ *             
+ *             If it is needed to preserve data under this circumstances, a new
+ *             driver have to be implemented.
  *
  * @return     One of:
- *             | Value  | Meaning          |
- *             | :----: | :--------------- |
- *             | `== 0` | Ok               |
- *             | `!= 0` | Error            |
+ *             | Value            | Meaning          |
+ *             | :--------------: | :--------------- |
+ *             | `struct rb_op *` | Ok               |
+ *             | `NULL`           | Error            |
  *
  * @version    v1.0.0
  */

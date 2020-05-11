@@ -193,7 +193,7 @@ static size_t len(struct rb *rb)
   return (((rb->size * rb->head_of) + rb->head) - rb->tail);
 }
 
-/* Check if a ring-buffer is full or not.
+/* Checks if a ring-buffer is full or not.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
  * Read `yacup/rb/op.h` for complete information. */
 static uint8_t full(struct rb *rb)
@@ -201,7 +201,7 @@ static uint8_t full(struct rb *rb)
   return ((rb->head_of == 1) && (rb->head == rb->tail));
 }
 
-/* Check if a ring-buffer is full or not.
+/* Compose a `rb_op` structure and returns it as a pointer.
  * Read `yacup/rb/op.h` for complete information. */
 struct rb_op *rb_driver_v1(void)
 {
