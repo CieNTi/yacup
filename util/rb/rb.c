@@ -14,8 +14,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#include <stdlib.h>
 #include <stdint.h>
+#include <stddef.h>
+#include <stdlib.h>
 #include "yacup/rb.h"
 #include "yacup/rb/op.h"
 
@@ -35,31 +36,31 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Create and initialize a ring-buffer.
- * Read `rb.h` for complete information. */
-struct rb *rb_create(uint8_t *buffer, size_t size)
+ * Read `yacup/rb.h` for complete information. */
+struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
 {
   /* Fail */
   return 1;
 }
 
 /* Destroy a ring-buffer and free its resources.
- * Read `rb.h` for complete information. */
+ * Read `yacup/rb.h` for complete information. */
 void rb_destroy(struct rb *rb)
 {
-  /* Fail */
-  return 1;
+  /* It is a void, just return */
+  return;
 }
 
 /* Reset a ring-buffer by cleaning its content and making it empty.
- * Read `rb.h` for complete information. */
+ * Read `yacup/rb.h` for complete information. */
 void rb_reset(struct rb *rb)
 {
-  /* Fail */
-  return 1;
+  /* It is a void, just return */
+  return;
 }
 
 /* Add a byte to a ring-buffer head, overwritting if needed.
- * Read `rb.h` for complete information. */
+ * Read `yacup/rb.h` for complete information. */
 int rb_push(struct rb *rb, uint8_t byte)
 {
   /* Fail */
@@ -67,7 +68,7 @@ int rb_push(struct rb *rb, uint8_t byte)
 }
 
 /* Read and delete a byte from a ring-buffer tail.
- * Read `rb.h` for complete information. */
+ * Read `yacup/rb.h` for complete information. */
 int rb_pull(struct rb *rb, uint8_t *byte)
 {
   /* Fail */
@@ -75,7 +76,7 @@ int rb_pull(struct rb *rb, uint8_t *byte)
 }
 
 /* Write a byte by position on a ring-buffer, without updating head/tail.
- * Read `rb.h` for complete information. */
+ * Read `yacup/rb.h` for complete information. */
 int rb_write(struct rb *rb, uint8_t byte, size_t position)
 {
   /* Fail */
@@ -83,7 +84,7 @@ int rb_write(struct rb *rb, uint8_t byte, size_t position)
 }
 
 /* Read a byte by position from a ring-buffer, without deleting it.
- * Read `rb.h` for complete information. */
+ * Read `yacup/rb.h` for complete information. */
 int rb_read(struct rb *rb, uint8_t *byte, size_t position)
 {
   /* Fail */
@@ -91,7 +92,7 @@ int rb_read(struct rb *rb, uint8_t *byte, size_t position)
 }
 
 /* Returns max available size of a ring-buffer buffer.
- * Read `rb.h` for complete information. */
+ * Read `yacup/rb.h` for complete information. */
 size_t rb_size(struct rb *rb)
 {
   /* Fail */
@@ -99,7 +100,7 @@ size_t rb_size(struct rb *rb)
 }
 
 /* Returns available data size inside a ring-buffer.
- * Read `rb.h` for complete information. */
+ * Read `yacup/rb.h` for complete information. */
 size_t rb_len(struct rb *rb)
 {
   /* Fail */
@@ -107,7 +108,7 @@ size_t rb_len(struct rb *rb)
 }
 
 /* Check if a ring-buffer is full or not.
- * Read `rb.h` for complete information. */
+ * Read `yacup/rb.h` for complete information. */
 uint8_t rb_full(struct rb *rb)
 {
   /* Fail */

@@ -31,6 +31,10 @@
 #endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Pre-declare required tests here (there is no header for them!) */
+int test_rb_driver_v1(int argc, const char* argv[]);
+int test_rb_simple(int argc, const char* argv[]);
+
 /**
  * @brief      The main of the mains
  *
@@ -43,11 +47,9 @@
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  *
- * @ingroup    template
+ * @ingroup    app_test
  * @version    v1.0.0
  */
-int test_rb_driver_v1(int argc, const char* argv[]);
-int test_rb_simple(int argc, const char* argv[]);
 int test_yacup(int argc, const char* argv[])
 {
   int _test_rb_driver_v1 = test_rb_driver_v1(argc, argv);

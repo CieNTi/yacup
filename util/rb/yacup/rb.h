@@ -22,21 +22,29 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup rb Ring-buffers
+ * @defgroup rb Ring-buffers
  * @{
- *   @brief      Yet Another Ring-Buffer Implementation
+ *   @brief      Yet another ring-buffer implementation
  *   @details    Ring buffer made easy (for me xD)
- *
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
- *
  *   @version    v1.0.0
  *   @since      v1.0.0
+ *
+ *   @defgroup   rb_driver Drivers
+ *   @{
+ *     @brief      Operations driver for `rb` instances
+ *     @details    Allow different ring.buffer implementations
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *     @version    v1.0.0
+ *     @since      v1.0.0
+ *   @}
  */
 
 /* C libraries */
-#include <stdlib.h>
 #include <stdint.h>
+#include <stddef.h>
 #include "yacup/rb/op.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -81,8 +89,9 @@ struct rb
  * @brief      Create and initialize a ring-buffer. User needs to previously
  *             reserve a buffer
  *
- * @param      buffer  Buffer to store the data, created by the user
+ * @param      buf     Buffer to store the data, created by the user
  * @param[in]  size    Size in bytes of the buffer
+ * @param      driver  Pointer to a driver initializer function
  *
  * @return     One of:
  *             | Value         | Meaning          |

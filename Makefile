@@ -24,7 +24,7 @@ MFDIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 MFDIR := $(MFDIR:/=)
 
 # Base input folders
-IDIR = $(addprefix $(MFDIR)/, $(wildcard util/*/yacup))
+IDIR = $(addprefix $(MFDIR)/, $(wildcard util/*))
 SDIR = $(MFDIR)
 
 # Base output folders

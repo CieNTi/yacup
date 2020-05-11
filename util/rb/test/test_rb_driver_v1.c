@@ -1,4 +1,4 @@
-/* driver_v1.c - Test to check rb's driver_v1 functionality
+/* test_rb_driver_v1.c - Test to check rb's driver_v1 functionality
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,9 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#include <stdint.h>
 #include <stdio.h>
+#include "yacup/rb.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #ifdef YACUP_DEBUG
@@ -43,7 +45,7 @@
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  *
- * @ingroup    template
+ * @ingroup    util_test
  * @version    v1.0.0
  */
 int test_rb_driver_v1(int argc, const char* argv[])

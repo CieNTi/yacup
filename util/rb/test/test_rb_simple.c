@@ -43,7 +43,7 @@
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  *
- * @ingroup    template
+ * @ingroup    util_test
  * @version    v1.0.0
  */
 int test_rb_simple(int argc, const char* argv[])

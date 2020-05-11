@@ -27,8 +27,9 @@ extern "C" {
  */
 
 /* C libraries */
-#include <stdlib.h>
 #include <stdint.h>
+#include <stddef.h>
+#include "yacup/rb.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Pre-declare rb struct */
@@ -106,7 +107,8 @@ struct rb_op
   int (*write)(struct rb *rb, uint8_t byte, size_t position);
 
   /**
-   * @brief      Read a byte by position from a ring-buffer, without deleting it
+   * @brief      Read a byte by position from a ring-buffer, without updating
+   *             head/tail.
    *
    * @param      rb        Pointer to a ring-buffer previously created with
    *                       create()
@@ -160,7 +162,7 @@ struct rb_op
    *             | `!= 0` | Empty                |
    */
   uint8_t (*full)(struct rb *rb);
-}
+};
 
 /** @} */
 

@@ -117,7 +117,7 @@ In order to take advantage of our `Makefile` features:
 - This function will return `0` for success and any other value for error
 - Test name have to be unique, therefore, both file and function names have to be unique along the project, as at some point it will converge in a single call if a tests batch is executed.
 - Location of this file depends on the user, but following the file arrangement proposed, it should be one of the following:
-    - For a utility package test: `util/util_name/test/test_about_something.c`
+    - For a utility test: `util/util_name/test/test_about_something.c`
     - For a project app test: `src/test/test_about_something.c`
 
 All of this is summarized in the following project app test example:
@@ -139,7 +139,7 @@ All of this is summarized in the following project app test example:
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  *
- * @ingroup    tests
+ * @ingroup    app_test
  * @version    v1.0.0
  */
 int test_about_something(int argc, const char* argv[])
@@ -157,13 +157,13 @@ The provided `Makefile` contains a set of targets and *phony* targets to ease th
 
 The developer will only have to define a target recipe as described below, adjusting the test name and object prerequisites (simply by replacing the `.c` extension with `.o`). It is recommended to follow both the proposed encoding and the location, as this is how it was shown to work perfectly.
 
-Assuming the previous `test_about_something` example, would be as follows for an utility package test:
+Assuming the previous `test_about_something` example, would be as follows for an utility test:
 
 ```Makefile
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Targets for 'util' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
-# Test to check `util_name` package driver_v1 functionality
+# Test to check `util_name` driver_v1 functionality
 test_about_something_objs=util/util_name/test/test_about_something.o
 test_about_something: $(addprefix $(ODIR)/, $(test_about_something_objs))
     @echo "-----"
@@ -178,7 +178,7 @@ Or, as stated previously, for a project app test:
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Targets for 'src' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
-# Test to check some package app functionality
+# Test to check some app functionality
 test_about_something_objs=src/test/test_about_something.o
 test_about_something: $(addprefix $(ODIR)/, $(test_about_something_objs))
     @echo "-----"
@@ -263,7 +263,7 @@ make[1]: Leaving directory '/yacup'
 -----
 ```
 
-> **TO-DO**: Execute by binary
+Generated binaries, if apply, are found inside `bin` folder after a successful make call. Each executable is already tweaked so the original `test_about_something` function of each test source, is now mapped to a `main` one, allowing a direct, error-free execution.
 
 > **TO-DO**: CI/CD
 
