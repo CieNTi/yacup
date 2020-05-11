@@ -1,4 +1,4 @@
-/* source.c - Brief one-liner explanation of this file inside the project
+/* driver_v1.h - Driver for yacup ring-buffers. First implementation
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,32 +14,25 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#include <stdint.h>
-#include <stdlib.h>
-#include "yacup/header.h"
+#ifndef __RB_DRIVER_V1_H
+#define __RB_DRIVER_V1_H
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#undef YCP_NAME
-#define YCP_NAME "template/source"
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
-#endif
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
+
+/**
+ * @addtogroup rb_driver
+ * @{
+ */
+
+/* C libraries */
+#include <stdint.h>
+#include <stddef.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      The main of the mains
- *
- * @param[in]  argc  The count of arguments
- * @param      argv  The arguments array
+ * @brief      Check if a nice_structure is valid or not
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -47,12 +40,14 @@
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  *
- * @ingroup    template
  * @version    v1.0.0
  */
-int main(int argc, const char* argv[])
-{
-  return 1;
-}
+struct rb_op *rb_driver_v1(void);
 
-#undef YCP_NAME
+/** @} */
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* __RB_DRIVER_V1_H */

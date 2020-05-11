@@ -1,5 +1,4 @@
 /* header.h - Brief one-liner explanation of this file inside the project
- * 
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -43,8 +42,8 @@ extern "C" {
  */
 
 /* C libraries */
-#include <stdlib.h>
 #include <stdint.h>
+#include <stddef.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -110,7 +109,7 @@ uint8_t nice_is_not_nice(struct nice_structure *nice);
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
- *             | `!= 0` | Warning          |
+ *             | `!= 0` | Error            |
  *
  * @version    v1.0.0
  */

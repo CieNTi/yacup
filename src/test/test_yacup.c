@@ -1,4 +1,4 @@
-/* source.c - Brief one-liner explanation of this file inside the project
+/* driver_v1.c - Test to check rb's driver_v1 functionality
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,13 +14,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#include <stdint.h>
-#include <stdlib.h>
-#include "yacup/header.h"
+#include <stdio.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME
-#define YCP_NAME "template/source"
+#define YCP_NAME "app/test/test_yacup"
 #ifdef YACUP_DEBUG
   #include <time.h>
   #include <stdio.h>
@@ -35,6 +33,10 @@
 #endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Pre-declare required tests here (there is no header for them!) */
+int test_rb_driver_v1(int argc, const char* argv[]);
+int test_rb_simple(int argc, const char* argv[]);
+
 /**
  * @brief      The main of the mains
  *
@@ -47,12 +49,17 @@
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  *
- * @ingroup    template
+ * @ingroup    app_test
  * @version    v1.0.0
  */
-int main(int argc, const char* argv[])
+int test_yacup(int argc, const char* argv[])
 {
-  return 1;
+  int _test_rb_driver_v1 = test_rb_driver_v1(argc, argv);
+  int _test_rb_simple    = test_rb_simple(argc, argv);
+  printf("Result from test_rb_driver_v1() = %i\n", _test_rb_driver_v1);
+  printf("Result from test_rb_simple() = %i\n", _test_rb_simple);
+  printf("Hi! from "__FILE__"\n");
+  return 0;
 }
 
 #undef YCP_NAME

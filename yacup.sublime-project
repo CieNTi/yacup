@@ -13,7 +13,7 @@
     },
     {
       "name": "Generate Doxygen",
-      "shell_cmd": "cd $project_path; echo \"\nST3 is launching Doxygen\n---\n\"; doxygen Doxyfile; echo \"\n\""
+      "shell_cmd": "cd $project_path; echo \"\nST3 is Cleaning\n---\n\"; make clean; echo \"\nST3 is launching Doxygen\n---\n\"; doxygen Doxyfile; echo \"\n\""
     },
     {
       "name": "Test sublime build system vars",
