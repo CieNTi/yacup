@@ -15,6 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <yacup/fsm.h>
 
@@ -57,7 +58,7 @@ static uint32_t stop(struct fsm *fsm);
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[ START ]~ */
 static uint32_t start(struct fsm *fsm)
 {
-  _dbg(__func__"@%s\n", fsm->name);
+  _dbg("start: %s\n", fsm->name);
 
   /* Default next state */
   fsm->next = state_1;
@@ -71,7 +72,7 @@ static uint32_t start(struct fsm *fsm)
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[ STATE_1 ]~ */
 static uint32_t state_1(struct fsm *fsm)
 {
-  _dbg(__func__"@%s\n", fsm->name);
+  _dbg("state_1: %s\n", fsm->name);
 
   /* Default next state */
   fsm->next = state_1;
@@ -79,11 +80,11 @@ static uint32_t state_1(struct fsm *fsm)
   /* This state will be executed 5 times */
   if (FSM_DATA(fsm)->cycles++ < 4)
   {
-    _dbg(">>\n>> Entering at cycle #%u\n>>\n", FSM_DATA(fsm)->cycles);
+    printf(YCP_NAME" | state_1: Entering cycle #%u\n", FSM_DATA(fsm)->cycles);
   }
   else
   {
-    _dbg(">>\n>> Stopping at cycle #%u\n>>\n", FSM_DATA(fsm)->cycles);
+    printf(YCP_NAME" | state_1: Stopping cycle #%u\n", FSM_DATA(fsm)->cycles);
     fsm->next = stop;
   }
   return 0;
@@ -92,7 +93,7 @@ static uint32_t state_1(struct fsm *fsm)
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[ STOP ]~ */
 static uint32_t stop(struct fsm *fsm)
 {
-  _dbg(__func__"@%s\n", fsm->name);
+  _dbg("stop: %s\n", fsm->name);
 
   /* Default next state */
   /* stop state do not need fsm->next, it's ignored by stepper anyway */
@@ -115,20 +116,20 @@ struct fsm *fsm_simple_create(char *name)
   /* It was possible to allocate it? */
   if (fsm == NULL)
   {
-    _dbg(__func__": Impossible to malloc() a fsm\n");
+    _dbg("fsm_simple_create: Impossible to malloc() a fsm\n");
     return NULL;
   }
-  _dbg(__func__": Ok to malloc() a fsm\n");
+  _dbg("fsm_simple_create: Ok to malloc() a fsm\n");
 
   struct data *data = malloc(sizeof(struct data));
 
   /* It was possible to allocate it? */
   if (data == NULL)
   {
-    _dbg(__func__": Impossible to malloc() data\n");
+    _dbg("fsm_simple_create: Impossible to malloc() data\n");
     return NULL;
   }
-  _dbg(__func__": Ok to malloc() data\n");
+  _dbg("fsm_simple_create: Ok to malloc() data\n");
 
   /* Fill the data */
   data->cycles = 0;

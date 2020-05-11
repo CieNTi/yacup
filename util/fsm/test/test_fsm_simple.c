@@ -86,6 +86,7 @@ int test_fsm_simple(int argc, const char* argv[])
     /* Finish cycle */
     fsm_print_stats(fsm_simple0);
     printf("\n");
+    fflush(stdout);
 
     /* Simulate some time spent on the cycle */
     nanosleep(&loop_wait_ms, NULL);

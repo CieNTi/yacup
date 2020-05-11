@@ -36,15 +36,14 @@
 void fsm_print_info(struct fsm *fsm)
 {
   if (fsm == NULL) { return; }
-  _dbg("Printing fsm information:\n");
-  _dbg(".name ...: %s\n", fsm->name);
-  _dbg(".config .: %u\n", fsm->config);
-  _dbg(".state ..: %u\n", fsm->state);
-  _dbg(".start ..: %p\n", (void *)(size_t)fsm->start);
-  _dbg(".stop ...: %p\n", (void *)(size_t)fsm->stop);
-  _dbg(".last ...: %p\n", (void *)(size_t)fsm->last);
-  _dbg(".now ....: %p\n", (void *)(size_t)fsm->now);
-  _dbg(".next ...: %p\n", (void *)(size_t)fsm->next);
+  _dbg("fsm_print_info: name .......: %s\n", fsm->name);
+  _dbg("fsm_print_info: config .....: %u\n", fsm->config);
+  _dbg("fsm_print_info: state ......: %u\n", fsm->state);
+  _dbg("fsm_print_info: start ......: %p\n", (void *)(size_t)fsm->start);
+  _dbg("fsm_print_info: stop .......: %p\n", (void *)(size_t)fsm->stop);
+  _dbg("fsm_print_info: last .......: %p\n", (void *)(size_t)fsm->last);
+  _dbg("fsm_print_info: now ........: %p\n", (void *)(size_t)fsm->now);
+  _dbg("fsm_print_info: next .......: %p\n", (void *)(size_t)fsm->next);
   fflush(stdout);
 }
 
@@ -53,12 +52,11 @@ void fsm_print_info(struct fsm *fsm)
 void fsm_print_stats(struct fsm *fsm)
 {
   if (fsm == NULL) { return; }
-  _dbg("Printing fsm statistics for '%s':\n", fsm->name);
-  _dbg("FSM_ALL ...: %lu\n", fsm->stats[FSM_ALL]);
-  _dbg("FSM_NEW ...: %lu\n", fsm->stats[FSM_NEW]);
-  _dbg("FSM_PAUSE .: %lu\n", fsm->stats[FSM_PAUSE]);
-  _dbg("FSM_RUN ...: %lu\n", fsm->stats[FSM_RUN]);
-  _dbg("FSM_ERROR .: %lu\n", fsm->stats[FSM_ERROR]);
+  _dbg("fsm_print_stats: FSM_ALL ...: %lu\n", fsm->stats[FSM_ALL]);
+  _dbg("fsm_print_stats: FSM_NEW ...: %lu\n", fsm->stats[FSM_NEW]);
+  _dbg("fsm_print_stats: FSM_PAUSE .: %lu\n", fsm->stats[FSM_PAUSE]);
+  _dbg("fsm_print_stats: FSM_RUN ...: %lu\n", fsm->stats[FSM_RUN]);
+  _dbg("fsm_print_stats: FSM_ERROR .: %lu\n", fsm->stats[FSM_ERROR]);
   fflush(stdout);
 }
 

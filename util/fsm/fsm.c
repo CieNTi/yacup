@@ -88,7 +88,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
 {
   if (fsm == NULL)
   {
-    _dbg("@@! %s(NULL)\n", __func__);
+    _dbg("fsm_do_cycle: fsm is NULL. ERROR\n");
 
     /* Totally wrong, return dramatically */
     return 1;
@@ -96,7 +96,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
 
   if (!(fsm->config & FSM_CONFIG_ENABLED))
   {
-    _dbg("@@* %s@disabled\n", fsm->name);
+    _dbg("fsm_do_cycle: %s@disabled\n", fsm->name);
 
     /* Disabled, return silently */
     return 0;
@@ -110,9 +110,9 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
   {
     /* This should be a 1-pass state only, just for initialization and checks */
     case FSM_NEW:
-      _dbg("@@s %s@FSM_NEW\n", fsm->name);
+      _dbg("fsm_do_cycle: %s@FSM_NEW\n", fsm->name);
       fsm_print_info(fsm);
-      _dbg("@@~ fsm has been created. Lets configure it\n\n");
+      _dbg("fsm_do_cycle: fsm has been created. Lets configure it\n\n");
 
       /* Record FSM_NEW stat */
       fsm->stats[FSM_NEW]++;
@@ -120,7 +120,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
       /* Checks */
       if (fsm->start == NULL)
       {
-        _dbg("@@! '%s' has no start. Ooops! Breaking here now ...\n", fsm->name);
+        _dbg("fsm_do_cycle: '%s' has no start. Ooops! Breaking here now ...\n", fsm->name);
 
         /* Exits inmediately */
         fsm->stats[FSM_ERROR]++;
@@ -129,7 +129,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
 
       if (fsm->stop == NULL)
       {
-        _dbg("@@! '%s' has no stop, enabling FSM_CONFIG_AUTO_RESTART\n", fsm->name);
+        _dbg("fsm_do_cycle: '%s' has no stop, enabling FSM_CONFIG_AUTO_RESTART\n", fsm->name);
 
         /* Infinite loop for non-stoppable fsm */
         fsm->config |= FSM_CONFIG_AUTO_RESTART;
@@ -144,7 +144,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
 
     /* 'Nothing to do' state. fsm possibly ended and no rearm bit was found */
     case FSM_PAUSE:
-      _dbg("@@s %s@FSM_PAUSE\n", fsm->name);
+      _dbg("fsm_do_cycle: %s@FSM_PAUSE\n", fsm->name);
 
       /* Record FSM_PAUSE stat */
       fsm->stats[FSM_PAUSE]++;
@@ -154,7 +154,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
           ((fsm->next == fsm->start) ||
            (fsm->config & FSM_CONFIG_AUTO_RESTART)))
       {
-        _dbg("@@~ '%s' fsm is ready or restart bit is set. Run it now!\n", fsm->name);
+        _dbg("fsm_do_cycle: '%s' fsm is ready or restart bit is set. Run it now!\n", fsm->name);
 
         /* Armed fsm, run it again */
         fsm->next = fsm->start;
@@ -164,7 +164,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
 
     /* Machine core, where the things happens */
     case FSM_RUN:
-      _dbg("@@s %s@FSM_RUN\n", fsm->name);
+      _dbg("fsm_do_cycle: %s@FSM_RUN\n", fsm->name);
 
       /* Record FSM_RUN stat */
       fsm->stats[FSM_RUN]++;
@@ -172,7 +172,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
       /* fsm was ran and finished, and it also was rearmed */
       if ((fsm->stop != NULL) && (fsm->now == fsm->stop))
       {
-        _dbg("@@~ '%s' has been restarted\n", fsm->name);
+        _dbg("fsm_do_cycle: '%s' has been restarted\n", fsm->name);
 
         /* Ensure a valid start point */
         fsm->next = fsm->start;
@@ -181,7 +181,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
       /* Evaluate next state validity */
       if (fsm->next == NULL)
       {
-        _dbg("@@! '%s' fsm has no 'next' state\n", fsm->name);
+        _dbg("fsm_do_cycle: '%s' fsm has no 'next' state\n", fsm->name);
 
         /* Error, try last? */
         /* @todo Error for now */
@@ -203,7 +203,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
       if (fsm->now(fsm))
       {
         /* Error, break */
-        _dbg("@@! '%s' executed state but something wrong happened\n", fsm->name);
+        _dbg("fsm_do_cycle: '%s' executed state but something wrong happened\n", fsm->name);
 
         /* @todo Error for now */
         fsm->state = FSM_ERROR;
@@ -219,18 +219,12 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
 
     /* You're in a little trouble if you are here */
     case FSM_ERROR:
-      _dbg("@@s %s@FSM_ERROR\n"
-           "@@! '%s' fsm entered error state\n"
-           "@@! - fsm->last .: %p\n"
-           "@@! - fsm->now ..: %p\n"
-           "@@! - fsm->next .: %p\n"
-           "@@! App needs to rearm it before continue\n",
-           fsm->name,
-           fsm->name,
-           (void *)(size_t)fsm->last,
-           (void *)(size_t)fsm->now,
-           (void *)(size_t)fsm->next
-           );
+      _dbg("fsm_do_cycle: %s@FSM_ERROR\n", fsm->name);
+      _dbg("fsm_do_cycle: '%s' fsm entered error state\n", fsm->name);
+      _dbg("fsm_do_cycle: - fsm->last .: %p\n", (void *)(size_t)fsm->last);
+      _dbg("fsm_do_cycle: - fsm->now ..: %p\n", (void *)(size_t)fsm->now);
+      _dbg("fsm_do_cycle: - fsm->next .: %p\n", (void *)(size_t)fsm->next);
+      _dbg("fsm_do_cycle: App needs to rearm it before continue\n");
 
       /* Record FSM_ERROR stat */
       fsm->stats[FSM_ERROR]++;
@@ -239,7 +233,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
     /* You're in a big trouble if you are here */
     default:
       /* No stats here (Resultant is 'all' - 'sum of all of the rest') */
-      _dbg("@@! '%s' went crazy, it should not be here\n", fsm->name);
+      _dbg("fsm_do_cycle: '%s' went crazy, it shouldn't be here\n", fsm->name);
 
       /* @todo Error for now */
       fsm->state = FSM_ERROR;
