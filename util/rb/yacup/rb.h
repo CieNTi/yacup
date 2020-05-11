@@ -45,7 +45,6 @@ extern "C" {
 /* C libraries */
 #include <stdint.h>
 #include <stddef.h>
-#include "yacup/rb/op.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**

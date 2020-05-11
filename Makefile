@@ -50,6 +50,7 @@ LDLIBS = -lm
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
 # Test to check `rb` driver_v1 functionality
 test_rb_driver_v1_objs=util/rb/rb.o \
+                       util/rb/debug.o \
                        util/rb/driver_v1.o \
                        util/rb/test/test_rb_driver_v1.o
 test_rb_driver_v1: $(addprefix $(ODIR)/, $(test_rb_driver_v1_objs))
