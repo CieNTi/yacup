@@ -17,6 +17,8 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "yacup/rb.h"
+#include "yacup/rb/debug.h"
+#include "yacup/rb/driver_v1.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #ifdef YACUP_DEBUG
@@ -51,5 +53,24 @@
 int test_rb_driver_v1(int argc, const char* argv[])
 {
   printf("Hi! from "__FILE__"\n");
+
+  /* Variables related to the test itself */
+  size_t idx = 0;
+  #define RB_TEST_DATA_BUF_LEN 32
+  uint8_t data_by_read[RB_TEST_DATA_BUF_LEN];
+  uint8_t data_by_pull[RB_TEST_DATA_BUF_LEN];
+
+  /* Allocate buffer space */
+  #define SIMPLE_TEST_BUF_LEN 6
+  uint8_t rb_test_buf[SIMPLE_TEST_BUF_LEN] = { 0x00 };
+
+  /* Create a rb from it */
+  struct rb *rb0 = rb_create(rb_test_buf, SIMPLE_TEST_BUF_LEN, rb_driver_v1);
+  if (rb0 == NULL)
+  {
+    printf("!| simple: Cannot create a rb\n");
+    return 1;
+  }
+
   return 0;
 }

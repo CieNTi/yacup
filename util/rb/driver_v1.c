@@ -38,8 +38,42 @@
  * Read `yacup/rb/op.h` for complete information. */
 static int validate(struct rb *rb)
 {
-  /* Fail */
-  return 1;
+  if (/* rb cannot be null */  
+      (rb == NULL) ||
+      /* Buffer cannot be null */ 
+      (rb->buffer == NULL) ||
+      /* Size cannot be 0 */      
+      (rb->size == 0) ||
+      /* Head has to be valid */  
+      (rb->head >= rb->size) ||
+      /* Tail has to be valid */  
+      (rb->tail >= rb->size) ||
+      /* Head >= tail */          
+      (((rb->size * rb->head_of) + rb->head) < rb->tail))
+  {
+    _dbg("!| validate ~~~~~~~~~~~~~~~~~~~~~~\n"
+         "!| - rb cannot be null .....: %s\n"
+         "!| - Buffer cannot be null .: %s\n"
+         "!| - Size cannot be 0 ......: %s\n"
+         "!| - Head has to be valid ..: %s\n"
+         "!| - Tail has to be valid ..: %s\n"
+         "!| - Head >= tail ..........: %s\n"
+         "!| ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n",
+         (rb == NULL)?"FAIL":"OK",
+         (rb->buffer == NULL)?"FAIL":"OK",
+         (rb->size == 0)?"FAIL":"OK",
+         (rb->head >= rb->size)?"FAIL":"OK",
+         (rb->tail >= rb->size)?"FAIL":"OK",
+         (((rb->size * rb->head_of) + rb->head) < rb->tail)?"FAIL":"OK"
+         );
+    _dbg("!| validate: head(%02X) vs size(%02X)\n",
+         (unsigned)rb->head,
+         (unsigned)rb->size);
+    return 1;
+  }
+
+  /* Ok */
+  return 0;
 }
 
 /* Reset a ring-buffer by cleaning its content and making it empty.
@@ -106,3 +140,24 @@ static uint8_t full(struct rb *rb)
   return 1;
 }
 
+/* Check if a ring-buffer is full or not.
+ * Read `yacup/rb/op.h` for complete information. */
+struct rb_op *rb_driver_v1(void)
+{
+  /* Create it static, as it will not change along the execution */
+  static struct rb_op rb_driver_v1_op =
+  {
+    .validate = validate,
+    .reset    = reset,
+    .push     = push,
+    .pull     = pull,
+    .write    = write,
+    .read     = read,
+    .size     = size,
+    .len      = len,
+    .full     = full
+  };
+
+  /* And return it as a pointer */
+  return &rb_driver_v1_op;
+}
