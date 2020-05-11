@@ -109,7 +109,7 @@ uint8_t nice_is_not_nice(struct nice_structure *nice);
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
- *             | `!= 0` | Warning          |
+ *             | `!= 0` | Error            |
  *
  * @version    v1.0.0
  */

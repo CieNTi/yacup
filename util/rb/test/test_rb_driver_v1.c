@@ -32,7 +32,7 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      The main of the mains
+ * @brief      Tests driver_v1 API and functionality
  *
  * @param[in]  argc  The count of arguments
  * @param      argv  The arguments array
@@ -41,7 +41,7 @@
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
- *             | `!= 0` | Warning          |
+ *             | `!= 0` | Error            |
  *
  * @ingroup    util_test
  * @version    v1.0.0

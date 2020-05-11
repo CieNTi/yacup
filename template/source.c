@@ -45,7 +45,7 @@
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
- *             | `!= 0` | Warning          |
+ *             | `!= 0` | Error            |
  *
  * @ingroup    template
  * @version    v1.0.0

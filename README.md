@@ -137,7 +137,7 @@ All of this is summarized in the following project app test example:
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
- *             | `!= 0` | Warning          |
+ *             | `!= 0` | Error            |
  *
  * @ingroup    app_test
  * @version    v1.0.0

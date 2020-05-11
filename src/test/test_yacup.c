@@ -47,7 +47,7 @@ int test_rb_simple(int argc, const char* argv[]);
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
- *             | `!= 0` | Warning          |
+ *             | `!= 0` | Error            |
  *
  * @ingroup    app_test
  * @version    v1.0.0
