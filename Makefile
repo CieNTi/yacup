@@ -57,12 +57,12 @@ test_xyz_testname: $(addprefix $(ODIR)/, $(test_xyz_testname_objs))
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
 
-# Test to check `rb` driver_v1 functionality
-test_rb_driver_v1_objs=util/rb/rb.o \
-                       util/rb/debug.o \
-                       util/rb/driver_v1.o \
-                       util/rb/test/test_rb_driver_v1.o
-test_rb_driver_v1: $(addprefix $(ODIR)/, $(test_rb_driver_v1_objs))
+# Test to check `rb` overwrite driver functionality
+test_rb_driver_overwrite_objs=util/rb/rb.o                     \
+                       util/rb/debug.o                         \
+                       util/rb/driver/overwrite.o              \
+                       util/rb/test/test_rb_driver_overwrite.o
+test_rb_driver_overwrite: $(addprefix $(ODIR)/, $(test_rb_driver_overwrite_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
@@ -92,7 +92,7 @@ test_cp_testname: $(addprefix $(ODIR)/, $(test_cp_testname_objs))
 # ~~~~~~~~~~~~~~~~~~~~~~~~
 # Test app compounding all other tests defined here
 test_yacup_objs=$(test_xyz_testname_objs) \
-                $(test_rb_driver_v1_objs) \
+                $(test_rb_driver_overwrite_objs) \
                 $(test_fsm_simple_objs)   \
                 src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_objs))
@@ -144,11 +144,10 @@ test_bin:
 	@echo "-----"
 
 .PHONY: all
-all: clean debug prepare test_yacup \
-                         test_xyz_testname \
-                         test_rb_driver_v1 \
-                         test_fsm_simple \
-                         test_cp_testname
+all: clean debug prepare test_yacup               \
+                         test_xyz_testname        \
+                         test_rb_driver_overwrite \
+                         test_fsm_simple
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""

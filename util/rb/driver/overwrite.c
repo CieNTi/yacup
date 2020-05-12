@@ -1,4 +1,4 @@
-/* driver_v1.c - Driver for yacup ring-buffers. First implementation
+/* overwrite.c - Driver for yacup ring-buffers. Overwrite if full
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -21,7 +21,7 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME
-#define YCP_NAME "util/rb/driver_v1"
+#define YCP_NAME "util/rb/driver/overwrite"
 #ifdef YACUP_DEBUG
   #include <time.h>
   #include <stdio.h>
@@ -203,10 +203,10 @@ static uint8_t full(struct rb *rb)
 
 /* Compose a `rb_op` structure and returns it as a pointer.
  * Read `yacup/rb/op.h` for complete information. */
-struct rb_op *rb_driver_v1(void)
+struct rb_op *rb_driver_overwrite(void)
 {
   /* Create it static, as it will not change along the execution */
-  static struct rb_op rb_driver_v1_op =
+  static struct rb_op rb_driver_overwrite_op =
   {
     .validate = validate,
     .reset    = reset,
@@ -220,7 +220,7 @@ struct rb_op *rb_driver_v1(void)
   };
 
   /* And return it as a pointer */
-  return &rb_driver_v1_op;
+  return &rb_driver_overwrite_op;
 }
 
 #undef YCP_NAME

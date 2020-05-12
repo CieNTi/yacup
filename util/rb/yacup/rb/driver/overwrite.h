@@ -1,4 +1,4 @@
-/* driver_v1.h - Driver for yacup ring-buffers. First implementation
+/* overwrite.h - Driver for yacup ring-buffers. Overwrite if full
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __RB_DRIVER_V1_H
-#define __RB_DRIVER_V1_H
+#ifndef __RB_DRIVER_OVERWRITE_H
+#define __RB_DRIVER_OVERWRITE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,7 +24,7 @@ extern "C" {
 /**
  * @defgroup rb_driver
  * @{
- *   @defgroup   rb_driver_v1 v1 (overwrite)
+ *   @defgroup   rb_driver_overwrite Overwrite
  *   @{
  *     @brief      First `rb` driver implementation, overwrite if full
  *     @details    This implementation will overwrite data if full, updating
@@ -34,7 +34,7 @@ extern "C" {
  *   @}
  * @}
  *
- * @ingroup rb_driver_v1
+ * @ingroup rb_driver_overwrite
  * @{
  */
 
@@ -44,7 +44,7 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Ring-buffer operations driver v1
+ * @brief      `Overwrite` ring-buffer operations driver
  * @details    Composes a `rb_op` structure and returns it as a pointer.
  * 
  * This set of operations belongs to a first driver implementation, where a
@@ -60,7 +60,7 @@ extern "C" {
  *             | `struct rb_op *` | Ok               |
  *             | `NULL`           | Error            |
  */
-struct rb_op *rb_driver_v1(void);
+struct rb_op *rb_driver_overwrite(void);
 
 /** @} */
 
@@ -68,4 +68,4 @@ struct rb_op *rb_driver_v1(void);
 }
 #endif /* __cplusplus */
 
-#endif /* __RB_DRIVER_V1_H */
+#endif /* __RB_DRIVER_OVERWRITE_H */

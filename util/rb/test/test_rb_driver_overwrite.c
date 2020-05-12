@@ -1,4 +1,4 @@
-/* test_rb_driver_v1.c - Test to check rb's driver_v1 functionality
+/* test_rb_driver_overwrite.c - Test to check rb's `overwrite` driver
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -18,11 +18,11 @@
 #include <stdio.h>
 #include "yacup/rb.h"
 #include "yacup/rb/debug.h"
-#include "yacup/rb/driver_v1.h"
+#include "yacup/rb/driver/overwrite.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME
-#define YCP_NAME "util/rb/test/test_rb_driver_v1"
+#define YCP_NAME "util/rb/test/test_rb_driver_overwrite"
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
@@ -32,7 +32,7 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Tests driver_v1 API and functionality
+ * @brief      Tests `overwrite` driver API and functionality
  *
  * @param[in]  argc  The count of arguments
  * @param      argv  The arguments array
@@ -46,7 +46,7 @@
  * @ingroup    util_test
  * @version    v1.0.0
  */
-int test_rb_driver_v1(int argc, const char* argv[])
+int test_rb_driver_overwrite(int argc, const char* argv[])
 {
   printf("Hi! from "__FILE__"\n");
 
@@ -62,7 +62,8 @@ int test_rb_driver_v1(int argc, const char* argv[])
 
   /* Create a rb from it */
   _dbg("Creating ring-buffer\n");
-  struct rb *rb0 = rb_create(rb_test_buf, SIMPLE_TEST_BUF_LEN, rb_driver_v1);
+  struct rb *rb0 = rb_create(rb_test_buf, SIMPLE_TEST_BUF_LEN,
+                             rb_driver_overwrite);
   if (rb0 == NULL)
   {
     _dbg("Cannot create a rb\n");

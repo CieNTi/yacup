@@ -35,7 +35,7 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Pre-declare required tests here (there is no header for them!) */
 int test_xyz_testname(int argc, const char* argv[]);
-int test_rb_driver_v1(int argc, const char* argv[]);
+int test_rb_driver_overwrite(int argc, const char* argv[]);
 int test_fsm_simple(int argc, const char* argv[]);
 
 /**
@@ -55,12 +55,12 @@ int test_fsm_simple(int argc, const char* argv[]);
  */
 int test_yacup(int argc, const char* argv[])
 {
-  int _test_xyz_testname = test_xyz_testname(argc, argv);
-  int _test_rb_driver_v1 = test_rb_driver_v1(argc, argv);
-  int _test_fsm_simple   = test_fsm_simple(argc, argv);
-  printf("Result from test_xyz_testname() = %i\n", _test_xyz_testname);
-  printf("Result from test_rb_driver_v1() = %i\n", _test_rb_driver_v1);
-  printf("Result from test_fsm_simple() = %i\n", _test_fsm_simple);
+  printf("Result from test_xyz_testname() = %i\n", 
+         test_xyz_testname(argc, argv));
+  printf("Result from test_rb_driver_overwrite() = %i\n", 
+         test_rb_driver_overwrite(argc, argv));
+  printf("Result from test_fsm_simple() = %i\n", 
+         test_fsm_simple(argc, argv));
   printf("Hi! from "__FILE__"\n");
   return 0;
 }
