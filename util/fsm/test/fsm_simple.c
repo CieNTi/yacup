@@ -41,16 +41,26 @@
 /* Ease access from fsm->data */
 #define FSM_DATA(x) ((struct fsm_simple_data *)(x->data))
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* States pre-declaration */
+static int start(struct fsm *fsm);
+static int state_1(struct fsm *fsm);
+static int stop(struct fsm *fsm);
 
-/*                                   ~~~~~~                                   *
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[ States ]~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ *
- *                                   ~~~~~~                                   */
-static uint32_t start(struct fsm *fsm);
-static uint32_t state_1(struct fsm *fsm);
-static uint32_t stop(struct fsm *fsm);
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[ START ]~ */
-static uint32_t start(struct fsm *fsm)
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/**
+ * @brief      Sate `start`: Prepare `cycles` variable
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ * @ingroup    fsm_simple
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Warning          |
+ */
+static int start(struct fsm *fsm)
 {
   _dbg("start: %s\n", fsm->name);
 
@@ -63,8 +73,19 @@ static uint32_t start(struct fsm *fsm)
   return 0;
 }
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[ STATE_1 ]~ */
-static uint32_t state_1(struct fsm *fsm)
+/**
+ * @brief      State `state_1`: Stay here during 5 `cycles` variable counts
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ * @ingroup    fsm_simple
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Warning          |
+ */
+static int state_1(struct fsm *fsm)
 {
   _dbg("state_1: %s\n", fsm->name);
 
@@ -78,14 +99,25 @@ static uint32_t state_1(struct fsm *fsm)
   }
   else
   {
-    printf(YCP_NAME" | state_1: Stopping cycle #%lu\n", FSM_DATA(fsm)->cycles);
+    printf(YCP_NAME" | state_1: Stop at cycle #%lu\n", FSM_DATA(fsm)->cycles);
     fsm->next = stop;
   }
   return 0;
 }
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[ STOP ]~ */
-static uint32_t stop(struct fsm *fsm)
+/**
+ * @brief      State `stop`: Prepare anything before stopping the fsm
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ * @ingroup    fsm_simple
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Warning          |
+ */
+static int stop(struct fsm *fsm)
 {
   _dbg("stop: %s\n", fsm->name);
 
@@ -96,13 +128,9 @@ static uint32_t stop(struct fsm *fsm)
   return 0;
 }
 
-
-/*                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                     *
- * ~~~~~~~~~~~~~~~~~~[ fsm initializer for external usage ]~~~~~~~~~~~~~~~~~~ *
- *                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~                     */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Initialize a `fsm_simple` type FSM.
  * Read `yacup/fsm/debug.h` for complete information. */
-//int fsm_simple_setup(char *name, struct fsm *fsm, struct fsm_simple_data *data)
 int fsm_simple_setup(struct fsm *fsm)
 {
   /* It was possible to allocate it? */
@@ -115,7 +143,7 @@ int fsm_simple_setup(struct fsm *fsm)
   /* It was possible to allocate it? */
   if (fsm->data == NULL)
   {
-    _dbg("fsm_simple_create: Invalid fsm data\n");
+    _dbg("fsm_simple_create: Invalid fsm data (fsm = %s)\n", fsm->name);
     return 1;
   }
 
@@ -137,4 +165,5 @@ int fsm_simple_setup(struct fsm *fsm)
   return 0;
 }
 
+#undef FSM_DATA
 #undef YCP_NAME

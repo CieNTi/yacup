@@ -1,4 +1,4 @@
-/* test_fsm_simple.c - Test program to check fsm_simple functionality
+/* test_fsm_simple.c - Test to check fsm's fsm_simple functionality
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,7 +16,6 @@
  */
 #include <stdint.h>
 #include <stdio.h>
-//#include <stdlib.h>
 #include <time.h>
 #include "yacup/fsm.h"
 #include "yacup/fsm/debug.h"
@@ -79,25 +78,30 @@ int test_fsm_simple(int argc, const char* argv[])
   fsm_request_start(&fsm_simple0);
 
   /* fsm cycles */
+  fsm_print_info(&fsm_simple0);
   while (current_cycle--)
   {
     /* Start cycle */
-    printf("-----------\n"
-           " Cycle #%02u\n"
-           "-----------\n",
-           MAX_CYCLES - current_cycle);
+    _dbg("Cycle #%02u\n", MAX_CYCLES - current_cycle);
 
     /* Test the fsm */
-    fsm_do_cycle(&fsm_simple0);
+    if (fsm_do_cycle(&fsm_simple0))
+    {
+      _dbg("Error when executing a fsm cycle\n");
+      fsm_print_info(&fsm_simple0);
+      fsm_print_stats(&fsm_simple0);
+      return 1;
+    }
 
     /* Finish cycle */
-    fsm_print_stats(&fsm_simple0);
-    printf("\n");
     fflush(stdout);
 
     /* Simulate some time spent on the cycle */
     nanosleep(&(struct timespec){ .tv_sec = 0, .tv_nsec = 100*1000000 }, NULL);
   }
+
+  /* Cya! */
+  fsm_print_stats(&fsm_simple0);
   return 0;
 }
 

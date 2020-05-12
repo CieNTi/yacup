@@ -15,7 +15,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
-#include <stddef.h>
 #include "yacup/fsm.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -40,50 +39,57 @@
 #define FSM_CONFIG_AUTO_RESTART (uint32_t)(1 << 1)
 #define FSM_CONFIG_STARTED      (uint32_t)(1 << 2)
 
-/**/
+/* Sets the enable bit, allowing this `fsm` to perform actions
+ * Read `yacup/fsm.h` for complete information. */
 void fsm_enable(struct fsm *fsm)
 {
   if (fsm == NULL) { return; }
   fsm->config |= FSM_CONFIG_ENABLED;
 }
 
-/**/
+/* Unsets the enable bit, disallowing this `fsm` to perform further actions
+ * Read `yacup/fsm.h` for complete information. */
 void fsm_disable(struct fsm *fsm)
 {
   if (fsm == NULL) { return; }
   fsm->config &= ~FSM_CONFIG_ENABLED;
 }
 
-/**/
+/* Unsets the auto-restart bit, making this `fsm` to stop once completed
+ * Read `yacup/fsm.h` for complete information. */
 void fsm_set_single(struct fsm *fsm)
 {
   if (fsm == NULL) { return; }
   fsm->config &= ~FSM_CONFIG_AUTO_RESTART;
 }
 
-/**/
+/* Sets the auto-restart bit, making this `fsm` to start again once completed
+ * Read `yacup/fsm.h` for complete information. */
 void fsm_set_loop(struct fsm *fsm)
 {
   if (fsm == NULL) { return; }
   fsm->config |= FSM_CONFIG_AUTO_RESTART;
 }
 
-/**/
+/* Sets the started bit, making this `fsm` to start the next valid cycle
+ * Read `yacup/fsm.h` for complete information. */
 void fsm_request_start(struct fsm *fsm)
 {
   if (fsm == NULL) { return; }
   fsm->config |= FSM_CONFIG_STARTED;
 }
 
-/**/
+/* Unsets the started bit, making this `fsm` to stop the next valid cycle
+ * Read `yacup/fsm.h` for complete information. */
 void fsm_request_stop(struct fsm *fsm)
 {
   if (fsm == NULL) { return; }
   fsm->config &= ~FSM_CONFIG_STARTED;
 }
 
-/* Stepper function (single cycle and exit, need outsider loop */
-uint32_t fsm_do_cycle(struct fsm *fsm)
+/* Stepper function (single cycle and exit, need outside controller loop)
+ * Read `yacup/fsm.h` for complete information. */
+int fsm_do_cycle(struct fsm *fsm)
 {
   if (fsm == NULL)
   {
@@ -110,8 +116,7 @@ uint32_t fsm_do_cycle(struct fsm *fsm)
     /* This should be a 1-pass state only, just for initialization and checks */
     case FSM_NEW:
       _dbg("fsm_do_cycle: %s@FSM_NEW\n", fsm->name);
-      fsm_print_info(fsm);
-      _dbg("fsm_do_cycle: fsm has been created. Lets configure it\n\n");
+      _dbg("fsm_do_cycle: fsm has been created. Lets configure it\n");
 
       /* Record FSM_NEW stat */
       fsm->stats[FSM_NEW]++;

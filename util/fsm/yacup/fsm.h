@@ -37,7 +37,7 @@ extern "C" {
  *     @date       2020
  *   @}
  *
- *   @defgroup   fsm_available Available FSM ready to be used
+ *   @defgroup   fsm_available Available FSM
  *   @{
  *     @brief      Already made and tested FSM for different purposes
  *     @details    Each FSM found here can be instantiated by calling its
@@ -120,53 +120,86 @@ struct fsm
    * @brief      State function executed to start the FSM
    * @warning    It is mandatory, otherwise the FSM will fail miserably
    */
-  uint32_t (*start)(struct fsm *fsm);
+  int (*start)(struct fsm *fsm);
   /**
    * @brief      State function executed to stop, before pause or restart
    */
-  uint32_t (*stop) (struct fsm *fsm);
+  int (*stop) (struct fsm *fsm);
   /**
    * @brief      Saves previously executed state
    */
-  uint32_t (*last) (struct fsm *fsm);
+  int (*last) (struct fsm *fsm);
   /**
    * @brief      Current FSM state, in execution
    */
-  uint32_t (*now)  (struct fsm *fsm);
+  int (*now)  (struct fsm *fsm);
   /**
    * @brief      Next state to be executed
    */
-  uint32_t (*next) (struct fsm *fsm);
+  int (*next) (struct fsm *fsm);
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Create and initialize a ring-buffer. User needs to previously
- *             reserve a buffer
+ * @brief      Sets the enable bit, allowing this `fsm` to perform actions
  *
- * @param      buf     Buffer to store the data, created by the user
- * @param[in]  size    Size in bytes of the buffer
- * @param      driver  Pointer to a driver initializer function
- *
- * @return     One of:
- *             | Value          | Meaning          |
- *             | :------------: | :--------------- |
- *             | `struct fsm *` | Ok               |
- *             | `NULL`         | Error            |
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
  */
 void fsm_enable(struct fsm *fsm);
+
+/**
+ * @brief      Unsets the enable bit, disallowing this `fsm` to perform further
+ *             actions
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ */
 void fsm_disable(struct fsm *fsm);
+
+/**
+ * @brief      Unsets the auto-restart bit, making this `fsm` to stop once
+ *             completed
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ */
 void fsm_set_single(struct fsm *fsm);
+
+/**
+ * @brief      Sets the auto-restart bit, making this `fsm` to start again once
+ *             completed
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ */
 void fsm_set_loop(struct fsm *fsm);
+
+/**
+ * @brief      Sets the started bit, making this `fsm` to start the next valid
+ *             cycle
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ */
 void fsm_request_start(struct fsm *fsm);
+
+/**
+ * @brief      Unsets the started bit, making this `fsm` to stop the next valid
+ *             cycle
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ */
 void fsm_request_stop(struct fsm *fsm);
 
-/* fsm information */
-void fsm_print_info(struct fsm *fsm);
-void fsm_print_stats(struct fsm *fsm);
-
-/* fsm manager */
-uint32_t fsm_do_cycle(struct fsm *fsm);
+/**
+ * @brief      Stepper function (single cycle and exit, need outside controller
+ *             loop)
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
+ */
+int fsm_do_cycle(struct fsm *fsm);
 
 /** @} */
 

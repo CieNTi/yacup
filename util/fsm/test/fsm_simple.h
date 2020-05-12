@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __RB_H
-#define __RB_H
+#ifndef __FSM_SIMPLE_H
+#define __FSM_SIMPLE_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -23,6 +23,17 @@ extern "C" {
 
 /**
  * @addtogroup fsm_available
+ * @{
+ *   @defgroup   fsm_simple Simple FSM
+ *   @{
+ *     @brief      A simple finite state machine for testing purposes
+ *     @details    This FSM just starts, execute state_1 5 times and finish
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *   @}
+ * @}
+ *
+ * @addtogroup fsm_simple
  * @{
  */
 
@@ -45,11 +56,9 @@ struct fsm_simple_data
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
  * @brief      Create and initialize a `fsm_simple` type FSM
- * @details    This FSM just starts, execute state_1 5 times and stop
+ * @details    This FSM just starts, execute `state_1` 5 times and finish
  *
- * @param      name  FSM name (data is not saved, only the pointer)
  * @param      fsm   fsm pointer to work with. Valid if returns without errors
- * @param      data  Pointer to FSM data
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -65,4 +74,4 @@ int fsm_simple_setup(struct fsm *fsm);
 }
 #endif /* __cplusplus */
 
-#endif /* __RB_H */
+#endif /* __FSM_SIMPLE_H */

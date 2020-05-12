@@ -24,6 +24,18 @@ extern "C" {
 /**
  * @addtogroup rb_driver
  * @{
+ *   @defgroup   rb_driver_v1 v1 (overwrite)
+ *   @{
+ *     @brief      First `rb` driver implementation, overwrite if full
+ *     @details    This implementation will overwrite data if full, updating
+ *                 both head and tail indices without throwing an error.
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *   @}
+ * @}
+ *
+ * @addtogroup rb_driver_v1
+ * @{
  */
 
 /* C libraries */
