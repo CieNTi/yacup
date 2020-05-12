@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['yacup_3a_20yet_20another_20c_20utilities_20package_77',['yacup: Yet Another C Utilities Package',['../index.html',1,'']]]
+  ['xyz_69',['xyz',['../structxyz.html',1,'xyz'],['../group__xyz.html',1,'(Global Namespace)']]],
+  ['xyz_5fprint_5finfo_70',['xyz_print_info',['../group__debug__functions.html#gaf911273b3f88cbcdc578ca2351204038',1,'xyz_print_info(struct xyz *xyz):&#160;debug.c'],['../group__debug__functions.html#gaf911273b3f88cbcdc578ca2351204038',1,'xyz_print_info(struct xyz *xyz):&#160;debug.c']]]
 ];

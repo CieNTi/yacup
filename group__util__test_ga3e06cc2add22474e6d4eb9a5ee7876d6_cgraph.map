@@ -1,0 +1,4 @@
+<map id="test_xyz_testname" name="test_xyz_testname">
+<area shape="rect" id="node1" title="Test to check xyz functionality using a single xyz." alt="" coords="5,5,136,32"/>
+<area shape="rect" id="node2" href="$group__debug__functions.html#gaf911273b3f88cbcdc578ca2351204038" title="Print xyz information to STDOUT (name, config, state, ...)" alt="" coords="184,5,284,32"/>
+</map>

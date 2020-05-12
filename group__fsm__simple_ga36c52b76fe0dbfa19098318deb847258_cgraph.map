@@ -1,6 +1,0 @@
-<map id="fsm_simple_setup" name="fsm_simple_setup">
-<area shape="rect" id="node1" title="Create and initialize a fsm_simple type FSM." alt="" coords="5,31,133,57"/>
-<area shape="rect" id="node2" href="$group__fsm__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Sate start: Prepare cycles variable." alt="" coords="181,5,229,32"/>
-<area shape="rect" id="node4" href="$group__fsm__simple.html#ga25fe6c2909fa4cd77ce624d0eddeb22e" title="State stop: Prepare anything before stopping the fsm." alt="" coords="391,31,437,57"/>
-<area shape="rect" id="node3" href="$group__fsm__simple.html#ga253319d2ba5ab00042c9f91e37a39b72" title="State state_1: Stay here during 5 cycles variable counts." alt="" coords="277,5,343,32"/>
-</map>

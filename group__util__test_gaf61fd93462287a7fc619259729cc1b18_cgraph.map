@@ -1,13 +1,9 @@
 <map id="test_fsm_simple" name="test_fsm_simple">
-<area shape="rect" id="node1" title="Test to check fsm functionality using a single fsm." alt="" coords="5,157,124,184"/>
-<area shape="rect" id="node2" href="$group__fsm__api.html#ga70f7cb5af8edb9f5ef7b1886182e69fa" title="Stepper function (single cycle and exit, need outside controller loop)" alt="" coords="185,5,287,32"/>
-<area shape="rect" id="node3" href="$group__fsm__api.html#ga3f0b160b17b7b1809b86263deeec7018" title="Sets the enable bit, allowing this fsm to perform actions." alt="" coords="191,56,281,83"/>
-<area shape="rect" id="node4" href="$group__debug__functions.html#gaac151a69cbeac42fe57c80678a213091" title="Print fsm information to STDOUT (name, config, state, ...)" alt="" coords="184,107,288,133"/>
-<area shape="rect" id="node5" href="$group__debug__functions.html#gaae5cd87a7d9e7456aa3621903525bc94" title="Print fsm stats to STDOUT (how many times each run&#45;state has been executed/cycled)" alt="" coords="180,157,292,184"/>
-<area shape="rect" id="node6" href="$group__fsm__api.html#ga9daef78018976b8d023bd3bc8ab6e432" title="Sets the started bit, making this fsm to start the next valid cycle." alt="" coords="173,208,299,235"/>
-<area shape="rect" id="node7" href="$group__fsm__api.html#ga7ba31afb84115630277099eb27f4136b" title="Sets the auto&#45;restart bit, making this fsm to start again once completed." alt="" coords="186,259,286,285"/>
-<area shape="rect" id="node8" href="$group__fsm__simple.html#ga36c52b76fe0dbfa19098318deb847258" title="Create and initialize a fsm_simple type FSM." alt="" coords="172,309,300,336"/>
-<area shape="rect" id="node9" href="$group__fsm__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Sate start: Prepare cycles variable." alt="" coords="348,284,396,311"/>
-<area shape="rect" id="node11" href="$group__fsm__simple.html#ga25fe6c2909fa4cd77ce624d0eddeb22e" title="State stop: Prepare anything before stopping the fsm." alt="" coords="557,309,604,336"/>
-<area shape="rect" id="node10" href="$group__fsm__simple.html#ga253319d2ba5ab00042c9f91e37a39b72" title="State state_1: Stay here during 5 cycles variable counts." alt="" coords="444,284,509,311"/>
+<area shape="rect" id="node1" title="Test to check fsm functionality using a single fsm." alt="" coords="5,132,124,159"/>
+<area shape="rect" id="node2" href="$group__fsm__api.html#ga70f7cb5af8edb9f5ef7b1886182e69fa" title="Stepper function (single cycle and exit, need outside controller loop)" alt="" coords="184,5,287,32"/>
+<area shape="rect" id="node3" href="$group__fsm__api.html#ga3f0b160b17b7b1809b86263deeec7018" title="Sets the enable bit, allowing this fsm to perform actions." alt="" coords="191,56,280,83"/>
+<area shape="rect" id="node4" href="$group__debug__functions.html#gaac151a69cbeac42fe57c80678a213091" title="Print fsm information to STDOUT (name, config, state, ...)" alt="" coords="183,107,287,133"/>
+<area shape="rect" id="node5" href="$group__debug__functions.html#gaae5cd87a7d9e7456aa3621903525bc94" title="Print fsm stats to STDOUT (how many times each run&#45;state has been executed/cycled)" alt="" coords="179,157,291,184"/>
+<area shape="rect" id="node6" href="$group__fsm__api.html#ga9daef78018976b8d023bd3bc8ab6e432" title="Sets the started bit, making this fsm to start the next valid cycle." alt="" coords="172,208,299,235"/>
+<area shape="rect" id="node7" href="$group__fsm__api.html#ga7ba31afb84115630277099eb27f4136b" title="Sets the auto&#45;restart bit, making this fsm to start again once completed." alt="" coords="185,259,285,285"/>
 </map>

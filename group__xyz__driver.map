@@ -1,0 +1,4 @@
+<map id="Drivers" name="Drivers">
+<area shape="rect" id="node1" href="$group__xyz.html" title="xyz description, seen on modules view" alt="" coords="5,5,60,31"/>
+<area shape="rect" id="node2" title="Operations driver for xyz instances." alt="" coords="108,5,171,31"/>
+</map>

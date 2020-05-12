@@ -1,5 +1,0 @@
-<map id="start" name="start">
-<area shape="rect" id="node1" title="Sate start: Prepare cycles variable." alt="" coords="348,5,396,32"/>
-<area shape="rect" id="node2" href="$group__fsm__simple.html#ga36c52b76fe0dbfa19098318deb847258" title="Create and initialize a fsm_simple type FSM." alt="" coords="172,5,300,32"/>
-<area shape="rect" id="node3" href="$group__util__test.html#gaf61fd93462287a7fc619259729cc1b18" title="Test to check fsm functionality using a single fsm." alt="" coords="5,5,124,32"/>
-</map>

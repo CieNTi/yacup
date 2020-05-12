@@ -100,79 +100,12 @@ Functions</h2></td></tr>
 <tr class="memitem:ga25fe6c2909fa4cd77ce624d0eddeb22e"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fsm__simple.html#ga25fe6c2909fa4cd77ce624d0eddeb22e">stop</a> (struct <a class="el" href="structfsm.html">fsm</a> *<a class="el" href="structfsm.html">fsm</a>)</td></tr>
 <tr class="memdesc:ga25fe6c2909fa4cd77ce624d0eddeb22e"><td class="mdescLeft">&#160;</td><td class="mdescRight">State <code>stop</code>: Prepare anything before stopping the fsm.  <a href="group__fsm__simple.html#ga25fe6c2909fa4cd77ce624d0eddeb22e">More...</a><br /></td></tr>
 <tr class="separator:ga25fe6c2909fa4cd77ce624d0eddeb22e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga36c52b76fe0dbfa19098318deb847258"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fsm__simple.html#ga36c52b76fe0dbfa19098318deb847258">fsm_simple_setup</a> (struct <a class="el" href="structfsm.html">fsm</a> *<a class="el" href="structfsm.html">fsm</a>)</td></tr>
-<tr class="memdesc:ga36c52b76fe0dbfa19098318deb847258"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create and initialize a <code>fsm_simple</code> type FSM.  <a href="group__fsm__simple.html#ga36c52b76fe0dbfa19098318deb847258">More...</a><br /></td></tr>
-<tr class="separator:ga36c52b76fe0dbfa19098318deb847258"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p>A simple finite state machine for testing purposes. </p>
 <p>This FSM just starts, execute state_1 5 times and finish </p><dl class="section author"><dt>Author</dt><dd>CieNTi <a href="#" onclick="location.href='mai'+'lto:'+'cie'+'nt'+'i@c'+'ie'+'nti'+'.c'+'om'; return false;">cient<span style="display: none;">.nosp@m.</span>i@ci<span style="display: none;">.nosp@m.</span>enti.<span style="display: none;">.nosp@m.</span>com</a> </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>2020 </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="ga36c52b76fe0dbfa19098318deb847258"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga36c52b76fe0dbfa19098318deb847258">&#9670;&nbsp;</a></span>fsm_simple_setup()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int fsm_simple_setup </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structfsm.html">fsm</a> *&#160;</td>
-          <td class="paramname"><em>fsm</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;fsm_simple.h&gt;</code></p>
-
-<p>Create and initialize a <code>fsm_simple</code> type FSM. </p>
-<p>This FSM just starts, execute <code>state_1</code> 5 times and finish</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fsm</td><td>fsm pointer to work with. Valid if returns without errors</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
-</table>
-</dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="fsm__simple_8c_source.html#l00134">134</a> of file <a class="el" href="fsm__simple_8c_source.html">fsm_simple.c</a>.</p>
-
-<p class="reference">References <a class="el" href="fsm_8h_source.html#l00102">fsm::config</a>, <a class="el" href="fsm_8h_source.html#l00117">fsm::data</a>, <a class="el" href="fsm_8h_source.html#l00086">FSM_ALL</a>, <a class="el" href="fsm_8h_source.html#l00082">FSM_ERROR</a>, <a class="el" href="fsm_8h_source.html#l00069">FSM_NEW</a>, <a class="el" href="fsm_8h_source.html#l00074">FSM_PAUSE</a>, <a class="el" href="fsm_8h_source.html#l00078">FSM_RUN</a>, <a class="el" href="fsm_8h_source.html#l00097">fsm::name</a>, <a class="el" href="fsm__simple_8c_source.html#l00063">start()</a>, <a class="el" href="fsm_8h_source.html#l00123">fsm::start</a>, <a class="el" href="fsm_8h_source.html#l00107">fsm::state</a>, <a class="el" href="fsm_8h_source.html#l00112">fsm::stats</a>, <a class="el" href="fsm__simple_8c_source.html#l00120">stop()</a>, and <a class="el" href="fsm_8h_source.html#l00127">fsm::stop</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="test__fsm__simple_8c_source.html#l00052">test_fsm_simple()</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__fsm__simple_ga36c52b76fe0dbfa19098318deb847258_cgraph.png" border="0" usemap="#group__fsm__simple_ga36c52b76fe0dbfa19098318deb847258_cgraph" alt=""/></div>
-<map name="group__fsm__simple_ga36c52b76fe0dbfa19098318deb847258_cgraph" id="group__fsm__simple_ga36c52b76fe0dbfa19098318deb847258_cgraph">
-<area shape="rect" title="Create and initialize a fsm_simple type FSM." alt="" coords="5,31,133,57"/>
-<area shape="rect" href="group__fsm__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Sate start: Prepare cycles variable." alt="" coords="181,5,229,32"/>
-<area shape="rect" href="group__fsm__simple.html#ga25fe6c2909fa4cd77ce624d0eddeb22e" title="State stop: Prepare anything before stopping the fsm." alt="" coords="391,31,437,57"/>
-<area shape="rect" href="group__fsm__simple.html#ga253319d2ba5ab00042c9f91e37a39b72" title="State state_1: Stay here during 5 cycles variable counts." alt="" coords="277,5,343,32"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__fsm__simple_ga36c52b76fe0dbfa19098318deb847258_icgraph.png" border="0" usemap="#group__fsm__simple_ga36c52b76fe0dbfa19098318deb847258_icgraph" alt=""/></div>
-<map name="group__fsm__simple_ga36c52b76fe0dbfa19098318deb847258_icgraph" id="group__fsm__simple_ga36c52b76fe0dbfa19098318deb847258_icgraph">
-<area shape="rect" title="Create and initialize a fsm_simple type FSM." alt="" coords="172,5,300,32"/>
-<area shape="rect" href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18" title="Test to check fsm functionality using a single fsm." alt="" coords="5,5,124,32"/>
-</map>
-</div>
-
-</div>
-</div>
 <a id="ga91de23a291e42ae3c732d32547944e63"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ga91de23a291e42ae3c732d32547944e63">&#9670;&nbsp;</a></span>start()</h2>
 
@@ -219,8 +152,6 @@ Here is the caller graph for this function:</div>
 <p class="definition">Definition at line <a class="el" href="fsm__simple_8c_source.html#l00063">63</a> of file <a class="el" href="fsm__simple_8c_source.html">fsm_simple.c</a>.</p>
 
 <p class="reference">References <a class="el" href="fsm_8h_source.html#l00097">fsm::name</a>, <a class="el" href="fsm_8h_source.html#l00139">fsm::next</a>, and <a class="el" href="fsm__simple_8c_source.html#l00088">state_1()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="fsm__simple_8c_source.html#l00134">fsm_simple_setup()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -229,16 +160,6 @@ Here is the call graph for this function:</div>
 <area shape="rect" title="Sate start: Prepare cycles variable." alt="" coords="5,5,53,32"/>
 <area shape="rect" href="group__fsm__simple.html#ga253319d2ba5ab00042c9f91e37a39b72" title="State state_1: Stay here during 5 cycles variable counts." alt="" coords="101,5,167,32"/>
 <area shape="rect" href="group__fsm__simple.html#ga25fe6c2909fa4cd77ce624d0eddeb22e" title="State stop: Prepare anything before stopping the fsm." alt="" coords="215,5,261,32"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__fsm__simple_ga91de23a291e42ae3c732d32547944e63_icgraph.png" border="0" usemap="#group__fsm__simple_ga91de23a291e42ae3c732d32547944e63_icgraph" alt=""/></div>
-<map name="group__fsm__simple_ga91de23a291e42ae3c732d32547944e63_icgraph" id="group__fsm__simple_ga91de23a291e42ae3c732d32547944e63_icgraph">
-<area shape="rect" title="Sate start: Prepare cycles variable." alt="" coords="348,5,396,32"/>
-<area shape="rect" href="group__fsm__simple.html#ga36c52b76fe0dbfa19098318deb847258" title="Create and initialize a fsm_simple type FSM." alt="" coords="172,5,300,32"/>
-<area shape="rect" href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18" title="Test to check fsm functionality using a single fsm." alt="" coords="5,5,124,32"/>
 </map>
 </div>
 
@@ -306,10 +227,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__fsm__simple_ga253319d2ba5ab00042c9f91e37a39b72_icgraph.png" border="0" usemap="#group__fsm__simple_ga253319d2ba5ab00042c9f91e37a39b72_icgraph" alt=""/></div>
 <map name="group__fsm__simple_ga253319d2ba5ab00042c9f91e37a39b72_icgraph" id="group__fsm__simple_ga253319d2ba5ab00042c9f91e37a39b72_icgraph">
-<area shape="rect" title="State state_1: Stay here during 5 cycles variable counts." alt="" coords="444,5,509,32"/>
-<area shape="rect" href="group__fsm__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Sate start: Prepare cycles variable." alt="" coords="348,5,396,32"/>
-<area shape="rect" href="group__fsm__simple.html#ga36c52b76fe0dbfa19098318deb847258" title="Create and initialize a fsm_simple type FSM." alt="" coords="172,5,300,32"/>
-<area shape="rect" href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18" title="Test to check fsm functionality using a single fsm." alt="" coords="5,5,124,32"/>
+<area shape="rect" title="State state_1: Stay here during 5 cycles variable counts." alt="" coords="101,5,167,32"/>
+<area shape="rect" href="group__fsm__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Sate start: Prepare cycles variable." alt="" coords="5,5,53,32"/>
 </map>
 </div>
 
@@ -362,17 +281,15 @@ Here is the caller graph for this function:</div>
 
 <p class="reference">References <a class="el" href="fsm_8h_source.html#l00097">fsm::name</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="fsm__simple_8c_source.html#l00134">fsm_simple_setup()</a>, and <a class="el" href="fsm__simple_8c_source.html#l00088">state_1()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="fsm__simple_8c_source.html#l00088">state_1()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__fsm__simple_ga25fe6c2909fa4cd77ce624d0eddeb22e_icgraph.png" border="0" usemap="#group__fsm__simple_ga25fe6c2909fa4cd77ce624d0eddeb22e_icgraph" alt=""/></div>
 <map name="group__fsm__simple_ga25fe6c2909fa4cd77ce624d0eddeb22e_icgraph" id="group__fsm__simple_ga25fe6c2909fa4cd77ce624d0eddeb22e_icgraph">
-<area shape="rect" title="State stop: Prepare anything before stopping the fsm." alt="" coords="557,5,604,32"/>
-<area shape="rect" href="group__fsm__simple.html#ga36c52b76fe0dbfa19098318deb847258" title="Create and initialize a fsm_simple type FSM." alt="" coords="172,5,300,32"/>
-<area shape="rect" href="group__fsm__simple.html#ga253319d2ba5ab00042c9f91e37a39b72" title="State state_1: Stay here during 5 cycles variable counts." alt="" coords="444,31,509,57"/>
-<area shape="rect" href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18" title="Test to check fsm functionality using a single fsm." alt="" coords="5,5,124,32"/>
-<area shape="rect" href="group__fsm__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Sate start: Prepare cycles variable." alt="" coords="348,31,396,57"/>
+<area shape="rect" title="State stop: Prepare anything before stopping the fsm." alt="" coords="215,5,261,32"/>
+<area shape="rect" href="group__fsm__simple.html#ga253319d2ba5ab00042c9f91e37a39b72" title="State state_1: Stay here during 5 cycles variable counts." alt="" coords="101,5,167,32"/>
+<area shape="rect" href="group__fsm__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Sate start: Prepare cycles variable." alt="" coords="5,5,53,32"/>
 </map>
 </div>
 

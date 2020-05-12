@@ -95,7 +95,7 @@ $(function() {
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* __cplusplus */</span><span class="preprocessor"></span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @addtogroup fsm_available</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment"> * @defgroup fsm_available</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * @{</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> *   @defgroup   fsm_simple Simple FSM</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> *   @{</span></div>
@@ -106,13 +106,13 @@ $(function() {
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment"> *   @}</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment"> * @}</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> * @addtogroup fsm_simple</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment"> * @ingroup fsm_simple</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment"> * @{</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">/* C libraries */</span></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &lt;yacup/fsm.h&gt;</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &quot;yacup/fsm.h&quot;</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */</span><span class="comment"></span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment">/**</span></div>
@@ -139,7 +139,7 @@ $(function() {
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment"> *             | `== 0` | Ok               |</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment"> *             | `!= 0` | Error            |</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__fsm__simple.html#ga36c52b76fe0dbfa19098318deb847258">fsm_simple_setup</a>(<span class="keyword">struct</span> <a class="code" href="structfsm.html">fsm</a> *<a class="code" href="structfsm.html">fsm</a>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">int</span> fsm_simple_setup(<span class="keyword">struct</span> <a class="code" href="structfsm.html">fsm</a> *<a class="code" href="structfsm.html">fsm</a>);</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment"></span> </div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">/** @} */</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
@@ -151,7 +151,6 @@ $(function() {
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="astructfsm__simple__data_html_a33ab808baaa3acb0d60bbca385a8e362"><div class="ttname"><a href="structfsm__simple__data.html#a33ab808baaa3acb0d60bbca385a8e362">fsm_simple_data::cycles</a></div><div class="ttdeci">size_t cycles</div><div class="ttdoc">Number of cycles the FSM passed over state_1.</div><div class="ttdef"><b>Definition:</b> <a href="fsm__simple_8h_source.html#l00053">fsm_simple.h:53</a></div></div>
 <div class="ttc" id="astructfsm_html"><div class="ttname"><a href="structfsm.html">fsm</a></div><div class="ttdoc">Structure that defines a finite state machine.</div><div class="ttdef"><b>Definition:</b> <a href="fsm_8h_source.html#l00092">fsm.h:93</a></div></div>
-<div class="ttc" id="agroup__fsm__simple_html_ga36c52b76fe0dbfa19098318deb847258"><div class="ttname"><a href="group__fsm__simple.html#ga36c52b76fe0dbfa19098318deb847258">fsm_simple_setup</a></div><div class="ttdeci">int fsm_simple_setup(struct fsm *fsm)</div><div class="ttdoc">Create and initialize a fsm_simple type FSM.</div><div class="ttdef"><b>Definition:</b> <a href="fsm__simple_8c_source.html#l00134">fsm_simple.c:134</a></div></div>
 <div class="ttc" id="astructfsm__simple__data_html"><div class="ttname"><a href="structfsm__simple__data.html">fsm_simple_data</a></div><div class="ttdoc">Internal data fsm_simple will use.</div><div class="ttdef"><b>Definition:</b> <a href="fsm__simple_8h_source.html#l00048">fsm_simple.h:49</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
