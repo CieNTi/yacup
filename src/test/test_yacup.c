@@ -37,6 +37,7 @@
 int test_xyz_testname(int argc, const char* argv[]);
 int test_rb_driver_overwrite(int argc, const char* argv[]);
 int test_fsm_simple(int argc, const char* argv[]);
+int test_cp_driver_B416K(int argc, const char* argv[]);
 
 /**
  * @brief      The main of the mains
@@ -61,6 +62,8 @@ int test_yacup(int argc, const char* argv[])
          test_rb_driver_overwrite(argc, argv));
   printf("Result from test_fsm_simple() = %i\n", 
          test_fsm_simple(argc, argv));
+  printf("Result from test_cp_driver_B416K() = %i\n", 
+         test_cp_driver_B416K(argc, argv));
   printf("Hi! from "__FILE__"\n");
   return 0;
 }

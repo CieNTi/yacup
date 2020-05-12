@@ -77,11 +77,11 @@ test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
 
-# Test to check `cp` B420K protocol functionality
-test_cp_testname_objs=util/cp/cp.o \
-                      util/cp/debug.o \
-                      util/cp/test/test_cp_testname.o
-test_cp_testname: $(addprefix $(ODIR)/, $(test_cp_testname_objs))
+# Test to check `cp` B416K protocol functionality
+test_cp_driver_B416K_objs=util/cp/cp.o                    \
+                      util/cp/debug.o                     \
+                      util/cp/test/test_cp_driver_B416K.o
+test_cp_driver_B416K: $(addprefix $(ODIR)/, $(test_cp_driver_B416K_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
@@ -91,9 +91,10 @@ test_cp_testname: $(addprefix $(ODIR)/, $(test_cp_testname_objs))
 # Targets for 'src' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~
 # Test app compounding all other tests defined here
-test_yacup_objs=$(test_xyz_testname_objs) \
+test_yacup_objs=$(test_xyz_testname_objs)        \
                 $(test_rb_driver_overwrite_objs) \
-                $(test_fsm_simple_objs)   \
+                $(test_fsm_simple_objs)          \
+                $(test_cp_driver_B416K_objs)     \
                 src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_objs))
 	@echo "-----"
@@ -147,7 +148,8 @@ test_bin:
 all: clean debug prepare test_yacup               \
                          test_xyz_testname        \
                          test_rb_driver_overwrite \
-                         test_fsm_simple
+                         test_fsm_simple          \
+                         test_cp_driver_B416K
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""
