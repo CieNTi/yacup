@@ -76,6 +76,15 @@ test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
+
+# Test to check `cp` B420K protocol functionality
+test_cp_testname_objs=util/cp/cp.o \
+                      util/cp/debug.o \
+                      util/cp/test/test_cp_testname.o
+test_cp_testname: $(addprefix $(ODIR)/, $(test_cp_testname_objs))
+	@echo "-----"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@echo "-----"
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -138,7 +147,8 @@ test_bin:
 all: clean debug prepare test_yacup \
                          test_xyz_testname \
                          test_rb_driver_v1 \
-                         test_fsm_simple
+                         test_fsm_simple \
+                         test_cp_testname
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""

@@ -1,4 +1,4 @@
-/* xyz.h - XYZ implementation for yacup project
+/* cp.h - CP implementation for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,39 +14,39 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __XYZ_H
-#define __XYZ_H
+#ifndef __CP_H
+#define __CP_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup xyz X Y Z
+ * @defgroup cp Communications protocols
  * @{
- *   @brief      `xyz` description, seen on `modules` view
- *   @details    `xyz` detailed description, seen once clicked the module
+ *   @brief      Yet another communications protocols implementation
+ *   @details    Communications protocols made easy (for me xD)
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  *
- *   @defgroup   xyz_api Interface
+ *   @defgroup   cp_api Interface
  *   @{
- *     @brief      Operations over `xyz` instances
+ *     @brief      Operations over `cp` instances
  *     @details    Centralized functions to allow multiple implementations
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
  *
- *   @defgroup   xyz_driver Drivers
+ *   @defgroup   cp_driver Drivers
  *   @{
- *     @brief      Operations driver for `xyz` instances
- *     @details    Different ring buffer implementations interfaces
+ *     @brief      Operations driver for `cp` instances
+ *     @details    Different communication protocols implementations interfaces
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
  * @}
  * 
- * @ingroup   xyz_api
+ * @ingroup   cp_api
  * @{
  */
 
@@ -56,9 +56,9 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      A nice structure briefly described
+ * @brief      Structure that defines a communication protocol
  */
-struct xyz
+struct cp
 {
   /** 
    * @brief      Pointer to `uint8_t` buffer
@@ -86,9 +86,9 @@ struct xyz
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Configure `xyz` instance
+ * @brief      Configure `cp` instance
  *
- * @param      xyz     Pointer to a XYZ
+ * @param      cp     Pointer to a CP
  * @param      buffer  The buffer
  * @param[in]  size    The size
  *
@@ -98,7 +98,7 @@ struct xyz
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int xyz_setup(struct xyz *xyz, uint8_t *buffer, size_t size);
+int cp_setup(struct cp *cp, uint8_t *buffer, size_t size);
 
 /** @} */
 
@@ -106,4 +106,4 @@ int xyz_setup(struct xyz *xyz, uint8_t *buffer, size_t size);
 }
 #endif /* __cplusplus */
 
-#endif /* __XYZ_H */
+#endif /* __CP_H */

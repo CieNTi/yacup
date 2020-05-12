@@ -1,4 +1,4 @@
-/* debug.h - Debug functions to ease `xyz` development flow
+/* debug.h - Debug functions to ease `cp` development flow
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -27,15 +27,15 @@ extern "C" {
  */
 
 /* C libraries */
-#include "yacup/xyz.h"
+#include "yacup/cp.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Print `xyz` information to STDOUT (name, config, state, ...)
+ * @brief      Print `cp` information to STDOUT (name, config, state, ...)
  *
- * @param      xyz    Pointer to a valid `xyz`
+ * @param      cp    Pointer to a valid `cp`
  */
-void xyz_print_info(struct xyz *xyz);
+void cp_print_info(struct cp *cp);
 
 /** @} */
 

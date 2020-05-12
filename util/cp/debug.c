@@ -1,4 +1,4 @@
-/* debug.c - Debug functions to ease `xyz` development flow
+/* debug.c - Debug functions to ease `cp` development flow
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,12 +17,12 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdio.h>
-#include "yacup/xyz.h"
-#include "yacup/xyz/debug.h"
+#include "yacup/cp.h"
+#include "yacup/cp/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME
-#define YCP_NAME "util/xyz/debug"
+#define YCP_NAME "util/cp/debug"
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
@@ -31,12 +31,12 @@
 #endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Print `xyz` information to STDOUT.
- * Read `yacup/xyz/debug.h` for complete information. */
-void xyz_print_info(struct xyz *xyz)
+/* Print `cp` information to STDOUT.
+ * Read `yacup/cp/debug.h` for complete information. */
+void cp_print_info(struct cp *cp)
 {
-  if (xyz == NULL) { return; }
-  _dbg("xyz_print_info: len ........: %lu\n", xyz->len);
+  if (cp == NULL) { return; }
+  _dbg("cp_print_info: len ........: %lu\n", cp->len);
   fflush(stdout);
 }
 

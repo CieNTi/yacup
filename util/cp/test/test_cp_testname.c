@@ -1,4 +1,4 @@
-/* test_xyz_testname.c - Test to check xyz's xyz_simple functionality
+/* test_cp_testname.c - Test to check cp's cp_simple functionality
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,15 +17,15 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <time.h>
-#include "yacup/xyz.h"
-#include "yacup/xyz/debug.h"
+#include "yacup/cp.h"
+#include "yacup/cp/debug.h"
 
 /* This include acts like an external application include, located elsewhere */
-//#include "xyz_external.h"
+//#include "cp_external.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME
-#define YCP_NAME "util/xyz/test/test_xyz_testname"
+#define YCP_NAME "util/cp/test/test_cp_testname"
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
@@ -35,7 +35,7 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Test to check `xyz` functionality using a single xyz
+ * @brief      Test to check `cp` functionality using a single cp
  *
  * @param[in]  argc  The count of arguments
  * @param      argv  The arguments array
@@ -49,24 +49,24 @@
  * @ingroup    util_test
  * @version    v1.0.0
  */
-int test_xyz_testname(int argc, const char* argv[])
+int test_cp_testname(int argc, const char* argv[])
 {
   /* Testbench vars */
-  #define TEST_XYZ_TESTNAME_BUFFER_SIZE 20
-  uint8_t buffer[TEST_XYZ_TESTNAME_BUFFER_SIZE];
-  struct xyz xyz_testname0;
+  #define TEST_CP_TESTNAME_BUFFER_SIZE 20
+  uint8_t buffer[TEST_CP_TESTNAME_BUFFER_SIZE];
+  struct cp cp_testname0;
 
-  /* Setup xyz */
-  _dbg("Setting up the xyz\n");
-  if (xyz_setup(&xyz_testname0, buffer, TEST_XYZ_TESTNAME_BUFFER_SIZE))
+  /* Setup cp */
+  _dbg("Setting up the cp\n");
+  if (cp_setup(&cp_testname0, buffer, TEST_CP_TESTNAME_BUFFER_SIZE))
   {
-    _dbg("- Cannot setup the XYZ. ERROR\n");
+    _dbg("- Cannot setup the CP. ERROR\n");
     return 1;
   }
   _dbg("- Ok\n");
 
   /* Cya! */
-  xyz_print_info(&xyz_testname0);
+  cp_print_info(&cp_testname0);
   return 0;
 }
 
