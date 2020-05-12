@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup fsm_available
+ * @defgroup fsm_available
  * @{
  *   @defgroup   fsm_simple Simple FSM
  *   @{
@@ -33,7 +33,7 @@ extern "C" {
  *   @}
  * @}
  *
- * @addtogroup fsm_simple
+ * @ingroup fsm_simple
  * @{
  */
 

@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup template
+ * @defgroup template Code templates
  * @{
  *   @brief      Template module from template files xD
  *   @details    A more elaborated description with an example:
@@ -36,6 +36,8 @@ extern "C" {
  *   ```
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
+ *   
+ *   @defgroup xyz X Y Z
  */
 
 /* C libraries */

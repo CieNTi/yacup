@@ -46,7 +46,7 @@ extern "C" {
  *   @}
  * @}
  * 
- * @addtogroup   rb_api
+ * @ingroup   rb_api
  * @{
  */
 

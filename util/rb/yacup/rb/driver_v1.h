@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup rb_driver
+ * @defgroup rb_driver
  * @{
  *   @defgroup   rb_driver_v1 v1 (overwrite)
  *   @{
@@ -34,7 +34,7 @@ extern "C" {
  *   @}
  * @}
  *
- * @addtogroup rb_driver_v1
+ * @ingroup rb_driver_v1
  * @{
  */
 
