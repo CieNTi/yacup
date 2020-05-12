@@ -17,9 +17,9 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <yacup/rb.h>
-#include <yacup/rb/op.h>
-#include <yacup/rb/debug.h>
+#include "yacup/rb.h"
+#include "yacup/rb/op.h"
+#include "yacup/rb/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME

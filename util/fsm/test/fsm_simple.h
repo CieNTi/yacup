@@ -39,7 +39,7 @@ extern "C" {
 
 /* C libraries */
 #include <stddef.h>
-#include <yacup/fsm.h>
+#include "yacup/fsm.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
