@@ -1,4 +1,4 @@
-/* header.h - Brief one-liner explanation of this file inside the project
+/* xyz.h - XYZ implementation for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,30 +14,40 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __HEADER_H
-#define __HEADER_H
+#ifndef __XYZ_H
+#define __XYZ_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup template Code templates
+ * @defgroup xyz X Y Z
  * @{
- *   @brief      Template module from template files xD
- *   @details    A more elaborated description with an example:
- *   ```c
- *   struct nice_structure nice_var =
- *   {
- *     .buffer = NULL,
- *     .len    = 0,
- *     .fn_pt  = NULL
- *   };
- *   ```
+ *   @brief      `xyz` description, seen on `modules` view
+ *   @details    `xyz` detailed description, seen once clicked the module
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
- *   
- *   @defgroup xyz X Y Z
+ *
+ *   @defgroup   xyz_api Interface
+ *   @{
+ *     @brief      Operations over `xyz` instances
+ *     @details    Centralized functions to allow multiple implementations
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *   @}
+ *
+ *   @defgroup   xyz_driver Drivers
+ *   @{
+ *     @brief      Operations driver for `xyz` instances
+ *     @details    Different ring buffer implementations interfaces
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *   @}
+ * @}
+ * 
+ * @ingroup   xyz_api
+ * @{
  */
 
 /* C libraries */
@@ -48,10 +58,10 @@ extern "C" {
 /**
  * @brief      A nice structure briefly described
  */
-struct nice_structure
+struct xyz
 {
   /** 
-   * @brief      Pointer to bytes `uint8_t` buffer
+   * @brief      Pointer to `uint8_t` buffer
    */
   uint8_t *buffer;
   /** 
@@ -76,21 +86,9 @@ struct nice_structure
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Check if a nice_structure is valid or not
+ * @brief      Configure `xyz` instance
  *
- * @param      nice  The nice structure pointer
- *
- * @return     One of:
- *             | Value  | Meaning          |
- *             | :----: | :--------------- |
- *             | `== 0` | Ok               |
- *             | `!= 0` | Error            |
- */
-uint8_t nice_is_not_nice(struct nice_structure *nice);
-
-/**
- * @brief      Initialize a nice structure
- *
+ * @param      xyz     Pointer to a XYZ
  * @param      buffer  The buffer
  * @param[in]  size    The size
  *
@@ -100,7 +98,7 @@ uint8_t nice_is_not_nice(struct nice_structure *nice);
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-struct nice_structure *nice_init(uint8_t *buffer, size_t size);
+int xyz_setup(struct xyz *xyz, uint8_t *buffer, size_t size);
 
 /** @} */
 
@@ -108,4 +106,4 @@ struct nice_structure *nice_init(uint8_t *buffer, size_t size);
 }
 #endif /* __cplusplus */
 
-#endif /* __HEADER_H */
+#endif /* __XYZ_H */

@@ -22,12 +22,12 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup debug_functions
+ * @ingroup debug_functions
  * @{
  */
 
 /* C libraries */
-#include <yacup/fsm.h>
+#include "yacup/fsm.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**

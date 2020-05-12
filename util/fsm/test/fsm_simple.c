@@ -16,7 +16,7 @@
  */
 #include <stdint.h>
 #include <stdio.h>
-#include <yacup/fsm.h>
+#include "yacup/fsm.h"
 
 /* Header located near this file, used as an external header in app */
 #include "fsm_simple.h"

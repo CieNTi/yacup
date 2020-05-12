@@ -1,4 +1,4 @@
-/* debug.c - Debug functions to ease `rb` development flow
+/* xyz.c - XYZ implementation for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,52 +15,44 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
-#include <stddef.h>
-#include <stdio.h>
-#include "yacup/rb.h"
-#include "yacup/rb/op.h"
-#include "yacup/rb/debug.h"
+#include <stdlib.h>
+#include "yacup/xyz.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME
-#define YCP_NAME "util/rb/debug"
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#ifndef _dbg
-  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
+#define YCP_NAME "util/xyz/xyz"
+#ifdef YACUP_DEBUG
+  #include <time.h>
+  #include <stdio.h>
+  #include <string.h>
+  #ifndef _dbg
+    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
+  #endif
+#else
+  #ifndef _dbg
+    #define _dbg(...)
+  #endif
 #endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Print `rb` information to STDOUT.
- * Read `yacup/rb/debug.h` for complete information. */
-void rb_print_info(struct rb *rb)
+/* Configure `xyz` instance.
+ * Read `yacup/xyz.h` for complete information. */
+int xyz_setup(struct xyz *xyz, uint8_t *buffer, size_t size)
 {
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  /* Validate it */
+  if ((xyz == NULL) || (buffer == NULL) || (size == 0))
   {
-    _dbg("Provided rb is not valid\n");
-    return;
+    _dbg("xyz_feature: Invalid\n");
+    return 1;
   }
 
-  /* Required vars */
-  size_t idx = 0;
+  /* Configure */
+  xyz->buffer = buffer;
+  xyz->len = size;
+  xyz->fn_pt = NULL;
 
-  /* Show data */
-  _dbg("[s: %3lu, h: %3lu, t: %3lu, of: %1u, len: %3lu]"
-         "[buf:",
-         rb->size,
-         rb->head,
-         rb->tail,
-         rb->head_of,
-         rb->op->len(rb)
-         );
-  for (idx = 0; idx < rb->size; idx++)
-  {
-    printf(" %02X", rb->buffer[idx]);
-  }
-  printf("]\n");
-  fflush(stdout);
-  return; 
+  /* And go! */
+  return 0;
 }
 
 #undef YCP_NAME

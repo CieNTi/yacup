@@ -17,8 +17,8 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <yacup/fsm.h>
-#include <yacup/fsm/debug.h>
+#include "yacup/fsm.h"
+#include "yacup/fsm/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME

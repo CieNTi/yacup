@@ -49,7 +49,7 @@ extern "C" {
  *   @}
  * @}
  * 
- * @addtogroup   fsm_api
+ * @ingroup   fsm_api
  * @{
  */
 

@@ -1,4 +1,4 @@
-/* debug.c - Debug functions to ease `rb` development flow
+/* debug.c - Debug functions to ease `xyz` development flow
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,13 +17,12 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdio.h>
-#include "yacup/rb.h"
-#include "yacup/rb/op.h"
-#include "yacup/rb/debug.h"
+#include "yacup/xyz.h"
+#include "yacup/xyz/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME
-#define YCP_NAME "util/rb/debug"
+#define YCP_NAME "util/xyz/debug"
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
@@ -32,35 +31,13 @@
 #endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Print `rb` information to STDOUT.
- * Read `yacup/rb/debug.h` for complete information. */
-void rb_print_info(struct rb *rb)
+/* Print `xyz` information to STDOUT.
+ * Read `yacup/xyz/debug.h` for complete information. */
+void xyz_print_info(struct xyz *xyz)
 {
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
-  {
-    _dbg("Provided rb is not valid\n");
-    return;
-  }
-
-  /* Required vars */
-  size_t idx = 0;
-
-  /* Show data */
-  _dbg("[s: %3lu, h: %3lu, t: %3lu, of: %1u, len: %3lu]"
-         "[buf:",
-         rb->size,
-         rb->head,
-         rb->tail,
-         rb->head_of,
-         rb->op->len(rb)
-         );
-  for (idx = 0; idx < rb->size; idx++)
-  {
-    printf(" %02X", rb->buffer[idx]);
-  }
-  printf("]\n");
+  if (xyz == NULL) { return; }
+  _dbg("xyz_print_info: len ........: %lu\n", xyz->len);
   fflush(stdout);
-  return; 
 }
 
 #undef YCP_NAME
