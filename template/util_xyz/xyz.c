@@ -42,7 +42,7 @@ int xyz_setup(struct xyz *xyz, uint8_t *buffer, size_t size)
   /* Validate it */
   if ((xyz == NULL) || (buffer == NULL) || (size == 0))
   {
-    _dbg("xyz_feature: Invalid\n");
+    _dbg("xyz_setup: Invalid\n");
     return 1;
   }
 

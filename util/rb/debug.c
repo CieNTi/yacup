@@ -38,7 +38,7 @@ void rb_print_info(struct rb *rb)
 {
   if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
   {
-    _dbg("Provided rb is not valid\n");
+    _dbg("rb_print_info: Provided rb is not valid\n");
     return;
   }
 
@@ -46,7 +46,7 @@ void rb_print_info(struct rb *rb)
   size_t idx = 0;
 
   /* Show data */
-  _dbg("[s: %3lu, h: %3lu, t: %3lu, of: %1u, len: %3lu]"
+  _dbg("rb_print_info: [s: %3lu, h: %3lu, t: %3lu, of: %1u, len: %3lu]"
          "[buf:",
          rb->size,
          rb->head,

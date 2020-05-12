@@ -136,14 +136,14 @@ int fsm_simple_setup(struct fsm *fsm)
   /* It was possible to allocate it? */
   if (fsm == NULL)
   {
-    _dbg("fsm_simple_create: Invalid fsm\n");
+    _dbg("fsm_simple_setup: Invalid fsm\n");
     return 1;
   }
 
   /* It was possible to allocate it? */
   if (fsm->data == NULL)
   {
-    _dbg("fsm_simple_create: Invalid fsm data (fsm = %s)\n", fsm->name);
+    _dbg("fsm_simple_setup: Invalid fsm data (fsm = %s)\n", fsm->name);
     return 1;
   }
 

@@ -113,7 +113,7 @@ int fsm_do_cycle(struct fsm *fsm)
   /* Behavior */
   switch (fsm->state)
   {
-    /* This should be a 1-pass state only, just for initialization and checks */
+    /* This should be a 1-pass state only, only initialization and checks */
     case FSM_NEW:
       _dbg("fsm_do_cycle: %s@FSM_NEW\n", fsm->name);
       _dbg("fsm_do_cycle: fsm has been created. Lets configure it\n");
@@ -124,7 +124,8 @@ int fsm_do_cycle(struct fsm *fsm)
       /* Checks */
       if (fsm->start == NULL)
       {
-        _dbg("fsm_do_cycle: '%s' has no start. Ooops! Breaking here now ...\n", fsm->name);
+        _dbg("fsm_do_cycle: '%s' has no start. Ooops! Breaking here now ...\n",
+             fsm->name);
 
         /* Exits inmediately */
         fsm->stats[FSM_ERROR]++;
@@ -133,7 +134,8 @@ int fsm_do_cycle(struct fsm *fsm)
 
       if (fsm->stop == NULL)
       {
-        _dbg("fsm_do_cycle: '%s' has no stop, enabling FSM_CONFIG_AUTO_RESTART\n", fsm->name);
+        _dbg("fsm_do_cycle: '%s' has no stop. FSM_CONFIG_AUTO_RESTART set\n",
+             fsm->name);
 
         /* Infinite loop for non-stoppable fsm */
         fsm->config |= FSM_CONFIG_AUTO_RESTART;
@@ -158,7 +160,8 @@ int fsm_do_cycle(struct fsm *fsm)
           ((fsm->next == fsm->start) ||
            (fsm->config & FSM_CONFIG_AUTO_RESTART)))
       {
-        _dbg("fsm_do_cycle: '%s' fsm is ready or restart bit is set. Run it now!\n", fsm->name);
+        _dbg("fsm_do_cycle: '%s' fsm is ready/restart bit is set. Run it!\n",
+             fsm->name);
 
         /* Armed fsm, run it again */
         fsm->next = fsm->start;
@@ -207,7 +210,8 @@ int fsm_do_cycle(struct fsm *fsm)
       if (fsm->now(fsm))
       {
         /* Error, break */
-        _dbg("fsm_do_cycle: '%s' executed state but something wrong happened\n", fsm->name);
+        _dbg("fsm_do_cycle: '%s' executed, but something wrong happened\n",
+             fsm->name);
 
         /* @todo Error for now */
         fsm->state = FSM_ERROR;

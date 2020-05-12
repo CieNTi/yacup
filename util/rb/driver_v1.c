@@ -53,7 +53,7 @@ static int validate(struct rb *rb)
       /* Head >= tail */          
       (((rb->size * rb->head_of) + rb->head) < rb->tail))
   {
-    _dbg("validate ~~~~~~~~~~~~~~~~~~~~~~\n");
+    _dbg("validate: ~~~~~~~~~~~~~~~~~~~~~\n");
     _dbg("- rb cannot be null .....: %4s\n",
          (rb == NULL)?"FAIL":"OK");
     _dbg("- Buffer cannot be null .: %4s\n",
