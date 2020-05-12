@@ -24,6 +24,18 @@ extern "C" {
 /**
  * @addtogroup rb_driver
  * @{
+ *   @defgroup   rb_driver_v1 v1 (overwrite)
+ *   @{
+ *     @brief      First `rb` driver implementation, overwrite if full
+ *     @details    This implementation will overwrite data if full, updating
+ *                 both head and tail indices without throwing an error.
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *   @}
+ * @}
+ *
+ * @addtogroup rb_driver_v1
+ * @{
  */
 
 /* C libraries */
@@ -32,15 +44,21 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Check if a nice_structure is valid or not
+ * @brief      Ring-buffer operations driver v1
+ * @details    Composes a `rb_op` structure and returns it as a pointer.
+ * 
+ * This set of operations belongs to a first driver implementation, where a
+ * ring-buffer tail byte is overwritten if pushing over a full `rb`. This
+ * operation is performed without any warning or error.
+ * 
+ * If it is needed to preserve data under this circumstances, a new
+ * driver have to be implemented.
  *
  * @return     One of:
- *             | Value  | Meaning          |
- *             | :----: | :--------------- |
- *             | `== 0` | Ok               |
- *             | `!= 0` | Error            |
- *
- * @version    v1.0.0
+ *             | Value            | Meaning          |
+ *             | :--------------: | :--------------- |
+ *             | `struct rb_op *` | Ok               |
+ *             | `NULL`           | Error            |
  */
 struct rb_op *rb_driver_v1(void);
 

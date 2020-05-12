@@ -36,9 +36,6 @@ extern "C" {
  *   ```
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
- *   
- *   @version    v1.0.0
- *   @since      v1.0.0
  */
 
 /* C libraries */
@@ -48,21 +45,15 @@ extern "C" {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
  * @brief      A nice structure briefly described
- *
- * @version    v1.0.0
  */
 struct nice_structure
 {
   /** 
    * @brief      Pointer to bytes `uint8_t` buffer
-   *
-   * @version    v1.0.0
    */
   uint8_t *buffer;
   /** 
    * @brief      Some length
-   *
-   * @since      v1.0.0
    */
   size_t len;
   /**
@@ -76,8 +67,6 @@ struct nice_structure
    *             | :----: | :--------------- |
    *             | `== 0` | Ok               |
    *             | `!= 0` | Error            |
-   *
-   * @version    v1.0.0
    */
   int (*fn_pt)(int argc, const char* argv[]);
 };
@@ -94,8 +83,6 @@ struct nice_structure
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
- *
- * @version    v1.0.0
  */
 uint8_t nice_is_not_nice(struct nice_structure *nice);
 
@@ -110,8 +97,6 @@ uint8_t nice_is_not_nice(struct nice_structure *nice);
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
- *
- * @version    v1.0.0
  */
 struct nice_structure *nice_init(uint8_t *buffer, size_t size);
 

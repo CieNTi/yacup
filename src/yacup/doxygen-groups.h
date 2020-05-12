@@ -20,16 +20,14 @@
 /* This file covers that groups that are not defined in a header files */
 
 /**
- * @defgroup tests Tests
+ * @defgroup tests Tests and Debugging
  * @{
- *   @brief      This module contains all available tests published by the
- *               developer.
+ *   @brief      This module contains all available tests and all available
+ *               debug functions published by the developer
  *   @details    In order to include tests here, use `ingroup` as shown on
- *               template files.
+ *               template files
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
- *   @version    v1.0.0
- *   @since      v1.0.0
  *
  *   @defgroup   app_test Application tests
  *   @{
@@ -39,8 +37,6 @@
  *                 is not mandatory)
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
- *     @version    v1.0.0
- *     @since      v1.0.0
  *   @}
  *
  *   @defgroup   util_test Utilities tests
@@ -51,8 +47,16 @@
  *                 folder, but not from `src` one (as this is an application)
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
- *     @version    v1.0.0
- *     @since      v1.0.0
+ *   @}
+ *
+ *   @defgroup   debug_functions Debug functions
+ *   @{
+ *     @brief      Debugging helper functions to ease the development flow
+ *     @details    Each `util` or `app` is responsible of create or not a debug
+ *                 function, but it is recommended to invest a bit of time to
+ *                 create them, and the more the verbose, the better
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
  *   @}
  * @}
  */

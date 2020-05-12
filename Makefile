@@ -58,9 +58,12 @@ test_rb_driver_v1: $(addprefix $(ODIR)/, $(test_rb_driver_v1_objs))
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
 
-# Simple test for `rb` package
-test_rb_simple_objs=util/rb/test/test_rb_simple.o
-test_rb_simple: $(addprefix $(ODIR)/, $(test_rb_simple_objs))
+# Test to check `fsm` functionality
+test_fsm_simple_objs=util/fsm/fsm.o \
+                     util/fsm/debug.o \
+                     util/fsm/test/fsm_simple.o \
+                     util/fsm/test/test_fsm_simple.o
+test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"

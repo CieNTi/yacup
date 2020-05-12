@@ -28,18 +28,26 @@ extern "C" {
  *   @details    Ring buffer made easy (for me xD)
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
- *   @version    v1.0.0
- *   @since      v1.0.0
+ *
+ *   @defgroup   rb_api Interface
+ *   @{
+ *     @brief      Operations over `rb` instances
+ *     @details    Centralized functions to allow multiple implementations
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *   @}
  *
  *   @defgroup   rb_driver Drivers
  *   @{
  *     @brief      Operations driver for `rb` instances
- *     @details    Allow different ring.buffer implementations
+ *     @details    Different ring buffer implementations interfaces
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
- *     @version    v1.0.0
- *     @since      v1.0.0
  *   @}
+ * @}
+ * 
+ * @addtogroup   rb_api
+ * @{
  */
 
 /* C libraries */
