@@ -1,0 +1,4 @@
+<map id="state_1" name="state_1">
+<area shape="rect" id="node1" title="State state_1: Stay here during 5 cycles variable counts." alt="" coords="5,5,71,32"/>
+<area shape="rect" id="node2" href="$group__fsm__simple.html#ga25fe6c2909fa4cd77ce624d0eddeb22e" title="State stop: Prepare anything before stopping the fsm." alt="" coords="119,5,165,32"/>
+</map>

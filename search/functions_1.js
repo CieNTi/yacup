@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['nice_5finit_45',['nice_init',['../group__template.html#ga2b7e84a075d5be7fcd71e15a0df3157f',1,'header.h']]],
-  ['nice_5fis_5fnot_5fnice_46',['nice_is_not_nice',['../group__template.html#gae36be5dc1c62f3b812d06156ea1a587f',1,'header.h']]]
+  ['main_93',['main',['../group__template.html#gac0f2228420376f4db7e1274f2b41667c',1,'source.c']]]
 ];

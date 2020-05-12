@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['rb_42',['rb',['../structrb.html',1,'']]],
-  ['rb_5fop_43',['rb_op',['../structrb__op.html',1,'']]]
+  ['nice_5fstructure_80',['nice_structure',['../structnice__structure.html',1,'']]]
 ];

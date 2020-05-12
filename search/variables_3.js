@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['len_66',['len',['../structnice__structure.html#a7360b55975153b822efc5217b7734e6a',1,'nice_structure::len()'],['../structrb__op.html#a16078a5395556e4daabe7070103aa68d',1,'rb_op::len()']]]
+  ['fn_5fpt_118',['fn_pt',['../structnice__structure.html#a7c9382f3c479c9850f22b012d54959ef',1,'nice_structure']]],
+  ['full_119',['full',['../structrb__op.html#af583516db7851f21dffb09377e681eac',1,'rb_op']]]
 ];

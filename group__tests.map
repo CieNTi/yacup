@@ -1,5 +1,6 @@
-<map id="Tests" name="Tests">
-<area shape="rect" id="node1" href="$group__app__test.html" title="Available tests for applications (src folder)" alt="" coords="108,5,227,31"/>
-<area shape="rect" id="node2" title="This module contains all available tests published by the developer." alt="" coords="5,31,60,56"/>
-<area shape="rect" id="node3" href="$group__util__test.html" title="Available tests for utilities (util folder)" alt="" coords="118,55,217,80"/>
+<map id="Tests and Debugging" name="Tests and Debugging">
+<area shape="rect" id="node1" href="$group__app__test.html" title="Available tests for applications (src folder)" alt="" coords="196,5,315,31"/>
+<area shape="rect" id="node2" title="This module contains all available tests and all available debug functions published by the developer..." alt="" coords="5,55,148,80"/>
+<area shape="rect" id="node3" href="$group__debug__functions.html" title="Debugging helper functions to ease the development flow." alt="" coords="198,55,313,80"/>
+<area shape="rect" id="node4" href="$group__util__test.html" title="Available tests for utilities (util folder)" alt="" coords="206,104,305,129"/>
 </map>

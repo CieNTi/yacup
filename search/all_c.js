@@ -1,8 +1,19 @@
 var searchData=
 [
-  ['tail_32',['tail',['../structrb.html#ad71c3da585299fa719501f5149814fd7',1,'rb']]],
-  ['template_33',['Template',['../group__template.html',1,'']]],
-  ['test_5frb_5fdriver_5fv1_34',['test_rb_driver_v1',['../group__util__test.html#ga0d6706a9d8bb1cfe78fc205f278f4088',1,'test_rb_driver_v1(int argc, const char *argv[]):&#160;test_rb_driver_v1.c'],['../group__util__test.html#ga0d6706a9d8bb1cfe78fc205f278f4088',1,'test_rb_driver_v1(int argc, const char *argv[]):&#160;test_rb_driver_v1.c']]],
-  ['test_5fyacup_35',['test_yacup',['../group__app__test.html#ga359133e06980852b4c9e92359e20a710',1,'test_yacup.c']]],
-  ['tests_36',['Tests',['../group__tests.html',1,'']]]
+  ['rb_44',['rb',['../structrb.html',1,'rb'],['../group__rb.html',1,'(Global Namespace)']]],
+  ['rb_5fcreate_45',['rb_create',['../group__rb__api.html#ga806e75d4f1a2ef3320509f069ab76894',1,'rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void)):&#160;rb.c'],['../group__rb__api.html#ga806e75d4f1a2ef3320509f069ab76894',1,'rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void)):&#160;rb.c']]],
+  ['rb_5fdestroy_46',['rb_destroy',['../group__rb__api.html#gaa2679579aad7e6e4fc607e4640309b49',1,'rb_destroy(struct rb *rb):&#160;rb.c'],['../group__rb__api.html#gaa2679579aad7e6e4fc607e4640309b49',1,'rb_destroy(struct rb *rb):&#160;rb.c']]],
+  ['rb_5fdriver_5fv1_47',['rb_driver_v1',['../group__rb__driver__v1.html#ga2677aa065ac57faf87002c11c5a73871',1,'rb_driver_v1(void):&#160;driver_v1.c'],['../group__rb__driver__v1.html#ga2677aa065ac57faf87002c11c5a73871',1,'rb_driver_v1(void):&#160;driver_v1.c']]],
+  ['rb_5ffull_48',['rb_full',['../group__rb__api.html#gaceac7bcf58fd1c07fba15782ee62e158',1,'rb_full(struct rb *rb):&#160;rb.c'],['../group__rb__api.html#gaceac7bcf58fd1c07fba15782ee62e158',1,'rb_full(struct rb *rb):&#160;rb.c']]],
+  ['rb_5flen_49',['rb_len',['../group__rb__api.html#ga41b099989b3349b04773ceadf276f470',1,'rb_len(struct rb *rb):&#160;rb.c'],['../group__rb__api.html#ga41b099989b3349b04773ceadf276f470',1,'rb_len(struct rb *rb):&#160;rb.c']]],
+  ['rb_5fop_50',['rb_op',['../structrb__op.html',1,'']]],
+  ['rb_5fprint_5finfo_51',['rb_print_info',['../group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30',1,'rb_print_info(struct rb *rb):&#160;debug.c'],['../group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30',1,'rb_print_info(struct rb *rb):&#160;debug.c']]],
+  ['rb_5fpull_52',['rb_pull',['../group__rb__api.html#gad4a09b70178f9e847a660c51b1170aef',1,'rb_pull(struct rb *rb, uint8_t *byte):&#160;rb.c'],['../group__rb__api.html#gad4a09b70178f9e847a660c51b1170aef',1,'rb_pull(struct rb *rb, uint8_t *byte):&#160;rb.c']]],
+  ['rb_5fpush_53',['rb_push',['../group__rb__api.html#gafbfb992566219b55192d15ac6df26e80',1,'rb_push(struct rb *rb, uint8_t byte):&#160;rb.c'],['../group__rb__api.html#gafbfb992566219b55192d15ac6df26e80',1,'rb_push(struct rb *rb, uint8_t byte):&#160;rb.c']]],
+  ['rb_5fread_54',['rb_read',['../group__rb__api.html#gafdb7caa667d6371c53b02b73cdad85ca',1,'rb_read(struct rb *rb, uint8_t *byte, size_t position):&#160;rb.c'],['../group__rb__api.html#gafdb7caa667d6371c53b02b73cdad85ca',1,'rb_read(struct rb *rb, uint8_t *byte, size_t position):&#160;rb.c']]],
+  ['rb_5freset_55',['rb_reset',['../group__rb__api.html#ga7872afd788d2f46f71a85acaa6e095f4',1,'rb_reset(struct rb *rb):&#160;rb.c'],['../group__rb__api.html#ga7872afd788d2f46f71a85acaa6e095f4',1,'rb_reset(struct rb *rb):&#160;rb.c']]],
+  ['rb_5fsize_56',['rb_size',['../group__rb__api.html#ga001d75253c4e70d85222d440695fdc08',1,'rb_size(struct rb *rb):&#160;rb.c'],['../group__rb__api.html#ga001d75253c4e70d85222d440695fdc08',1,'rb_size(struct rb *rb):&#160;rb.c']]],
+  ['rb_5fwrite_57',['rb_write',['../group__rb__api.html#gad5afa11ed29c92c613138d041955d947',1,'rb_write(struct rb *rb, uint8_t byte, size_t position):&#160;rb.c'],['../group__rb__api.html#gad5afa11ed29c92c613138d041955d947',1,'rb_write(struct rb *rb, uint8_t byte, size_t position):&#160;rb.c']]],
+  ['read_58',['read',['../structrb__op.html#acb79ebdbf886c9ebf832bdecce02234e',1,'rb_op']]],
+  ['reset_59',['reset',['../structrb__op.html#a1e7bc55b0ae915ec3efbb307e719148e',1,'rb_op']]]
 ];

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['size_31',['size',['../structrb__op.html#a8cf559b837b7bd049596de5f0819fa76',1,'rb_op::size()'],['../structrb.html#a854352f53b148adc24983a58a1866d66',1,'rb::size()']]]
+  ['pull_42',['pull',['../structrb__op.html#ac70f69a14c9966045637112b96616047',1,'rb_op']]],
+  ['push_43',['push',['../structrb__op.html#aac4134a9d6bf931c8a59da43b020710e',1,'rb_op']]]
 ];

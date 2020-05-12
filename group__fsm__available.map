@@ -1,0 +1,5 @@
+<map id="Available FSM" name="Available FSM">
+<area shape="rect" id="node1" title="Already made and tested FSM for different purposes." alt="" coords="199,5,305,31"/>
+<area shape="rect" id="node2" href="$group__fsm__simple.html" title="A simple finite state machine for testing purposes." alt="" coords="353,5,447,31"/>
+<area shape="rect" id="node3" href="$group__fsm.html" title="Yet another finite&#45;state machine implementation." alt="" coords="5,5,151,31"/>
+</map>
