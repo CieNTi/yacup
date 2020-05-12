@@ -49,8 +49,8 @@ LDLIBS = -lm
 # Targets for 'util' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
 # Test to check `xyz` template functionality
-test_xyz_testname_objs=template/util_xyz/xyz.o \
-                       template/util_xyz/debug.o \
+test_xyz_testname_objs=template/util_xyz/xyz.o                    \
+                       template/util_xyz/debug.o                  \
                        template/util_xyz/test/test_xyz_testname.o
 test_xyz_testname: $(addprefix $(ODIR)/, $(test_xyz_testname_objs))
 	@echo "-----"
@@ -68,9 +68,9 @@ test_rb_driver_v1: $(addprefix $(ODIR)/, $(test_rb_driver_v1_objs))
 	@echo "-----"
 
 # Test to check `fsm` functionality
-test_fsm_simple_objs=util/fsm/fsm.o \
-                     util/fsm/debug.o \
-                     util/fsm/test/fsm_simple.o \
+test_fsm_simple_objs=util/fsm/fsm.o                  \
+                     util/fsm/debug.o                \
+                     util/fsm/test/fsm_simple.o      \
                      util/fsm/test/test_fsm_simple.o
 test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
 	@echo "-----"
