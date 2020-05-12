@@ -24,7 +24,7 @@ MFDIR = $(dir $(realpath $(firstword $(MAKEFILE_LIST))))
 MFDIR := $(MFDIR:/=)
 
 # Base input folders
-IDIR = $(addprefix $(MFDIR)/, $(wildcard util/*))
+IDIR = template/util_xyz $(addprefix $(MFDIR)/, $(wildcard util/*))
 SDIR = $(MFDIR)
 
 # Base output folders
@@ -48,6 +48,15 @@ LDLIBS = -lm
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Targets for 'util' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
+# Test to check `xyz` template functionality
+test_xyz_testname_objs=template/util_xyz/xyz.o \
+                       template/util_xyz/debug.o \
+                       template/util_xyz/test/test_xyz_testname.o
+test_xyz_testname: $(addprefix $(ODIR)/, $(test_xyz_testname_objs))
+	@echo "-----"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@echo "-----"
+
 # Test to check `rb` driver_v1 functionality
 test_rb_driver_v1_objs=util/rb/rb.o \
                        util/rb/debug.o \
@@ -73,8 +82,9 @@ test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
 # Targets for 'src' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~
 # Test app compounding all other tests defined here
-test_yacup_objs=$(test_rb_driver_v1_objs) \
-                $(test_rb_simple_objs)    \
+test_yacup_objs=$(test_xyz_testname_objs) \
+                $(test_rb_driver_v1_objs) \
+                $(test_fsm_simple_objs)   \
                 src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_objs))
 	@echo "-----"
@@ -125,7 +135,10 @@ test_bin:
 	@echo "-----"
 
 .PHONY: all
-all: clean debug prepare test_yacup test_rb_simple test_rb_driver_v1
+all: clean debug prepare test_yacup \
+                         test_xyz_testname \
+                         test_rb_driver_v1 \
+                         test_fsm_simple
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""
