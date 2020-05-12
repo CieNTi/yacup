@@ -34,4 +34,25 @@
   #endif
 #endif
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Configure `xyz` instance.
+ * Read `yacup/xyz.h` for complete information. */
+int xyz_setup(struct xyz *xyz, uint8_t *buffer, size_t size)
+{
+  /* Validate it */
+  if ((xyz == NULL) || (buffer == NULL) || (size == 0))
+  {
+    _dbg("xyz_feature: Invalid\n");
+    return 1;
+  }
+
+  /* Configure */
+  xyz->buffer = buffer;
+  xyz->len = size;
+  xyz->fn_pt = NULL;
+
+  /* And go! */
+  return 0;
+}
+
 #undef YCP_NAME

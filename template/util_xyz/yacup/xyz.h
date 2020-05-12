@@ -83,6 +83,23 @@ struct xyz
   int (*fn_pt)(int argc, const char* argv[]);
 };
 
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/**
+ * @brief      Configure `xyz` instance
+ *
+ * @param      xyz     Pointer to a XYZ
+ * @param      buffer  The buffer
+ * @param[in]  size    The size
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
+ */
+int xyz_setup(struct xyz *xyz, uint8_t *buffer, size_t size);
+
 /** @} */
 
 #ifdef __cplusplus
