@@ -67,19 +67,23 @@ enum fsm_state
    * @brief      single-pass state only, just for initialization and checks
    */
   FSM_NEW   = 0,
+  
   /**
    * @brief      'Nothing to do' state. FSM possibly ended and no rearm bit was
    *             found
    */
   FSM_PAUSE = 1,
+  
   /**
    * @brief      FSM core, where the magic happens
    */
   FSM_RUN   = 2,
+  
   /**
    * @brief      You're in a little trouble if you are here
    */
   FSM_ERROR = 3,
+  
   /**
    * @brief      Not a real state, just for stats as a cycle counter
    */
@@ -121,18 +125,22 @@ struct fsm
    * @warning    It is mandatory, otherwise the FSM will fail miserably
    */
   int (*start)(struct fsm *fsm);
+
   /**
    * @brief      State function executed to stop, before pause or restart
    */
   int (*stop) (struct fsm *fsm);
+
   /**
    * @brief      Saves previously executed state
    */
   int (*last) (struct fsm *fsm);
+
   /**
    * @brief      Current FSM state, in execution
    */
   int (*now)  (struct fsm *fsm);
+
   /**
    * @brief      Next state to be executed
    */
@@ -141,9 +149,26 @@ struct fsm
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
+ * @brief      Initializes a `fsm`
+ * @details    Checks and initializes `fsm` common data, then calls the lower
+ *             level init function passed by argument. The latter is defined at
+ *             each `fsm` unit, and it is where the `start` and `stop` states
+ *             are really assigned.
+ *
+ * @param      fsm   Pointer to a correctly initialized FSM
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
+ */
+int fsm_init(struct fsm *fsm, int (*fsm_low_level_init)(struct fsm *));
+
+/**
  * @brief      Sets the enable bit, allowing this `fsm` to perform actions
  *
- * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ * @param      fsm   Pointer to a FSM to initialize
  */
 void fsm_enable(struct fsm *fsm);
 
@@ -151,7 +176,7 @@ void fsm_enable(struct fsm *fsm);
  * @brief      Unsets the enable bit, disallowing this `fsm` to perform further
  *             actions
  *
- * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ * @param      fsm   Pointer to a correctly initialized FSM
  */
 void fsm_disable(struct fsm *fsm);
 
@@ -159,7 +184,7 @@ void fsm_disable(struct fsm *fsm);
  * @brief      Unsets the auto-restart bit, making this `fsm` to stop once
  *             completed
  *
- * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ * @param      fsm   Pointer to a correctly initialized FSM
  */
 void fsm_set_single(struct fsm *fsm);
 
@@ -167,7 +192,7 @@ void fsm_set_single(struct fsm *fsm);
  * @brief      Sets the auto-restart bit, making this `fsm` to start again once
  *             completed
  *
- * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ * @param      fsm   Pointer to a correctly initialized FSM
  */
 void fsm_set_loop(struct fsm *fsm);
 
@@ -175,7 +200,7 @@ void fsm_set_loop(struct fsm *fsm);
  * @brief      Sets the started bit, making this `fsm` to start the next valid
  *             cycle
  *
- * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ * @param      fsm   Pointer to a correctly initialized FSM
  */
 void fsm_request_start(struct fsm *fsm);
 
@@ -183,7 +208,7 @@ void fsm_request_start(struct fsm *fsm);
  * @brief      Unsets the started bit, making this `fsm` to stop the next valid
  *             cycle
  *
- * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ * @param      fsm   Pointer to a correctly initialized FSM
  */
 void fsm_request_stop(struct fsm *fsm);
 
@@ -191,7 +216,7 @@ void fsm_request_stop(struct fsm *fsm);
  * @brief      Stepper function (single cycle and exit, need outside controller
  *             loop)
  *
- * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ * @param      fsm   Pointer to a correctly initialized FSM
  *
  * @return     One of:
  *             | Value  | Meaning          |

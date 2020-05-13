@@ -22,20 +22,14 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup rb_driver
+ * @defgroup   rb_driver_overwrite Overwrite
  * @{
- *   @defgroup   rb_driver_overwrite Overwrite
- *   @{
- *     @brief      First `rb` driver implementation, overwrite if full
- *     @details    This implementation will overwrite data if full, updating
- *                 both head and tail indices without throwing an error.
- *     @author     CieNTi <cienti@cienti.com>
- *     @date       2020
- *   @}
- * @}
- *
- * @ingroup rb_driver_overwrite
- * @{
+ *   @brief      First `rb` driver implementation, overwrite if full
+ *   @details    This implementation will overwrite data if full, updating
+ *               both head and tail indices without throwing an error.
+ *   @ingroup    rb_driver
+ *   @author     CieNTi <cienti@cienti.com>
+ *   @date       2020
  */
 
 /* C libraries */

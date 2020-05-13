@@ -39,6 +39,30 @@
 #define FSM_CONFIG_AUTO_RESTART (uint32_t)(1 << 1)
 #define FSM_CONFIG_STARTED      (uint32_t)(1 << 2)
 
+/* Initializes a `fsm` common data, then lower level init, passed by argument.
+ * Read `yacup/fsm.h` for complete information. */
+int fsm_init(struct fsm *fsm, int (*fsm_low_level_init)(struct fsm *))
+{
+  /* Valid arguments? */
+  if ((fsm == NULL) || (fsm_low_level_init == NULL))
+  {
+    _dbg("fsm_init: Invalid fsm or low-level init function\n");
+    return 1;
+  }
+
+  /* Fill FSM common data */
+  fsm->config = 0;
+  fsm->state = FSM_NEW;
+  fsm->stats[FSM_NEW] = 0;
+  fsm->stats[FSM_PAUSE] = 0;
+  fsm->stats[FSM_RUN] = 0;
+  fsm->stats[FSM_ERROR] = 0;
+  fsm->stats[FSM_ALL] = 0;
+
+  /* Now call the low level init function, and go */
+  return (fsm_low_level_init(fsm));
+}
+
 /* Sets the enable bit, allowing this `fsm` to perform actions
  * Read `yacup/fsm.h` for complete information. */
 void fsm_enable(struct fsm *fsm)
