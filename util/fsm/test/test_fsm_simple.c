@@ -65,7 +65,7 @@ int test_fsm_simple(int argc, const char* argv[])
 
   /* fsm (fsm_simple.c) */
   _dbg("Setting up the fsm\n");
-  if (fsm_simple_setup(&fsm_simple0))
+  if (fsm_simple_init(&fsm_simple0))
   {
     _dbg("- Cannot setup the FSM. ERROR\n");
     return 1;

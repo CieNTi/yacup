@@ -22,19 +22,13 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup fsm_available
+ * @defgroup   fsm_simple Simple FSM
  * @{
- *   @defgroup   fsm_simple Simple FSM
- *   @{
- *     @brief      A simple finite state machine for testing purposes
- *     @details    This FSM just starts, execute state_1 5 times and finish
- *     @author     CieNTi <cienti@cienti.com>
- *     @date       2020
- *   @}
- * @}
- *
- * @ingroup fsm_simple
- * @{
+ *   @brief      A simple finite state machine for testing purposes
+ *   @details    This FSM just starts, execute state_1 5 times and finish
+ *   @ingroup    fsm_available
+ *   @author     CieNTi <cienti@cienti.com>
+ *   @date       2020
  */
 
 /* C libraries */
@@ -55,7 +49,7 @@ struct fsm_simple_data
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Create and initialize a `fsm_simple` type FSM
+ * @brief      Low-level initializer function for `fsm_simple` type FSM
  * @details    This FSM just starts, execute `state_1` 5 times and finish
  *
  * @param      fsm   fsm pointer to work with. Valid if returns without errors
@@ -66,7 +60,7 @@ struct fsm_simple_data
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int fsm_simple_setup(struct fsm *fsm);
+int fsm_simple_init(struct fsm *fsm);
 
 /** @} */
 
