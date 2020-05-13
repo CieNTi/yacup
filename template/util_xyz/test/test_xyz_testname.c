@@ -51,6 +51,8 @@
  */
 int test_xyz_testname(int argc, const char* argv[])
 {
+  printf("Hi! from "__FILE__"\n");
+
   /* Testbench vars */
   #define TEST_XYZ_TESTNAME_BUFFER_SIZE 20
   uint8_t buffer[TEST_XYZ_TESTNAME_BUFFER_SIZE];

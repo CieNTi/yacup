@@ -1,4 +1,4 @@
-/* test_cp_driver_B416K.c - Test to check cp's cp_simple functionality
+/* test_cp_codec_B416K.c - Test to check cp's cp_simple functionality
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -25,7 +25,7 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #undef YCP_NAME
-#define YCP_NAME "util/cp/test/test_cp_driver_B416K"
+#define YCP_NAME "util/cp/test/test_cp_codec_B416K"
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
@@ -49,16 +49,18 @@
  * @ingroup    util_test
  * @version    v1.0.0
  */
-int test_cp_driver_B416K(int argc, const char* argv[])
+int test_cp_codec_B416K(int argc, const char* argv[])
 {
+  printf("Hi! from "__FILE__"\n");
+
   /* Testbench vars */
   #define TEST_CP_TESTNAME_BUFFER_SIZE 20
   uint8_t buffer[TEST_CP_TESTNAME_BUFFER_SIZE];
-  struct cp cp_driver_B416K0;
+  struct cp cp_codec_B416K0;
 
   /* Setup cp */
   _dbg("Setting up the cp\n");
-  if (cp_setup(&cp_driver_B416K0, buffer, TEST_CP_TESTNAME_BUFFER_SIZE))
+  if (cp_setup(&cp_codec_B416K0, buffer, TEST_CP_TESTNAME_BUFFER_SIZE))
   {
     _dbg("- Cannot setup the CP. ERROR\n");
     return 1;
@@ -66,7 +68,7 @@ int test_cp_driver_B416K(int argc, const char* argv[])
   _dbg("- Ok\n");
 
   /* Cya! */
-  cp_print_info(&cp_driver_B416K0);
+  cp_print_info(&cp_codec_B416K0);
   return 0;
 }
 

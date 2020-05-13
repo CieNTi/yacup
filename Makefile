@@ -58,10 +58,10 @@ test_xyz_testname: $(addprefix $(ODIR)/, $(test_xyz_testname_objs))
 	@echo "-----"
 
 # Test to check `rb` overwrite driver functionality
-test_rb_driver_overwrite_objs=util/rb/rb.o                     \
-                       util/rb/debug.o                         \
-                       util/rb/driver/overwrite.o              \
-                       util/rb/test/test_rb_driver_overwrite.o
+test_rb_driver_overwrite_objs=util/rb/rb.o                            \
+                              util/rb/debug.o                         \
+                              util/rb/driver/overwrite.o              \
+                              util/rb/test/test_rb_driver_overwrite.o
 test_rb_driver_overwrite: $(addprefix $(ODIR)/, $(test_rb_driver_overwrite_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
@@ -78,10 +78,10 @@ test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
 	@echo "-----"
 
 # Test to check `cp` B416K protocol functionality
-test_cp_driver_B416K_objs=util/cp/cp.o                    \
-                      util/cp/debug.o                     \
-                      util/cp/test/test_cp_driver_B416K.o
-test_cp_driver_B416K: $(addprefix $(ODIR)/, $(test_cp_driver_B416K_objs))
+test_cp_codec_B416K_objs=util/cp/cp.o                       \
+                         util/cp/debug.o                    \
+                         util/cp/test/test_cp_codec_B416K.o
+test_cp_codec_B416K: $(addprefix $(ODIR)/, $(test_cp_codec_B416K_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
@@ -94,7 +94,7 @@ test_cp_driver_B416K: $(addprefix $(ODIR)/, $(test_cp_driver_B416K_objs))
 test_yacup_objs=$(test_xyz_testname_objs)        \
                 $(test_rb_driver_overwrite_objs) \
                 $(test_fsm_simple_objs)          \
-                $(test_cp_driver_B416K_objs)     \
+                $(test_cp_codec_B416K_objs)      \
                 src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_objs))
 	@echo "-----"
@@ -149,7 +149,7 @@ all: clean debug prepare test_yacup               \
                          test_xyz_testname        \
                          test_rb_driver_overwrite \
                          test_fsm_simple          \
-                         test_cp_driver_B416K
+                         test_cp_codec_B416K
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""
@@ -199,11 +199,35 @@ help:
 	@echo "Usage:"
 	@echo "  make target"
 	@echo ""
-	@echo "Available targets:"
-	@echo "  default ...: Executed if 'make' without target. Default: all"
-	@echo "  all .......: Executes all targets in sequence"
-	@echo "  clean .....: Deletes generated files after build"
-	@echo "  debug .....: Print debug information, like variables"
-	@echo "  prepare ...: Creates required folders and files"
-	@echo "  help ......: Print this information"
+	@echo "Available targets related to common tasks:"
+	@echo "  default ..: Executed if 'make' without target. Default: all"
+	@echo "  all ......: Executes all targets in sequence"
+	@echo "  clean ....: Deletes generated files after build"
+	@echo "  debug ....: Defines YACUP_DEBUG flag and print debug information"
+	@echo "  prepare ..: Creates required folders and files"
+	@echo "  help .....: Print this information"
+	@echo ""
+	@echo "Available targets related to utilities tests:"
+	@echo "  test_xyz_testname .........: Example 'xyz' template functionality"
+	@echo "  test_rb_driver_overwrite ..: 'rb' ring-buffer 'overwrite' driver"
+	@echo "  test_fsm_simple ...........: 'fsm' basic FSM functionality"
+	@echo "  test_cp_codec_B416K .......: 'cp' B416K codec functionality"
+	@echo ""
+	@echo "Available targets related to application tests:"
+	@echo "  test_yacup ..: Example application test that runs all other utils"
+	@echo "                 tests in a row"
+	@echo ""
+	@echo "Example:"
+	@echo "  - Prepare a clean environment, enable debug and print a brief"
+	@echo "    > make clean debug prepare"
+	@echo ""
+	@echo "  - Clean, prepare, build and execute 'test_xyz_testname' with debug"
+	@echo "    > make clean debug prepare test_xyz_testname"
+	@echo ""
+	@echo "NOTE:"
+	@echo "  If YACUP_DEBUG define/flag is defined, it will enable '_dbg()'"
+	@echo "  function along all the utilities and applications, so a lot of"
+	@echo "  internal information will be printed to STDOUT, formatted as:"
+	@echo "  > some/module/path | function_name: message"
+	@echo "  This will ease development and debug flows"
 	@echo ""
