@@ -22,20 +22,14 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup rb_driver
+ * @defgroup   rb_driver_overwrite Overwrite
  * @{
- *   @defgroup   rb_driver_overwrite Overwrite
- *   @{
- *     @brief      First `rb` driver implementation, overwrite if full
- *     @details    This implementation will overwrite data if full, updating
- *                 both head and tail indices without throwing an error.
- *     @author     CieNTi <cienti@cienti.com>
- *     @date       2020
- *   @}
- * @}
- *
- * @ingroup rb_driver_overwrite
- * @{
+ *   @brief      First `rb` driver implementation, overwrite if full
+ *   @details    This implementation will overwrite data if full, updating
+ *               both head and tail indices without throwing an error.
+ *   @ingroup    rb_driver
+ *   @author     CieNTi <cienti@cienti.com>
+ *   @date       2020
  */
 
 /* C libraries */
@@ -44,8 +38,8 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      `Overwrite` ring-buffer operations driver
- * @details    Composes a `rb_op` structure and returns it as a pointer.
+ * @brief      Low-level initializer function for `overwrite` RB driver
+ * @details    Lowest level checks, variables and operations assignment to `rb`
  * 
  * This set of operations belongs to a first driver implementation, where a
  * ring-buffer tail byte is overwritten if pushing over a full `rb`. This
@@ -54,13 +48,15 @@ extern "C" {
  * If it is needed to preserve data under this circumstances, a new
  * driver have to be implemented.
  *
+ * @param      rb    Pointer to a `rb` to work with
+ *
  * @return     One of:
- *             | Value            | Meaning          |
- *             | :--------------: | :--------------- |
- *             | `struct rb_op *` | Ok               |
- *             | `NULL`           | Error            |
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
  */
-struct rb_op *rb_driver_overwrite(void);
+int rb_driver_overwrite(struct rb *rb);
 
 /** @} */
 

@@ -201,11 +201,11 @@ static uint8_t full(struct rb *rb)
   return ((rb->head_of == 1) && (rb->head == rb->tail));
 }
 
-/* Compose a `rb_op` structure and returns it as a pointer.
+/* Initialize a `overwrite` type RB.
  * Read `yacup/rb/op.h` for complete information. */
-struct rb_op *rb_driver_overwrite(void)
+int rb_driver_overwrite(struct rb *rb)
 {
-  /* Create it static, as it will not change along the execution */
+  /* Create it static, as this will not change along the execution */
   static struct rb_op rb_driver_overwrite_op =
   {
     .validate = validate,
@@ -219,8 +219,18 @@ struct rb_op *rb_driver_overwrite(void)
     .full     = full
   };
 
-  /* And return it as a pointer */
-  return &rb_driver_overwrite_op;
+  /* Valid rb? */
+  if (rb == NULL)
+  {
+    _dbg("rb_driver_overwrite: Direct calls not recommended, read the doc\n");
+    return 1;
+  }
+
+  /* Ok assign the operations */
+  rb->op = &rb_driver_overwrite_op;
+
+  /* And return with success */
+  return 0;
 }
 
 #undef YCP_NAME

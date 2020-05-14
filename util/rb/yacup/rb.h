@@ -93,12 +93,14 @@ struct rb
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Create and initialize a ring-buffer. User needs to previously
- *             reserve a buffer
+ * @brief      Initializes a `rb`
+ * @details    Checks and initializes `rb` common data, then calls the lower
+ *             level init function passed by argument. The latter is defined at
+ *             each `rb` unit, and it is where the `start` and `stop` states are
+ *             really assigned.
  *
- * @param      buf     Buffer to store the data, created by the user
- * @param[in]  size    Size in bytes of the buffer
- * @param      driver  Pointer to a driver initializer function
+ * @param      rb              Pointer to a RB to initialize
+ * @param      rb_driver_init  Pointer to a driver initializer function
  *
  * @return     One of:
  *             | Value         | Meaning          |
@@ -106,30 +108,19 @@ struct rb
  *             | `struct rb *` | Ok               |
  *             | `NULL`        | Error            |
  */
-struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void));
-
-/**
- * @brief      Destroy a ring-buffer and free its resources. User needs to
- *             destroy the buffer
- *
- * @param      rb    Pointer to a ring-buffer previously created with
- *                   rb_create()
- */
-void rb_destroy(struct rb *rb);
+int rb_init(struct rb *rb, int (*rb_driver_init)(struct rb *));
 
 /**
  * @brief      Reset a ring-buffer by cleaning its content and making it empty
  *
- * @param      rb    Pointer to a ring-buffer previously created with
- *                   rb_create()
+ * @param      rb    Pointer to a correctly initialized RB
  */
 void rb_reset(struct rb *rb);
 
 /**
  * @brief      Add a byte to a ring-buffer head, overwritting if needed
  *
- * @param      rb    Pointer to a ring-buffer previously created with
- *                   rb_create()
+ * @param      rb    Pointer to a correctly initialized RB
  * @param[in]  byte  Byte to be pushed into the ring-buffer
  *
  * @return     One of:
@@ -143,8 +134,7 @@ int rb_push(struct rb *rb, uint8_t byte);
 /**
  * @brief      Read and delete a byte from a ring-buffer tail
  *
- * @param      rb    Pointer to a ring-buffer previously created with
- *                   rb_create()
+ * @param      rb    Pointer to a correctly initialized RB
  * @param      byte  Pointer to byte where to write the pushed value
  *
  * @return     One of:
@@ -159,8 +149,7 @@ int rb_pull(struct rb *rb, uint8_t *byte);
  * @brief      Write a byte by position on a ring-buffer, without updating
  *             head/tail.
  *
- * @param      rb        Pointer to a ring-buffer previously created with
- *                       create()
+ * @param      rb        Pointer to a correctly initialized RB
  * @param[in]  byte      Byte to be written into the ring-buffer
  * @param[in]  position  Position to read, thinking as if ring-buffer is linear
  *
@@ -176,8 +165,7 @@ int rb_write(struct rb *rb, uint8_t byte, size_t position);
  * @brief      Read a byte by position from a ring-buffer, without updating
  *             head/tail.
  *
- * @param      rb        Pointer to a ring-buffer previously created with
- *                       rb_create()
+ * @param      rb        Pointer to a correctly initialized RB
  * @param      byte      Pointer to byte where to write the pushed value
  * @param[in]  position  Position to read, thinking as if ring-buffer is linear
  *
@@ -192,8 +180,7 @@ int rb_read(struct rb *rb, uint8_t *byte, size_t position);
 /**
  * @brief      Returns max available size of a ring-buffer buffer
  *
- * @param      rb    Pointer to a ring-buffer previously created with
- *                   rb_create()
+ * @param      rb    Pointer to a correctly initialized RB
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -206,8 +193,7 @@ size_t rb_size(struct rb *rb);
 /**
  * @brief      Returns available data size inside a ring-buffer
  *
- * @param      rb    Pointer to a ring-buffer previously created with
- *                   rb_create()
+ * @param      rb    Pointer to a correctly initialized RB
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -220,8 +206,7 @@ size_t rb_len(struct rb *rb);
 /**
  * @brief      Check if a ring-buffer is full or not
  *
- * @param      rb    Pointer to a ring-buffer previously created with
- *                   rb_create()
+ * @param      rb    Pointer to a correctly initialized RB
  *
  * @return     One of:
  *             | Value  | Meaning              |
