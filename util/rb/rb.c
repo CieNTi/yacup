@@ -39,48 +39,33 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Create and initialize a ring-buffer.
  * Read `yacup/rb.h` for complete information. */
-struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
+int rb_init(struct rb *rb, int (*rb_driver_init)(struct rb *))
 {
-  if (/* Invalid buffer? */
-      (buf == NULL) ||
+  if (/* Invalid rb? */
+      (rb == NULL) ||
+      /* Invalid low-level init? */
+      (rb_driver_init == NULL) ||
+      /* Invalid buffer? */
+      (rb->buffer == NULL) ||
       /* Invalid size? */
-      (size == 0) ||
-      /* Invalid driver? */
-      (driver == NULL))
+      (rb->size == 0))
   {
-    _dbg("rb_create: Invalid buffer, size or driver\n");
-    return NULL;
+    _dbg("rb_init: Invalid rb, driver, buffer or size\n");
+    return 1;
   }
 
-  /* Allocate ring-buffer storage */
-  struct rb *rb = malloc(sizeof(struct rb));
-
-  /* It was possible to allocate it? */
-  if (rb == NULL)
-  {
-    _dbg("rb_create: Impossible to malloc() a rb\n");
-    return NULL;
-  }
-
-  /* Assign driver operations */
-  rb->op = driver();
-
-  /* Do we have operations? */
-  if (rb->op == NULL)
-  {
-    /* Deallocate rb and fail miserably */
-    free(rb);
-    rb = NULL;
-    _dbg("rb_create: Impossible to assign rb operations\n");
-    return NULL;
-  }
-
-  /* Let's assign its properties */
-  rb->buffer = buf;
-  rb->size = size;
+  /* Fill RB common data */
   rb->head = 0;
   rb->tail = 0;
   rb->head_of = 0;
+
+  /* Assign driver operations */
+  if (rb_driver_init(rb))
+  {
+    /* Fail miserably */
+    _dbg("rb_init: Impossible to assign rb operations\n");
+    return 1;
+  }
 
   /* Clean buffer and put it into a known state */
   rb->op->reset(rb);
@@ -88,28 +73,15 @@ struct rb *rb_create(uint8_t *buf, size_t size, struct rb_op *(*driver)(void))
   /* Finally, check if driver validates it */
   if (rb->op->validate(rb))
   {
-    /* Deallocate rb and fail miserably */
-    free(rb);
-    rb = NULL;
-    _dbg("rb_create: Impossible to assign rb operations\n");
-    return NULL;
+    /* Fail miserably */
+    _dbg("rb_init: Invalid rb after initialization\n");
+    return 1;
   }
   else
   {
     /* And finish! */
-    return rb;
+    return 0;
   }
-}
-
-/* Destroy a ring-buffer and free its resources.
- * Read `yacup/rb.h` for complete information. */
-void rb_destroy(struct rb *rb)
-{
-  /* Free the previously (m)allocated storage */
-  free(rb);
-
-  /* It is a void, just return */
-  return;
 }
 
 /* Reset a ring-buffer by cleaning its content and making it empty.
