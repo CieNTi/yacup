@@ -38,8 +38,8 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      `Overwrite` ring-buffer operations driver
- * @details    Composes a `rb_op` structure and returns it as a pointer.
+ * @brief      Low-level initializer function for `overwrite` RB driver
+ * @details    Lowest level checks, variables and operations assignment to `rb`
  * 
  * This set of operations belongs to a first driver implementation, where a
  * ring-buffer tail byte is overwritten if pushing over a full `rb`. This
@@ -48,13 +48,15 @@ extern "C" {
  * If it is needed to preserve data under this circumstances, a new
  * driver have to be implemented.
  *
+ * @param      rb    Pointer to a `rb` to work with
+ *
  * @return     One of:
- *             | Value            | Meaning          |
- *             | :--------------: | :--------------- |
- *             | `struct rb_op *` | Ok               |
- *             | `NULL`           | Error            |
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
  */
-struct rb_op *rb_driver_overwrite(void);
+int rb_driver_overwrite(struct rb *rb);
 
 /** @} */
 
