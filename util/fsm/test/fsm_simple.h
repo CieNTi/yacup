@@ -52,7 +52,7 @@ struct fsm_simple_data
  * @brief      Low-level initializer function for `fsm_simple` type FSM
  * @details    This FSM just starts, execute `state_1` 5 times and finish
  *
- * @param      fsm   fsm pointer to work with. Valid if returns without errors
+ * @param      fsm   Pointer to a `fsm` to work with
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -60,7 +60,7 @@ struct fsm_simple_data
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int fsm_simple_init(struct fsm *fsm);
+int fsm_simple(struct fsm *fsm);
 
 /** @} */
 

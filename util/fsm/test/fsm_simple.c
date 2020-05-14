@@ -131,19 +131,19 @@ static int stop(struct fsm *fsm)
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Initialize a `fsm_simple` type FSM.
  * Read `yacup/fsm/debug.h` for complete information. */
-int fsm_simple_init(struct fsm *fsm)
+int fsm_simple(struct fsm *fsm)
 {
-  /* Valid fsm argument? */
+  /* Valid fsm? */
   if (fsm == NULL)
   {
-    _dbg("fsm_simple_init: Direct calls are not recommended, read the doc\n");
+    _dbg("fsm_simple: Direct calls are not recommended, read the doc\n");
     return 1;
   }
 
   /* This fsm will use data, do we have assigned storage for it? */
   if (fsm->data == NULL)
   {
-    _dbg("fsm_simple_init: Invalid fsm data (fsm = %s)\n", fsm->name);
+    _dbg("fsm_simple: Invalid fsm data (fsm = %s)\n", fsm->name);
     return 1;
   }
 

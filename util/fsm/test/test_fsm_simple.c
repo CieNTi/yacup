@@ -55,7 +55,7 @@ int test_fsm_simple(int argc, const char* argv[])
   #define MAX_CYCLES 20
   uint32_t current_cycle = MAX_CYCLES;
 
-  /* FSM data */
+  /* FSM data and instance */
   struct fsm_simple_data fsm_simple0_data;
   struct fsm fsm_simple0 =
   {
@@ -63,11 +63,11 @@ int test_fsm_simple(int argc, const char* argv[])
     .data = &fsm_simple0_data
   };
 
-  /* fsm (fsm_simple.c) */
-  _dbg("Setting up the fsm\n");
-  if (fsm_simple_init(&fsm_simple0))
+  /* Initialize fsm found at `fsm_simple.c` */
+  _dbg("Initializing the finite-state machine\n");
+  if (fsm_init(&fsm_simple0, fsm_simple))
   {
-    _dbg("- Cannot setup the FSM. ERROR\n");
+    _dbg("- Cannot initialize the FSM. ERROR\n");
     return 1;
   }
   _dbg("- Ok\n");
