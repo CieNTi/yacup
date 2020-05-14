@@ -37,7 +37,7 @@
 #endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Create and initialize a ring-buffer.
+/* Initializes a `rb` common data, then lower level init, passed by argument.
  * Read `yacup/rb.h` for complete information. */
 int rb_init(struct rb *rb, int (*rb_driver_init)(struct rb *))
 {

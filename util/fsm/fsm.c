@@ -43,8 +43,10 @@
  * Read `yacup/fsm.h` for complete information. */
 int fsm_init(struct fsm *fsm, int (*fsm_low_level_init)(struct fsm *))
 {
-  /* Valid arguments? */
-  if ((fsm == NULL) || (fsm_low_level_init == NULL))
+  if (/* Invalid fsm? */
+      (fsm == NULL) ||
+      /* Invalid low-level init? */
+      (fsm_low_level_init == NULL))
   {
     _dbg("fsm_init: Invalid fsm or low-level init function\n");
     return 1;
