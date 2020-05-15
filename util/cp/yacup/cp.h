@@ -37,10 +37,10 @@ extern "C" {
  *     @date       2020
  *   @}
  *
- *   @defgroup   cp_driver Drivers
+ *   @defgroup   cp_codec Codecs
  *   @{
- *     @brief      Operations driver for `cp` instances
- *     @details    Different communication protocols implementations interfaces
+ *     @brief      Available codecs for `cp` instances
+ *     @details    Different encodings implementations ready to be used
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
