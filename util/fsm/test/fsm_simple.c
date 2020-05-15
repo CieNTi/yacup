@@ -22,20 +22,9 @@
 #include "fsm_simple.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/fsm/test/fsm_simple"
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Ease access from fsm->data */
@@ -62,7 +51,10 @@ static int stop(struct fsm *fsm);
  */
 static int start(struct fsm *fsm)
 {
-  _dbg("start: %s\n", fsm->name);
+  /* Configure _dbg() */
+  #define YCP_FNAME "start"
+
+  _dbg("%s\n", fsm->name);
 
   /* Default next state */
   fsm->next = state_1;
@@ -71,6 +63,9 @@ static int start(struct fsm *fsm)
   FSM_DATA(fsm)->cycles = 0;
 
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 /**
@@ -87,7 +82,10 @@ static int start(struct fsm *fsm)
  */
 static int state_1(struct fsm *fsm)
 {
-  _dbg("state_1: %s\n", fsm->name);
+  /* Configure _dbg() */
+  #define YCP_FNAME "state_1"
+
+  _dbg("%s\n", fsm->name);
 
   /* Default next state */
   fsm->next = state_1;
@@ -103,6 +101,9 @@ static int state_1(struct fsm *fsm)
     fsm->next = stop;
   }
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 /**
@@ -119,13 +120,19 @@ static int state_1(struct fsm *fsm)
  */
 static int stop(struct fsm *fsm)
 {
-  _dbg("stop: %s\n", fsm->name);
+  /* Configure _dbg() */
+  #define YCP_FNAME "stop"
+
+  _dbg("%s\n", fsm->name);
 
   /* Default next state */
   /* stop state do not need fsm->next, it's ignored by stepper anyway */
 
   (void)fsm;
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -133,17 +140,20 @@ static int stop(struct fsm *fsm)
  * Read `yacup/fsm/debug.h` for complete information. */
 int fsm_simple(struct fsm *fsm)
 {
+  /* Configure _dbg() */
+  #define YCP_FNAME "fsm_simple"
+
   /* Valid fsm? */
   if (fsm == NULL)
   {
-    _dbg("fsm_simple: Direct calls are not recommended, read the doc\n");
+    _dbg("Direct calls are not recommended, read the doc\n");
     return 1;
   }
 
   /* This fsm will use data, do we have assigned storage for it? */
   if (fsm->data == NULL)
   {
-    _dbg("fsm_simple: Invalid fsm data (fsm = %s)\n", fsm->name);
+    _dbg("Invalid fsm data (fsm = %s)\n", fsm->name);
     return 1;
   }
 
@@ -156,6 +166,9 @@ int fsm_simple(struct fsm *fsm)
 
   /* Let's go! */
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef FSM_DATA

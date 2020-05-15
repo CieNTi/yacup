@@ -20,27 +20,19 @@
 #include "yacup/rb/op.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/rb/driver/overwrite"
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Checks if the ring-buffer is valid or not.
  * Read `yacup/rb/op.h` for complete information. */
 static int validate(struct rb *rb)
 {
-  if (/* rb cannot be null */  
+  /* Configure _dbg() */
+  #define YCP_FNAME "validate"
+
+  if (/* rb cannot be null */
       (rb == NULL) ||
       /* Buffer cannot be null */ 
       (rb->buffer == NULL) ||
@@ -53,7 +45,7 @@ static int validate(struct rb *rb)
       /* Head >= tail */          
       (((rb->size * rb->head_of) + rb->head) < rb->tail))
   {
-    _dbg("validate: ~~~~~~~~~~~~~~~~~~~~~\n");
+    _dbg("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     _dbg("- rb cannot be null .....: %4s\n",
          (rb == NULL)?"FAIL":"OK");
     _dbg("- Buffer cannot be null .: %4s\n",
@@ -72,6 +64,9 @@ static int validate(struct rb *rb)
 
   /* Ok */
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 /* Reset a ring-buffer by cleaning its content and making it empty.
@@ -131,9 +126,12 @@ static int push(struct rb *rb, uint8_t byte)
  * Read `yacup/rb/op.h` for complete information. */
 static int pull(struct rb *rb, uint8_t *byte)
 {
+  /* Configure _dbg() */
+  #define YCP_FNAME "pull"
+
   if (rb->op->len(rb) == 0)
   {
-    _dbg("pull: Pulling from empty rb not allowed\n");
+    _dbg("Pulling from empty rb not allowed\n");
     return 1;
   }
 
@@ -151,6 +149,9 @@ static int pull(struct rb *rb, uint8_t *byte)
 
   /* Ok! */
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 /* Write a byte by position on a ring-buffer, without updating head/tail.
@@ -205,6 +206,9 @@ static uint8_t full(struct rb *rb)
  * Read `yacup/rb/op.h` for complete information. */
 int rb_driver_overwrite(struct rb *rb)
 {
+  /* Configure _dbg() */
+  #define YCP_FNAME "rb_driver_overwrite"
+
   /* Create it static, as this will not change along the execution */
   static struct rb_op rb_driver_overwrite_op =
   {
@@ -222,7 +226,7 @@ int rb_driver_overwrite(struct rb *rb)
   /* Valid rb? */
   if (rb == NULL)
   {
-    _dbg("rb_driver_overwrite: Direct calls not recommended, read the doc\n");
+    _dbg("Direct calls not recommended, read the doc\n");
     return 1;
   }
 
@@ -231,6 +235,9 @@ int rb_driver_overwrite(struct rb *rb)
 
   /* And return with success */
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME

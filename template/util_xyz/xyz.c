@@ -19,30 +19,22 @@
 #include "yacup/xyz.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/xyz/xyz"
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Configure `xyz` instance.
  * Read `yacup/xyz.h` for complete information. */
 int xyz_setup(struct xyz *xyz, uint8_t *buffer, size_t size)
 {
+  /* Configure _dbg() */
+  #define YCP_FNAME "xyz_setup"
+
   /* Validate it */
   if ((xyz == NULL) || (buffer == NULL) || (size == 0))
   {
-    _dbg("xyz_setup: Invalid\n");
+    _dbg("Invalid\n");
     return 1;
   }
 
@@ -53,6 +45,9 @@ int xyz_setup(struct xyz *xyz, uint8_t *buffer, size_t size)
 
   /* And go! */
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME

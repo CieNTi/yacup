@@ -21,23 +21,26 @@
 #include "yacup/xyz/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/xyz/debug"
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#ifndef _dbg
-  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Print `xyz` information to STDOUT.
  * Read `yacup/xyz/debug.h` for complete information. */
 void xyz_print_info(struct xyz *xyz)
 {
+  /* Configure _dbg() */
+  #define YCP_FNAME "xyz_print_info"
+
   if (xyz == NULL) { return; }
-  _dbg("xyz_print_info: len ........: %lu\n", xyz->len);
+  _dbg("len ........: %lu\n", xyz->len);
   fflush(stdout);
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG

@@ -1,4 +1,4 @@
-/* test_cp_codec_B416K.c - Test to check cp's cp_simple functionality
+/* test_cp_codec_B416K.c - Test to check cp's B416K codec functionality
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -24,14 +24,10 @@
 //#include "cp_external.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/cp/test/test_cp_codec_B416K"
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#ifndef _dbg
-  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -73,3 +69,4 @@ int test_cp_codec_B416K(int argc, const char* argv[])
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG

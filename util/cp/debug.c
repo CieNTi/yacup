@@ -18,19 +18,39 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "yacup/cp.h"
+#include "yacup/cp/codec.h"
 #include "yacup/cp/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/cp/debug"
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#ifndef _dbg
-  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Print `cp` codec information to STDOUT.
+ * Read `yacup/cp/debug.h` for complete information. */
+void cp_codec_print_info(struct cp_codec *codec)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "cp_codec_print_info"
+
+  /* Print codec information */
+  if (codec == NULL) { return; }
+  _dbg("codec ........: %p\n", (void *)&codec);
+  _dbg("- encode .....: %p\n", (void *)&codec->encode);
+  _dbg("  - data .....: %p\n", (void *)&codec->encode.data);
+  _dbg("  - message ..: %p\n", (void *)&codec->encode.message);
+  _dbg("- decode .....: %p\n", (void *)&codec->decode);
+  _dbg("  - data .....: %p\n", (void *)&codec->decode.data);
+  _dbg("  - message ..: %p\n", (void *)&codec->decode.message);
+  fflush(stdout);
+  return;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
 /* Print `cp` information to STDOUT.
  * Read `yacup/cp/debug.h` for complete information. */
 void cp_print_info(struct cp *cp)
@@ -41,3 +61,4 @@ void cp_print_info(struct cp *cp)
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG
