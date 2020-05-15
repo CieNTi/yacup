@@ -24,14 +24,10 @@
 #include "fsm_simple.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/fsm/test/test_fsm_simple"
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#ifndef _dbg
-  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -51,6 +47,9 @@
  */
 int test_fsm_simple(int argc, const char* argv[])
 {
+  /* Configure _dbg() */
+  #define YCP_FNAME "test_fsm_simple"
+
   /* Testbench vars */
   #define MAX_CYCLES 20
   uint32_t current_cycle = MAX_CYCLES;
@@ -103,6 +102,10 @@ int test_fsm_simple(int argc, const char* argv[])
   /* Cya! */
   fsm_print_stats(&fsm_simple0);
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG
