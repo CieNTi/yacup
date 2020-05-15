@@ -16,19 +16,16 @@
  */
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include "yacup/rb.h"
 #include "yacup/rb/debug.h"
 #include "yacup/rb/driver/overwrite.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/rb/test/test_rb_driver_overwrite"
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#ifndef _dbg
-  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -48,7 +45,10 @@
  */
 int test_rb_driver_overwrite(int argc, const char* argv[])
 {
-  printf("Hi! from "__FILE__"\n");
+  /* Configure _dbg() */
+  #define YCP_FNAME "cp_codec_print_info"
+
+  _dbg("Hi! from "__FILE__"\n");
 
   /* Variables related to the test itself */
   size_t idx = 0;
@@ -171,6 +171,10 @@ int test_rb_driver_overwrite(int argc, const char* argv[])
 
   _dbg("If you are reading this, everything went correctly :_)\n");
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG
