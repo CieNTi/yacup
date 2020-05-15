@@ -34,6 +34,7 @@ static int encode_data(enum cp_codec_data_type type, void *data, struct rb *rb)
   #define YCP_FNAME "encode_data"
 
   _dbg("Entering!\n");
+  rb_push(rb, *(uint8_t *)data);
 
   /* Ok! */
   return 0;
@@ -51,6 +52,7 @@ static int decode_data(struct rb *rb, enum cp_codec_data_type type, void *data)
   #define YCP_FNAME "decode_data"
 
   _dbg("Entering!\n");
+  rb_pull(rb, (uint8_t *)data);
 
   /* Ok! */
   return 0;

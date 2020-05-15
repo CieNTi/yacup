@@ -116,11 +116,29 @@ int test_cp_codec_B416K(int argc, const char* argv[])
 
   /* Encode a `uint8_t` variable */
   uint8_t src_data_u8 = 0xAB;
-  uint8_t dst_data_u8 = 0x00;
   _dbg("Encoding a uint8_t = 0x%02X\n", src_data_u8);
   if(cp_codec0.encode.data(CP_CODEC_DATA_UINT8_T, &src_data_u8, &rb_data))
   {
     _dbg("- Cannot encode the data. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+
+  /* Decode a `uint8_t` variable */
+  uint8_t dst_data_u8 = 0x00;
+  _dbg("Decoding a uint8_t\n");
+  if(cp_codec0.decode.data(&rb_data, CP_CODEC_DATA_UINT8_T, &dst_data_u8))
+  {
+    _dbg("- Cannot decode the data. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok. Got 0x%02X\n", dst_data_u8);
+
+  /* Compare */
+  _dbg("Comparing src = 0x%02X vs src = 0x%02X\n", src_data_u8, dst_data_u8);
+  if(src_data_u8 != dst_data_u8)
+  {
+    _dbg("- Not the same. ERROR\n");
     return 1;
   }
   _dbg("- Ok\n");
