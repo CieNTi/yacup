@@ -1,4 +1,4 @@
-/* fsm.c - Finite state machine implementation for yacup project
+/* fsm.c - Finite state machine API for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify

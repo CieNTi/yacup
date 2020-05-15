@@ -30,7 +30,7 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Print `cp` information to STDOUT.
  * Read `yacup/cp/debug.h` for complete information. */
-void cp_print_info(struct cp *cp);
+void cp_print_info(struct cp *cp)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "cp_print_info"

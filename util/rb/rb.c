@@ -1,4 +1,4 @@
-/* rb.c - Ring buffers implementation for yacup project
+/* rb.c - Ring buffers API for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
