@@ -15,10 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
-#include <stdio.h>
-#include <time.h>
-#include "yacup/cp.h"
+#include "yacup/rb.h"
+#include "yacup/rb/debug.h"
+#include "yacup/rb/driver/overwrite.h"
 #include "yacup/cp/debug.h"
+#include "yacup/cp/codec.h"
+#include "yacup/cp/codec/B416K.h"
 
 /* This include acts like an external application include, located elsewhere */
 //#include "cp_external.h"
@@ -47,25 +49,87 @@
  */
 int test_cp_codec_B416K(int argc, const char* argv[])
 {
-  printf("Hi! from "__FILE__"\n");
+  /* Configure _dbg() */
+  #define YCP_FNAME "test_cp_codec_B416K"
 
-  /* Testbench vars */
-  #define TEST_CP_TESTNAME_BUFFER_SIZE 20
-  uint8_t buffer[TEST_CP_TESTNAME_BUFFER_SIZE];
-  struct cp cp_codec_B416K0;
+  _dbg("Hi! from "__FILE__"\n");
 
-  /* Setup cp */
-  _dbg("Setting up the cp\n");
-  if (cp_setup(&cp_codec_B416K0, buffer, TEST_CP_TESTNAME_BUFFER_SIZE))
+  /* 
+   * HIGH-LEVEL: Inside test/app
+   */
+  /* What a codec needs:
+   * - one rb where to push the encoded data
+   * - one rb where to save a message
+   */
+  #define TEST_CP_CODEC_B416K_DATA 512
+  uint8_t buffer_data[TEST_CP_CODEC_B416K_DATA];
+  struct rb rb_data =
   {
-    _dbg("- Cannot setup the CP. ERROR\n");
+    .buffer = buffer_data,
+    .size = TEST_CP_CODEC_B416K_DATA
+  };
+
+  /* Create rb_data using overwrite driver */
+  _dbg("Initializing the 'rb_data' ring-buffer\n");
+  if (rb_init(&rb_data, rb_driver_overwrite))
+  {
+    _dbg("Cannot initialize rb_data\n");
+    return 1;
+  }
+
+  #define TEST_CP_CODEC_B416K_MESSAGE 1024
+  uint8_t buffer_message[TEST_CP_CODEC_B416K_MESSAGE];
+  struct rb rb_message =
+  {
+    .buffer = buffer_message,
+    .size = TEST_CP_CODEC_B416K_MESSAGE
+  };
+
+  /* Create rb_message using overwrite driver */
+  _dbg("Initializing the 'rb_message' ring-buffer\n");
+  if (rb_init(&rb_message, rb_driver_overwrite))
+  {
+    _dbg("Cannot initialize rb_message\n");
+    return 1;
+  }
+
+  /* test/app calls `cp_*` functions, not encode/decode. Test here only */
+
+  /* 
+   * MID-LOW-LEVEL: Calls to codec functions inside a `cp`
+   */
+  /* Set by `cp_init` */
+  struct cp_codec cp_codec0 = { 0x00 };
+  _dbg("Printing uninitialized 'cp_codec0'\n");
+  cp_codec_print_info(&cp_codec0);
+
+  /* Initialize codec found at `B416K.c` */
+  _dbg("Initializing the `B416K` codec\n");
+  if (cp_codec_init(&cp_codec0, cp_codec_B416K))
+  {
+    _dbg("- Cannot initialize the codec. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+  _dbg("Printing initialized 'cp_codec0', data and message not be NULL\n");
+  cp_codec_print_info(&cp_codec0);
+
+  /* Encode a `uint8_t` variable */
+  uint8_t src_data_u8 = 0xAB;
+  uint8_t dst_data_u8 = 0x00;
+  _dbg("Encoding a uint8_t = 0x%02X\n", src_data_u8);
+  if(cp_codec0.encode.data(CP_CODEC_DATA_UINT8_T, &src_data_u8, &rb_data))
+  {
+    _dbg("- Cannot encode the data. ERROR\n");
     return 1;
   }
   _dbg("- Ok\n");
 
   /* Cya! */
-  cp_print_info(&cp_codec_B416K0);
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME

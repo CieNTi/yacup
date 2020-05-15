@@ -53,44 +53,42 @@ extern "C" {
 /* C libraries */
 #include <stdint.h>
 #include <stddef.h>
+#include "yacup/rb.h"
+#include "yacup/fsm.h"
+#include "yacup/cp/codec.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/**
+ * @brief      Structure that defines a cp channel
+ */
+struct cp_channel
+{
+  uint8_t         busy;
+  uint8_t         data_ready;
+  struct rb       buffer;
+  struct fsm      chat;
+  struct cp_codec codec;
+};
+
 /**
  * @brief      Structure that defines a communication protocol
  */
 struct cp
 {
-  /** 
-   * @brief      Pointer to `uint8_t` buffer
-   */
-  uint8_t *buffer;
-  /** 
-   * @brief      Some length
-   */
-  size_t len;
-  /**
-   * @brief      A pointer to a `main()`-like function
-   *
-   * @param      argc  Number of arguments. At least 1
-   * @param      argv  Program arguments
-   *
-   * @return     One of:
-   *             | Value  | Meaning          |
-   *             | :----: | :--------------- |
-   *             | `== 0` | Ok               |
-   *             | `!= 0` | Error            |
-   */
-  int (*fn_pt)(int argc, const char* argv[]);
+  struct cp_channel out;
+  struct cp_channel in;
 };
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Configure `cp` instance
+ * @brief      Initializes a `cp`
+ * @details    Checks and initializes `cp` common data, then calls the lower
+ *             level init function passed by argument. The latter is defined at
+ *             each `cp` unit, and it is where the `start` and `stop` states
+ *             are really assigned.
  *
- * @param      cp     Pointer to a CP
- * @param      buffer  The buffer
- * @param[in]  size    The size
+ * @param      cp   Pointer to a correctly initialized FSM
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -98,7 +96,9 @@ struct cp
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int cp_setup(struct cp *cp, uint8_t *buffer, size_t size);
+int cp_init(struct cp *cp, int (*cp_low_level_init)(struct cp *));
+
+int cp_cycle(struct cp *cp);
 
 /** @} */
 

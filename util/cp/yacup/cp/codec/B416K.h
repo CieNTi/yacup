@@ -1,4 +1,4 @@
-/* debug.h - Debug functions to ease `cp` development flow
+/* B416K.h - Binary 4-byte + CRC-16/Kermit codec for `cp` util
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,30 +14,41 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CP_DEBUG_H
-#define __CP_DEBUG_H
+#ifndef __CP_CODEC_B416K_H
+#define __CP_CODEC_B416K_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @ingroup debug_functions
+ * @defgroup   cp_codec_B416K B416K
  * @{
+ *   @brief      Binary 4-byte + CRC-16/Kermit codec for `cp` util
+ *   @details    This implementation will use a `rb` to store or retrieve data,
+ *               and will compose the data frame as follows:
+ *               start_flag
+ *   @ingroup    cp_codec
+ *   @author     CieNTi <cienti@cienti.com>
+ *   @date       2020
  */
 
 /* C libraries */
-#include "yacup/cp.h"
-#include "yacup/cp/codec.h"
+#include <stdint.h>
+#include <stddef.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Print `cp` information to STDOUT (name, config, state, ...)
+ * @brief      Low-level initializer function for `B416K` type `cp` codec
+ * @details    Binary 4-byte + CRC-16/Kermit codec
  *
- * @param      cp    Pointer to a valid `cp`
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
  */
-void cp_print_info(struct cp *cp);
-void cp_codec_print_info(struct cp_codec *codec);
+int cp_codec_B416K(struct cp_codec *codec);
 
 /** @} */
 
@@ -45,4 +56,4 @@ void cp_codec_print_info(struct cp_codec *codec);
 }
 #endif /* __cplusplus */
 
-#endif /* __CP_DEBUG_H */
+#endif /* __CP_CODEC_B416K_H */

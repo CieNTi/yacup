@@ -28,7 +28,20 @@
 #define YCP_NAME "util/cp/debug"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Print `cp` codec information to STDOUT.
+/* Print `cp` information to STDOUT.
+ * Read `yacup/cp/debug.h` for complete information. */
+void cp_print_info(struct cp *cp);
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "cp_print_info"
+
+  _dbg("Entering\n");
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/* Print `cp_codec` information to STDOUT.
  * Read `yacup/cp/debug.h` for complete information. */
 void cp_codec_print_info(struct cp_codec *codec)
 {
@@ -37,27 +50,22 @@ void cp_codec_print_info(struct cp_codec *codec)
 
   /* Print codec information */
   if (codec == NULL) { return; }
-  _dbg("codec ........: %p\n", (void *)&codec);
-  _dbg("- encode .....: %p\n", (void *)&codec->encode);
-  _dbg("  - data .....: %p\n", (void *)&codec->encode.data);
-  _dbg("  - message ..: %p\n", (void *)&codec->encode.message);
-  _dbg("- decode .....: %p\n", (void *)&codec->decode);
-  _dbg("  - data .....: %p\n", (void *)&codec->decode.data);
-  _dbg("  - message ..: %p\n", (void *)&codec->decode.message);
+  _dbg("codec ...........: %p\n",      (void *)codec);
+  _dbg("- encode ........: %p\n",      (void *)&codec->encode);
+  _dbg("  - data ........: %p (%p)\n", (void *)&codec->encode.data,
+                                       (void *)(size_t)codec->encode.data);
+  _dbg("  - message .....: %p (%p)\n", (void *)&codec->encode.message,
+                                       (void *)(size_t)codec->encode.message);
+  _dbg("- decode ........: %p\n",      (void *)&codec->decode);
+  _dbg("  - data ........: %p (%p)\n", (void *)&codec->decode.data,
+                                       (void *)(size_t)codec->decode.data);
+  _dbg("  - message .....: %p (%p)\n", (void *)&codec->decode.message,
+                                       (void *)(size_t)codec->decode.message);
   fflush(stdout);
   return;
 
   /* Free _dbg() config */
   #undef YCP_FNAME
-}
-
-/* Print `cp` information to STDOUT.
- * Read `yacup/cp/debug.h` for complete information. */
-void cp_print_info(struct cp *cp)
-{
-  if (cp == NULL) { return; }
-  _dbg("cp_print_info: len ........: %lu\n", cp->len);
-  fflush(stdout);
 }
 
 #undef YCP_NAME
