@@ -17,20 +17,10 @@
 #include <stdio.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "app/test/test_yacup"
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Pre-declare required tests here (there is no header for them!) */
@@ -56,7 +46,10 @@ int test_cp_codec_B416K(int argc, const char* argv[]);
  */
 int test_yacup(int argc, const char* argv[])
 {
-  printf("Hi! from "__FILE__"\n");
+  /* Configure _dbg() */
+  #define YCP_FNAME "test_yacup"
+
+  _dbg("Hi! from "__FILE__"\n");
 
   printf("Result from test_xyz_testname() = %i\n", 
          test_xyz_testname(argc, argv));
@@ -66,8 +59,12 @@ int test_yacup(int argc, const char* argv[])
          test_fsm_simple(argc, argv));
   printf("Result from test_cp_codec_B416K() = %i\n", 
          test_cp_codec_B416K(argc, argv));
-  printf("Hi! from "__FILE__"\n");
+  _dbg("Hi! from "__FILE__"\n");
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG

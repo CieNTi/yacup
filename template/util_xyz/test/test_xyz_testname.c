@@ -24,14 +24,10 @@
 //#include "xyz_external.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/xyz/test/test_xyz_testname"
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#ifndef _dbg
-  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -51,7 +47,10 @@
  */
 int test_xyz_testname(int argc, const char* argv[])
 {
-  printf("Hi! from "__FILE__"\n");
+  /* Configure _dbg() */
+  #define YCP_FNAME "test_xyz_testname"
+
+  _dbg("Hi! from "__FILE__"\n");
 
   /* Testbench vars */
   #define TEST_XYZ_TESTNAME_BUFFER_SIZE 20
@@ -70,6 +69,10 @@ int test_xyz_testname(int argc, const char* argv[])
   /* Cya! */
   xyz_print_info(&xyz_testname0);
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG
