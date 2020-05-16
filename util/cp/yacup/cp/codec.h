@@ -38,13 +38,12 @@ extern "C" {
 enum cp_codec_data_type
 {
   CP_CODEC_DATA_HEAD     = 0,  CP_CODEC_DATA_TAIL      = 1,
-  CP_CODEC_DATA_GLUE     = 2,  CP_CODEC_DATA_RAW_BLOCK = 3,
+  CP_CODEC_DATA_GLUE     = 2,  CP_CODEC_DATA_CHAR      = 3,
   CP_CODEC_DATA_UINT8_T  = 4,  CP_CODEC_DATA_INT8_T    = 5,
   CP_CODEC_DATA_UINT16_T = 6,  CP_CODEC_DATA_INT16_T   = 7,
   CP_CODEC_DATA_UINT32_T = 8,  CP_CODEC_DATA_INT32_T   = 9,
   CP_CODEC_DATA_UINT64_T = 10, CP_CODEC_DATA_INT64_T   = 11,
-  CP_CODEC_DATA_FLOAT    = 12, CP_CODEC_DATA_DOUBLE    = 13,
-  CP_CODEC_DATA_CHAR     = 14, CP_CODEC_DATA_STRING    = 15
+  CP_CODEC_DATA_FLOAT    = 12, CP_CODEC_DATA_DOUBLE    = 13
 };
 
 /**
@@ -60,17 +59,20 @@ struct cp_codec
     /**
      * @brief      Encodes a defined type data and pushes it into a ring-buffer
      *
-     * @param[in]  type  One of `CP_CODEC_DATA_*` data types
-     * @param[in]  data  Pointer where the source data to encode is located
-     * @param      rb    Pointer to a destination ring-buffer
+     * @param      rb        Pointer to a destination ring-buffer
+     * @param      type      One of `CP_CODEC_DATA_*` data types
+     * @param      data      Pointer where the source data to encode is located
+     * @param      num_data  Number of data entities to encode
      *
      * @return     One of:
-     *             | Value  | Meaning          |
-     *             | :----: | :--------------- |
-     *             | `== 0` | Ok               |
-     *             | `!= 0` | Error            |
+     *             | Value  | Meaning                         |
+     *             | :----: | :------------------------------ |
+     *             | `== 0` | No encoded data                 |
+     *             | `>  0` | Number of encoded data entities |
      */
-    int (*data)(enum cp_codec_data_type type, void *data, struct rb *rb);
+    size_t (*data)(struct rb *rb,
+                   enum cp_codec_data_type type,
+                   void *data, size_t num_data);
 
     /**
      * @brief      Takes an input `rb` with raw data, encodes it as a message,
@@ -97,17 +99,20 @@ struct cp_codec
      * @brief      Pulls and decodes a defined type data from a ring-buffer and
      *             saves it into a pointed variable
      *
-     * @param[in]  in    Pointer to a source ring-buffer with encoded data
-     * @param      type  One of `CP_CODEC_DATA_*` data types
-     * @param      data  Pointer to a destination for decoded data
+     * @param[in]  rb        Pointer to a source ring-buffer with encoded data
+     * @param      type      One of `CP_CODEC_DATA_*` data types
+     * @param      data      Pointer to a destination for decoded data
+     * @param      num_data  Number of data entities to decode
      *
      * @return     One of:
-     *             | Value  | Meaning          |
-     *             | :----: | :--------------- |
-     *             | `== 0` | Ok               |
-     *             | `!= 0` | Error            |
+     *             | Value  | Meaning                         |
+     *             | :----: | :------------------------------ |
+     *             | `== 0` | No decoded data                 |
+     *             | `>  0` | Number of decoded data entities |
      */
-    int (*data)(struct rb *rb, enum cp_codec_data_type type, void *data);
+    size_t (*data)(struct rb *rb,
+                   enum cp_codec_data_type type,
+                   void *data, size_t num_data);
 
     /**
      * @brief      Takes an input `rb` with an encoded message, decodes it,
