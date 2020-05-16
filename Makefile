@@ -50,8 +50,8 @@ LDLIBS = -lm
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
 # Test to check `xyz` template functionality
 test_xyz_testname_objs=template/util_xyz/xyz.o                    \
-                       template/util_xyz/debug.o                  \
-                       template/util_xyz/test/test_xyz_testname.o
+                       template/util_xyz/test/test_xyz_testname.o \
+                       template/util_xyz/debug.o
 test_xyz_testname: $(addprefix $(ODIR)/, $(test_xyz_testname_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
@@ -59,9 +59,9 @@ test_xyz_testname: $(addprefix $(ODIR)/, $(test_xyz_testname_objs))
 
 # Test to check `rb` overwrite driver functionality
 test_rb_driver_overwrite_objs=util/rb/rb.o                            \
-                              util/rb/debug.o                         \
                               util/rb/driver/overwrite.o              \
-                              util/rb/test/test_rb_driver_overwrite.o
+                              util/rb/test/test_rb_driver_overwrite.o \
+                              util/rb/debug.o
 test_rb_driver_overwrite: $(addprefix $(ODIR)/, $(test_rb_driver_overwrite_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
@@ -69,18 +69,23 @@ test_rb_driver_overwrite: $(addprefix $(ODIR)/, $(test_rb_driver_overwrite_objs)
 
 # Test to check `fsm` functionality
 test_fsm_simple_objs=util/fsm/fsm.o                  \
-                     util/fsm/debug.o                \
                      util/fsm/test/fsm_simple.o      \
-                     util/fsm/test/test_fsm_simple.o
+                     util/fsm/test/test_fsm_simple.o \
+                     util/fsm/debug.o
 test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
 
 # Test to check `cp` B416K protocol functionality
-test_cp_codec_B416K_objs=util/cp/cp.o                       \
-                         util/cp/debug.o                    \
-                         util/cp/test/test_cp_codec_B416K.o
+test_cp_codec_B416K_objs=util/rb/rb.o                       \
+                         util/rb/driver/overwrite.o         \
+                         util/fsm/fsm.o                     \
+                         util/cp/cp.o                       \
+                         util/cp/codec.o                    \
+                         util/cp/codec/B416K.o              \
+                         util/cp/test/test_cp_codec_B416K.o \
+                         util/cp/debug.o
 test_cp_codec_B416K: $(addprefix $(ODIR)/, $(test_cp_codec_B416K_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
