@@ -25,6 +25,90 @@
 #define YCP_NAME "util/cp/codec/B416K"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+static size_t codec_sizeof(enum cp_codec_data_type type)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "codec_sizeof"
+
+   switch(type)
+  {
+    case CP_CODEC_DATA_HEAD:
+      _dbg("Selected data type CP_CODEC_DATA_HEAD\n");
+      //return (sizeof(head));
+      break;
+    case CP_CODEC_DATA_TAIL:
+      _dbg("Selected data type CP_CODEC_DATA_TAIL\n");
+      //return (sizeof(tail));
+      break;
+    case CP_CODEC_DATA_GLUE:
+      _dbg("Selected data type CP_CODEC_DATA_GLUE\n");
+      //return (sizeof(glue));
+      break;
+    case CP_CODEC_DATA_RAW_BLOCK:
+      _dbg("Selected data type CP_CODEC_DATA_RAW_BLOCK\n");
+      //return (sizeof(uint8_t));
+      break;
+    case CP_CODEC_DATA_UINT8_T:
+      _dbg("Selected data type CP_CODEC_DATA_UINT8_T\n");
+      return (sizeof(uint8_t));
+      break;
+    case CP_CODEC_DATA_INT8_T:
+      _dbg("Selected data type CP_CODEC_DATA_INT8_T\n");
+      return (sizeof(int8_t));
+      break;
+    case CP_CODEC_DATA_UINT16_T:
+      _dbg("Selected data type CP_CODEC_DATA_UINT16_T\n");
+      return (sizeof(uint16_t));
+      break;
+    case CP_CODEC_DATA_INT16_T:
+      _dbg("Selected data type CP_CODEC_DATA_INT16_T\n");
+      return (sizeof(int16_t));
+      break;
+    case CP_CODEC_DATA_UINT32_T:
+      _dbg("Selected data type CP_CODEC_DATA_UINT32_T\n");
+      return (sizeof(uint32_t));
+      break;
+    case CP_CODEC_DATA_INT32_T:
+      _dbg("Selected data type CP_CODEC_DATA_INT32_T\n");
+      return (sizeof(int32_t));
+      break;
+    case CP_CODEC_DATA_UINT64_T:
+      _dbg("Selected data type CP_CODEC_DATA_UINT64_T\n");
+      return (sizeof(uint64_t));
+      break;
+    case CP_CODEC_DATA_INT64_T:
+      _dbg("Selected data type CP_CODEC_DATA_INT64_T\n");
+      return (sizeof(int64_t));
+      break;
+    case CP_CODEC_DATA_FLOAT:
+      _dbg("Selected data type CP_CODEC_DATA_FLOAT\n");
+      return (sizeof(float));
+      break;
+    case CP_CODEC_DATA_DOUBLE:
+      _dbg("Selected data type CP_CODEC_DATA_DOUBLE\n");
+      return (sizeof(double));
+      break;
+    case CP_CODEC_DATA_CHAR:
+      _dbg("Selected data type CP_CODEC_DATA_CHAR\n");
+      return (sizeof(char));
+      break;
+    case CP_CODEC_DATA_STRING:
+      _dbg("Selected data type CP_CODEC_DATA_STRING\n");
+      //return (sizeof(char));
+      break;
+    default:
+      _dbg("Unrecognized type %lu\n", (size_t)type);
+      //
+      break;
+  }
+
+  /* Invalid size */
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
 /* Encodes a defined type data and pushes it into a ring-buffer
  * WARNING: Assumed `cp/cp.c` pre-validation. Not safe as direct call!
  * Read `yacup/cp/codec.h` for complete information. */
@@ -33,8 +117,27 @@ static int encode_data(enum cp_codec_data_type type, void *data, struct rb *rb)
   /* Configure _dbg() */
   #define YCP_FNAME "encode_data"
 
-  _dbg("Entering!\n");
-  rb_push(rb, *(uint8_t *)data);
+  size_t num_bytes = 0;
+  size_t idx = 0;
+
+  /* TBD / TODO: Can be a codec configuration */
+  uint8_t big_endian = 1;
+
+  num_bytes = codec_sizeof(type);
+  for (idx; idx < num_bytes; idx++)
+  {
+    /* Select endianess */
+    if (big_endian)
+    {
+      _dbg("Pushing %lu/%lu. Source: %p = %u\n", idx, num_bytes,
+           (uint8_t *)data + idx, *((uint8_t *)data + idx));
+      if (rb_push(rb, *((uint8_t *)data + idx)))
+      {
+        /* We expected that bytes to be here, should be error or warning? */
+        return 1;
+      }
+    }
+  }
 
   /* Ok! */
   return 0;
@@ -51,8 +154,27 @@ static int decode_data(struct rb *rb, enum cp_codec_data_type type, void *data)
   /* Configure _dbg() */
   #define YCP_FNAME "decode_data"
 
-  _dbg("Entering!\n");
-  rb_pull(rb, (uint8_t *)data);
+  size_t num_bytes = 0;
+  size_t idx = 0;
+
+  /* TBD / TODO: Can be a codec configuration */
+  uint8_t big_endian = 1;
+
+  num_bytes = codec_sizeof(type);
+  for (idx; idx < num_bytes; idx++)
+  {
+    /* Select endianess */
+    if (big_endian)
+    {
+      _dbg("Pulling %lu/%lu. Target: %p\n", idx, num_bytes,
+           (uint8_t *)data + idx);
+      if (rb_pull(rb, (uint8_t *)data + idx))
+      {
+        /* We expected that bytes to be here, should be error or warning? */
+        return 1;
+      }
+    }
+  }
 
   /* Ok! */
   return 0;

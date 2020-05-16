@@ -32,6 +32,239 @@
 #define YCP_NAME "util/cp/test/test_cp_codec_B416K"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+int encode_decode_check_by_type(struct cp_codec *codec,
+                                enum cp_codec_data_type type,
+                                struct rb *rb)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "encode_decode_check_by_type"
+
+  /* All data types, source and destination flavours */
+  //head      src_head        = 0;              head      dst_head        = 0;
+  //tail      src_tail        = 0;              tail      dst_tail        = 0;
+  //glue      src_glue        = 0;              glue      dst_glue        = 0;
+  //raw_block src_raw_block   = 0;              raw_block dst_raw_block   = 0;
+  uint8_t   src_uint8_t     = 100;            uint8_t   dst_uint8_t     = 0;
+  int8_t    src_int8_t      = -100;           int8_t    dst_int8_t      = 0;
+  uint16_t  src_uint16_t    = 300;            uint16_t  dst_uint16_t    = 0;
+  int16_t   src_int16_t     = -300;           int16_t   dst_int16_t     = 0;
+  uint32_t  src_uint32_t    = 100000;         uint32_t  dst_uint32_t    = 0;
+  int32_t   src_int32_t     = -100000;        int32_t   dst_int32_t     = 0;
+  uint64_t  src_uint64_t    = 4300000000;     uint64_t  dst_uint64_t    = 0;
+  int64_t   src_int64_t     = -4300000000;    int64_t   dst_int64_t     = 0;
+  float     src_float       = -1.23456789012; float     dst_float       = 0.0;
+  double    src_double      = -1.23456789012; double    dst_double      = 0.0;
+  char      src_char        = 'a';            char      dst_char        = 0;
+  char      src_string[128] = "abcd";         char      dst_string[128] = "";
+  /* Pointers to them, both fashions */
+  void      *src_pt         = NULL;           void      *dst_pt         = NULL;
+
+  /* Branch on type to assign valid pointers */
+  switch(type)
+  {
+    case CP_CODEC_DATA_HEAD:
+      _dbg("Selected data type CP_CODEC_DATA_HEAD = %lu\n", (size_t)type);
+      //src_pt = &src_head;     dst_pt = &dst_head;
+      return 1; // Not implemented yet
+      break;
+    case CP_CODEC_DATA_TAIL:
+      _dbg("Selected data type CP_CODEC_DATA_TAIL = %lu\n", (size_t)type);
+      //src_pt = &src_tail;     dst_pt = &dst_tail;
+      return 1; // Not implemented yet
+      break;
+    case CP_CODEC_DATA_GLUE:
+      _dbg("Selected data type CP_CODEC_DATA_GLUE = %lu\n", (size_t)type);
+      //src_pt = &src_glue;     dst_pt = &dst_glue;
+      return 1; // Not implemented yet
+      break;
+    case CP_CODEC_DATA_RAW_BLOCK:
+      _dbg("Selected data type CP_CODEC_DATA_RAW_BLOCK = %lu\n", (size_t)type);
+      //src_pt = &src_uint8_t;  dst_pt = &dst_uint8_t;
+      return 1; // Not implemented yet
+      break;
+    case CP_CODEC_DATA_UINT8_T:
+      _dbg("Selected data type CP_CODEC_DATA_UINT8_T = %lu\n", (size_t)type);
+      src_pt = &src_uint8_t;  dst_pt = &dst_uint8_t;
+      break;
+    case CP_CODEC_DATA_INT8_T:
+      _dbg("Selected data type CP_CODEC_DATA_INT8_T = %lu\n", (size_t)type);
+      src_pt = &src_int8_t;   dst_pt = &dst_int8_t;
+      break;
+    case CP_CODEC_DATA_UINT16_T:
+      _dbg("Selected data type CP_CODEC_DATA_UINT16_T = %lu\n", (size_t)type);
+      src_pt = &src_uint16_t; dst_pt = &dst_uint16_t;
+      break;
+    case CP_CODEC_DATA_INT16_T:
+      _dbg("Selected data type CP_CODEC_DATA_INT16_T = %lu\n", (size_t)type);
+      src_pt = &src_int16_t;  dst_pt = &dst_int16_t;
+      break;
+    case CP_CODEC_DATA_UINT32_T:
+      _dbg("Selected data type CP_CODEC_DATA_UINT32_T = %lu\n", (size_t)type);
+      src_pt = &src_uint32_t; dst_pt = &dst_uint32_t;
+      break;
+    case CP_CODEC_DATA_INT32_T:
+      _dbg("Selected data type CP_CODEC_DATA_INT32_T = %lu\n", (size_t)type);
+      src_pt = &src_int32_t;  dst_pt = &dst_int32_t;
+      break;
+    case CP_CODEC_DATA_UINT64_T:
+      _dbg("Selected data type CP_CODEC_DATA_UINT64_T = %lu\n", (size_t)type);
+      src_pt = &src_uint64_t; dst_pt = &dst_uint64_t;
+      break;
+    case CP_CODEC_DATA_INT64_T:
+      _dbg("Selected data type CP_CODEC_DATA_INT64_T = %lu\n", (size_t)type);
+      src_pt = &src_int64_t;  dst_pt = &dst_int64_t;
+      break;
+    case CP_CODEC_DATA_FLOAT:
+      _dbg("Selected data type CP_CODEC_DATA_FLOAT = %lu\n", (size_t)type);
+      src_pt = &src_float;    dst_pt = &dst_float;
+      break;
+    case CP_CODEC_DATA_DOUBLE:
+      _dbg("Selected data type CP_CODEC_DATA_DOUBLE = %lu\n", (size_t)type);
+      src_pt = &src_double;   dst_pt = &dst_double;
+      break;
+    case CP_CODEC_DATA_CHAR:
+      _dbg("Selected data type CP_CODEC_DATA_CHAR = %lu\n", (size_t)type);
+      src_pt = &src_char;     dst_pt = &dst_char;
+      break;
+    case CP_CODEC_DATA_STRING:
+      _dbg("Selected data type CP_CODEC_DATA_STRING = %lu\n", (size_t)type);
+      src_pt = &src_string;   dst_pt = &dst_string;
+      return 1; // Not implemented yet
+      break;
+    default:
+      _dbg("Unrecognized type %lu\n", (size_t)type);
+      return 1;
+  }
+
+  /* Encode selected variable */
+  _dbg("Encoding type %lu from address %p\n", (size_t)type, src_pt);
+  if(codec->encode.data(type, src_pt, rb))
+  {
+    _dbg("- Cannot encode the data. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+
+  /* Decode a selected variable */
+  _dbg("Decoding type %lu to address %p\n", (size_t)type, dst_pt);
+  if(codec->decode.data(rb, type, dst_pt))
+  {
+    _dbg("- Cannot decode the data. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+
+  /* Branch on type to check each returned value */
+  uint8_t res = 0;
+  switch(type)
+  {
+    case CP_CODEC_DATA_HEAD:
+      _dbg("Checking data type CP_CODEC_DATA_HEAD = %lu\n", (size_t)type);
+      //res = (src_head == dst_head);
+      //_dbg("%u == %u?\n", src_head, dst_head);
+      return 1; // Not implemented yet
+      break;
+    case CP_CODEC_DATA_TAIL:
+      _dbg("Checking data type CP_CODEC_DATA_TAIL = %lu\n", (size_t)type);
+      //res = (src_tail == dst_tail);
+      //_dbg("%u == %u?\n", src_tail, dst_tail);
+      return 1; // Not implemented yet
+      break;
+    case CP_CODEC_DATA_GLUE:
+      _dbg("Checking data type CP_CODEC_DATA_GLUE = %lu\n", (size_t)type);
+      //res = (src_glue == dst_glue);
+      //_dbg("%u == %u?\n", src_glue, dst_glue);
+      return 1; // Not implemented yet
+      break;
+    case CP_CODEC_DATA_RAW_BLOCK:
+      _dbg("Checking data type CP_CODEC_DATA_RAW_BLOCK = %lu\n", (size_t)type);
+      //res = (src_uint8_t == dst_uint8_t);
+      //_dbg("%u == %u?\n", src_uint8_t, dst_uint8_t);
+      return 1; // Not implemented yet
+      break;
+    case CP_CODEC_DATA_UINT8_T:
+      _dbg("Checking data type CP_CODEC_DATA_UINT8_T = %lu\n", (size_t)type);
+      res = (src_uint8_t == dst_uint8_t);
+      _dbg("%u == %u?\n", src_uint8_t, dst_uint8_t);
+      break;
+    case CP_CODEC_DATA_INT8_T:
+      _dbg("Checking data type CP_CODEC_DATA_INT8_T = %lu\n", (size_t)type);
+      res = (src_int8_t == dst_int8_t);
+      _dbg("%i == %i?\n", src_int8_t, dst_int8_t);
+      break;
+    case CP_CODEC_DATA_UINT16_T:
+      _dbg("Checking data type CP_CODEC_DATA_UINT16_T = %lu\n", (size_t)type);
+      res = (src_uint16_t == dst_uint16_t);
+      _dbg("%u == %u?\n", src_uint16_t, dst_uint16_t);
+      break;
+    case CP_CODEC_DATA_INT16_T:
+      _dbg("Checking data type CP_CODEC_DATA_INT16_T = %lu\n", (size_t)type);
+      res = (src_int16_t == dst_int16_t);
+      _dbg("%i == %i?\n", src_int16_t, dst_int16_t);
+      break;
+    case CP_CODEC_DATA_UINT32_T:
+      _dbg("Checking data type CP_CODEC_DATA_UINT32_T = %lu\n", (size_t)type);
+      res = (src_uint32_t == dst_uint32_t);
+      _dbg("%u == %u?\n", src_uint32_t, dst_uint32_t);
+      break;
+    case CP_CODEC_DATA_INT32_T:
+      _dbg("Checking data type CP_CODEC_DATA_INT32_T = %lu\n", (size_t)type);
+      res = (src_int32_t == dst_int32_t);
+      _dbg("%i == %i?\n", src_int32_t, dst_int32_t);
+      break;
+    case CP_CODEC_DATA_UINT64_T:
+      _dbg("Checking data type CP_CODEC_DATA_UINT64_T = %lu\n", (size_t)type);
+      res = (src_uint64_t == dst_uint64_t);
+      _dbg("%lu == %lu?\n", src_uint64_t, dst_uint64_t);
+      break;
+    case CP_CODEC_DATA_INT64_T:
+      _dbg("Checking data type CP_CODEC_DATA_INT64_T = %lu\n", (size_t)type);
+      res = (src_int64_t == dst_int64_t);
+      _dbg("%li == %li?\n", src_int64_t, dst_int64_t);
+      break;
+    case CP_CODEC_DATA_FLOAT:
+      _dbg("Checking data type CP_CODEC_DATA_FLOAT = %lu\n", (size_t)type);
+      res = (src_float == dst_float);
+      _dbg("%f == %f?\n", src_float, dst_float);
+      break;
+    case CP_CODEC_DATA_DOUBLE:
+      _dbg("Checking data type CP_CODEC_DATA_DOUBLE = %lu\n", (size_t)type);
+      res = (src_double == dst_double);
+      _dbg("%f == %f?\n", src_double, dst_double);
+      break;
+    case CP_CODEC_DATA_CHAR:
+      _dbg("Checking data type CP_CODEC_DATA_CHAR = %lu\n", (size_t)type);
+      res = (src_char == dst_char);
+      _dbg("0x%02X == 0x%02X?\n", src_char, dst_char);
+      break;
+    case CP_CODEC_DATA_STRING:
+      _dbg("Checking data type CP_CODEC_DATA_STRING = %lu\n", (size_t)type);
+      //res = (src_char == dst_char);
+      //_dbg("%u == %u?\n", src_char, dst_char);
+      return 1; // Not implemented yet
+      break;
+    default:
+      _dbg("What? How did you arrive here bro? SUPER FAIL\n");
+      return 1;
+  }
+
+  if (res == 1)
+  {
+    _dbg(":) Valid comparison!\n");
+  }
+  else
+  {
+    _dbg(":( Invalid comparison!\n");
+    return 1;
+  }
+
+  /* Ok! */
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
 /**
  * @brief      Test to check `cp` functionality using a single cp
  *
@@ -99,46 +332,43 @@ int test_cp_codec_B416K(int argc, const char* argv[])
    * MID-LOW-LEVEL: Calls to codec functions inside a `cp`
    */
   /* Set by `cp_init` */
-  struct cp_codec cp_codec0 = { 0x00 };
-  _dbg("Printing uninitialized 'cp_codec0'\n");
-  cp_codec_print_info(&cp_codec0);
+  struct cp_codec codec0 = { 0x00 };
+  _dbg("Printing uninitialized 'codec0'\n");
+  cp_codec_print_info(&codec0);
 
   /* Initialize codec found at `B416K.c` */
   _dbg("Initializing the `B416K` codec\n");
-  if (cp_codec_init(&cp_codec0, cp_codec_B416K))
+  if (cp_codec_init(&codec0, cp_codec_B416K))
   {
     _dbg("- Cannot initialize the codec. ERROR\n");
     return 1;
   }
   _dbg("- Ok\n");
-  _dbg("Printing initialized 'cp_codec0', data and message not be NULL\n");
-  cp_codec_print_info(&cp_codec0);
+  _dbg("Printing initialized 'codec0', data and message not be NULL\n");
+  cp_codec_print_info(&codec0);
 
-  /* Encode a `uint8_t` variable */
-  uint8_t src_data_u8 = 0xAB;
-  _dbg("Encoding a uint8_t = 0x%02X\n", src_data_u8);
-  if(cp_codec0.encode.data(CP_CODEC_DATA_UINT8_T, &src_data_u8, &rb_data))
-  {
-    _dbg("- Cannot encode the data. ERROR\n");
-    return 1;
-  }
-  _dbg("- Ok\n");
+  /* Encode/decode and Compare */
+  _dbg("Per each type: Encode -> Decode -> Compare\n");
 
-  /* Decode a `uint8_t` variable */
-  uint8_t dst_data_u8 = 0x00;
-  _dbg("Decoding a uint8_t\n");
-  if(cp_codec0.decode.data(&rb_data, CP_CODEC_DATA_UINT8_T, &dst_data_u8))
+  if(!(encode_decode_check_by_type(&codec0, CP_CODEC_DATA_HEAD, &rb_data))||
+     !(encode_decode_check_by_type(&codec0, CP_CODEC_DATA_TAIL, &rb_data))||
+     !(encode_decode_check_by_type(&codec0, CP_CODEC_DATA_GLUE, &rb_data))||
+     !(encode_decode_check_by_type(&codec0, CP_CODEC_DATA_RAW_BLOCK, &rb_data)) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_UINT8_T, &rb_data) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_INT8_T, &rb_data) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_UINT16_T, &rb_data) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_INT16_T, &rb_data) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_UINT32_T, &rb_data) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_INT32_T, &rb_data) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_UINT64_T, &rb_data) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_INT64_T, &rb_data) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_FLOAT, &rb_data) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_DOUBLE, &rb_data) ||
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_CHAR, &rb_data) ||
+     !(encode_decode_check_by_type(&codec0, CP_CODEC_DATA_STRING, &rb_data)) ||
+     0)
   {
-    _dbg("- Cannot decode the data. ERROR\n");
-    return 1;
-  }
-  _dbg("- Ok. Got 0x%02X\n", dst_data_u8);
-
-  /* Compare */
-  _dbg("Comparing src = 0x%02X vs src = 0x%02X\n", src_data_u8, dst_data_u8);
-  if(src_data_u8 != dst_data_u8)
-  {
-    _dbg("- Not the same. ERROR\n");
+    _dbg("- A step failed. ERROR\n");
     return 1;
   }
   _dbg("- Ok\n");
