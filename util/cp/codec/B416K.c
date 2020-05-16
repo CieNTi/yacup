@@ -122,14 +122,15 @@ static size_t encode_data(struct rb *rb,
   len_bytes = codec_sizeof(type);
   for (idx_data = 0; idx_data < num_data; idx_data++)
   {
+    _dbg("Pushing %lu/%lu data\n", idx_data + 1, num_data); 
     for (idx_byte = 0; idx_byte < len_bytes; idx_byte++)
     {
       /* Select endianess */
       if (big_endian)
       {
         data_pt = (uint8_t *)data + (idx_data * len_bytes) + idx_byte;
-        _dbg("Pushing %lu/%lu. Source: %p = %u\n", idx_byte, len_bytes, 
-             data_pt, *data_pt);
+        _dbg("Pushing %lu/%lu bytes. Source: %p = %u\n",
+             idx_byte + 1, len_bytes, data_pt, *data_pt);
         if (rb_push(rb, *data_pt))
         {
           /* We expected that bytes to be here, should be error or warning? */
@@ -167,13 +168,15 @@ static size_t decode_data(struct rb *rb,
   len_bytes = codec_sizeof(type);
   for (idx_data = 0; idx_data < num_data; idx_data++)
   {
+    _dbg("Pulling %lu/%lu data\n", idx_data + 1, num_data); 
     for (idx_byte = 0; idx_byte < len_bytes; idx_byte++)
     {
       /* Select endianess */
       if (big_endian)
       {
         data_pt = (uint8_t *)data + (idx_data * len_bytes) + idx_byte;
-        _dbg("Pulling %lu/%lu. Target: %p\n", idx_byte, len_bytes, data_pt);
+        _dbg("Pulling %lu/%lu bytes. Target: %p\n",
+             idx_byte + 1, len_bytes, data_pt);
         if (rb_pull(rb, data_pt))
         {
           /* We expected that bytes to be here, should be error or warning? */

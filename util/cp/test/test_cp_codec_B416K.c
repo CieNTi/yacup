@@ -41,23 +41,23 @@ int encode_decode_check_by_type(struct cp_codec *codec,
   #define YCP_FNAME "encode_decode_check_by_type"
 
   /* All data types, source and destination flavours */
-  //head      src_head        = 0;              head      dst_head        = 0;
-  //tail      src_tail        = 0;              tail      dst_tail        = 0;
-  //glue      src_glue        = 0;              glue      dst_glue        = 0;
-  char      src_char[128]   = "abcd";         char      dst_char[128]   = "";
-  uint8_t   src_uint8_t     = 100;            uint8_t   dst_uint8_t     = 0;
-  int8_t    src_int8_t      = -100;           int8_t    dst_int8_t      = 0;
-  uint16_t  src_uint16_t    = 300;            uint16_t  dst_uint16_t    = 0;
-  int16_t   src_int16_t     = -300;           int16_t   dst_int16_t     = 0;
-  uint32_t  src_uint32_t    = 100000;         uint32_t  dst_uint32_t    = 0;
-  int32_t   src_int32_t     = -100000;        int32_t   dst_int32_t     = 0;
-  uint64_t  src_uint64_t    = 4300000000;     uint64_t  dst_uint64_t    = 0;
-  int64_t   src_int64_t     = -4300000000;    int64_t   dst_int64_t     = 0;
-  float     src_float       = -1.23456789012; float     dst_float       = 0.0;
-  double    src_double      = -1.23456789012; double    dst_double      = 0.0;
+  //head     src_head      = 0;                head     dst_head      = 0;
+  //tail     src_tail      = 0;                tail     dst_tail      = 0;
+  //glue     src_glue      = 0;                glue     dst_glue      = 0;
+  char     src_char[128] = "abcd";           char     dst_char[128] = "";
+  uint8_t  src_uint8_t   = 100;              uint8_t  dst_uint8_t   = 0;
+  int8_t   src_int8_t    = -100;             int8_t   dst_int8_t    = 0;
+  uint16_t src_uint16_t  = 300;              uint16_t dst_uint16_t  = 0;
+  int16_t  src_int16_t   = -300;             int16_t  dst_int16_t   = 0;
+  uint32_t src_uint32_t  = 100000;           uint32_t dst_uint32_t  = 0;
+  int32_t  src_int32_t   = -100000;          int32_t  dst_int32_t   = 0;
+  uint64_t src_uint64_t  = 4300000000;       uint64_t dst_uint64_t  = 0;
+  int64_t  src_int64_t   = -4300000000;      int64_t  dst_int64_t   = 0;
+  float    src_float     = -1.23456789012;   float    dst_float     = 0.0;
+  double   src_double[3] = {-1.2, 0.0, 1.2}; double   dst_double[3] = {0.0};
   /* Pointers to them, both fashions */
-  void      *src_pt         = NULL;           void      *dst_pt         = NULL;
-  size_t    len_data        = 0;
+  void      *src_pt      = NULL;             void     *dst_pt       = NULL;
+  size_t    len_data     = 0;
 
   /* Branch on type to assign valid pointers */
   switch(type)
@@ -121,7 +121,7 @@ int encode_decode_check_by_type(struct cp_codec *codec,
       break;
     case CP_CODEC_DATA_DOUBLE:
       _dbg("Selected data type CP_CODEC_DATA_DOUBLE = %lu\n", (size_t)type);
-      src_pt = &src_double;   dst_pt = &dst_double;   len_data = 1;
+      src_pt = &src_double;   dst_pt = &dst_double;   len_data = 3;
       break;
     default:
       _dbg("Unrecognized type %lu\n", (size_t)type);
@@ -220,8 +220,12 @@ int encode_decode_check_by_type(struct cp_codec *codec,
       break;
     case CP_CODEC_DATA_DOUBLE:
       _dbg("Checking data type CP_CODEC_DATA_DOUBLE = %lu\n", (size_t)type);
-      res = (src_double == dst_double);
-      _dbg("%f == %f?\n", src_double, dst_double);
+      res = ((src_double[0] == dst_double[0]) &&
+             (src_double[1] == dst_double[1]) &&
+             (src_double[2] == dst_double[2]));
+      _dbg("%f == %f?\n", src_double[0], dst_double[0]);
+      _dbg("%f == %f?\n", src_double[1], dst_double[1]);
+      _dbg("%f == %f?\n", src_double[2], dst_double[2]);
       break;
     default:
       _dbg("What? How did you arrive here bro? SUPER FAIL\n");
