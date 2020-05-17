@@ -42,7 +42,7 @@ CC = gcc
 OBJCOPY = objcopy
 
 # Flags, libs, ...
-CFLAGS = $(addprefix -I, $(IDIR)) -Wall -pedantic-errors
+CFLAGS = $(addprefix -I, $(IDIR)) -Wall -Werror -pedantic-errors
 LDLIBS = -lm
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -86,6 +86,7 @@ test_cp_codec_B416K_objs=util/rb/rb.o                       \
                          util/cp/codec.o                    \
                          util/cp/codec/B416K.o              \
                          util/cp/test/test_cp_codec_B416K.o \
+                         util/cp/test/test_commands.o       \
                          util/cp/debug.o
 test_cp_codec_B416K: $(addprefix $(ODIR)/, $(test_cp_codec_B416K_objs))
 	@echo "-----"
