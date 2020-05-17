@@ -326,20 +326,15 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
     return 1;
   }
 
-  /* Pull header and MSB half of data length */
-  if (rb_pull(rb_in, &data_holder)           ||
-      ((data_len = data_holder) != data_len) ||
-      rb_pull(rb_in, &data_holder)
+  /* Pull MSB + LSB of data length */
+  if (rb_pull(rb_in, (uint8_t *)&data_len + 1) ||
+      rb_pull(rb_in, (uint8_t *)&data_len)
       )
   {
     /* Cannot push, error */
     _dbg("Error when pulling message length\n");
     return 1;
   }
-
-  /* Compose data length by pulling LSB of data length and joining MSB + LSB */
-  data_len <<= 8;
-  data_len += data_holder;
 
   /* Move data */
   while ((data_len > 0) && (rb_pull(rb_in, &data_holder) == 0))
