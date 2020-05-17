@@ -314,11 +314,14 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   _dbg("- Ok\n");
 
   /* Encode/decode and Compare messages */
-  uint8_t some_src_var[4] = { 0x01, 0x02, 0x03, 0x04 };
-  uint8_t some_dst_var[4] = { 0x00, 0x00, 0x00, 0x00 };
+  #define __DATA_LEN 300
+  uint8_t some_src_var[__DATA_LEN] = { 0x01, 0x02, 0x03, 0x04 };
+  uint8_t some_dst_var[__DATA_LEN] = { 0x00 };
 
-  _dbg("Preparing a data packet with 4 bytes\n");
-  if(codec0.encode.data(&rb_data, CP_CODEC_DATA_UINT8_T, some_src_var, 4) < 1)
+  /* Encode data into a data buffer */
+  _dbg("Preparing a data packet with %u bytes\n", __DATA_LEN);
+  if(codec0.encode.data(&rb_data, CP_CODEC_DATA_UINT8_T,
+                        some_src_var, __DATA_LEN) < 1)
   {
     _dbg("- Cannot encode the data. ERROR\n");
     return 1;
@@ -328,6 +331,7 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   _dbg("Data buffer content:\n");
   rb_print_info(&rb_data);
 
+  /* Encode data buffer/packet into a message */
   _dbg("Encoding data packet into a message\n");
   if(codec0.encode.message(&rb_data, &rb_message))
   {
@@ -339,10 +343,12 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   _dbg("Message buffer content:\n");
   rb_print_info(&rb_message);
 
+  /* Reset rb_data to be used as a receptacle for decoded data */
   rb_reset(&rb_data);
   _dbg("Data buffer content after reset:\n");
   rb_print_info(&rb_data);
 
+  /* Decode a message extracting its data packet */
   _dbg("Decoding data packet from a message\n");
   if(codec0.decode.message(&rb_message, &rb_data))
   {
@@ -351,32 +357,35 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   }
   _dbg("- Ok\n");
 
+  /* Decoded data buffer */
   _dbg("Data buffer content:\n");
   rb_print_info(&rb_data);
 
-  _dbg("Decoding a data packet of 4 bytes\n");
-  if(codec0.decode.data(&rb_data, CP_CODEC_DATA_UINT8_T, some_dst_var, 4) < 1)
+  /* Decode the real data from the data buffer */
+  _dbg("Decoding a data packet of %u bytes\n", __DATA_LEN);
+  if(codec0.decode.data(&rb_data, CP_CODEC_DATA_UINT8_T,
+                        some_dst_var, __DATA_LEN) < 1)
   {
     _dbg("- Cannot decode the data. ERROR\n");
     return 1;
   }
   _dbg("- Ok\n");
 
+  /* Data buffer should be all 0x00 now */
   _dbg("Data buffer content:\n");
   rb_print_info(&rb_data);
 
-  if ((some_src_var[0] == some_dst_var[0]) &&
-      (some_src_var[1] == some_dst_var[1]) &&
-      (some_src_var[2] == some_dst_var[2]) &&
-      (some_src_var[3] == some_dst_var[3]))
+  /* Final check */
+  size_t idx = 0;
+  for (idx = 0; idx < __DATA_LEN; idx++)
   {
-    _dbg(":) Valid comparison!\n");
+    if (some_src_var[idx] != some_dst_var[idx])
+    {
+      _dbg(":( Invalid comparison!\n");
+      return 1;
+    }
   }
-  else
-  {
-    _dbg(":( Invalid comparison!\n");
-    return 1;
-  }
+  _dbg(":) Valid comparison!\n");
 
   /* Cya! */
   return 0;

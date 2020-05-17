@@ -190,6 +190,16 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
 
   uint8_t data_holder = 0;
 
+  /* Push header */
+  if (rb_push(rb_out, 0xEA) ||
+      rb_push(rb_out, (uint8_t)(rb_len(rb_in) >> 8)) ||
+      rb_push(rb_out, (uint8_t)(rb_len(rb_in)))
+      )
+  {
+    /* Cannot push, error */
+    return 1;
+  }
+
   /* Move data */
   while (rb_pull(rb_in, &data_holder) == 0)
   {
@@ -216,6 +226,27 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   #define YCP_FNAME "decode_message"
 
   uint8_t data_holder = 0;
+  size_t data_len = 0;
+
+  /* Pull header */
+  if (rb_pull(rb_in, &data_holder) ||
+      (data_holder != 0xEA)        ||
+      rb_pull(rb_in, &data_holder))
+  {
+    /* Cannot push, error */
+    return 1;
+  }
+
+  /* Compose data length */
+  data_len = data_holder;
+  if (rb_pull(rb_in, &data_holder))
+  {
+    /* Cannot push, error */
+    return 1;
+  }
+  data_len <<= 8;
+  data_len += data_holder;
+  _dbg("We need to read %lu bytes of data packet\n", data_len);
 
   /* Move data */
   while (rb_pull(rb_in, &data_holder) == 0)
