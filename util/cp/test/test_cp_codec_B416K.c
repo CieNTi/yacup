@@ -313,8 +313,8 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   _dbg("- Ok\n");
 
   /* Encode/decode and Compare messages */
-  #define __DATA_LEN 2
-  uint8_t some_src_var[__DATA_LEN] = { 0x00, 0x00 };
+  #define __DATA_LEN 100
+  uint8_t some_src_var[__DATA_LEN] = { 0xBE, 0xEF };
   uint8_t some_dst_var[__DATA_LEN] = { 0x00 };
 
   /* Encode data into a data buffer */

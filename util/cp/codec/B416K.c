@@ -112,15 +112,14 @@ static int crc16_kermit(struct rb *rb, size_t skip, size_t len, uint16_t *crc)
   uint8_t carry;
   uint8_t data_holder;
   *crc = 0;
-  _dbg("Happy CRC skips %lu bytes, then uses %lu bytes\n", skip, len);
   for (i = 0; i < len; i++)
   {
     if (rb_read(rb, &data_holder, i + skip))
     {
       /* Cannot read */
+      _dbg("Cannot read data\n");
       return 1;
     }
-    _dbg("Got: %02X - %02X (%lu/%lu)\n", data_holder, *crc, i + skip, len);
     *crc ^= data_holder;
     for (bit = 0; bit < 8; bit++)
     {
@@ -132,7 +131,7 @@ static int crc16_kermit(struct rb *rb, size_t skip, size_t len, uint16_t *crc)
       }
     }
   }
-  _dbg("Calculated CRC: %04X\n", *crc);
+  _dbg("Calculated CRC: %04X (skips %lu, uses %lu)\n", *crc, skip, len);
   return 0;
 
   /* Free _dbg() config */
@@ -160,18 +159,18 @@ static size_t encode_data(struct rb *rb,
   len_bytes = codec_sizeof(type);
   for (idx_data = 0; idx_data < num_data; idx_data++)
   {
-    _dbg("Pushing %lu/%lu data\n", idx_data + 1, num_data); 
     for (idx_byte = 0; idx_byte < len_bytes; idx_byte++)
     {
       /* Select endianess */
       if (big_endian)
       {
         data_pt = (uint8_t *)data + (idx_data * len_bytes) + idx_byte;
-        _dbg("Pushing %lu/%lu bytes. Source: %p = %u\n",
-             idx_byte + 1, len_bytes, data_pt, *data_pt);
         if (rb_push(rb, *data_pt))
         {
           /* We expected that bytes to be here, should be error or warning? */
+          _dbg("WARNING [Cannot push (data %lu, byte %lu). No space?]\n",
+               idx_data,
+               idx_byte);
           return idx_data;
         }
       }
@@ -206,7 +205,6 @@ static size_t decode_data(struct rb *rb,
   len_bytes = codec_sizeof(type);
   for (idx_data = 0; idx_data < num_data; idx_data++)
   {
-    _dbg("Pulling %lu/%lu data\n", idx_data + 1, num_data); 
     for (idx_byte = 0; idx_byte < len_bytes; idx_byte++)
     {
       /* Select endianess */
@@ -216,10 +214,11 @@ static size_t decode_data(struct rb *rb,
         if (rb_pull(rb, data_pt))
         {
           /* We expected that bytes to be here, should be error or warning? */
+          _dbg("WARNING [Cannot pull (data %lu, byte %lu). No space?]\n",
+               idx_data,
+               idx_byte);
           return idx_data;
         }
-        _dbg("Pulling %lu/%lu bytes. Target: %p = %u\n",
-             idx_byte + 1, len_bytes, data_pt, *data_pt);
       }
     }
   }
@@ -249,6 +248,7 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
       )
   {
     /* Cannot push, error */
+    _dbg("Error when pushing message header\n");
     return 1;
   }
 
@@ -258,6 +258,7 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
     if (rb_push(rb_out, data_holder))
     {
       /* Fial! Out of destination space */
+      _dbg("Error when moving data packet to message buffer\n");
       return 1;
     }
   }
@@ -268,6 +269,7 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
       rb_push(rb_out, (uint8_t)(crc_holder)))
   {
     /* Fial! Out of destination space */
+    _dbg("Error when pushing message CRC\n");
     return 1;
   }
 
@@ -299,36 +301,34 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
     if (rb_len(rb_in) == 0)
     {
       /* Input buffer exhausted without any header */
+      _dbg("No message header found on buffer\n");
       return 1;
     }
     data_len++;
   }
-  _dbg("Header found at position: %lu\n", data_len);
 
   /* Calculate and save CRC */
   if (crc16_kermit(rb_in, 0, rb_len(rb_in) - 2, &crc_holder[0]))
   {
-    /* Fial! Out of destination space */
+    /* Error when calculating CRC */
+    _dbg("Error when calculating message CRC\n");
     return 1;
   }
 
   /* Pull header and MSB half of data length */
-  if (rb_pull(rb_in, &data_holder))
+  if (rb_pull(rb_in, &data_holder)           ||
+      ((data_len = data_holder) != data_len) ||
+      rb_pull(rb_in, &data_holder)
+      )
   {
     /* Cannot push, error */
+    _dbg("Error when pulling message length\n");
     return 1;
   }
 
   /* Compose data length by pulling LSB of data length and joining MSB + LSB */
-  data_len = data_holder;
-  if (rb_pull(rb_in, &data_holder))
-  {
-    /* Cannot push, error */
-    return 1;
-  }
   data_len <<= 8;
   data_len += data_holder;
-  _dbg("We need to read %lu bytes of data packet\n", data_len);
 
   /* Move data */
   while ((data_len > 0) && (rb_pull(rb_in, &data_holder) == 0))
@@ -336,32 +336,25 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
     if (rb_push(rb_out, data_holder))
     {
       /* Fial! Out of destination space */
+      _dbg("Cannot push when moving data from message to data buffer\n");
       return 1;
     }
     data_len--;
   }
-  _dbg("Got %lu bytes of data buffer\n", rb_len(rb_out));
 
   /* Get message received CRC */
-  if (rb_pull(rb_in, &data_holder))
+  if (rb_pull(rb_in, (uint8_t *)&crc_holder[1] + 1) ||
+      rb_pull(rb_in, (uint8_t *)&crc_holder[1]))
   {
     /* Cannot push, error */
+    _dbg("Error when pulling message CRC\n");
     return 1;
   }
-  crc_holder[1] = data_holder;
-  crc_holder[1] <<= 8;
-  if (rb_pull(rb_in, &data_holder))
-  {
-    /* Cannot push, error */
-    return 1;
-  }
-  crc_holder[1] += data_holder;
-
-  _dbg("crc_holder[0] = %04X\n", crc_holder[0]);
-  _dbg("crc_holder[1] = %04X\n", crc_holder[1]);
 
   if (crc_holder[0] != crc_holder[1])
   {
+    _dbg("CRC mismatch (Calculated: %04X vs. Received %04X)\n",
+         crc_holder[0], crc_holder[1]);
     return 1;
   }
 
