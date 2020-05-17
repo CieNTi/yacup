@@ -98,7 +98,7 @@ struct cp_codec
      * @brief      Pulls and decodes a defined type data from a ring-buffer and
      *             saves it into a pointed variable
      *
-     * @param[in]  rb        Pointer to a source ring-buffer with encoded data
+     * @param      rb        Pointer to a source ring-buffer with encoded data
      * @param      type      One of `CP_CODEC_DATA_*` data types
      * @param      data      Pointer to a destination for decoded data
      * @param      num_data  Number of data entities to decode

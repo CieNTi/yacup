@@ -89,6 +89,56 @@ static size_t codec_sizeof(enum cp_codec_data_type type)
   #undef YCP_FNAME
 }
 
+/**
+ * @brief      Calculate CRC-16/KERMIT (According to https://crccalc.com/)
+ *
+ * @param      data    The data
+ * @param[in]  length  The length of 'data'
+ *
+ * @warning    Assumed safe environment, all pre-checks already done
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
+ */
+static int crc16_kermit(struct rb *rb, size_t skip, size_t len, uint16_t *crc)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "crc16_kermit"
+
+  size_t i;
+  uint8_t bit;
+  uint8_t carry;
+  uint8_t data_holder;
+  *crc = 0;
+  _dbg("Happy CRC skips %lu bytes, then uses %lu bytes\n", skip, len);
+  for (i = 0; i < len; i++)
+  {
+    if (rb_read(rb, &data_holder, i + skip))
+    {
+      /* Cannot read */
+      return 1;
+    }
+    _dbg("Got: %02X - %02X (%lu/%lu)\n", data_holder, *crc, i + skip, len);
+    *crc ^= data_holder;
+    for (bit = 0; bit < 8; bit++)
+    {
+      carry = *crc & 1;
+      *crc >>= 1;
+      if (carry)
+      {
+        *crc ^= 0x8408;
+      }
+    }
+  }
+  _dbg("Calculated CRC: %04X\n", *crc);
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
 /* Encodes a defined type data and pushes it into a ring-buffer
  * WARNING: Assumed `cp/cp.c` pre-validation. Not safe as direct call!
  * Read `yacup/cp/codec.h` for complete information. */
@@ -190,6 +240,7 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
   #define YCP_FNAME "encode_message"
 
   uint8_t data_holder = 0;
+  uint16_t crc_holder = 0;
 
   /* Push header */
   if (rb_push(rb_out, CP_CODEC_B416K_START_BYTE) ||
@@ -211,6 +262,15 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
     }
   }
 
+  /* Calculate and save CRC */
+  if (crc16_kermit(rb_out, 1, rb_len(rb_out) - 1, &crc_holder) ||
+      rb_push(rb_out, (uint8_t)(crc_holder >> 8))              ||
+      rb_push(rb_out, (uint8_t)(crc_holder)))
+  {
+    /* Fial! Out of destination space */
+    return 1;
+  }
+
   /* Ok! */
   return 0;
 
@@ -227,6 +287,7 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   #define YCP_FNAME "decode_message"
 
   uint8_t data_holder = 0;
+  uint16_t crc_holder[2] = { 0 };
   size_t data_len = 0;
 
   /* Seek for the header, discarding any other data found */
@@ -243,6 +304,13 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
     data_len++;
   }
   _dbg("Header found at position: %lu\n", data_len);
+
+  /* Calculate and save CRC */
+  if (crc16_kermit(rb_in, 0, rb_len(rb_in) - 2, &crc_holder[0]))
+  {
+    /* Fial! Out of destination space */
+    return 1;
+  }
 
   /* Pull header and MSB half of data length */
   if (rb_pull(rb_in, &data_holder))
@@ -273,6 +341,29 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
     data_len--;
   }
   _dbg("Got %lu bytes of data buffer\n", rb_len(rb_out));
+
+  /* Get message received CRC */
+  if (rb_pull(rb_in, &data_holder))
+  {
+    /* Cannot push, error */
+    return 1;
+  }
+  crc_holder[1] = data_holder;
+  crc_holder[1] <<= 8;
+  if (rb_pull(rb_in, &data_holder))
+  {
+    /* Cannot push, error */
+    return 1;
+  }
+  crc_holder[1] += data_holder;
+
+  _dbg("crc_holder[0] = %04X\n", crc_holder[0]);
+  _dbg("crc_holder[1] = %04X\n", crc_holder[1]);
+
+  if (crc_holder[0] != crc_holder[1])
+  {
+    return 1;
+  }
 
   /* Ok! */
   return 0;

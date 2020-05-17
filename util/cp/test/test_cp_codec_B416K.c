@@ -313,8 +313,8 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   _dbg("- Ok\n");
 
   /* Encode/decode and Compare messages */
-  #define __DATA_LEN 300
-  uint8_t some_src_var[__DATA_LEN] = { 0x01, 0x02, 0x03, 0x04 };
+  #define __DATA_LEN 2
+  uint8_t some_src_var[__DATA_LEN] = { 0x00, 0x00 };
   uint8_t some_dst_var[__DATA_LEN] = { 0x00 };
 
   /* Encode data into a data buffer */
@@ -330,14 +330,6 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   _dbg("Data buffer content:\n");
   rb_print_info(&rb_data);
 
-  /* Simulate invalid data before a valid message */
-  _dbg("Adding invalid data before message, acting as comm error data\n");
-  rb_push(&rb_message, 0xAE);
-  rb_push(&rb_message, 0xBE);
-  rb_push(&rb_message, 0xCE);
-  rb_push(&rb_message, 0xDE);
-  rb_push(&rb_message, 0xEE);
-
   /* Encode data buffer/packet into a message */
   _dbg("Encoding data packet into a message\n");
   if(codec0.encode.message(&rb_data, &rb_message))
@@ -346,6 +338,25 @@ int test_cp_codec_B416K(int argc, const char* argv[])
     return 1;
   }
   _dbg("- Ok\n");
+
+  /* Simulate invalid data before a valid message */
+  _dbg("Adding invalid data before message, acting as comm error data\n");
+  size_t orig_len = rb_len(&rb_message);
+  uint8_t a_u8 = 0;
+  rb_push(&rb_message, 0xAE);
+  rb_push(&rb_message, 0xBE);
+  rb_push(&rb_message, 0xCE);
+  rb_push(&rb_message, 0xDE);
+  rb_push(&rb_message, 0xEE);
+  for (;orig_len > 0; orig_len--)
+  {
+    if (rb_pull(&rb_message, &a_u8) ||
+        rb_push(&rb_message, a_u8))
+    {
+      /* Ooops! */
+      return 1;
+    }
+  }
 
   _dbg("Message buffer content:\n");
   rb_print_info(&rb_message);
