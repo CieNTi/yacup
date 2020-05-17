@@ -305,8 +305,7 @@ int test_cp_codec_B416K(int argc, const char* argv[])
      encode_decode_check_by_type(&codec0, CP_CODEC_DATA_UINT64_T, &rb_data) ||
      encode_decode_check_by_type(&codec0, CP_CODEC_DATA_INT64_T, &rb_data) ||
      encode_decode_check_by_type(&codec0, CP_CODEC_DATA_FLOAT, &rb_data) ||
-     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_DOUBLE, &rb_data) ||
-     0)
+     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_DOUBLE, &rb_data))
   {
     _dbg("- A step failed. ERROR\n");
     return 1;
@@ -330,6 +329,14 @@ int test_cp_codec_B416K(int argc, const char* argv[])
 
   _dbg("Data buffer content:\n");
   rb_print_info(&rb_data);
+
+  /* Simulate invalid data before a valid message */
+  _dbg("Adding invalid data before message, acting as comm error data\n");
+  rb_push(&rb_message, 0xAE);
+  rb_push(&rb_message, 0xBE);
+  rb_push(&rb_message, 0xCE);
+  rb_push(&rb_message, 0xDE);
+  rb_push(&rb_message, 0xEE);
 
   /* Encode data buffer/packet into a message */
   _dbg("Encoding data packet into a message\n");
@@ -371,11 +378,8 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   }
   _dbg("- Ok\n");
 
-  /* Data buffer should be all 0x00 now */
-  _dbg("Data buffer content:\n");
-  rb_print_info(&rb_data);
-
   /* Final check */
+  _dbg("Comparing all %u bytes (source vs. destination)\n", __DATA_LEN);
   size_t idx = 0;
   for (idx = 0; idx < __DATA_LEN; idx++)
   {

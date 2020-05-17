@@ -18,6 +18,7 @@
 #include <stddef.h>
 #include "yacup/cp.h"
 #include "yacup/cp/codec.h"
+#include "yacup/cp/codec/B416K.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
@@ -191,7 +192,7 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
   uint8_t data_holder = 0;
 
   /* Push header */
-  if (rb_push(rb_out, 0xEA) ||
+  if (rb_push(rb_out, CP_CODEC_B416K_START_BYTE) ||
       rb_push(rb_out, (uint8_t)(rb_len(rb_in) >> 8)) ||
       rb_push(rb_out, (uint8_t)(rb_len(rb_in)))
       )
@@ -228,16 +229,29 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   uint8_t data_holder = 0;
   size_t data_len = 0;
 
-  /* Pull header */
-  if (rb_pull(rb_in, &data_holder) ||
-      (data_holder != 0xEA)        ||
-      rb_pull(rb_in, &data_holder))
+  /* Seek for the header, discarding any other data found */
+  data_len = 0;
+  while (rb_len(rb_in)                              &&
+         (rb_pull(rb_in, &data_holder) == 0)        &&
+         (data_holder != CP_CODEC_B416K_START_BYTE))
+  {
+    if (rb_len(rb_in) == 0)
+    {
+      /* Input buffer exhausted without any header */
+      return 1;
+    }
+    data_len++;
+  }
+  _dbg("Header found at position: %lu\n", data_len);
+
+  /* Pull header and MSB half of data length */
+  if (rb_pull(rb_in, &data_holder))
   {
     /* Cannot push, error */
     return 1;
   }
 
-  /* Compose data length */
+  /* Compose data length by pulling LSB of data length and joining MSB + LSB */
   data_len = data_holder;
   if (rb_pull(rb_in, &data_holder))
   {
@@ -249,14 +263,16 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   _dbg("We need to read %lu bytes of data packet\n", data_len);
 
   /* Move data */
-  while (rb_pull(rb_in, &data_holder) == 0)
+  while ((data_len > 0) && (rb_pull(rb_in, &data_holder) == 0))
   {
     if (rb_push(rb_out, data_holder))
     {
       /* Fial! Out of destination space */
       return 1;
     }
+    data_len--;
   }
+  _dbg("Got %lu bytes of data buffer\n", rb_len(rb_out));
 
   /* Ok! */
   return 0;

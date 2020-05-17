@@ -38,6 +38,9 @@ extern "C" {
 #include <stddef.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define CP_CODEC_B416K_START_BYTE 0xEA
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
  * @brief      Low-level initializer function for `B416K` type `cp` codec
  * @details    Binary 4-byte + CRC-16/Kermit codec
