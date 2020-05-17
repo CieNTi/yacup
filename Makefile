@@ -80,6 +80,7 @@ test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
 # Test to check `cp` B416K protocol functionality
 test_cp_codec_B416K_objs=util/rb/rb.o                       \
                          util/rb/driver/overwrite.o         \
+                         util/rb/debug.o                    \
                          util/fsm/fsm.o                     \
                          util/cp/cp.o                       \
                          util/cp/codec.o                    \

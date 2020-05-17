@@ -41,9 +41,6 @@ int encode_decode_check_by_type(struct cp_codec *codec,
   #define YCP_FNAME "encode_decode_check_by_type"
 
   /* All data types, source and destination flavours */
-  //head     src_head      = 0;                head     dst_head      = 0;
-  //tail     src_tail      = 0;                tail     dst_tail      = 0;
-  //glue     src_glue      = 0;                glue     dst_glue      = 0;
   char     src_char[128] = "abcd";           char     dst_char[128] = "";
   uint8_t  src_uint8_t   = 100;              uint8_t  dst_uint8_t   = 0;
   int8_t   src_int8_t    = -100;             int8_t   dst_int8_t    = 0;
@@ -62,21 +59,6 @@ int encode_decode_check_by_type(struct cp_codec *codec,
   /* Branch on type to assign valid pointers */
   switch(type)
   {
-    case CP_CODEC_DATA_HEAD:
-      _dbg("Selected data type CP_CODEC_DATA_HEAD = %lu\n", (size_t)type);
-      //src_pt = &src_head;     dst_pt = &dst_head;     len_data = 1;
-      return 1; // Not implemented yet
-      break;
-    case CP_CODEC_DATA_TAIL:
-      _dbg("Selected data type CP_CODEC_DATA_TAIL = %lu\n", (size_t)type);
-      //src_pt = &src_tail;     dst_pt = &dst_tail;     len_data = 1;
-      return 1; // Not implemented yet
-      break;
-    case CP_CODEC_DATA_GLUE:
-      _dbg("Selected data type CP_CODEC_DATA_GLUE = %lu\n", (size_t)type);
-      //src_pt = &src_glue;     dst_pt = &dst_glue;     len_data = 1;
-      return 1; // Not implemented yet
-      break;
     case CP_CODEC_DATA_CHAR:
       _dbg("Selected data type CP_CODEC_DATA_CHAR = %lu\n", (size_t)type);
       src_pt = &src_char;     dst_pt = &dst_char;
@@ -150,24 +132,6 @@ int encode_decode_check_by_type(struct cp_codec *codec,
   uint8_t res = 0;
   switch(type)
   {
-    case CP_CODEC_DATA_HEAD:
-      _dbg("Checking data type CP_CODEC_DATA_HEAD = %lu\n", (size_t)type);
-      //res = (src_head == dst_head);
-      //_dbg("%u == %u?\n", src_head, dst_head);
-      return 1; // Not implemented yet
-      break;
-    case CP_CODEC_DATA_TAIL:
-      _dbg("Checking data type CP_CODEC_DATA_TAIL = %lu\n", (size_t)type);
-      //res = (src_tail == dst_tail);
-      //_dbg("%u == %u?\n", src_tail, dst_tail);
-      return 1; // Not implemented yet
-      break;
-    case CP_CODEC_DATA_GLUE:
-      _dbg("Checking data type CP_CODEC_DATA_GLUE = %lu\n", (size_t)type);
-      //res = (src_glue == dst_glue);
-      //_dbg("%u == %u?\n", src_glue, dst_glue);
-      return 1; // Not implemented yet
-      break;
     case CP_CODEC_DATA_CHAR:
       _dbg("Checking data type CP_CODEC_DATA_CHAR = %lu\n", (size_t)type);
       res = (strcmp(src_char, dst_char) == 0);
@@ -310,8 +274,6 @@ int test_cp_codec_B416K(int argc, const char* argv[])
     return 1;
   }
 
-  /* test/app calls `cp_*` functions, not encode/decode. Test here only */
-
   /* 
    * MID-LOW-LEVEL: Calls to codec functions inside a `cp`
    */
@@ -331,13 +293,10 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   _dbg("Printing initialized 'codec0', data and message not be NULL\n");
   cp_codec_print_info(&codec0);
 
-  /* Encode/decode and Compare */
+  /* Encode/decode and Compare data */
   _dbg("Per each type: Encode -> Decode -> Compare\n");
 
-  if(!(encode_decode_check_by_type(&codec0, CP_CODEC_DATA_HEAD, &rb_data))||
-     !(encode_decode_check_by_type(&codec0, CP_CODEC_DATA_TAIL, &rb_data))||
-     !(encode_decode_check_by_type(&codec0, CP_CODEC_DATA_GLUE, &rb_data))||
-     encode_decode_check_by_type(&codec0, CP_CODEC_DATA_CHAR, &rb_data) ||
+  if(encode_decode_check_by_type(&codec0, CP_CODEC_DATA_CHAR, &rb_data) ||
      encode_decode_check_by_type(&codec0, CP_CODEC_DATA_UINT8_T, &rb_data) ||
      encode_decode_check_by_type(&codec0, CP_CODEC_DATA_INT8_T, &rb_data) ||
      encode_decode_check_by_type(&codec0, CP_CODEC_DATA_UINT16_T, &rb_data) ||
@@ -354,6 +313,18 @@ int test_cp_codec_B416K(int argc, const char* argv[])
     return 1;
   }
   _dbg("- Ok\n");
+
+  /* Encode/decode and Compare messages */
+  uint8_t some_var[4] = { 0x01, 0x02, 0x03, 0x04 };
+  _dbg("Preparing a data packet with 4 bytes\n");
+  if(codec0.encode.data(&rb_data, CP_CODEC_DATA_UINT8_T, some_var, 4) < 1)
+  {
+    _dbg("- Cannot encode the data. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+  _dbg("Data buffer content:\n");
+  rb_print_info(&rb_data);
 
   /* Cya! */
   return 0;

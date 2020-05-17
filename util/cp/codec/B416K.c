@@ -32,18 +32,6 @@ static size_t codec_sizeof(enum cp_codec_data_type type)
 
    switch(type)
   {
-    case CP_CODEC_DATA_HEAD:
-      _dbg("Selected data type CP_CODEC_DATA_HEAD\n");
-      //return (sizeof(head));
-      break;
-    case CP_CODEC_DATA_TAIL:
-      _dbg("Selected data type CP_CODEC_DATA_TAIL\n");
-      //return (sizeof(tail));
-      break;
-    case CP_CODEC_DATA_GLUE:
-      _dbg("Selected data type CP_CODEC_DATA_GLUE\n");
-      //return (sizeof(glue));
-      break;
     case CP_CODEC_DATA_CHAR:
       _dbg("Selected data type CP_CODEC_DATA_CHAR\n");
       return (sizeof(char));
@@ -90,7 +78,6 @@ static size_t codec_sizeof(enum cp_codec_data_type type)
       break;
     default:
       _dbg("Unrecognized type %lu\n", (size_t)type);
-      //
       break;
   }
 
@@ -175,13 +162,13 @@ static size_t decode_data(struct rb *rb,
       if (big_endian)
       {
         data_pt = (uint8_t *)data + (idx_data * len_bytes) + idx_byte;
-        _dbg("Pulling %lu/%lu bytes. Target: %p\n",
-             idx_byte + 1, len_bytes, data_pt);
         if (rb_pull(rb, data_pt))
         {
           /* We expected that bytes to be here, should be error or warning? */
           return idx_data;
         }
+        _dbg("Pulling %lu/%lu bytes. Target: %p = %u\n",
+             idx_byte + 1, len_bytes, data_pt, *data_pt);
       }
     }
   }
