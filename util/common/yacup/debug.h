@@ -28,7 +28,7 @@
      * @brief      Macro used as `printf` replacement by `_dbg` macro, unless
      *             previously defined by the user as a custom function
      */
-    #define PRINTF(...) printf(__VA_ARGS__)
+    #define PRINTF(...) printf(__VA_ARGS__); fflush(stdout)
   #endif
   #ifndef _dbg
     /**

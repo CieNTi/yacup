@@ -43,7 +43,6 @@ void fsm_print_info(struct fsm *fsm)
   _dbg("last .......: %p\n", (void *)(size_t)fsm->last);
   _dbg("now ........: %p\n", (void *)(size_t)fsm->now);
   _dbg("next .......: %p\n", (void *)(size_t)fsm->next);
-  fflush(stdout);
 
   /* Free _dbg() config */
   #undef YCP_FNAME
@@ -62,7 +61,6 @@ void fsm_print_stats(struct fsm *fsm)
   _dbg("FSM_PAUSE .: %lu\n", fsm->stats[FSM_PAUSE]);
   _dbg("FSM_RUN ...: %lu\n", fsm->stats[FSM_RUN]);
   _dbg("FSM_ERROR .: %lu\n", fsm->stats[FSM_ERROR]);
-  fflush(stdout);
 
   /* Free _dbg() config */
   #undef YCP_FNAME

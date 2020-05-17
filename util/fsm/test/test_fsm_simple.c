@@ -93,8 +93,6 @@ int test_fsm_simple(int argc, const char* argv[])
     }
 
     /* Finish cycle */
-    fflush(stdout);
-
     /* Simulate some time spent on the cycle */
     nanosleep(&(struct timespec){ .tv_sec = 0, .tv_nsec = 100*1000000 }, NULL);
   }
