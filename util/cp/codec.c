@@ -24,6 +24,8 @@
 #define YCP_NAME "util/cp/codec"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Initializes a `cp_codec`
+ * Read `yacup/cp/codec.h` for complete information. */
 int cp_codec_init(struct cp_codec *codec,
                   int (*cp_codec_low_level_init)(struct cp_codec *))
 {

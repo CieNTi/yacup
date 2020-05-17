@@ -46,7 +46,7 @@ extern "C" {
  *   @}
  * @}
  * 
- * @ingroup   cp_api
+ * @addtogroup   cp_api
  * @{
  */
 
@@ -59,24 +59,19 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Structure that defines a cp channel
- */
-struct cp_channel
-{
-  uint8_t         busy;
-  uint8_t         data_ready;
-  struct rb       buffer;
-  struct fsm      chat;
-  struct cp_codec codec;
-};
-
-/**
  * @brief      Structure that defines a communication protocol
  */
 struct cp
 {
-  struct cp_channel out;
-  struct cp_channel in;
+  struct fsm behaviour;
+  struct cp_channel
+  {
+    uint8_t         busy;
+    uint8_t         data_ready;
+    struct rb       buffer;
+    struct fsm      chat;
+    struct cp_codec codec;
+  } ch_out, ch_in;
 };
 
 

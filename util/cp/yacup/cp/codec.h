@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @ingroup cp_codec
+ * @addtogroup cp_codec
  * @{
  */
 
@@ -131,6 +131,23 @@ struct cp_codec
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/**
+ * @brief      Initializes a `cp_codec`
+ * @details    Checks and initializes `cp_codec` common data, then calls the
+ *             lower level init function passed by argument. The latter is
+ *             defined at each `cp_codec` unit, and it is where the encoding and
+ *             decoding functions are really assigned.
+ *
+ * @param      codec                    Pointer to a codec to initialize
+ * @param[in]  cp_codec_low_level_init  The cp codec low level initializer
+ *                                      function
+ *
+ * @return     One of:
+ *             | Value         | Meaning          |
+ *             | :-----------: | :--------------- |
+ *             | `struct cp *` | Ok               |
+ *             | `NULL`        | Error            |
+ */
 int cp_codec_init(struct cp_codec *codec,
                   int (*cp_codec_low_level_init)(struct cp_codec *));
 

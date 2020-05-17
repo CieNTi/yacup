@@ -26,6 +26,17 @@
 #define YCP_NAME "util/cp/codec/B416K"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/**
+ * @brief      Calculate this encoding size of a specified type, in bytes
+ *
+ * @param      type    Valid `cp_codec_data_type` to get size of
+ *
+ * @return     One of:
+ *             | Value  | Meaning                  |
+ *             | :----: | :----------------------- |
+ *             | `== 0` | Not implemented/Invalid  |
+ *             | `!= 0` | Size in bytes of a type  |
+ */
 static size_t codec_sizeof(enum cp_codec_data_type type)
 {
   /* Configure _dbg() */
@@ -93,7 +104,7 @@ static size_t codec_sizeof(enum cp_codec_data_type type)
  * @brief      Calculate CRC-16/KERMIT (According to https://crccalc.com/)
  *
  * @param      data    The data
- * @param[in]  length  The length of 'data'
+ * @param      length  The length of 'data'
  *
  * @warning    Assumed safe environment, all pre-checks already done
  * @return     One of:
@@ -139,7 +150,7 @@ static int crc16_kermit(struct rb *rb, size_t skip, size_t len, uint16_t *crc)
 }
 
 /* Encodes a defined type data and pushes it into a ring-buffer
- * WARNING: Assumed `cp/cp.c` pre-validation. Not safe as direct call!
+ * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/cp/codec.h` for complete information. */
 static size_t encode_data(struct rb *rb,
                           enum cp_codec_data_type type,
@@ -185,7 +196,7 @@ static size_t encode_data(struct rb *rb,
 }
 
 /* Pulls and decodes data from a ring-buffer and saves it into variable
- * WARNING: Assumed `cp/cp.c` pre-validation. Not safe as direct call!
+ * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/cp/codec.h` for complete information. */
 static size_t decode_data(struct rb *rb,
                           enum cp_codec_data_type type,
@@ -231,7 +242,7 @@ static size_t decode_data(struct rb *rb,
 }
 
 /* Takes `rb` raw data, encodes it as a message, and puts it back as `rb`
- * WARNING: Assumed `cp/cp.c` pre-validation. Not safe as direct call!
+ * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/cp/codec.h` for complete information. */
 static int encode_message(struct rb *rb_in, struct rb *rb_out)
 {
@@ -281,7 +292,7 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
 }
 
 /* Read and delete a byte from a comm-protocol tail.
- * WARNING: Assumed `cp/cp.c` pre-validation. Not safe as direct call!
+ * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/cp/codec.h` for complete information. */
 static int decode_message(struct rb *rb_in, struct rb *rb_out)
 {

@@ -45,9 +45,17 @@
 #else
   #ifndef _dbg
     /**
-     * @brief      Macro used to take debug messages and destroy them because
-     *             `YACUP_DEBUG` is not enabled, unless custom previously
-     *             defined by the user as a custom function
+     * @brief      Macro used to unify debugging messages.
+     * @details    This is a configurable macro:
+     * 
+     * - If `YACUP_DEBUG` is defined, `PRINTF` macro will be used.
+     *   - If `PRINTF` is not defined, standard `printf` will be used.
+     *   - User can define `PRINTF` as a custom function. As example, instead
+     *     of print to stdout, the string is sent through a serial port.
+     * - If `YACUP_DEBUG` is not defined, no debug function is used and no
+     *   string storage allocation is performed.
+     * 
+     * @note       Read `yacup/debug.h` for complete information
      */
     #define _dbg(...)
   #endif

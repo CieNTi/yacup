@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @ingroup debug_functions
+ * @addtogroup debug_functions
  * @{
  */
 
@@ -32,11 +32,17 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Print `cp` information to STDOUT (name, config, state, ...)
+ * @brief      Print `cp` information to STDOUT
  *
  * @param      cp    Pointer to a valid `cp`
  */
 void cp_print_info(struct cp *cp);
+
+/**
+ * @brief      Print `cp_codec` information to STDOUT (encode/decode functions)
+ *
+ * @param      cp    Pointer to a valid `cp`
+ */
 void cp_codec_print_info(struct cp_codec *codec);
 
 /** @} */

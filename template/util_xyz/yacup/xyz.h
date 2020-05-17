@@ -46,7 +46,7 @@ extern "C" {
  *   @}
  * @}
  * 
- * @ingroup   xyz_api
+ * @addtogroup   xyz_api
  * @{
  */
 
