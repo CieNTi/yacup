@@ -294,8 +294,7 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   cp_codec_print_info(&codec0);
 
   /* Encode/decode and Compare data */
-  _dbg("Per each type: Encode -> Decode -> Compare\n");
-
+  _dbg("Per type: Encode -> Decode -> Compare\n");
   if(encode_decode_check_by_type(&codec0, CP_CODEC_DATA_CHAR, &rb_data) ||
      encode_decode_check_by_type(&codec0, CP_CODEC_DATA_UINT8_T, &rb_data) ||
      encode_decode_check_by_type(&codec0, CP_CODEC_DATA_INT8_T, &rb_data) ||
@@ -315,16 +314,69 @@ int test_cp_codec_B416K(int argc, const char* argv[])
   _dbg("- Ok\n");
 
   /* Encode/decode and Compare messages */
-  uint8_t some_var[4] = { 0x01, 0x02, 0x03, 0x04 };
+  uint8_t some_src_var[4] = { 0x01, 0x02, 0x03, 0x04 };
+  uint8_t some_dst_var[4] = { 0x00, 0x00, 0x00, 0x00 };
+
   _dbg("Preparing a data packet with 4 bytes\n");
-  if(codec0.encode.data(&rb_data, CP_CODEC_DATA_UINT8_T, some_var, 4) < 1)
+  if(codec0.encode.data(&rb_data, CP_CODEC_DATA_UINT8_T, some_src_var, 4) < 1)
   {
     _dbg("- Cannot encode the data. ERROR\n");
     return 1;
   }
   _dbg("- Ok\n");
+
   _dbg("Data buffer content:\n");
   rb_print_info(&rb_data);
+
+  _dbg("Encoding data packet into a message\n");
+  if(codec0.encode.message(&rb_data, &rb_message))
+  {
+    _dbg("- Cannot encode the message. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+
+  _dbg("Message buffer content:\n");
+  rb_print_info(&rb_message);
+
+  rb_reset(&rb_data);
+  _dbg("Data buffer content after reset:\n");
+  rb_print_info(&rb_data);
+
+  _dbg("Decoding data packet from a message\n");
+  if(codec0.decode.message(&rb_message, &rb_data))
+  {
+    _dbg("- Cannot decode the message. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+
+  _dbg("Data buffer content:\n");
+  rb_print_info(&rb_data);
+
+  _dbg("Decoding a data packet of 4 bytes\n");
+  if(codec0.decode.data(&rb_data, CP_CODEC_DATA_UINT8_T, some_dst_var, 4) < 1)
+  {
+    _dbg("- Cannot decode the data. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+
+  _dbg("Data buffer content:\n");
+  rb_print_info(&rb_data);
+
+  if ((some_src_var[0] == some_dst_var[0]) &&
+      (some_src_var[1] == some_dst_var[1]) &&
+      (some_src_var[2] == some_dst_var[2]) &&
+      (some_src_var[3] == some_dst_var[3]))
+  {
+    _dbg(":) Valid comparison!\n");
+  }
+  else
+  {
+    _dbg(":( Invalid comparison!\n");
+    return 1;
+  }
 
   /* Cya! */
   return 0;

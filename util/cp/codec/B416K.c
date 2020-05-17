@@ -183,12 +183,22 @@ static size_t decode_data(struct rb *rb,
 /* Takes `rb` raw data, encodes it as a message, and puts it back as `rb`
  * WARNING: Assumed `cp/cp.c` pre-validation. Not safe as direct call!
  * Read `yacup/cp/codec.h` for complete information. */
-static int encode_message(struct rb *in, struct rb *out)
+static int encode_message(struct rb *rb_in, struct rb *rb_out)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "encode_message"
 
-  _dbg("Entering!\n");
+  uint8_t data_holder = 0;
+
+  /* Move data */
+  while (rb_pull(rb_in, &data_holder) == 0)
+  {
+    if (rb_push(rb_out, data_holder))
+    {
+      /* Fial! Out of destination space */
+      return 1;
+    }
+  }
 
   /* Ok! */
   return 0;
@@ -200,12 +210,22 @@ static int encode_message(struct rb *in, struct rb *out)
 /* Read and delete a byte from a comm-protocol tail.
  * WARNING: Assumed `cp/cp.c` pre-validation. Not safe as direct call!
  * Read `yacup/cp/codec.h` for complete information. */
-static int decode_message(struct rb *in, struct rb *out)
+static int decode_message(struct rb *rb_in, struct rb *rb_out)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "decode_message"
 
-  _dbg("Entering!\n");
+  uint8_t data_holder = 0;
+
+  /* Move data */
+  while (rb_pull(rb_in, &data_holder) == 0)
+  {
+    if (rb_push(rb_out, data_holder))
+    {
+      /* Fial! Out of destination space */
+      return 1;
+    }
+  }
 
   /* Ok! */
   return 0;

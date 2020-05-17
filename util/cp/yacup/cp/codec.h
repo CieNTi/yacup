@@ -86,7 +86,7 @@ struct cp_codec
      *             | `== 0` | Ok               |
      *             | `!= 0` | Error            |
      */
-    int (*message)(struct rb *in, struct rb *out);
+    int (*message)(struct rb *rb_in, struct rb *rb_out);
   } encode;
 
   /**
@@ -126,7 +126,7 @@ struct cp_codec
      *             | `== 0` | Ok               |
      *             | `!= 0` | Error            |
      */
-    int (*message)(struct rb *in, struct rb *out);
+    int (*message)(struct rb *rb_in, struct rb *rb_out);
   } decode;
 };
 
