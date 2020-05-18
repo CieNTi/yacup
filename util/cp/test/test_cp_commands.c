@@ -17,7 +17,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "yacup/cp.h"
-#include "yacup/cp/codec.h"
 
 /* Header located near this file, used as an external header in app */
 //#include "cp_simple.h"
@@ -29,20 +28,6 @@
 #define YCP_NAME "util/cp/test/test_commands"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-struct cp_argument
-{
-  enum cp_codec_data_type type;
-  void *data;
-};
-
-struct cp_command
-{
-  uint32_t id;
-  char *name;
-  int (*encode)(struct cp_argument *argument[]);
-  int (*decode)(struct cp_argument *argument[]);
-};
-
 /* Encode function for test_cmd1 */
 int cmd1_efn(struct cp_argument *argument[])
 {

@@ -48,7 +48,7 @@ LDLIBS = -lm
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Targets for 'util' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
-# Test to check `xyz` template functionality
+# test_xyz_testname: Test to check `xyz` template functionality
 test_xyz_testname_objs=template/util_xyz/xyz.o                    \
                        template/util_xyz/test/test_xyz_testname.o \
                        template/util_xyz/debug.o
@@ -57,7 +57,7 @@ test_xyz_testname: $(addprefix $(ODIR)/, $(test_xyz_testname_objs))
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
 
-# Test to check `rb` overwrite driver functionality
+# test_rb_driver_overwrite: Test to check `rb` overwrite driver functionality
 test_rb_driver_overwrite_objs=util/rb/rb.o                            \
                               util/rb/driver/overwrite.o              \
                               util/rb/test/test_rb_driver_overwrite.o \
@@ -67,7 +67,7 @@ test_rb_driver_overwrite: $(addprefix $(ODIR)/, $(test_rb_driver_overwrite_objs)
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
 
-# Test to check `fsm` functionality
+# test_fsm_simple: Test to check `fsm` functionality
 test_fsm_simple_objs=util/fsm/fsm.o                  \
                      util/fsm/test/fsm_simple.o      \
                      util/fsm/test/test_fsm_simple.o \
@@ -77,18 +77,33 @@ test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
 
-# Test to check `cp` B416K protocol functionality
+# test_cp_codec_B416K: Test to check `cp` B416K protocol functionality
 test_cp_codec_B416K_objs=util/rb/rb.o                       \
                          util/rb/driver/overwrite.o         \
                          util/rb/debug.o                    \
-                         util/fsm/fsm.o                     \
                          util/cp/cp.o                       \
                          util/cp/codec.o                    \
                          util/cp/codec/B416K.o              \
                          util/cp/test/test_cp_codec_B416K.o \
-                         util/cp/test/test_commands.o       \
                          util/cp/debug.o
 test_cp_codec_B416K: $(addprefix $(ODIR)/, $(test_cp_codec_B416K_objs))
+	@echo "-----"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@echo "-----"
+
+# test_cp_commands: Test to check `cp` commands functionality
+test_cp_commands_objs=util/rb/rb.o                       \
+                      util/rb/driver/overwrite.o         \
+                      util/rb/debug.o                    \
+                      util/fsm/fsm.o                     \
+                      util/fsm/debug.o                   \
+                      util/cp/cp.o                       \
+                      util/cp/codec.o                    \
+                      util/cp/command.o                  \
+                      util/cp/codec/B416K.o              \
+                      util/cp/test/test_cp_commands.o    \
+                      util/cp/debug.o
+test_cp_commands: $(addprefix $(ODIR)/, $(test_cp_commands_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
 	@echo "-----"
@@ -156,7 +171,8 @@ all: clean debug prepare test_yacup               \
                          test_xyz_testname        \
                          test_rb_driver_overwrite \
                          test_fsm_simple          \
-                         test_cp_codec_B416K
+                         test_cp_codec_B416K      \
+                         test_cp_commands
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""
@@ -219,6 +235,7 @@ help:
 	@echo "  test_rb_driver_overwrite ..: 'rb' ring-buffer 'overwrite' driver"
 	@echo "  test_fsm_simple ...........: 'fsm' basic FSM functionality"
 	@echo "  test_cp_codec_B416K .......: 'cp' B416K codec functionality"
+	@echo "  test_cp_commands ..........: 'cp' commands functionality"
 	@echo ""
 	@echo "Available targets related to application tests:"
 	@echo "  test_yacup ..: Example application test that runs all other utils"
