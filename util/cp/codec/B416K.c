@@ -304,30 +304,47 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   size_t data_len = 0;
 
   /* Seek for the header, discarding any other data found */
-  data_len = 0;
-  while (rb_len(rb_in)                              &&
-         (rb_pull(rb_in, &data_holder) == 0)        &&
+  while (rb_len(rb_in)                               &&
+         (rb_read(rb_in, &data_holder, 0) == 0)      &&
          (data_holder != CP_CODEC_B416K_START_BYTE))
   {
-    if (rb_len(rb_in) == 0)
+    if (rb_pull(rb_in, &data_holder) || (rb_len(rb_in) == 0))
     {
       /* Input buffer exhausted without any header */
       _dbg("No message header found on buffer\n");
       return 1;
     }
-    data_len++;
   }
 
   /* Calculate and save CRC */
-  if (crc16_kermit(rb_in, 0, rb_len(rb_in) - 2, &crc_holder[0]))
+  if (crc16_kermit(rb_in, 1, rb_len(rb_in) - 3, &crc_holder[0]))
   {
     /* Error when calculating CRC */
     _dbg("Error when calculating message CRC\n");
     return 1;
   }
 
-  /* Pull MSB + LSB of data length */
-  if (rb_pull(rb_in, (uint8_t *)&data_len + 1) ||
+  /* Read received CRC and compare it with calculated one */
+  if (rb_read(rb_in, (uint8_t *)&crc_holder[1] + 1, rb_len(rb_in) - 2) ||
+      rb_read(rb_in, (uint8_t *)&crc_holder[1]    , rb_len(rb_in) - 1))
+  {
+    /* Cannot push, error */
+    _dbg("Error when reading message CRC\n");
+    return 1;
+  }
+
+  if (crc_holder[0] != crc_holder[1])
+  {
+    _dbg("CRC mismatch (Calculated: %04X vs. Received %04X)\n",
+         crc_holder[0], crc_holder[1]);
+    return 1;
+  }
+
+  /* Once the message is validated, we can start to extract data */
+  /* Pull Header, MSB + LSB of data length */
+  data_len = 0;
+  if (rb_pull(rb_in, &data_holder) ||
+      rb_pull(rb_in, (uint8_t *)&data_len + 1) ||
       rb_pull(rb_in, (uint8_t *)&data_len)
       )
   {
@@ -348,19 +365,13 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
     data_len--;
   }
 
-  /* Get message received CRC */
-  if (rb_pull(rb_in, (uint8_t *)&crc_holder[1] + 1) ||
-      rb_pull(rb_in, (uint8_t *)&crc_holder[1]))
+  /* Pull CRC bytes */
+  if (rb_pull(rb_in, &data_holder) ||
+      rb_pull(rb_in, &data_holder)
+      )
   {
     /* Cannot push, error */
-    _dbg("Error when pulling message CRC\n");
-    return 1;
-  }
-
-  if (crc_holder[0] != crc_holder[1])
-  {
-    _dbg("CRC mismatch (Calculated: %04X vs. Received %04X)\n",
-         crc_holder[0], crc_holder[1]);
+    _dbg("Error when pulling CRC\n");
     return 1;
   }
 
