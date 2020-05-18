@@ -1,4 +1,4 @@
-/* subset_test.h - Tests commands subset for `cp` for yacup project
+/* types.h - Available enums/types for `cp` for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,42 +14,36 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CP_COMMAND_SUBSET_TEST_H
-#define __CP_COMMAND_SUBSET_TEST_H
+#ifndef __CP_TYPES_H
+#define __CP_TYPES_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @ingroup cp
+ * @addtogroup   cp
  * @{
- *   @addtogroup cp_command_subset
- *   @{
  */
 
-/* C libraries */
-#include <stdint.h>
-#include <stddef.h>
-#include "yacup/cp/command.h"
-
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-enum command_subset_test_id
+/**
+ * @brief      Data types a `cp` understand
+ */
+enum cp_data_type
 {
-  CP_COMMAND_SUBSET_TEST_CMD1 = 0xF0,
-  CP_COMMAND_SUBSET_TEST_CMD2 = 0xF1,
-  CP_COMMAND_SUBSET_TEST_CMD3 = 0xF2,
-  CP_COMMAND_SUBSET_TEST_CMD4 = 0xF3
+  CP_DATA_UINT8_T  = 0, CP_DATA_INT8_T  = 1,
+  CP_DATA_UINT16_T = 2, CP_DATA_INT16_T = 3,
+  CP_DATA_UINT32_T = 4, CP_DATA_INT32_T = 5,
+  CP_DATA_UINT64_T = 6, CP_DATA_INT64_T = 7,
+  CP_DATA_FLOAT    = 8, CP_DATA_DOUBLE  = 9,
+  CP_DATA_CHAR     = 10
 };
 
-extern struct cp_command_subset test_command_subset_part_A;
-extern struct cp_command_subset test_command_subset_part_B;
-
-/** @} */
 /** @} */
 
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
 
-#endif /* __CP_COMMAND_SUBSET_TEST_H */
+#endif /* __CP_TYPES_H */

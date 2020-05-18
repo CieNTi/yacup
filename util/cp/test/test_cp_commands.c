@@ -54,11 +54,11 @@ int test_cp_commands(int argc, const char* argv[])
 
   struct cp_command_set cmd_set =
   {
-    .name = "test_cp_commands.c set",
+    .name = "test_set",
     .subset = (struct cp_command_subset *[])
     {
-      &command_subset_test_part_A,
-      &command_subset_test_part_B,
+      &test_command_subset_part_A,
+      &test_command_subset_part_B,
       NULL
     }
   };
@@ -67,7 +67,7 @@ int test_cp_commands(int argc, const char* argv[])
   struct cp_argument *cmd1_args[] =
   {
     &(struct cp_argument)
-    { .type = CP_CODEC_DATA_UINT8_T, .data = &(uint8_t){ 250 } },
+    { .type = CP_DATA_UINT8_T, .data = &(uint8_t){ 250 } },
     NULL
   };
 
@@ -83,9 +83,9 @@ int test_cp_commands(int argc, const char* argv[])
   struct cp_argument *cmd2_args[] =
   {
     &(struct cp_argument)
-    { .type = CP_CODEC_DATA_UINT8_T, .data = &(uint8_t){ 250 } },
+    { .type = CP_DATA_UINT8_T, .data = &(uint8_t){ 250 } },
     &(struct cp_argument)
-    { .type = CP_CODEC_DATA_DOUBLE,  .data = &(double){ -1.233 } },
+    { .type = CP_DATA_DOUBLE,  .data = &(double){ -1.233 } },
     NULL
   };
 

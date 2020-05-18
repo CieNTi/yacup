@@ -55,6 +55,7 @@ extern "C" {
 #include <stddef.h>
 #include "yacup/rb.h"
 #include "yacup/fsm.h"
+#include "yacup/cp/types.h"
 #include "yacup/cp/codec.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

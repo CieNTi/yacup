@@ -29,12 +29,12 @@ extern "C" {
 /* C libraries */
 #include <stdint.h>
 #include <stddef.h>
-#include "yacup/cp/codec.h"
+#include "yacup/cp/types.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 struct cp_argument
 {
-  enum cp_codec_data_type type;
+  enum cp_data_type type;
   void *data;
 };
 

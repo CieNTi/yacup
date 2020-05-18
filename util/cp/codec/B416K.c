@@ -29,7 +29,7 @@
 /**
  * @brief      Calculate this encoding size of a specified type, in bytes
  *
- * @param      type    Valid `cp_codec_data_type` to get size of
+ * @param      type    Valid `cp_data_type` to get size of
  *
  * @return     One of:
  *             | Value  | Meaning                  |
@@ -37,55 +37,55 @@
  *             | `== 0` | Not implemented/Invalid  |
  *             | `!= 0` | Size in bytes of a type  |
  */
-static size_t codec_sizeof(enum cp_codec_data_type type)
+static size_t codec_sizeof(enum cp_data_type type)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "codec_sizeof"
 
    switch(type)
   {
-    case CP_CODEC_DATA_CHAR:
-      _dbg("Selected data type CP_CODEC_DATA_CHAR\n");
+    case CP_DATA_CHAR:
+      _dbg("Selected data type CP_DATA_CHAR\n");
       return (sizeof(char));
       break;
-    case CP_CODEC_DATA_UINT8_T:
-      _dbg("Selected data type CP_CODEC_DATA_UINT8_T\n");
+    case CP_DATA_UINT8_T:
+      _dbg("Selected data type CP_DATA_UINT8_T\n");
       return (sizeof(uint8_t));
       break;
-    case CP_CODEC_DATA_INT8_T:
-      _dbg("Selected data type CP_CODEC_DATA_INT8_T\n");
+    case CP_DATA_INT8_T:
+      _dbg("Selected data type CP_DATA_INT8_T\n");
       return (sizeof(int8_t));
       break;
-    case CP_CODEC_DATA_UINT16_T:
-      _dbg("Selected data type CP_CODEC_DATA_UINT16_T\n");
+    case CP_DATA_UINT16_T:
+      _dbg("Selected data type CP_DATA_UINT16_T\n");
       return (sizeof(uint16_t));
       break;
-    case CP_CODEC_DATA_INT16_T:
-      _dbg("Selected data type CP_CODEC_DATA_INT16_T\n");
+    case CP_DATA_INT16_T:
+      _dbg("Selected data type CP_DATA_INT16_T\n");
       return (sizeof(int16_t));
       break;
-    case CP_CODEC_DATA_UINT32_T:
-      _dbg("Selected data type CP_CODEC_DATA_UINT32_T\n");
+    case CP_DATA_UINT32_T:
+      _dbg("Selected data type CP_DATA_UINT32_T\n");
       return (sizeof(uint32_t));
       break;
-    case CP_CODEC_DATA_INT32_T:
-      _dbg("Selected data type CP_CODEC_DATA_INT32_T\n");
+    case CP_DATA_INT32_T:
+      _dbg("Selected data type CP_DATA_INT32_T\n");
       return (sizeof(int32_t));
       break;
-    case CP_CODEC_DATA_UINT64_T:
-      _dbg("Selected data type CP_CODEC_DATA_UINT64_T\n");
+    case CP_DATA_UINT64_T:
+      _dbg("Selected data type CP_DATA_UINT64_T\n");
       return (sizeof(uint64_t));
       break;
-    case CP_CODEC_DATA_INT64_T:
-      _dbg("Selected data type CP_CODEC_DATA_INT64_T\n");
+    case CP_DATA_INT64_T:
+      _dbg("Selected data type CP_DATA_INT64_T\n");
       return (sizeof(int64_t));
       break;
-    case CP_CODEC_DATA_FLOAT:
-      _dbg("Selected data type CP_CODEC_DATA_FLOAT\n");
+    case CP_DATA_FLOAT:
+      _dbg("Selected data type CP_DATA_FLOAT\n");
       return (sizeof(float));
       break;
-    case CP_CODEC_DATA_DOUBLE:
-      _dbg("Selected data type CP_CODEC_DATA_DOUBLE\n");
+    case CP_DATA_DOUBLE:
+      _dbg("Selected data type CP_DATA_DOUBLE\n");
       return (sizeof(double));
       break;
     default:
@@ -153,7 +153,7 @@ static int crc16_kermit(struct rb *rb, size_t skip, size_t len, uint16_t *crc)
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/cp/codec.h` for complete information. */
 static size_t encode_data(struct rb *rb,
-                          enum cp_codec_data_type type,
+                          enum cp_data_type type,
                           void *data, size_t num_data)
 {
   /* Configure _dbg() */
@@ -199,7 +199,7 @@ static size_t encode_data(struct rb *rb,
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/cp/codec.h` for complete information. */
 static size_t decode_data(struct rb *rb,
-                          enum cp_codec_data_type type,
+                          enum cp_data_type type,
                           void *data, size_t num_data)
 {
   /* Configure _dbg() */

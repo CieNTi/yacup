@@ -36,7 +36,7 @@ static int test_cmd1_val(struct cp_command *cmd, struct cp_argument *arg[])
   if (/* Validate if there is a first argument or not */
       arg[0] == NULL                        ||
       /* Got it, now validate if it is the expected type */
-      arg[0]->type != CP_CODEC_DATA_UINT8_T ||
+      arg[0]->type != CP_DATA_UINT8_T       ||
       /* Purfect, now we can do some value check */
       !(*(uint8_t *)arg[0]->data < 251)     ||
       /* And should not be another argument */
@@ -79,13 +79,13 @@ static int test_cmd2_val(struct cp_command *cmd, struct cp_argument *arg[])
   if (/* Validate if there is a first argument or not */
       arg[0] == NULL                        ||
       /* Got it, now validate if it is the expected type */
-      arg[0]->type != CP_CODEC_DATA_UINT8_T ||
+      arg[0]->type != CP_DATA_UINT8_T       ||
       /* Purfect, now we can do some value check */
       !(*(uint8_t *)arg[0]->data < 251)     ||
       /* Validate if there is a second argument or not */
       arg[1] == NULL                        ||
       /* Got it, now validate if it is the expected type */
-      arg[1]->type != CP_CODEC_DATA_DOUBLE  ||
+      arg[1]->type != CP_DATA_DOUBLE        ||
       /* Purfect, now we can do some value check */
       !(*(double *)arg[1]->data > -1.234) ||
       /* And should not be another argument */
@@ -119,9 +119,9 @@ static int test_cmd2_par(struct cp_command *cmd, struct cp_argument *arg[])
 }
 
 /* List of implemented commands for this subset */
-struct cp_command_subset command_subset_test_part_A =
+struct cp_command_subset test_command_subset_part_A =
 {
-  .name = "subset_test_part_A",
+  .name = "test_subset_part_A",
   .command = (struct cp_command *[])
   {
     /* enum CP_COMMAND_SUBSET_TEST_CMD1 -> test_cmd1 */
@@ -141,9 +141,9 @@ struct cp_command_subset command_subset_test_part_A =
 };
 
 /* List of implemented commands for this subset */
-struct cp_command_subset command_subset_test_part_B =
+struct cp_command_subset test_command_subset_part_B =
 {
-  .name = "subset_test_part_B",
+  .name = "test_subset_part_B",
   .command = (struct cp_command *[])
   {
     /* enum CP_COMMAND_SUBSET_TEST_CMD1 -> test_cmd1 */

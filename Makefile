@@ -54,7 +54,7 @@ test_xyz_testname_objs=template/util_xyz/xyz.o                    \
                        template/util_xyz/debug.o
 test_xyz_testname: $(addprefix $(ODIR)/, $(test_xyz_testname_objs))
 	@echo "-----"
-	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
 # test_rb_driver_overwrite: Test to check `rb` overwrite driver functionality
@@ -64,7 +64,7 @@ test_rb_driver_overwrite_objs=util/rb/rb.o                            \
                               util/rb/debug.o
 test_rb_driver_overwrite: $(addprefix $(ODIR)/, $(test_rb_driver_overwrite_objs))
 	@echo "-----"
-	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
 # test_fsm_simple: Test to check `fsm` functionality
@@ -74,7 +74,7 @@ test_fsm_simple_objs=util/fsm/fsm.o                  \
                      util/fsm/debug.o
 test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
 	@echo "-----"
-	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
 # test_cp_codec_B416K: Test to check `cp` B416K protocol functionality
@@ -88,7 +88,7 @@ test_cp_codec_B416K_objs=util/rb/rb.o                       \
                          util/cp/debug.o
 test_cp_codec_B416K: $(addprefix $(ODIR)/, $(test_cp_codec_B416K_objs))
 	@echo "-----"
-	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
 # test_cp_commands: Test to check `cp` commands functionality
@@ -106,7 +106,7 @@ test_cp_commands_objs=util/rb/rb.o                       \
                       util/cp/debug.o
 test_cp_commands: $(addprefix $(ODIR)/, $(test_cp_commands_objs))
 	@echo "-----"
-	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -121,15 +121,15 @@ test_yacup_objs=$(test_xyz_testname_objs)        \
                 src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_objs))
 	@echo "-----"
-	make test_bin TB_OBJ=$(firstword $(filter %$@.o,$+)) TB_NAME=$@ TB_OBJS="$+"
+	make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
 # Normal app (main() function is there)
 an_app_objs=some/object/file.o
 an_app: $(addprefix $(ODIR)/, $(an_app_objs))
 	@echo "-----"
-	@echo "\nLinking | << $+\n        | >> $(BDIR)/$@"
-	$(CC) $+ $(CFLAGS) $(LDLIBS) -o $(BDIR)/$@
+	@echo "\nLinking | << $^\n        | >> $(BDIR)/$@"
+	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BDIR)/$@
 	@echo "\nExecuting '$@': $(BDIR)/$@\n-----"
 	@$(BDIR)/$@
 	@echo "-----"

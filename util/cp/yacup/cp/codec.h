@@ -30,21 +30,9 @@ extern "C" {
 #include <stdint.h>
 #include <stddef.h>
 #include "yacup/rb.h"
+#include "yacup/cp/types.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/**
- * @brief      Data types the codec can push or pull
- */
-enum cp_codec_data_type
-{
-  CP_CODEC_DATA_CHAR     = 0,
-  CP_CODEC_DATA_UINT8_T  = 1, CP_CODEC_DATA_INT8_T  = 2,
-  CP_CODEC_DATA_UINT16_T = 3, CP_CODEC_DATA_INT16_T = 4,
-  CP_CODEC_DATA_UINT32_T = 5, CP_CODEC_DATA_INT32_T = 6,
-  CP_CODEC_DATA_UINT64_T = 7, CP_CODEC_DATA_INT64_T = 8,
-  CP_CODEC_DATA_FLOAT    = 9, CP_CODEC_DATA_DOUBLE  = 10
-};
-
 /**
  * @brief      Structure that defines a `cp` codec operations
  */
@@ -70,7 +58,7 @@ struct cp_codec
      *             | `>  0` | Number of encoded data entities |
      */
     size_t (*data)(struct rb *rb,
-                   enum cp_codec_data_type type,
+                   enum cp_data_type type,
                    void *data, size_t num_data);
 
     /**
@@ -110,7 +98,7 @@ struct cp_codec
      *             | `>  0` | Number of decoded data entities |
      */
     size_t (*data)(struct rb *rb,
-                   enum cp_codec_data_type type,
+                   enum cp_data_type type,
                    void *data, size_t num_data);
 
     /**
