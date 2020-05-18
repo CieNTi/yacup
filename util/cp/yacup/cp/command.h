@@ -48,11 +48,13 @@ struct cp_command
 
 struct cp_command_subset
 {
+  char *name;
   struct cp_command **command;
 };
 
 struct cp_command_set
 {
+  char *name;
   struct cp_command_subset **subset;
 };
 

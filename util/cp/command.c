@@ -36,50 +36,41 @@ int cp_command_validate(struct cp_command_set *cmd_set,
   size_t sub_idx = 0;
   size_t cmd_idx = 0;
 
+  _dbg("Validating command 0x%02lX on set '%s' (%p)\n",
+       id,
+       cmd_set->name,
+       (void *)cmd_set);
+
   /* Iterate through subsets */
   for (sub_idx = 0; cmd_set->subset[sub_idx] != NULL; sub_idx++)
   {
-    _dbg("Subset index %lu, address %p\n", sub_idx, (void *)cmd_set->subset[sub_idx]);
+    _dbg("Subset %lu: '%s' (%p)\n",
+         sub_idx,
+         cmd_set->subset[sub_idx]->name,
+         (void *)cmd_set->subset[sub_idx]);
 
     /* Check if command is implemented */
     for (cmd_idx = 0;
          cmd_set->subset[sub_idx]->command[cmd_idx] != NULL;
          cmd_idx++)
     {
-      if (cmd_idx != id)
+      if (cmd_set->subset[sub_idx]->command[cmd_idx]->id != id)
       {
         continue;
       }
-      _dbg("Command found, index %lu, name %s\n",
+      _dbg("Command %lu: Found '%s'\n",
            cmd_idx,
            cmd_set->subset[sub_idx]->command[cmd_idx]->name);
-      if (cmd_set->subset[sub_idx]->command[cmd_idx]->validate(
-            cmd_set->subset[sub_idx]->command[cmd_idx],
-            argument)
-          )
-      {
-        _dbg("Invalid command\n");
-        return 1;
-      }
-      break;
+
+      /* Return command validate output */
+      return (cmd_set->subset[sub_idx]->command[cmd_idx]->validate(
+                cmd_set->subset[sub_idx]->command[cmd_idx],
+                argument));
     }
-    break;
   }
 
-  if (cmd_set->subset[sub_idx] == NULL)
-  {
-    _dbg("Command not found\n");
-    return 1;
-  }
-
-//  if (cmd_set[cmd_idx] == NULL)
-//  {
-//    _dbg("Command not found\n");
-//    return 1;
-//  }
-//
-  /* Cya! */
-  return 0;
+  _dbg("Command not found\n");
+  return 1;
 
   /* Free _dbg() config */
   #undef YCP_FNAME

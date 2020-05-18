@@ -54,9 +54,11 @@ int test_cp_commands(int argc, const char* argv[])
 
   struct cp_command_set cmd_set =
   {
+    .name = "test_cp_commands.c set",
     .subset = (struct cp_command_subset *[])
     {
-      &command_subset_test,
+      &command_subset_test_part_A,
+      &command_subset_test_part_B,
       NULL
     }
   };
@@ -88,10 +90,18 @@ int test_cp_commands(int argc, const char* argv[])
   };
 
   /* Validate command */
-  if (cp_command_validate(&cmd_set, CP_COMMAND_SUBSET_TEST_CMD2, cmd2_args))
+  if (cp_command_validate(&cmd_set, CP_COMMAND_SUBSET_TEST_CMD4, cmd2_args))
   {
     /* Cannot send, error */
     _dbg("Error when validating CP_COMMAND_SUBSET_TEST_CMD2\n");
+    return 1;
+  }
+
+  /* Test invalid command */
+  if (cp_command_validate(&cmd_set, 1000, cmd2_args) == 0)
+  {
+    /* Cannot send, error */
+    _dbg("Invalid command marked as valid! ERROR!\n");
     return 1;
   }
 

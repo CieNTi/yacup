@@ -18,6 +18,7 @@
 #include <stddef.h>
 #include "yacup/cp.h"
 #include "yacup/cp/command.h"
+#include "yacup/cp/command/subset_test.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
@@ -25,7 +26,7 @@
 #define YCP_NAME "util/cp/command/subset_test"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Encode function for test_cmd1 */
+/* Validate function for test_cmd1 */
 static int test_cmd1_val(struct cp_command *cmd, struct cp_argument *arg[])
 {
   /* Configure _dbg() */
@@ -53,7 +54,7 @@ static int test_cmd1_val(struct cp_command *cmd, struct cp_argument *arg[])
   #undef YCP_FNAME
 }
 
-/* Decode function for test_cmd1 */
+/* Parse function for test_cmd1 */
 static int test_cmd1_par(struct cp_command *cmd, struct cp_argument *arg[])
 {
   /* Configure _dbg() */
@@ -68,7 +69,7 @@ static int test_cmd1_par(struct cp_command *cmd, struct cp_argument *arg[])
   #undef YCP_FNAME
 }
 
-/* Encode function for test_cmd2 */
+/* Validate function for test_cmd2 */
 static int test_cmd2_val(struct cp_command *cmd, struct cp_argument *arg[])
 {
   /* Configure _dbg() */
@@ -102,7 +103,7 @@ static int test_cmd2_val(struct cp_command *cmd, struct cp_argument *arg[])
   #undef YCP_FNAME
 }
 
-/* Decode function for test_cmd2 */
+/* Parse function for test_cmd2 */
 static int test_cmd2_par(struct cp_command *cmd, struct cp_argument *arg[])
 {
   /* Configure _dbg() */
@@ -117,23 +118,45 @@ static int test_cmd2_par(struct cp_command *cmd, struct cp_argument *arg[])
   #undef YCP_FNAME
 }
 
-
 /* List of implemented commands for this subset */
-struct cp_command_subset command_subset_test =
+struct cp_command_subset command_subset_test_part_A =
 {
+  .name = "subset_test_part_A",
   .command = (struct cp_command *[])
   {
     /* enum CP_COMMAND_SUBSET_TEST_CMD1 -> test_cmd1 */
     &(struct cp_command)
     {
-      .id   = 0x01,        .validate = test_cmd1_val,
-      .name = "test_cmd1", .parse    = test_cmd1_par
+      .id   = CP_COMMAND_SUBSET_TEST_CMD1, .validate = test_cmd1_val,
+      .name = "test_cmd1",                 .parse    = test_cmd1_par
     },
     /* enum CP_COMMAND_SUBSET_TEST_CMD2 -> test_cmd2 */
     &(struct cp_command)
     {
-      .id   = 0x02,        .validate = test_cmd2_val,
-      .name = "test_cmd2", .parse    = test_cmd2_par
+      .id   = CP_COMMAND_SUBSET_TEST_CMD2, .validate = test_cmd2_val,
+      .name = "test_cmd2",                 .parse    = test_cmd2_par
+    },
+    NULL
+  }
+};
+
+/* List of implemented commands for this subset */
+struct cp_command_subset command_subset_test_part_B =
+{
+  .name = "subset_test_part_B",
+  .command = (struct cp_command *[])
+  {
+    /* enum CP_COMMAND_SUBSET_TEST_CMD1 -> test_cmd1 */
+    &(struct cp_command)
+    {
+      .id   = CP_COMMAND_SUBSET_TEST_CMD3, .validate = test_cmd1_val,
+      .name = "test_cmd3",                 .parse    = test_cmd1_par
+    },
+    /* enum CP_COMMAND_SUBSET_TEST_CMD2 -> test_cmd2 */
+    &(struct cp_command)
+    {
+      .id   = CP_COMMAND_SUBSET_TEST_CMD4, .validate = test_cmd2_val,
+      .name = "test_cmd4",                 .parse    = test_cmd2_par
     },
     NULL
   }

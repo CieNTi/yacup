@@ -36,11 +36,14 @@ extern "C" {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 enum command_subset_test_id
 {
-  CP_COMMAND_SUBSET_TEST_CMD1 = 0,
-  CP_COMMAND_SUBSET_TEST_CMD2 = 1
+  CP_COMMAND_SUBSET_TEST_CMD1 = 0xF0,
+  CP_COMMAND_SUBSET_TEST_CMD2 = 0xF1,
+  CP_COMMAND_SUBSET_TEST_CMD3 = 0xF2,
+  CP_COMMAND_SUBSET_TEST_CMD4 = 0xF3
 };
 
-extern struct cp_command_subset command_subset_test;
+extern struct cp_command_subset command_subset_test_part_A;
+extern struct cp_command_subset command_subset_test_part_B;
 
 /** @} */
 /** @} */
