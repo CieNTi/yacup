@@ -99,8 +99,9 @@ test_cp_commands_objs=util/rb/rb.o                       \
                       util/fsm/debug.o                   \
                       util/cp/cp.o                       \
                       util/cp/codec.o                    \
-                      util/cp/command.o                  \
                       util/cp/codec/B416K.o              \
+                      util/cp/command.o                  \
+                      util/cp/command/subset_test.o      \
                       util/cp/test/test_cp_commands.o    \
                       util/cp/debug.o
 test_cp_commands: $(addprefix $(ODIR)/, $(test_cp_commands_objs))

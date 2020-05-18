@@ -26,37 +26,58 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Validates a `cp_command`
  * Read `yacup/cp/command.h` for complete information. */
-int cp_command_validate(struct cp_command *command_set[],
+int cp_command_validate(struct cp_command_set *cmd_set,
                         size_t id,
                         struct cp_argument *argument[])
 {
   /* Configure _dbg() */
   #define YCP_FNAME "cp_command_validate"
 
-  size_t idx = 0;
+  size_t sub_idx = 0;
+  size_t cmd_idx = 0;
 
-  /* Check if command is implemented */
-  for (idx = 0; command_set[idx] != NULL; idx++)
+  /* Iterate through subsets */
+  for (sub_idx = 0; cmd_set->subset[sub_idx] != NULL; sub_idx++)
   {
-    if (idx != id)
+    _dbg("Subset index %lu, address %p\n", sub_idx, (void *)cmd_set->subset[sub_idx]);
+
+    /* Check if command is implemented */
+    for (cmd_idx = 0;
+         cmd_set->subset[sub_idx]->command[cmd_idx] != NULL;
+         cmd_idx++)
     {
-      continue;
-    }
-    _dbg("Command found, index %lu, name %s\n", idx, command_set[idx]->name);
-    if (command_set[idx]->validate(command_set[idx], argument))
-    {
-      _dbg("Invalid command\n");
-      return 1;
+      if (cmd_idx != id)
+      {
+        continue;
+      }
+      _dbg("Command found, index %lu, name %s\n",
+           cmd_idx,
+           cmd_set->subset[sub_idx]->command[cmd_idx]->name);
+      if (cmd_set->subset[sub_idx]->command[cmd_idx]->validate(
+            cmd_set->subset[sub_idx]->command[cmd_idx],
+            argument)
+          )
+      {
+        _dbg("Invalid command\n");
+        return 1;
+      }
+      break;
     }
     break;
   }
 
-  if (command_set[idx] == NULL)
+  if (cmd_set->subset[sub_idx] == NULL)
   {
     _dbg("Command not found\n");
     return 1;
   }
 
+//  if (cmd_set[cmd_idx] == NULL)
+//  {
+//    _dbg("Command not found\n");
+//    return 1;
+//  }
+//
   /* Cya! */
   return 0;
 
