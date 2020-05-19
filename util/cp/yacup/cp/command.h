@@ -35,7 +35,7 @@ extern "C" {
 struct cp_argument
 {
   enum cp_data_type type;
-  void *data;
+  union cp_data data;
 };
 
 struct cp_command

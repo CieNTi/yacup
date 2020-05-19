@@ -38,7 +38,7 @@ static int test_cmd1_val(struct cp_command *cmd, struct cp_argument *arg[])
       /* Got it, now validate if it is the expected type */
       arg[0]->type != CP_DATA_UINT8_T       ||
       /* Purfect, now we can do some value check */
-      !(*(uint8_t *)arg[0]->data < 251)     ||
+      !(arg[0]->data.u8 < 251)              ||
       /* And should not be another argument */
       arg[1] != NULL)
   {
@@ -81,13 +81,13 @@ static int test_cmd2_val(struct cp_command *cmd, struct cp_argument *arg[])
       /* Got it, now validate if it is the expected type */
       arg[0]->type != CP_DATA_UINT8_T       ||
       /* Purfect, now we can do some value check */
-      !(*(uint8_t *)arg[0]->data < 251)     ||
+      !(arg[0]->data.u8 < 251)              ||
       /* Validate if there is a second argument or not */
       arg[1] == NULL                        ||
       /* Got it, now validate if it is the expected type */
       arg[1]->type != CP_DATA_DOUBLE        ||
       /* Purfect, now we can do some value check */
-      !(*(double *)arg[1]->data > -1.234) ||
+      !(arg[1]->data.d > -1.234)            ||
       /* And should not be another argument */
       arg[2] != NULL)
   {

@@ -52,6 +52,7 @@ int test_cp_commands(int argc, const char* argv[])
 
   _dbg("Hi! from "__FILE__"\n");
 
+  /* Define the command set this `cp` will understand how to send/receive */
   struct cp_command_set cmd_set =
   {
     .name = "test_set",
@@ -67,7 +68,7 @@ int test_cp_commands(int argc, const char* argv[])
   struct cp_argument *cmd1_args[] =
   {
     &(struct cp_argument)
-    { .type = CP_DATA_UINT8_T, .data = &(uint8_t){ 250 } },
+    { .type = CP_DATA_UINT8_T, .data.u8 = 250 },
     NULL
   };
 
@@ -83,9 +84,9 @@ int test_cp_commands(int argc, const char* argv[])
   struct cp_argument *cmd2_args[] =
   {
     &(struct cp_argument)
-    { .type = CP_DATA_UINT8_T, .data = &(uint8_t){ 250 } },
+    { .type = CP_DATA_UINT8_T, .data.u8 = 250 },
     &(struct cp_argument)
-    { .type = CP_DATA_DOUBLE,  .data = &(double){ -1.233 } },
+    { .type = CP_DATA_DOUBLE,  .data.d  = -1.233 },
     NULL
   };
 
