@@ -61,7 +61,6 @@ void cp_codec_print_info(struct cp_codec *codec)
                                        (void *)(size_t)codec->decode.data);
   _dbg("  - message .....: %p (%p)\n", (void *)&codec->decode.message,
                                        (void *)(size_t)codec->decode.message);
-  fflush(stdout);
   return;
 
   /* Free _dbg() config */

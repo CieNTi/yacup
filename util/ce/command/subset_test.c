@@ -34,11 +34,11 @@ static int test_cmd1_val(struct cp_command *cmd, struct cp_argument *arg[])
 
   /* This specific example command requires only a uint8_t argument */
   if (/* Validate if there is a first argument or not */
-      arg[0] == NULL                        ||
+      arg[0] == NULL                  ||
       /* Got it, now validate if it is the expected type */
-      arg[0]->type != CP_DATA_UINT8_T       ||
+      arg[0]->type != CP_DATA_UINT8_T ||
       /* Purfect, now we can do some value check */
-      !(arg[0]->data.u8 < 251)              ||
+      !(arg[0]->data.u8 < 251)        ||
       /* And should not be another argument */
       arg[1] != NULL)
   {
@@ -60,7 +60,13 @@ static int test_cmd1_par(struct cp_command *cmd, struct cp_argument *arg[])
   /* Configure _dbg() */
   #define YCP_FNAME "cmd1_par"
 
-  _dbg("Hi! from "__FILE__"\n");
+  _dbg("Hop!\n");
+  //struct cp_argument *arga[] =
+  //{
+  //  &(struct cp_argument)
+  //  { .type = CP_DATA_UINT8_T, .data.u8 = 0 },
+  //  NULL
+  //};
 
   /* Cya! */
   return 0;
@@ -77,17 +83,17 @@ static int test_cmd2_val(struct cp_command *cmd, struct cp_argument *arg[])
 
   /* This specific example requires one uint8_t and one double arguments */
   if (/* Validate if there is a first argument or not */
-      arg[0] == NULL                        ||
+      arg[0] == NULL                  ||
       /* Got it, now validate if it is the expected type */
-      arg[0]->type != CP_DATA_UINT8_T       ||
+      arg[0]->type != CP_DATA_UINT8_T ||
       /* Purfect, now we can do some value check */
-      !(arg[0]->data.u8 < 251)              ||
+      !(arg[0]->data.u8 < 251)        ||
       /* Validate if there is a second argument or not */
-      arg[1] == NULL                        ||
+      arg[1] == NULL                  ||
       /* Got it, now validate if it is the expected type */
-      arg[1]->type != CP_DATA_DOUBLE        ||
+      arg[1]->type != CP_DATA_DOUBLE  ||
       /* Purfect, now we can do some value check */
-      !(arg[1]->data.d > -1.234)            ||
+      !(arg[1]->data.d > -1.234)      ||
       /* And should not be another argument */
       arg[2] != NULL)
   {

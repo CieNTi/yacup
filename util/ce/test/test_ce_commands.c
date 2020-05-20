@@ -67,8 +67,7 @@ int test_cp_commands(int argc, const char* argv[])
   /* Compose arguments */
   struct cp_argument *cmd1_args[] =
   {
-    &(struct cp_argument)
-    { .type = CP_DATA_UINT8_T, .data.u8 = 250 },
+    &(struct cp_argument) { .type = CP_DATA_UINT8_T, .data.u8 = 250 },
     NULL
   };
 
@@ -83,17 +82,15 @@ int test_cp_commands(int argc, const char* argv[])
   /* Compose arguments */
   struct cp_argument *cmd2_args[] =
   {
-    &(struct cp_argument)
-    { .type = CP_DATA_UINT8_T, .data.u8 = 250 },
-    &(struct cp_argument)
-    { .type = CP_DATA_DOUBLE,  .data.d  = -1.233 },
+    &(struct cp_argument) { .type = CP_DATA_UINT8_T, .data.u8 = 250    },
+    &(struct cp_argument) { .type = CP_DATA_DOUBLE,  .data.d  = -1.233 },
     NULL
   };
 
   /* Validate command */
   if (cp_command_validate(&cmd_set, CP_COMMAND_SUBSET_TEST_CMD4, cmd2_args))
   {
-    /* Cannot send, error */
+    /* Cannot validate, error */
     _dbg("Error when validating CP_COMMAND_SUBSET_TEST_CMD2\n");
     return 1;
   }
@@ -101,7 +98,7 @@ int test_cp_commands(int argc, const char* argv[])
   /* Test invalid command */
   if (cp_command_validate(&cmd_set, 1000, cmd2_args) == 0)
   {
-    /* Cannot send, error */
+    /* Validated, error */
     _dbg("Invalid command marked as valid! ERROR!\n");
     return 1;
   }

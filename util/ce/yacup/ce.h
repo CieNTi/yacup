@@ -64,15 +64,13 @@ extern "C" {
  */
 struct cp
 {
-  struct fsm behaviour;
+  struct fsm chat;
   struct cp_channel
   {
     uint8_t         busy;
-    uint8_t         data_ready;
     struct rb       buffer;
-    struct fsm      chat;
     struct cp_codec codec;
-  } ch_out, ch_in;
+  } out, in;
 };
 
 

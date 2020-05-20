@@ -76,4 +76,18 @@ int cp_command_validate(struct cp_command_set *cmd_set,
   #undef YCP_FNAME
 }
 
+/* Sends a `cp_command`: Put ready-to-send data into a ring-buffer
+ * Read `yacup/cp/command.h` for complete information. */
+int cp_command_send(struct cp_command_set *cmd_set,
+                    size_t id,
+                    struct cp_argument *argument[])
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "cp_command_validate"
+
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
 #undef YCP_NAME
