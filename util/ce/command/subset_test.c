@@ -1,4 +1,4 @@
-/* subset_test.c - Tests commands subset for `cp` for yacup project
+/* subset_test.c - Tests commands subset for `ce` for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,18 +16,18 @@
  */
 #include <stdint.h>
 #include <stddef.h>
-#include "yacup/cp.h"
-#include "yacup/cp/command.h"
-#include "yacup/cp/command/subset_test.h"
+#include "yacup/ce.h"
+#include "yacup/ce/command.h"
+#include "yacup/ce/command/subset_test.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/cp/command/subset_test"
+#define YCP_NAME "util/ce/command/subset_test"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Validate function for test_cmd1 */
-static int test_cmd1_val(struct cp_command *cmd, struct cp_argument *arg[])
+static int test_cmd1_val(struct ce_command *cmd, struct ce_argument *arg[])
 {
   /* Configure _dbg() */
   #define YCP_FNAME "cmd1_val"
@@ -36,7 +36,7 @@ static int test_cmd1_val(struct cp_command *cmd, struct cp_argument *arg[])
   if (/* Validate if there is a first argument or not */
       arg[0] == NULL                  ||
       /* Got it, now validate if it is the expected type */
-      arg[0]->type != CP_DATA_UINT8_T ||
+      arg[0]->type != CE_DATA_UINT8_T ||
       /* Purfect, now we can do some value check */
       !(arg[0]->data.u8 < 251)        ||
       /* And should not be another argument */
@@ -55,16 +55,16 @@ static int test_cmd1_val(struct cp_command *cmd, struct cp_argument *arg[])
 }
 
 /* Parse function for test_cmd1 */
-static int test_cmd1_par(struct cp_command *cmd, struct cp_argument *arg[])
+static int test_cmd1_par(struct ce_command *cmd, struct ce_argument *arg[])
 {
   /* Configure _dbg() */
   #define YCP_FNAME "cmd1_par"
 
   _dbg("Hop!\n");
-  //struct cp_argument *arga[] =
+  //struct ce_argument *arga[] =
   //{
-  //  &(struct cp_argument)
-  //  { .type = CP_DATA_UINT8_T, .data.u8 = 0 },
+  //  &(struct ce_argument)
+  //  { .type = CE_DATA_UINT8_T, .data.u8 = 0 },
   //  NULL
   //};
 
@@ -76,7 +76,7 @@ static int test_cmd1_par(struct cp_command *cmd, struct cp_argument *arg[])
 }
 
 /* Validate function for test_cmd2 */
-static int test_cmd2_val(struct cp_command *cmd, struct cp_argument *arg[])
+static int test_cmd2_val(struct ce_command *cmd, struct ce_argument *arg[])
 {
   /* Configure _dbg() */
   #define YCP_FNAME "cmd2_val"
@@ -85,13 +85,13 @@ static int test_cmd2_val(struct cp_command *cmd, struct cp_argument *arg[])
   if (/* Validate if there is a first argument or not */
       arg[0] == NULL                  ||
       /* Got it, now validate if it is the expected type */
-      arg[0]->type != CP_DATA_UINT8_T ||
+      arg[0]->type != CE_DATA_UINT8_T ||
       /* Purfect, now we can do some value check */
       !(arg[0]->data.u8 < 251)        ||
       /* Validate if there is a second argument or not */
       arg[1] == NULL                  ||
       /* Got it, now validate if it is the expected type */
-      arg[1]->type != CP_DATA_DOUBLE  ||
+      arg[1]->type != CE_DATA_DOUBLE  ||
       /* Purfect, now we can do some value check */
       !(arg[1]->data.d > -1.234)      ||
       /* And should not be another argument */
@@ -110,7 +110,7 @@ static int test_cmd2_val(struct cp_command *cmd, struct cp_argument *arg[])
 }
 
 /* Parse function for test_cmd2 */
-static int test_cmd2_par(struct cp_command *cmd, struct cp_argument *arg[])
+static int test_cmd2_par(struct ce_command *cmd, struct ce_argument *arg[])
 {
   /* Configure _dbg() */
   #define YCP_FNAME "cmd2_par"
@@ -125,21 +125,21 @@ static int test_cmd2_par(struct cp_command *cmd, struct cp_argument *arg[])
 }
 
 /* List of implemented commands for this subset */
-struct cp_command_subset test_command_subset_part_A =
+struct ce_command_subset test_command_subset_part_A =
 {
   .name = "test_subset_part_A",
-  .command = (struct cp_command *[])
+  .command = (struct ce_command *[])
   {
-    /* enum CP_COMMAND_SUBSET_TEST_CMD1 -> test_cmd1 */
-    &(struct cp_command)
+    /* enum CE_COMMAND_SUBSET_TEST_CMD1 -> test_cmd1 */
+    &(struct ce_command)
     {
-      .id   = CP_COMMAND_SUBSET_TEST_CMD1, .validate = test_cmd1_val,
+      .id   = CE_COMMAND_SUBSET_TEST_CMD1, .validate = test_cmd1_val,
       .name = "test_cmd1",                 .parse    = test_cmd1_par
     },
-    /* enum CP_COMMAND_SUBSET_TEST_CMD2 -> test_cmd2 */
-    &(struct cp_command)
+    /* enum CE_COMMAND_SUBSET_TEST_CMD2 -> test_cmd2 */
+    &(struct ce_command)
     {
-      .id   = CP_COMMAND_SUBSET_TEST_CMD2, .validate = test_cmd2_val,
+      .id   = CE_COMMAND_SUBSET_TEST_CMD2, .validate = test_cmd2_val,
       .name = "test_cmd2",                 .parse    = test_cmd2_par
     },
     NULL
@@ -147,21 +147,21 @@ struct cp_command_subset test_command_subset_part_A =
 };
 
 /* List of implemented commands for this subset */
-struct cp_command_subset test_command_subset_part_B =
+struct ce_command_subset test_command_subset_part_B =
 {
   .name = "test_subset_part_B",
-  .command = (struct cp_command *[])
+  .command = (struct ce_command *[])
   {
-    /* enum CP_COMMAND_SUBSET_TEST_CMD1 -> test_cmd1 */
-    &(struct cp_command)
+    /* enum CE_COMMAND_SUBSET_TEST_CMD1 -> test_cmd1 */
+    &(struct ce_command)
     {
-      .id   = CP_COMMAND_SUBSET_TEST_CMD3, .validate = test_cmd1_val,
+      .id   = CE_COMMAND_SUBSET_TEST_CMD3, .validate = test_cmd1_val,
       .name = "test_cmd3",                 .parse    = test_cmd1_par
     },
-    /* enum CP_COMMAND_SUBSET_TEST_CMD2 -> test_cmd2 */
-    &(struct cp_command)
+    /* enum CE_COMMAND_SUBSET_TEST_CMD2 -> test_cmd2 */
+    &(struct ce_command)
     {
-      .id   = CP_COMMAND_SUBSET_TEST_CMD4, .validate = test_cmd2_val,
+      .id   = CE_COMMAND_SUBSET_TEST_CMD4, .validate = test_cmd2_val,
       .name = "test_cmd4",                 .parse    = test_cmd2_par
     },
     NULL

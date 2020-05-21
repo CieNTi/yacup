@@ -1,4 +1,4 @@
-/* types.h - Available enums/types for `cp` for yacup project
+/* types.h - Available enums/types for `ce` for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,33 +14,33 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CP_TYPES_H
-#define __CP_TYPES_H
+#ifndef __CE_TYPES_H
+#define __CE_TYPES_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup   cp
+ * @addtogroup   ce
  * @{
  */
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Data types a `cp` understand
+ * @brief      Data types a `ce` understand
  */
-enum cp_data_type
+enum ce_data_type
 {
-  CP_DATA_UINT8_T  = 0, CP_DATA_INT8_T  = 1,
-  CP_DATA_UINT16_T = 2, CP_DATA_INT16_T = 3,
-  CP_DATA_UINT32_T = 4, CP_DATA_INT32_T = 5,
-  CP_DATA_UINT64_T = 6, CP_DATA_INT64_T = 7,
-  CP_DATA_FLOAT    = 8, CP_DATA_DOUBLE  = 9,
-  CP_DATA_CHAR     = 10
+  CE_DATA_UINT8_T  = 0, CE_DATA_INT8_T  = 1,
+  CE_DATA_UINT16_T = 2, CE_DATA_INT16_T = 3,
+  CE_DATA_UINT32_T = 4, CE_DATA_INT32_T = 5,
+  CE_DATA_UINT64_T = 6, CE_DATA_INT64_T = 7,
+  CE_DATA_FLOAT    = 8, CE_DATA_DOUBLE  = 9,
+  CE_DATA_CHAR     = 10
 };
 
-union cp_data
+union ce_data
 {
   uint8_t  u8;
   int8_t   i8;
@@ -61,4 +61,4 @@ union cp_data
 }
 #endif /* __cplusplus */
 
-#endif /* __CP_TYPES_H */
+#endif /* __CE_TYPES_H */

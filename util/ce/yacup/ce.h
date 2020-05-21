@@ -1,4 +1,4 @@
-/* cp.h - CP implementation for yacup project
+/* ce.h - CP implementation for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -22,31 +22,31 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup cp Communications protocols
+ * @defgroup ce Communications protocols
  * @{
  *   @brief      Yet another communications protocols implementation
  *   @details    Communications protocols made easy (for me xD)
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  *
- *   @defgroup   cp_api Interface
+ *   @defgroup   ce_api Interface
  *   @{
- *     @brief      Operations over `cp` instances
+ *     @brief      Operations over `ce` instances
  *     @details    Centralized functions to allow multiple implementations
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
  *
- *   @defgroup   cp_codec Codecs
+ *   @defgroup   ce_codec Codecs
  *   @{
- *     @brief      Available codecs for `cp` instances
+ *     @brief      Available codecs for `ce` instances
  *     @details    Different encodings implementations ready to be used
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
  * @}
  * 
- * @addtogroup   cp_api
+ * @addtogroup   ce_api
  * @{
  */
 
@@ -55,34 +55,34 @@ extern "C" {
 #include <stddef.h>
 #include "yacup/rb.h"
 #include "yacup/fsm.h"
-#include "yacup/cp/types.h"
-#include "yacup/cp/codec.h"
+#include "yacup/ce/types.h"
+#include "yacup/ce/codec.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
  * @brief      Structure that defines a communication protocol
  */
-struct cp
+struct ce
 {
   struct fsm chat;
-  struct cp_channel
+  struct ce_channel
   {
     uint8_t         busy;
     struct rb       buffer;
-    struct cp_codec codec;
+    struct ce_codec codec;
   } out, in;
 };
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Initializes a `cp`
- * @details    Checks and initializes `cp` common data, then calls the lower
+ * @brief      Initializes a `ce`
+ * @details    Checks and initializes `ce` common data, then calls the lower
  *             level init function passed by argument. The latter is defined at
- *             each `cp` unit, and it is where the `start` and `stop` states
+ *             each `ce` unit, and it is where the `start` and `stop` states
  *             are really assigned.
  *
- * @param      cp   Pointer to a correctly initialized FSM
+ * @param      ce   Pointer to a correctly initialized FSM
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -90,9 +90,9 @@ struct cp
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int cp_init(struct cp *cp, int (*cp_low_level_init)(struct cp *));
+int ce_init(struct ce *ce, int (*ce_low_level_init)(struct ce *));
 
-int cp_cycle(struct cp *cp);
+int ce_cycle(struct ce *ce);
 
 /** @} */
 

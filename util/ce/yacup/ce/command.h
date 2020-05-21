@@ -1,4 +1,4 @@
-/* command.h - Command API for `cp` util usage
+/* command.h - Command API for `ce` util usage
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,54 +14,54 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CP_COMMAND_H
-#define __CP_COMMAND_H
+#ifndef __CE_COMMAND_H
+#define __CE_COMMAND_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup cp
+ * @addtogroup ce
  * @{
  */
 
 /* C libraries */
 #include <stdint.h>
 #include <stddef.h>
-#include "yacup/cp/types.h"
+#include "yacup/ce/types.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-struct cp_argument
+struct ce_argument
 {
-  enum cp_data_type type;
-  union cp_data data;
+  enum ce_data_type type;
+  union ce_data data;
 };
 
-struct cp_command
+struct ce_command
 {
   size_t id;
   char *name;
-  int (*validate)(struct cp_command *command, struct cp_argument *argument[]);
-  int (*parse)(struct cp_command *command, struct cp_argument *argument[]);
+  int (*validate)(struct ce_command *command, struct ce_argument *argument[]);
+  int (*parse)(struct ce_command *command, struct ce_argument *argument[]);
 };
 
-struct cp_command_subset
+struct ce_command_subset
 {
   char *name;
-  struct cp_command **command;
+  struct ce_command **command;
 };
 
-struct cp_command_set
+struct ce_command_set
 {
   char *name;
-  struct cp_command_subset **subset;
+  struct ce_command_subset **subset;
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-int cp_command_validate(struct cp_command_set *cmd_set,
+int ce_command_validate(struct ce_command_set *cmd_set,
                         size_t id,
-                        struct cp_argument *argument[]);
+                        struct ce_argument *argument[]);
 
 /** @} */
 
@@ -69,4 +69,4 @@ int cp_command_validate(struct cp_command_set *cmd_set,
 }
 #endif /* __cplusplus */
 
-#endif /* __CP_COMMAND_H */
+#endif /* __CE_COMMAND_H */

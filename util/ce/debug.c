@@ -1,4 +1,4 @@
-/* debug.c - Debug functions to ease `cp` development flow
+/* debug.c - Debug functions to ease `ce` development flow
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,23 +17,23 @@
 #include <stdint.h>
 #include <stddef.h>
 #include <stdio.h>
-#include "yacup/cp.h"
-#include "yacup/cp/codec.h"
-#include "yacup/cp/debug.h"
+#include "yacup/ce.h"
+#include "yacup/ce/codec.h"
+#include "yacup/ce/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/cp/debug"
+#define YCP_NAME "util/ce/debug"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Print `cp` information to STDOUT.
- * Read `yacup/cp/debug.h` for complete information. */
-void cp_print_info(struct cp *cp)
+/* Print `ce` information to STDOUT.
+ * Read `yacup/ce/debug.h` for complete information. */
+void ce_print_info(struct ce *ce)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "cp_print_info"
+  #define YCP_FNAME "ce_print_info"
 
   _dbg("Entering\n");
 
@@ -41,12 +41,12 @@ void cp_print_info(struct cp *cp)
   #undef YCP_FNAME
 }
 
-/* Print `cp_codec` information to STDOUT.
- * Read `yacup/cp/debug.h` for complete information. */
-void cp_codec_print_info(struct cp_codec *codec)
+/* Print `ce_codec` information to STDOUT.
+ * Read `yacup/ce/debug.h` for complete information. */
+void ce_codec_print_info(struct ce_codec *codec)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "cp_codec_print_info"
+  #define YCP_FNAME "ce_codec_print_info"
 
   /* Print codec information */
   if (codec == NULL) { return; }

@@ -1,4 +1,4 @@
-/* B416K.c - Binary 4-byte + CRC-16/Kermit codec for `cp` util
+/* B416K.c - Binary 4-byte + CRC-16/Kermit codec for `ce` util
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,20 +16,20 @@
  */
 #include <stdint.h>
 #include <stddef.h>
-#include "yacup/cp.h"
-#include "yacup/cp/codec.h"
-#include "yacup/cp/codec/B416K.h"
+#include "yacup/ce.h"
+#include "yacup/ce/codec.h"
+#include "yacup/ce/codec/B416K.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/cp/codec/B416K"
+#define YCP_NAME "util/ce/codec/B416K"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
  * @brief      Calculate this encoding size of a specified type, in bytes
  *
- * @param      type    Valid `cp_data_type` to get size of
+ * @param      type    Valid `ce_data_type` to get size of
  *
  * @return     One of:
  *             | Value  | Meaning                  |
@@ -37,55 +37,55 @@
  *             | `== 0` | Not implemented/Invalid  |
  *             | `!= 0` | Size in bytes of a type  |
  */
-static size_t codec_sizeof(enum cp_data_type type)
+static size_t codec_sizeof(enum ce_data_type type)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "codec_sizeof"
 
    switch(type)
   {
-    case CP_DATA_CHAR:
-      _dbg("Selected data type CP_DATA_CHAR\n");
+    case CE_DATA_CHAR:
+      _dbg("Selected data type CE_DATA_CHAR\n");
       return (sizeof(char));
       break;
-    case CP_DATA_UINT8_T:
-      _dbg("Selected data type CP_DATA_UINT8_T\n");
+    case CE_DATA_UINT8_T:
+      _dbg("Selected data type CE_DATA_UINT8_T\n");
       return (sizeof(uint8_t));
       break;
-    case CP_DATA_INT8_T:
-      _dbg("Selected data type CP_DATA_INT8_T\n");
+    case CE_DATA_INT8_T:
+      _dbg("Selected data type CE_DATA_INT8_T\n");
       return (sizeof(int8_t));
       break;
-    case CP_DATA_UINT16_T:
-      _dbg("Selected data type CP_DATA_UINT16_T\n");
+    case CE_DATA_UINT16_T:
+      _dbg("Selected data type CE_DATA_UINT16_T\n");
       return (sizeof(uint16_t));
       break;
-    case CP_DATA_INT16_T:
-      _dbg("Selected data type CP_DATA_INT16_T\n");
+    case CE_DATA_INT16_T:
+      _dbg("Selected data type CE_DATA_INT16_T\n");
       return (sizeof(int16_t));
       break;
-    case CP_DATA_UINT32_T:
-      _dbg("Selected data type CP_DATA_UINT32_T\n");
+    case CE_DATA_UINT32_T:
+      _dbg("Selected data type CE_DATA_UINT32_T\n");
       return (sizeof(uint32_t));
       break;
-    case CP_DATA_INT32_T:
-      _dbg("Selected data type CP_DATA_INT32_T\n");
+    case CE_DATA_INT32_T:
+      _dbg("Selected data type CE_DATA_INT32_T\n");
       return (sizeof(int32_t));
       break;
-    case CP_DATA_UINT64_T:
-      _dbg("Selected data type CP_DATA_UINT64_T\n");
+    case CE_DATA_UINT64_T:
+      _dbg("Selected data type CE_DATA_UINT64_T\n");
       return (sizeof(uint64_t));
       break;
-    case CP_DATA_INT64_T:
-      _dbg("Selected data type CP_DATA_INT64_T\n");
+    case CE_DATA_INT64_T:
+      _dbg("Selected data type CE_DATA_INT64_T\n");
       return (sizeof(int64_t));
       break;
-    case CP_DATA_FLOAT:
-      _dbg("Selected data type CP_DATA_FLOAT\n");
+    case CE_DATA_FLOAT:
+      _dbg("Selected data type CE_DATA_FLOAT\n");
       return (sizeof(float));
       break;
-    case CP_DATA_DOUBLE:
-      _dbg("Selected data type CP_DATA_DOUBLE\n");
+    case CE_DATA_DOUBLE:
+      _dbg("Selected data type CE_DATA_DOUBLE\n");
       return (sizeof(double));
       break;
     default:
@@ -151,9 +151,9 @@ static int crc16_kermit(struct rb *rb, size_t skip, size_t len, uint16_t *crc)
 
 /* Encodes a defined type data and pushes it into a ring-buffer
  * WARNING: Assumes pre-validation. Not safe as direct call!
- * Read `yacup/cp/codec.h` for complete information. */
+ * Read `yacup/ce/codec.h` for complete information. */
 static size_t encode_data(struct rb *rb,
-                          enum cp_data_type type,
+                          enum ce_data_type type,
                           void *data, size_t num_data)
 {
   /* Configure _dbg() */
@@ -197,9 +197,9 @@ static size_t encode_data(struct rb *rb,
 
 /* Pulls and decodes data from a ring-buffer and saves it into variable
  * WARNING: Assumes pre-validation. Not safe as direct call!
- * Read `yacup/cp/codec.h` for complete information. */
+ * Read `yacup/ce/codec.h` for complete information. */
 static size_t decode_data(struct rb *rb,
-                          enum cp_data_type type,
+                          enum ce_data_type type,
                           void *data, size_t num_data)
 {
   /* Configure _dbg() */
@@ -243,7 +243,7 @@ static size_t decode_data(struct rb *rb,
 
 /* Takes `rb` raw data, encodes it as a message, and puts it back as `rb`
  * WARNING: Assumes pre-validation. Not safe as direct call!
- * Read `yacup/cp/codec.h` for complete information. */
+ * Read `yacup/ce/codec.h` for complete information. */
 static int encode_message(struct rb *rb_in, struct rb *rb_out)
 {
   /* Configure _dbg() */
@@ -253,7 +253,7 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
   uint16_t crc_holder = 0;
 
   /* Push header */
-  if (rb_push(rb_out, CP_CODEC_B416K_START_BYTE) ||
+  if (rb_push(rb_out, CE_CODEC_B416K_START_BYTE) ||
       rb_push(rb_out, (uint8_t)(rb_len(rb_in) >> 8)) ||
       rb_push(rb_out, (uint8_t)(rb_len(rb_in)))
       )
@@ -293,7 +293,7 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
 
 /* Read and delete a byte from a comm-protocol tail.
  * WARNING: Assumes pre-validation. Not safe as direct call!
- * Read `yacup/cp/codec.h` for complete information. */
+ * Read `yacup/ce/codec.h` for complete information. */
 static int decode_message(struct rb *rb_in, struct rb *rb_out)
 {
   /* Configure _dbg() */
@@ -306,7 +306,7 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   /* Seek for the header, discarding any other data found */
   while (rb_len(rb_in)                               &&
          (rb_read(rb_in, &data_holder, 0) == 0)      &&
-         (data_holder != CP_CODEC_B416K_START_BYTE))
+         (data_holder != CE_CODEC_B416K_START_BYTE))
   {
     if (rb_pull(rb_in, &data_holder) || (rb_len(rb_in) == 0))
     {
@@ -383,11 +383,11 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
 }
 
 /* Initialize a `B416K` type comm-protocol codec.
- * Read `yacup/cp/codec.h` for complete information. */
-int cp_codec_B416K(struct cp_codec *codec)
+ * Read `yacup/ce/codec.h` for complete information. */
+int ce_codec_B416K(struct ce_codec *codec)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "cp_codec_B416K"
+  #define YCP_FNAME "ce_codec_B416K"
 
   /* Valid codec? */
   if (codec == NULL)

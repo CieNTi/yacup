@@ -1,4 +1,4 @@
-/* cp.c - Communications protocols API for yacup project
+/* ce.c - Communications protocols API for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,33 +16,33 @@
  */
 #include <stdint.h>
 #include <stdlib.h>
-#include "yacup/cp.h"
+#include "yacup/ce.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/cp/cp"
+#define YCP_NAME "util/ce/ce"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-int cp_init(struct cp *cp, int (*cp_low_level_init)(struct cp *))
+int ce_init(struct ce *ce, int (*ce_low_level_init)(struct ce *))
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "cp_init"
+  #define YCP_FNAME "ce_init"
 
-  if (/* Invalid cp? */
-      (cp == NULL) ||
+  if (/* Invalid ce? */
+      (ce == NULL) ||
       /* Invalid low-level init? */
-      (cp_low_level_init == NULL))
+      (ce_low_level_init == NULL))
   {
-    _dbg("Invalid cp or low-level init function\n");
+    _dbg("Invalid ce or low-level init function\n");
     return 1;
   }
 
-  /* Fill cp common data */
+  /* Fill ce common data */
   // Nothing to fill here yet, so this call is right now, just a validator
 
   /* Now call the low level init function, and go */
-  return (cp_low_level_init(cp));
+  return (ce_low_level_init(ce));
 
   /* Free _dbg() config */
   #undef YCP_FNAME

@@ -1,4 +1,4 @@
-/* B416K.h - Binary 4-byte + CRC-16/Kermit codec for `cp` util
+/* B416K.h - Binary 4-byte + CRC-16/Kermit codec for `ce` util
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,21 +14,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CP_CODEC_B416K_H
-#define __CP_CODEC_B416K_H
+#ifndef __CE_CODEC_B416K_H
+#define __CE_CODEC_B416K_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup   cp_codec_B416K B416K
+ * @defgroup   ce_codec_B416K B416K
  * @{
- *   @brief      Binary 4-byte + CRC-16/Kermit codec for `cp` util
+ *   @brief      Binary 4-byte + CRC-16/Kermit codec for `ce` util
  *   @details    This implementation will use a `rb` to store or retrieve data,
  *               and will compose the data frame as follows:
  *               start_flag
- *   @ingroup    cp_codec
+ *   @ingroup    ce_codec
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  */
@@ -38,11 +38,11 @@ extern "C" {
 #include <stddef.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#define CP_CODEC_B416K_START_BYTE 0xEA
+#define CE_CODEC_B416K_START_BYTE 0xEA
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Low-level initializer function for `B416K` type `cp` codec
+ * @brief      Low-level initializer function for `B416K` type `ce` codec
  * @details    Binary 4-byte + CRC-16/Kermit codec
  *
  * @return     One of:
@@ -51,7 +51,7 @@ extern "C" {
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int cp_codec_B416K(struct cp_codec *codec);
+int ce_codec_B416K(struct ce_codec *codec);
 
 /** @} */
 
@@ -59,4 +59,4 @@ int cp_codec_B416K(struct cp_codec *codec);
 }
 #endif /* __cplusplus */
 
-#endif /* __CP_CODEC_B416K_H */
+#endif /* __CE_CODEC_B416K_H */

@@ -1,4 +1,4 @@
-/* test_cp_commands.c - A simple set of commands for `cp` testing
+/* test_ce_commands.c - A simple set of commands for `ce` testing
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,22 +16,22 @@
  */
 #include <stdint.h>
 #include <stdio.h>
-#include "yacup/cp.h"
-#include "yacup/cp/command.h"
-#include "yacup/cp/command/subset_test.h"
+#include "yacup/ce.h"
+#include "yacup/ce/command.h"
+#include "yacup/ce/command/subset_test.h"
 
 /* Header located near this file, used as an external header in app */
-//#include "cp_simple.h"
+//#include "ce_simple.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/cp/test/test_cp_commands"
+#define YCP_NAME "util/ce/test/test_ce_commands"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Test to check `cp` functionality using a single cp
+ * @brief      Test to check `ce` functionality using a single ce
  *
  * @param[in]  argc  The count of arguments
  * @param      argv  The arguments array
@@ -45,18 +45,18 @@
  * @ingroup    util_test
  * @version    v1.0.0
  */
-int test_cp_commands(int argc, const char* argv[])
+int test_ce_commands(int argc, const char* argv[])
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "test_cp_commands"
+  #define YCP_FNAME "test_ce_commands"
 
   _dbg("Hi! from "__FILE__"\n");
 
-  /* Define the command set this `cp` will understand how to send/receive */
-  struct cp_command_set cmd_set =
+  /* Define the command set this `ce` will understand how to send/receive */
+  struct ce_command_set cmd_set =
   {
     .name = "test_set",
-    .subset = (struct cp_command_subset *[])
+    .subset = (struct ce_command_subset *[])
     {
       &test_command_subset_part_A,
       &test_command_subset_part_B,
@@ -65,38 +65,38 @@ int test_cp_commands(int argc, const char* argv[])
   };
 
   /* Compose arguments */
-  struct cp_argument *cmd1_args[] =
+  struct ce_argument *cmd1_args[] =
   {
-    &(struct cp_argument) { .type = CP_DATA_UINT8_T, .data.u8 = 250 },
+    &(struct ce_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 250 },
     NULL
   };
 
   /* Validate command */
-  if (cp_command_validate(&cmd_set, CP_COMMAND_SUBSET_TEST_CMD1, cmd1_args))
+  if (ce_command_validate(&cmd_set, CE_COMMAND_SUBSET_TEST_CMD1, cmd1_args))
   {
     /* Cannot send, error */
-    _dbg("Error when validating CP_COMMAND_SUBSET_TEST_CMD1\n");
+    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD1\n");
     return 1;
   }
 
   /* Compose arguments */
-  struct cp_argument *cmd2_args[] =
+  struct ce_argument *cmd2_args[] =
   {
-    &(struct cp_argument) { .type = CP_DATA_UINT8_T, .data.u8 = 250    },
-    &(struct cp_argument) { .type = CP_DATA_DOUBLE,  .data.d  = -1.233 },
+    &(struct ce_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 250    },
+    &(struct ce_argument) { .type = CE_DATA_DOUBLE,  .data.d  = -1.233 },
     NULL
   };
 
   /* Validate command */
-  if (cp_command_validate(&cmd_set, CP_COMMAND_SUBSET_TEST_CMD4, cmd2_args))
+  if (ce_command_validate(&cmd_set, CE_COMMAND_SUBSET_TEST_CMD4, cmd2_args))
   {
     /* Cannot validate, error */
-    _dbg("Error when validating CP_COMMAND_SUBSET_TEST_CMD2\n");
+    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD2\n");
     return 1;
   }
 
   /* Test invalid command */
-  if (cp_command_validate(&cmd_set, 1000, cmd2_args) == 0)
+  if (ce_command_validate(&cmd_set, 1000, cmd2_args) == 0)
   {
     /* Validated, error */
     _dbg("Invalid command marked as valid! ERROR!\n");

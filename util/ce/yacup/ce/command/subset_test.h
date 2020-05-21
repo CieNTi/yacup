@@ -1,4 +1,4 @@
-/* subset_test.h - Tests commands subset for `cp` for yacup project
+/* subset_test.h - Tests commands subset for `ce` for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,36 +14,36 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CP_COMMAND_SUBSET_TEST_H
-#define __CP_COMMAND_SUBSET_TEST_H
+#ifndef __CE_COMMAND_SUBSET_TEST_H
+#define __CE_COMMAND_SUBSET_TEST_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @ingroup cp
+ * @ingroup ce
  * @{
- *   @addtogroup cp_command_subset
+ *   @addtogroup ce_command_subset
  *   @{
  */
 
 /* C libraries */
 #include <stdint.h>
 #include <stddef.h>
-#include "yacup/cp/command.h"
+#include "yacup/ce/command.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 enum command_subset_test_id
 {
-  CP_COMMAND_SUBSET_TEST_CMD1 = 0xF0,
-  CP_COMMAND_SUBSET_TEST_CMD2 = 0xF1,
-  CP_COMMAND_SUBSET_TEST_CMD3 = 0xF2,
-  CP_COMMAND_SUBSET_TEST_CMD4 = 0xF3
+  CE_COMMAND_SUBSET_TEST_CMD1 = 0xF0,
+  CE_COMMAND_SUBSET_TEST_CMD2 = 0xF1,
+  CE_COMMAND_SUBSET_TEST_CMD3 = 0xF2,
+  CE_COMMAND_SUBSET_TEST_CMD4 = 0xF3
 };
 
-extern struct cp_command_subset test_command_subset_part_A;
-extern struct cp_command_subset test_command_subset_part_B;
+extern struct ce_command_subset test_command_subset_part_A;
+extern struct ce_command_subset test_command_subset_part_B;
 
 /** @} */
 /** @} */
@@ -52,4 +52,4 @@ extern struct cp_command_subset test_command_subset_part_B;
 }
 #endif /* __cplusplus */
 
-#endif /* __CP_COMMAND_SUBSET_TEST_H */
+#endif /* __CE_COMMAND_SUBSET_TEST_H */

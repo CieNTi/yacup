@@ -1,4 +1,4 @@
-/* command.c - Command API for `cp` for yacup project
+/* command.c - Command API for `ce` for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,22 +16,22 @@
  */
 #include <stdint.h>
 #include <stdlib.h>
-#include "yacup/cp/command.h"
+#include "yacup/ce/command.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/cp/command"
+#define YCP_NAME "util/ce/command"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Validates a `cp_command`
- * Read `yacup/cp/command.h` for complete information. */
-int cp_command_validate(struct cp_command_set *cmd_set,
+/* Validates a `ce_command`
+ * Read `yacup/ce/command.h` for complete information. */
+int ce_command_validate(struct ce_command_set *cmd_set,
                         size_t id,
-                        struct cp_argument *argument[])
+                        struct ce_argument *argument[])
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "cp_command_validate"
+  #define YCP_FNAME "ce_command_validate"
 
   size_t sub_idx = 0;
   size_t cmd_idx = 0;
@@ -76,14 +76,14 @@ int cp_command_validate(struct cp_command_set *cmd_set,
   #undef YCP_FNAME
 }
 
-/* Sends a `cp_command`: Put ready-to-send data into a ring-buffer
- * Read `yacup/cp/command.h` for complete information. */
-int cp_command_send(struct cp_command_set *cmd_set,
+/* Sends a `ce_command`: Put ready-to-send data into a ring-buffer
+ * Read `yacup/ce/command.h` for complete information. */
+int ce_command_send(struct ce_command_set *cmd_set,
                     size_t id,
-                    struct cp_argument *argument[])
+                    struct ce_argument *argument[])
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "cp_command_validate"
+  #define YCP_FNAME "ce_command_validate"
 
 
   /* Free _dbg() config */

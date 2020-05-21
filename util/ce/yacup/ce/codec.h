@@ -1,4 +1,4 @@
-/* codec.h - Codec implementation interface for `cp` util usage
+/* codec.h - Codec implementation interface for `ce` util usage
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CP_CODEC_H
-#define __CP_CODEC_H
+#ifndef __CE_CODEC_H
+#define __CE_CODEC_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup cp_codec
+ * @addtogroup ce_codec
  * @{
  */
 
@@ -30,24 +30,24 @@ extern "C" {
 #include <stdint.h>
 #include <stddef.h>
 #include "yacup/rb.h"
-#include "yacup/cp/types.h"
+#include "yacup/ce/types.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Structure that defines a `cp` codec operations
+ * @brief      Structure that defines a `ce` codec operations
  */
-struct cp_codec
+struct ce_codec
 {
   /**
    * @brief      Encoding operations
    */
-  struct cp_codec_encoder
+  struct ce_codec_encoder
   {
     /**
      * @brief      Encodes a defined type data and pushes it into a ring-buffer
      *
      * @param      rb        Pointer to a destination ring-buffer
-     * @param      type      One of `CP_CODEC_DATA_*` data types
+     * @param      type      One of `CE_CODEC_DATA_*` data types
      * @param      data      Pointer where the source data to encode is located
      * @param      num_data  Number of data entities to encode
      *
@@ -58,7 +58,7 @@ struct cp_codec
      *             | `>  0` | Number of encoded data entities |
      */
     size_t (*data)(struct rb *rb,
-                   enum cp_data_type type,
+                   enum ce_data_type type,
                    void *data, size_t num_data);
 
     /**
@@ -80,14 +80,14 @@ struct cp_codec
   /**
    * @brief      Decoding operations
    */
-  struct cp_codec_decoder
+  struct ce_codec_decoder
   {
     /**
      * @brief      Pulls and decodes a defined type data from a ring-buffer and
      *             saves it into a pointed variable
      *
      * @param      rb        Pointer to a source ring-buffer with encoded data
-     * @param      type      One of `CP_CODEC_DATA_*` data types
+     * @param      type      One of `CE_CODEC_DATA_*` data types
      * @param      data      Pointer to a destination for decoded data
      * @param      num_data  Number of data entities to decode
      *
@@ -98,7 +98,7 @@ struct cp_codec
      *             | `>  0` | Number of decoded data entities |
      */
     size_t (*data)(struct rb *rb,
-                   enum cp_data_type type,
+                   enum ce_data_type type,
                    void *data, size_t num_data);
 
     /**
@@ -120,24 +120,24 @@ struct cp_codec
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Initializes a `cp_codec`
- * @details    Checks and initializes `cp_codec` common data, then calls the
+ * @brief      Initializes a `ce_codec`
+ * @details    Checks and initializes `ce_codec` common data, then calls the
  *             lower level init function passed by argument. The latter is
- *             defined at each `cp_codec` unit, and it is where the encoding and
+ *             defined at each `ce_codec` unit, and it is where the encoding and
  *             decoding functions are really assigned.
  *
  * @param      codec                    Pointer to a codec to initialize
- * @param[in]  cp_codec_low_level_init  The cp codec low level initializer
+ * @param[in]  ce_codec_low_level_init  The ce codec low level initializer
  *                                      function
  *
  * @return     One of:
  *             | Value         | Meaning          |
  *             | :-----------: | :--------------- |
- *             | `struct cp *` | Ok               |
+ *             | `struct ce *` | Ok               |
  *             | `NULL`        | Error            |
  */
-int cp_codec_init(struct cp_codec *codec,
-                  int (*cp_codec_low_level_init)(struct cp_codec *));
+int ce_codec_init(struct ce_codec *codec,
+                  int (*ce_codec_low_level_init)(struct ce_codec *));
 
 /** @} */
 
@@ -145,4 +145,4 @@ int cp_codec_init(struct cp_codec *codec,
 }
 #endif /* __cplusplus */
 
-#endif /* __CP_CODEC_H */
+#endif /* __CE_CODEC_H */
