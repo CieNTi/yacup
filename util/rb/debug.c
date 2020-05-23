@@ -18,7 +18,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "yacup/rb.h"
-#include "yacup/rb/op.h"
+#include "yacup/rb/driver.h"
 #include "yacup/rb/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -35,7 +35,7 @@ void rb_print_info(struct rb *rb)
   /* Configure _dbg() */
   #define YCP_FNAME "rb_print_info"
 
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  if ((rb == NULL) || (rb->driver == NULL) || rb->driver->validate(rb))
   {
     _dbg("Provided rb is not valid\n");
     return;
@@ -47,7 +47,7 @@ void rb_print_info(struct rb *rb)
          rb->head,
          rb->tail,
          rb->head_of,
-         rb->op->len(rb)
+         rb->driver->len(rb)
          );
 
   /* Required vars to print a data table */

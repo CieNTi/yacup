@@ -31,7 +31,7 @@ extern "C" {
  *
  *   @defgroup   rb_api Interface
  *   @{
- *     @brief      Operations over `rb` instances
+ *     @brief      Operations on `rb` instances
  *     @details    Centralized functions to allow multiple implementations
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
@@ -86,18 +86,16 @@ struct rb
   uint8_t head_of;
 
   /**
-   * @brief      Pointer to a operations structure
+   * @brief      Pointer to a operations driver structure
    */
-  struct rb_op *op;
+  struct rb_driver *driver;
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
  * @brief      Initializes a `rb`
  * @details    Checks and initializes `rb` common data, then calls the lower
- *             level init function passed by argument. The latter is defined at
- *             each `rb` unit, and it is where the `start` and `stop` states are
- *             really assigned.
+ *             level init function passed by argument.
  *
  * @param      rb              Pointer to a RB to initialize
  * @param      rb_driver_init  Pointer to a driver initializer function

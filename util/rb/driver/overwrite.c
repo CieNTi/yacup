@@ -17,7 +17,7 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "yacup/rb.h"
-#include "yacup/rb/op.h"
+#include "yacup/rb/driver.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
@@ -26,7 +26,7 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Checks if the ring-buffer is valid or not.
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static int validate(struct rb *rb)
 {
   /* Configure _dbg() */
@@ -71,7 +71,7 @@ static int validate(struct rb *rb)
 
 /* Reset a ring-buffer by cleaning its content and making it empty.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static void reset(struct rb *rb)
 {
   /* Put properties to reset state */
@@ -92,13 +92,13 @@ static void reset(struct rb *rb)
 
 /* Add a byte to a ring-buffer head, overwritting if needed.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static int push(struct rb *rb, uint8_t byte)
 {
   /* Add the data, overwritting if needed */
   rb->buffer[rb->head] = byte;
 
-  if (rb->op->full(rb))
+  if (rb->driver->full(rb))
   {
     rb->tail++;
   }
@@ -123,13 +123,13 @@ static int push(struct rb *rb, uint8_t byte)
 
 /* Read and delete a byte from a ring-buffer tail.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static int pull(struct rb *rb, uint8_t *byte)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "pull"
 
-  if (rb->op->len(rb) == 0)
+  if (rb->driver->len(rb) == 0)
   {
     _dbg("Pulling from empty rb not allowed\n");
     return 1;
@@ -156,7 +156,7 @@ static int pull(struct rb *rb, uint8_t *byte)
 
 /* Write a byte by position on a ring-buffer, without updating head/tail.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static int write(struct rb *rb, uint8_t byte, size_t position)
 {
   /* Use position as index over tail, with overflow management */
@@ -168,7 +168,7 @@ static int write(struct rb *rb, uint8_t byte, size_t position)
 
 /* Read a byte by position from a ring-buffer, without deleting it.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static int read(struct rb *rb, uint8_t *byte, size_t position)
 {
   /* Use position as index over tail, with overflow management */
@@ -180,7 +180,7 @@ static int read(struct rb *rb, uint8_t *byte, size_t position)
 
 /* Returns max available size of a ring-buffer buffer.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static size_t size(struct rb *rb)
 {
   return rb->size;
@@ -188,7 +188,7 @@ static size_t size(struct rb *rb)
 
 /* Returns available data size inside a ring-buffer.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static size_t len(struct rb *rb)
 {
   return (((rb->size * rb->head_of) + rb->head) - rb->tail);
@@ -196,21 +196,21 @@ static size_t len(struct rb *rb)
 
 /* Checks if a ring-buffer is full or not.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static uint8_t full(struct rb *rb)
 {
   return ((rb->head_of == 1) && (rb->head == rb->tail));
 }
 
 /* Initialize a `overwrite` type RB.
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 int rb_driver_overwrite(struct rb *rb)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "rb_driver_overwrite"
 
   /* Create it static, as this will not change along the execution */
-  static struct rb_op rb_driver_overwrite_op =
+  static struct rb_driver rb_driver_overwrite_op =
   {
     .validate = validate,
     .reset    = reset,
@@ -231,7 +231,7 @@ int rb_driver_overwrite(struct rb *rb)
   }
 
   /* Ok assign the operations */
-  rb->op = &rb_driver_overwrite_op;
+  rb->driver = &rb_driver_overwrite_op;
 
   /* And return with success */
   return 0;

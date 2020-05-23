@@ -18,7 +18,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "yacup/rb.h"
-#include "yacup/rb/op.h"
+#include "yacup/rb/driver.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
@@ -51,19 +51,19 @@ int rb_init(struct rb *rb, int (*rb_driver_init)(struct rb *))
   rb->tail = 0;
   rb->head_of = 0;
 
-  /* Assign driver operations */
+  /* Assign operations driver */
   if (rb_driver_init(rb))
   {
     /* Fail miserably */
-    _dbg("Impossible to assign rb operations\n");
+    _dbg("Impossible to assign rb operations driver\n");
     return 1;
   }
 
   /* Clean buffer and put it into a known state */
-  rb->op->reset(rb);
+  rb->driver->reset(rb);
 
   /* Finally, check if driver validates it */
-  if (rb->op->validate(rb))
+  if (rb->driver->validate(rb))
   {
     /* Fail miserably */
     _dbg("Invalid rb after initialization\n");
@@ -87,14 +87,14 @@ void rb_reset(struct rb *rb)
   #define YCP_FNAME "rb_reset"
 
   /* Validate it */
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  if ((rb == NULL) || (rb->driver == NULL) || rb->driver->validate(rb))
   {
     _dbg("Failed\n");
     return;
   }
 
   /* Call operation */
-  rb->op->reset(rb);
+  rb->driver->reset(rb);
 
   /* It is a void, just return */
   return;
@@ -111,14 +111,14 @@ int rb_push(struct rb *rb, uint8_t byte)
   #define YCP_FNAME "rb_push"
 
   /* Validate it */
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  if ((rb == NULL) || (rb->driver == NULL) || rb->driver->validate(rb))
   {
     _dbg("Invalid\n");
     return 1;
   }
 
   /* Call operation and return its value */
-  return (rb->op->push(rb, byte));
+  return (rb->driver->push(rb, byte));
 
   /* Free _dbg() config */
   #undef YCP_FNAME
@@ -132,14 +132,14 @@ int rb_pull(struct rb *rb, uint8_t *byte)
   #define YCP_FNAME "rb_pull"
 
   /* Validate it */
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  if ((rb == NULL) || (rb->driver == NULL) || rb->driver->validate(rb))
   {
     _dbg("Invalid\n");
     return 1;
   }
 
   /* Call operation and return its value */
-  return (rb->op->pull(rb, byte));
+  return (rb->driver->pull(rb, byte));
 
   /* Free _dbg() config */
   #undef YCP_FNAME
@@ -153,14 +153,14 @@ int rb_write(struct rb *rb, uint8_t byte, size_t position)
   #define YCP_FNAME "rb_write"
 
   /* Validate it */
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  if ((rb == NULL) || (rb->driver == NULL) || rb->driver->validate(rb))
   {
     _dbg("Failed\n");
     return 1;
   }
 
   /* Call operation and return its value */
-  return (rb->op->write(rb, byte, position));
+  return (rb->driver->write(rb, byte, position));
 
   /* Free _dbg() config */
   #undef YCP_FNAME
@@ -174,14 +174,14 @@ int rb_read(struct rb *rb, uint8_t *byte, size_t position)
   #define YCP_FNAME "rb_read"
 
   /* Validate it */
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  if ((rb == NULL) || (rb->driver == NULL) || rb->driver->validate(rb))
   {
     _dbg("Failed\n");
     return 1;
   }
 
   /* Call operation and return its value */
-  return (rb->op->read(rb, byte, position));
+  return (rb->driver->read(rb, byte, position));
 
   /* Free _dbg() config */
   #undef YCP_FNAME
@@ -195,14 +195,14 @@ size_t rb_size(struct rb *rb)
   #define YCP_FNAME "rb_size"
 
   /* Validate it */
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  if ((rb == NULL) || (rb->driver == NULL) || rb->driver->validate(rb))
   {
     _dbg("Failed\n");
     return 0;
   }
 
   /* Call operation and return its value */
-  return (rb->op->size(rb));
+  return (rb->driver->size(rb));
 
   /* Free _dbg() config */
   #undef YCP_FNAME
@@ -216,14 +216,14 @@ size_t rb_len(struct rb *rb)
   #define YCP_FNAME "rb_len"
 
   /* Validate it */
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  if ((rb == NULL) || (rb->driver == NULL) || rb->driver->validate(rb))
   {
     _dbg("Failed\n");
     return 0;
   }
 
   /* Call operation and return its value */
-  return (rb->op->len(rb));
+  return (rb->driver->len(rb));
 
   /* Free _dbg() config */
   #undef YCP_FNAME
@@ -237,14 +237,14 @@ uint8_t rb_full(struct rb *rb)
   #define YCP_FNAME "rb_full"
 
   /* Validate it */
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  if ((rb == NULL) || (rb->driver == NULL) || rb->driver->validate(rb))
   {
     _dbg("Failed\n");
     return 0;
   }
 
   /* Call operation and return its value */
-  return (rb->op->full(rb));
+  return (rb->driver->full(rb));
 
   /* Free _dbg() config */
   #undef YCP_FNAME
