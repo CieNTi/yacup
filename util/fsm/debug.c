@@ -18,6 +18,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "yacup/fsm.h"
+#include "yacup/fsm/driver.h"
 #include "yacup/fsm/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -38,8 +39,9 @@ void fsm_print_info(struct fsm *fsm)
   _dbg("name .......: %s\n", fsm->name);
   _dbg("config .....: %u\n", fsm->config);
   _dbg("state ......: %u\n", fsm->state);
-  _dbg("start ......: %p\n", (void *)(size_t)fsm->start);
-  _dbg("stop .......: %p\n", (void *)(size_t)fsm->stop);
+  _dbg("driver .....: %p\n", (void *)(size_t)fsm->driver);
+  _dbg(" .start ....: %p\n", (void *)(size_t)fsm->driver->start);
+  _dbg(" .stop .....: %p\n", (void *)(size_t)fsm->driver->stop);
   _dbg("last .......: %p\n", (void *)(size_t)fsm->last);
   _dbg("now ........: %p\n", (void *)(size_t)fsm->now);
   _dbg("next .......: %p\n", (void *)(size_t)fsm->next);

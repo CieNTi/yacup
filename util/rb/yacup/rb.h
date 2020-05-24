@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup rb Ring-buffers
+ * @defgroup rb Ring-buffer
  * @{
  *   @brief      Yet another ring-buffer implementation
  *   @details    Ring buffer made easy (for me xD)
@@ -37,10 +37,13 @@ extern "C" {
  *     @date       2020
  *   @}
  *
- *   @defgroup   rb_driver Drivers
+ *   @defgroup   rb_driver Available drivers
  *   @{
- *     @brief      Operations driver for `rb` instances
- *     @details    Different ring buffer implementations interfaces
+ *     @brief      Already made and tested RB drivers for different purposes
+ *     @details    Each RB driver found here can be instantiated by calling
+ *                 its init function. It can be duplicated and/or combinated,
+ *                 as all required storage is dinamically allocated and cannot
+ *                 ends in any kind of clash.
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}

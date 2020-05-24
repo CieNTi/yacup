@@ -16,6 +16,7 @@
  */
 #include <stdint.h>
 #include "yacup/fsm.h"
+#include "yacup/fsm/driver.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
@@ -30,7 +31,7 @@
 
 /* Initializes a `fsm` common data, then lower level init, passed by argument.
  * Read `yacup/fsm.h` for complete information. */
-int fsm_init(struct fsm *fsm, int (*fsm_low_level_init)(struct fsm *))
+int fsm_init(struct fsm *fsm, int (*fsm_driver_init)(struct fsm *))
 {
   /* Configure _dbg() */
   #define YCP_FNAME "fsm_init"
@@ -38,7 +39,7 @@ int fsm_init(struct fsm *fsm, int (*fsm_low_level_init)(struct fsm *))
   if (/* Invalid fsm? */
       (fsm == NULL) ||
       /* Invalid low-level init? */
-      (fsm_low_level_init == NULL))
+      (fsm_driver_init == NULL))
   {
     _dbg("Invalid fsm or low-level init function\n");
     return 1;
@@ -54,7 +55,7 @@ int fsm_init(struct fsm *fsm, int (*fsm_low_level_init)(struct fsm *))
   fsm->stats[FSM_ALL] = 0;
 
   /* Now call the low level init function, and go */
-  return (fsm_low_level_init(fsm));
+  return (fsm_driver_init(fsm));
 
   /* Free _dbg() config */
   #undef YCP_FNAME
@@ -146,7 +147,7 @@ int fsm_do_cycle(struct fsm *fsm)
       fsm->stats[FSM_NEW]++;
 
       /* Checks */
-      if (fsm->start == NULL)
+      if (fsm->driver->start == NULL)
       {
         _dbg("'%s' has no start. Ooops! Breaking here now ...\n",
              fsm->name);
@@ -156,7 +157,7 @@ int fsm_do_cycle(struct fsm *fsm)
         return 1;        
       }
 
-      if (fsm->stop == NULL)
+      if (fsm->driver->stop == NULL)
       {
         _dbg("'%s' has no stop. FSM_CONFIG_AUTO_RESTART set\n",
              fsm->name);
@@ -166,7 +167,7 @@ int fsm_do_cycle(struct fsm *fsm)
       }
 
       /* Configure */
-      fsm->next = fsm->start;
+      fsm->next = fsm->driver->start;
 
       /* Pause, if rearm is set it'll run automagically in 2 cycles */
       fsm->state = FSM_PAUSE;
@@ -181,14 +182,14 @@ int fsm_do_cycle(struct fsm *fsm)
 
       /* Check if it should be ran */
       if ((fsm->config & FSM_CONFIG_STARTED) &&
-          ((fsm->next == fsm->start) ||
+          ((fsm->next == fsm->driver->start) ||
            (fsm->config & FSM_CONFIG_AUTO_RESTART)))
       {
         _dbg("'%s' fsm is ready/restart bit is set. Run it!\n",
              fsm->name);
 
         /* Armed fsm, run it again */
-        fsm->next = fsm->start;
+        fsm->next = fsm->driver->start;
         fsm->state = FSM_RUN;
       }
       break;
@@ -201,12 +202,12 @@ int fsm_do_cycle(struct fsm *fsm)
       fsm->stats[FSM_RUN]++;
 
       /* fsm was ran and finished, and it also was rearmed */
-      if ((fsm->stop != NULL) && (fsm->now == fsm->stop))
+      if ((fsm->driver->stop != NULL) && (fsm->now == fsm->driver->stop))
       {
         _dbg("'%s' has been restarted\n", fsm->name);
 
         /* Ensure a valid start point */
-        fsm->next = fsm->start;
+        fsm->next = fsm->driver->start;
       }
 
       /* Evaluate next state validity */
@@ -243,7 +244,7 @@ int fsm_do_cycle(struct fsm *fsm)
       }
 
       /* Capture if this fsm is terminated */
-      if ((fsm->stop != NULL) && (fsm->now == fsm->stop))
+      if ((fsm->driver->stop != NULL) && (fsm->now == fsm->driver->stop))
       {
         fsm->state = FSM_PAUSE;
       }

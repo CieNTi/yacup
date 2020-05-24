@@ -1,4 +1,4 @@
-/* fsm_simple.h - A simple finite state machine for testing purposes
+/* fsm_driver_simple.h - A simple `fsm` driver for testing purposes
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,19 +14,19 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __FSM_SIMPLE_H
-#define __FSM_SIMPLE_H
+#ifndef __FSM_DRIVER_SIMPLE_H
+#define __FSM_DRIVER_SIMPLE_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup   fsm_simple Simple FSM
+ * @defgroup   fsm_driver_simple Simple FSM
  * @{
  *   @brief      A simple finite state machine for testing purposes
  *   @details    This FSM just starts, execute state_1 5 times and finish
- *   @ingroup    fsm_available
+ *   @ingroup    fsm_driver
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  */
@@ -34,12 +34,13 @@ extern "C" {
 /* C libraries */
 #include <stddef.h>
 #include "yacup/fsm.h"
+#include "yacup/fsm/driver.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Internal data fsm_simple will use
+ * @brief      Internal data fsm_driver_simple will use
  */
-struct fsm_simple_data
+struct fsm_driver_simple_data
 {
   /**
    * @brief      Number of cycles the FSM passed over state_1
@@ -49,7 +50,7 @@ struct fsm_simple_data
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Low-level initializer function for `fsm_simple` type FSM
+ * @brief      Low-level initializer function for `fsm_driver_simple` type FSM
  * @details    This FSM just starts, execute `state_1` 5 times and finish
  *
  * @param      fsm   Pointer to a `fsm` to work with
@@ -60,7 +61,7 @@ struct fsm_simple_data
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int fsm_simple(struct fsm *fsm);
+int fsm_driver_simple(struct fsm *fsm);
 
 /** @} */
 
@@ -68,4 +69,4 @@ int fsm_simple(struct fsm *fsm);
 }
 #endif /* __cplusplus */
 
-#endif /* __FSM_SIMPLE_H */
+#endif /* __FSM_DRIVER_SIMPLE_H */

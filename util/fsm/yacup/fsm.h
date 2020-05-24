@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup fsm Finite state machines
+ * @defgroup fsm Finite state machine
  * @{
  *   @brief      Yet another finite-state machine implementation
  *   @details    FSM made easy (for me xD)
@@ -37,11 +37,11 @@ extern "C" {
  *     @date       2020
  *   @}
  *
- *   @defgroup   fsm_available Available FSM
+ *   @defgroup   fsm_driver Available drivers
  *   @{
- *     @brief      Already made and tested FSM for different purposes
- *     @details    Each FSM found here can be instantiated by calling its
- *                 constructor function. It can be duplicated and/or combinated,
+ *     @brief      Already made and tested FSM drivers for different purposes
+ *     @details    Each FSM driver found here can be instantiated by calling
+ *                 its init function. It can be duplicated and/or combinated,
  *                 as all required storage is dinamically allocated and cannot
  *                 ends in any kind of clash.
  *     @author     CieNTi <cienti@cienti.com>
@@ -116,20 +116,9 @@ struct fsm
   size_t stats[5];
 
   /**
-   * @brief      Internal data as a pointer to void, managed by the FSM itself
+   * @brief      Driver data as a pointer to void, to allow anything
    */
   void *data;
-
-  /**
-   * @brief      State function executed to start the FSM
-   * @warning    It is mandatory, otherwise the FSM will fail miserably
-   */
-  int (*start)(struct fsm *fsm);
-
-  /**
-   * @brief      State function executed to stop, before pause or restart
-   */
-  int (*stop) (struct fsm *fsm);
 
   /**
    * @brief      Saves previously executed state
@@ -145,6 +134,11 @@ struct fsm
    * @brief      Next state to be executed
    */
   int (*next) (struct fsm *fsm);
+
+  /**
+   * @brief      Pointer to a driver structure
+   */
+  struct fsm_driver *driver;
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -152,7 +146,7 @@ struct fsm
  * @brief      Initializes a `fsm`
  * @details    Checks and initializes `fsm` common data, then calls the lower
  *             level init function passed by argument. The latter is defined at
- *             each `fsm` unit, and it is where the `start` and `stop` states
+ *             each `fsm` module, and it is where the `start` and `stop` states
  *             are really assigned.
  *
  * @param      fsm   Pointer to a correctly initialized FSM
@@ -163,7 +157,7 @@ struct fsm
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int fsm_init(struct fsm *fsm, int (*fsm_low_level_init)(struct fsm *));
+int fsm_init(struct fsm *fsm, int (*fsm_driver_init)(struct fsm *));
 
 /**
  * @brief      Sets the enable bit, allowing this `fsm` to perform actions

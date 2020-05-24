@@ -1,4 +1,4 @@
-/* test_fsm_simple.c - Test to check fsm's fsm_simple functionality
+/* test_fsm_driver_simple.c - Test to check `fsm_driver_simple` functionality
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -21,13 +21,13 @@
 #include "yacup/fsm/debug.h"
 
 /* This include acts like an external application include, located elsewhere */
-#include "fsm_simple.h"
+#include "fsm_driver_simple.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/fsm/test/test_fsm_simple"
+#define YCP_NAME "util/fsm/test/test_fsm_driver_simple"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -45,26 +45,26 @@
  * @ingroup    util_test
  * @version    v1.0.0
  */
-int test_fsm_simple(int argc, const char* argv[])
+int test_fsm_driver_simple(int argc, const char* argv[])
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "test_fsm_simple"
+  #define YCP_FNAME "test_fsm_driver_simple"
 
   /* Testbench vars */
   #define MAX_CYCLES 20
   uint32_t current_cycle = MAX_CYCLES;
 
   /* FSM data and instance */
-  struct fsm_simple_data fsm_simple0_data;
-  struct fsm fsm_simple0 =
+  struct fsm_driver_simple_data fsm_driver_simple0_data;
+  struct fsm fsm_driver_simple0 =
   {
-    .name = "fsm_simple0",
-    .data = &fsm_simple0_data
+    .name = "fsm_driver_simple0",
+    .data = &fsm_driver_simple0_data
   };
 
-  /* Initialize fsm found at `fsm_simple.c` */
+  /* Initialize fsm found at `fsm_driver_simple.c` */
   _dbg("Initializing the finite-state machine\n");
-  if (fsm_init(&fsm_simple0, fsm_simple))
+  if (fsm_init(&fsm_driver_simple0, fsm_driver_simple))
   {
     _dbg("- Cannot initialize the FSM. ERROR\n");
     return 1;
@@ -72,23 +72,23 @@ int test_fsm_simple(int argc, const char* argv[])
   _dbg("- Ok\n");
 
   /* Basics: enable + auto-restart + start as soon as possible */
-  fsm_enable(&fsm_simple0);
-  fsm_set_loop(&fsm_simple0);
-  fsm_request_start(&fsm_simple0);
+  fsm_enable(&fsm_driver_simple0);
+  fsm_set_loop(&fsm_driver_simple0);
+  fsm_request_start(&fsm_driver_simple0);
 
   /* fsm cycles */
-  fsm_print_info(&fsm_simple0);
+  fsm_print_info(&fsm_driver_simple0);
   while (current_cycle--)
   {
     /* Start cycle */
     _dbg("Cycle #%02u\n", MAX_CYCLES - current_cycle);
 
     /* Test the fsm */
-    if (fsm_do_cycle(&fsm_simple0))
+    if (fsm_do_cycle(&fsm_driver_simple0))
     {
       _dbg("Error when executing a fsm cycle\n");
-      fsm_print_info(&fsm_simple0);
-      fsm_print_stats(&fsm_simple0);
+      fsm_print_info(&fsm_driver_simple0);
+      fsm_print_stats(&fsm_driver_simple0);
       return 1;
     }
 
@@ -98,7 +98,7 @@ int test_fsm_simple(int argc, const char* argv[])
   }
 
   /* Cya! */
-  fsm_print_stats(&fsm_simple0);
+  fsm_print_stats(&fsm_driver_simple0);
   return 0;
 
   /* Free _dbg() config */

@@ -210,7 +210,7 @@ int rb_driver_overwrite(struct rb *rb)
   #define YCP_FNAME "rb_driver_overwrite"
 
   /* Create it static, as this will not change along the execution */
-  static struct rb_driver rb_driver_overwrite_op =
+  static struct rb_driver this_driver =
   {
     .validate = validate,
     .reset    = reset,
@@ -231,7 +231,7 @@ int rb_driver_overwrite(struct rb *rb)
   }
 
   /* Ok assign the operations */
-  rb->driver = &rb_driver_overwrite_op;
+  rb->driver = &this_driver;
 
   /* And return with success */
   return 0;

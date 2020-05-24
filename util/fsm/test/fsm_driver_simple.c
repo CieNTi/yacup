@@ -1,4 +1,4 @@
-/* fsm_simple.c - A simple finite state machine for testing purposes
+/* fsm_driver_simple.c - A simple `fsm` driver for testing purposes
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,18 +17,19 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "yacup/fsm.h"
+#include "yacup/fsm/driver.h"
 
 /* Header located near this file, used as an external header in app */
-#include "fsm_simple.h"
+#include "fsm_driver_simple.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/fsm/test/fsm_simple"
+#define YCP_NAME "util/fsm/test/fsm_driver_simple"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Ease access from fsm->data */
-#define FSM_DATA(x) ((struct fsm_simple_data *)(x->data))
+#define FSM_DATA(x) ((struct fsm_driver_simple_data *)(x->data))
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* States pre-declaration */
@@ -41,7 +42,7 @@ static int stop(struct fsm *fsm);
  * @brief      Sate `start`: Prepare `cycles` variable
  *
  * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
- * @ingroup    fsm_simple
+ * @ingroup    fsm_driver_simple
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -72,7 +73,7 @@ static int start(struct fsm *fsm)
  * @brief      State `state_1`: Stay here during 5 `cycles` variable counts
  *
  * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
- * @ingroup    fsm_simple
+ * @ingroup    fsm_driver_simple
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -110,7 +111,7 @@ static int state_1(struct fsm *fsm)
  * @brief      State `stop`: Prepare anything before stopping the fsm
  *
  * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
- * @ingroup    fsm_simple
+ * @ingroup    fsm_driver_simple
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -136,12 +137,19 @@ static int stop(struct fsm *fsm)
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Initialize a `fsm_simple` type FSM.
+/* Initialize a `fsm_driver_simple` type FSM.
  * Read `yacup/fsm/debug.h` for complete information. */
-int fsm_simple(struct fsm *fsm)
+int fsm_driver_simple(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "fsm_simple"
+  #define YCP_FNAME "fsm_driver_simple"
+
+  /* Create it static, as this will not change along the execution */
+  static struct fsm_driver this_driver =
+  {
+    .start = start,
+    .stop = stop
+  };
 
   /* Valid fsm? */
   if (fsm == NULL)
@@ -161,8 +169,7 @@ int fsm_simple(struct fsm *fsm)
   FSM_DATA(fsm)->cycles = 0;
 
   /* Assign the essential states */
-  fsm->start = start;
-  fsm->stop = stop;
+  fsm->driver = &this_driver;
 
   /* Let's go! */
   return 0;

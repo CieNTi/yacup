@@ -67,12 +67,12 @@ test_rb_driver_overwrite: $(addprefix $(ODIR)/, $(test_rb_driver_overwrite_objs)
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
-# test_fsm_simple: Test to check `fsm` functionality
-test_fsm_simple_objs=util/fsm/fsm.o                  \
-                     util/fsm/test/fsm_simple.o      \
-                     util/fsm/test/test_fsm_simple.o \
-                     util/fsm/debug.o
-test_fsm_simple: $(addprefix $(ODIR)/, $(test_fsm_simple_objs))
+# test_fsm_driver_simple: Test to check `fsm` functionality
+test_fsm_driver_simple_objs=util/fsm/fsm.o                         \
+                            util/fsm/test/fsm_driver_simple.o      \
+                            util/fsm/test/test_fsm_driver_simple.o \
+                            util/fsm/debug.o
+test_fsm_driver_simple: $(addprefix $(ODIR)/, $(test_fsm_driver_simple_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
@@ -116,7 +116,7 @@ test_ce_commands: $(addprefix $(ODIR)/, $(test_ce_commands_objs))
 # Test app compounding all other tests defined here
 test_yacup_objs=$(test_xyz_testname_objs)        \
                 $(test_rb_driver_overwrite_objs) \
-                $(test_fsm_simple_objs)          \
+                $(test_fsm_driver_simple_objs)   \
                 $(test_ce_codec_B416K_objs)      \
                 src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_objs))
@@ -171,7 +171,7 @@ test_bin:
 all: clean debug prepare test_yacup               \
                          test_xyz_testname        \
                          test_rb_driver_overwrite \
-                         test_fsm_simple          \
+                         test_fsm_driver_simple   \
                          test_ce_codec_B416K      \
                          test_ce_commands
 	@echo "-----"
