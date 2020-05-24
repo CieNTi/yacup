@@ -171,7 +171,8 @@ all: clean debug prepare test_yacup               \
                          test_xyz_testname        \
                          test_rb_driver_overwrite \
                          test_fsm_driver_simple   \
-                         test_ce_codec_B416K
+                         test_ce_codec_B416K      \
+                         test_ce_commands
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""

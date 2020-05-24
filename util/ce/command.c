@@ -68,19 +68,39 @@ int ce_command_validate(struct ce_command_set *cmd_set,
 
       /* Check if command signature is valid */
       for (ax = 0;
-           cmd_set->subset[sx]->command[cx]->signature[ax] != CE_DATA_NULL;
+           ((argument[ax] != NULL) &&
+            (cmd_set->subset[sx]->command[cx]->signature[ax] != CE_DATA_NULL));
            ax++)
       {
-        _dbg("Looping %lu with val = %u\n", ax,
+        if (cmd_set->subset[sx]->command[cx]->signature[ax] ==
+            argument[ax]->type)
+        {
+          /* Argument type match */
+          continue;
+        }
+        _dbg("Argument type mismatch %lu (%u vs. %u)\n",
+             ax,
+             argument[ax]->type,
              cmd_set->subset[sx]->command[cx]->signature[ax]);
-      }
-      _dbg("Exit loop %lu with val = %u\n", ax,
-           cmd_set->subset[sx]->command[cx]->signature[ax]);
 
-      /* Return command validate output */
-      //return (cmd_set->subset[sx]->command[cx]->validate(
-      //          cmd_set->subset[sx]->command[cx],
-      //          argument));
+        /* Argument type mismatch, next command */
+        continue;
+      }
+
+      /* After the last command, both need to be NULL or one has extra arg */
+      if ((cmd_set->subset[sx]->command[cx]->signature[ax] != CE_DATA_NULL) ||
+          (argument[ax] != NULL))
+      {
+        _dbg("Extra argument not matched %lu (%u vs. %u)\n",
+             ax,
+             (argument[ax] == NULL)?CE_DATA_NULL:argument[ax]->type,
+             cmd_set->subset[sx]->command[cx]->signature[ax]);
+
+        /* Extra argument not matched, next command */
+        continue;
+      }
+
+      /* Command found */
       return 0;
     }
   }
