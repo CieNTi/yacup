@@ -141,9 +141,8 @@ struct ce_codec
  *             defined at each `ce_codec` unit, and it is where the encoding and
  *             decoding functions are really assigned.
  *
- * @param      codec                    Pointer to a codec to initialize
- * @param[in]  ce_codec_low_level_init  The ce codec low level initializer
- *                                      function
+ * @param      codec                 Pointer to a codec to initialize
+ * @param[in]  ce_codec_driver_init  The ce codec driver initializer function
  *
  * @return     One of:
  *             | Value         | Meaning          |
@@ -152,7 +151,7 @@ struct ce_codec
  *             | `NULL`        | Error            |
  */
 int ce_codec_init(struct ce_codec *codec,
-                  int (*ce_codec_low_level_init)(struct ce_codec *));
+                  int (*ce_codec_driver_init)(struct ce_codec *));
 
 /** @} */
 

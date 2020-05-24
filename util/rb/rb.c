@@ -69,11 +69,10 @@ int rb_init(struct rb *rb, int (*rb_driver_init)(struct rb *))
     _dbg("Invalid rb after initialization\n");
     return 1;
   }
-  else
-  {
-    /* And finish! */
-    return 0;
-  }
+
+  /* And finish! */
+  _dbg("rb initialized successfully\n");
+  return 0;
 
   /* Free _dbg() config */
   #undef YCP_FNAME

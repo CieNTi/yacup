@@ -81,10 +81,8 @@ int test_ce_initialization(int argc, const char* argv[])
     .in.message.size = CE_TEST_MESSAGE_BUF_LEN
   };
 
-  /* Initializes first channels, then ce */
-  if (ce_channel_init(&ce0.out, ce_codec_B416K, rb_driver_overwrite) ||
-      ce_channel_init(&ce0.in, ce_codec_B416K, rb_driver_overwrite) ||
-      ce_init(&ce0, ce_driver_faf))
+  /* Initializes the engine */
+  if (ce_init(&ce0, ce_driver_faf, ce_codec_B416K, rb_driver_overwrite))
   {
     /* Cannot init, error */
     _dbg("Error when initializing ce0\n");

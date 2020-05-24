@@ -37,6 +37,10 @@ int ce_channel_init(struct ce_channel *channel,
       (channel == NULL) ||
       /* No commands? */
       (channel->command_set == NULL) ||
+      /* Defined codec driver? */
+      (channels_codec_driver_init == NULL) ||
+      /* Defined buffer driver? */
+      (channels_rb_driver_init == NULL) ||
       /* Valid codec? */
       ce_codec_init(&channel->codec, channels_codec_driver_init) ||
       /* Valid data rb? */
@@ -49,6 +53,7 @@ int ce_channel_init(struct ce_channel *channel,
   }
 
   /* Ok! */
+  _dbg("Channel initialized successfully\n");
   return 0;
 
   /* Free _dbg() config */

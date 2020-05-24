@@ -47,8 +47,16 @@ int ce_codec_init(struct ce_codec *codec,
   codec->decode.data = NULL;
   codec->decode.message = NULL;
 
-  /* Now call the low level init function, and go */
-  return (ce_codec_driver_init(codec));
+  /* Now call the driver init function, and go */
+  if (ce_codec_driver_init(codec))
+  {
+    _dbg("Failed channel initialization\n");
+    return 1;
+  }
+
+  /* Ok! */
+  _dbg("Codec initialized successfully\n");
+  return 0;
 
   /* Free _dbg() config */
   #undef YCP_FNAME

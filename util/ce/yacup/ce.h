@@ -94,7 +94,10 @@ struct ce
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int ce_init(struct ce *ce, int (*ce_driver_init)(struct ce *));
+int ce_init(struct ce *ce,
+            int (*ce_driver_init)(struct ce *),
+            int (*channels_codec_driver_init)(struct ce_codec *),
+            int (*channels_rb_driver_init)(struct rb *));
 
 /**
  * @brief      Executes a command engine chat `fsm` cycle. Required if data is

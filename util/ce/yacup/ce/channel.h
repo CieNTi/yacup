@@ -56,7 +56,7 @@ struct ce_channel
   struct rb             data;
 
   /**
-   * @brief      Ring-buffer for codec messages (links with low level I/O)
+   * @brief      Ring-buffer for codec messages (links with lower level I/O)
    */
   struct rb             message;
 };

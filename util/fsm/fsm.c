@@ -54,8 +54,22 @@ int fsm_init(struct fsm *fsm, int (*fsm_driver_init)(struct fsm *))
   fsm->stats[FSM_ERROR] = 0;
   fsm->stats[FSM_ALL] = 0;
 
-  /* Now call the low level init function, and go */
-  return (fsm_driver_init(fsm));
+  /* Now call the driver init function, and go */
+  if (fsm_driver_init(fsm))
+  {
+    _dbg("Failed fsm initialization\n");
+    return 1;
+  }
+
+  /* Assign default name, if not previously set */
+  if (fsm->name == NULL)
+  {
+    fsm->name = YCP_NAME;
+  }
+
+  /* Ok! */
+  _dbg("fsm '%s' initialized successfully\n", fsm->name);
+  return 0;
 
   /* Free _dbg() config */
   #undef YCP_FNAME

@@ -163,6 +163,12 @@ static int ce_driver_fsm_driver(struct fsm *fsm)
     return 1;
   }
 
+  /* Assign default name, if not previously set */
+  if (fsm->name == NULL)
+  {
+    fsm->name = YCP_NAME;
+  }
+
   /* Assign the essential states */
   fsm->driver = &this_driver;
 
@@ -176,12 +182,17 @@ static int ce_driver_fsm_driver(struct fsm *fsm)
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Initialize a `ce_driver_faf` type `ce_driver`.
  * Read `yacup/ce/driver/fire-and-forget.h` for complete information. */
-static int command_send(struct ce *ce,
+static int send_command(struct ce *ce,
                         size_t id,
                         struct ce_command_argument *argument[])
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "command_send"
+  #define YCP_FNAME "send_command"
+
+  /* Command is already validated, so we can trust on:
+   * - arguments type, checked by ce_command_validate()
+   * - arguments type, ensured storage as per ce_command_argument declaration
+   */
 
   /* Let's go! */
   return 0;
@@ -209,8 +220,14 @@ int ce_driver_faf(struct ce *ce)
     return 1;
   }
 
+  /* Assign default name, if not previously set */
+  if (ce->name == NULL)
+  {
+    ce->name = YCP_NAME;
+  }
+
   /* Assign the external driver-fsm API */
-  ce->driver.command_send = command_send;
+  ce->driver.send_command = send_command;
 
   /* Let's go! */
   return 0;

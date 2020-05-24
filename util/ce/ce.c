@@ -26,7 +26,10 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Initializes a command engine referenced by a `ce` pointer
  * Read `yacup/ce.h` for complete information. */
-int ce_init(struct ce *ce, int (*ce_driver_init)(struct ce *))
+int ce_init(struct ce *ce,
+            int (*ce_driver_init)(struct ce *),
+            int (*ce_codec_driver_init)(struct ce_codec *),
+            int (*rb_driver_init)(struct rb *))
 {
   /* Configure _dbg() */
   #define YCP_FNAME "ce_init"
@@ -34,17 +37,37 @@ int ce_init(struct ce *ce, int (*ce_driver_init)(struct ce *))
   if (/* Invalid ce? */
       (ce == NULL) ||
       /* Invalid driver */
-      (ce_driver_init == NULL))
+      (ce_driver_init == NULL) ||
+      /* Defined codec driver? */
+      (ce_codec_driver_init == NULL) ||
+      /* Defined buffer driver? */
+      (rb_driver_init == NULL) ||
+      /* Invalid channels init */
+      ce_channel_init(&ce->out, ce_codec_driver_init, rb_driver_init) ||
+      ce_channel_init(&ce->in,  ce_codec_driver_init, rb_driver_init)
+      )
   {
     _dbg("Invalid ce or driver init function\n");
     return 1;
   }
+      
+  /* Finally, check if driver validates it */
+  if (ce_driver_init(ce))
+  {
+    /* Fail miserably */
+    _dbg("Invalid ce after initialization\n");
+    return 1;
+  }
 
-  /* Fill ce common data */
-  // Nothing to fill here yet, so this call is right now, just a validator
+  /* Assign default name, if not previously set */
+  if (ce->name == NULL)
+  {
+    ce->name = YCP_NAME;
+  }
 
-  /* Now call the low level init function, and go */
-  return (ce_driver_init(ce));
+  /* And finish! */
+  _dbg("ce '%s' initialized successfully\n", ce->name);
+  return 0;
 
   /* Free _dbg() config */
   #undef YCP_FNAME
@@ -67,8 +90,8 @@ int ce_send_command(struct ce *ce,
     return 1;
   }
 
-  if (ce->driver.command_send == NULL ||
-      ce->driver.command_send(ce, id, argument))
+  if (ce->driver.send_command == NULL ||
+      ce->driver.send_command(ce, id, argument))
   {
     /* Cannot send, error */
     _dbg("Error when sending the command\n");

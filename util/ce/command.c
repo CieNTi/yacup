@@ -101,6 +101,7 @@ int ce_command_validate(struct ce_command_set *cmd_set,
       }
 
       /* Command found */
+      _dbg("Command found\n");
       return 0;
     }
   }

@@ -61,29 +61,8 @@ struct ce_driver
   /**
    * @brief      Finite state machine controlling data/actions behaviour
    */
-  int (*command_send)(struct ce *, size_t, struct ce_command_argument *[]);
+  int (*send_command)(struct ce *, size_t, struct ce_command_argument *[]);
 };
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/**
- * @brief      Initializes a command engine channel using lower level inits
- * @details    Prepares and initializes the channel: command set, codec and
- *             codec message buffer
- *
- * @param      channel                     Poiner to channel to initialize
- * @param      command_set                 Valid command set for this channel
- * @param      channels_codec_driver_init  Channel codec driver initializer
- * @param      channels_rb_driver_init     Message rb driver initializer
- *
- * @return     One of:
- *             | Value  | Meaning          |
- *             | :----: | :--------------- |
- *             | `== 0` | Ok               |
- *             | `!= 0` | Error            |
- */
-int ce_driver_init(struct ce_driver *channel,
-                 int (*channels_codec_driver_init)(struct ce_codec *),
-                 int (*channels_rb_driver_init)(struct rb *));
 
 /** @} */
 

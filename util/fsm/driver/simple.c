@@ -163,6 +163,12 @@ int fsm_driver_simple(struct fsm *fsm)
     return 1;
   }
 
+  /* Assign default name, if not previously set */
+  if (fsm->name == NULL)
+  {
+    fsm->name = YCP_NAME;
+  }
+
   /* Fill this specific FSM data */
   FSM_DATA(fsm)->cycles = 0;
 
