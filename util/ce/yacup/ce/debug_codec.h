@@ -1,4 +1,4 @@
-/* debug.h - Debug functions to ease `ce` development flow
+/* debug_codec.h - Debug functions to ease `ce_codec` development flow
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,8 +14,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CE_DEBUG_H
-#define __CE_DEBUG_H
+#ifndef __CE_DEBUG_CODEC_H
+#define __CE_DEBUG_CODEC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -27,15 +27,15 @@ extern "C" {
  */
 
 /* C libraries */
-#include "yacup/ce.h"
+#include "yacup/ce/codec.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Print `ce` information to STDOUT
+ * @brief      Print `ce_codec` information to STDOUT (encode/decode functions)
  *
  * @param      ce    Pointer to a valid `ce`
  */
-void ce_print_info(struct ce *ce);
+void ce_codec_print_info(struct ce_codec *codec);
 
 /** @} */
 
@@ -43,4 +43,4 @@ void ce_print_info(struct ce *ce);
 }
 #endif /* __cplusplus */
 
-#endif /* __CE_DEBUG_H */
+#endif /* __CE_DEBUG_CODEC_H */

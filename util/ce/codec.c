@@ -1,4 +1,4 @@
-/* codec.c - Codec API for `ce` for yacup project
+/* codec.c - Command engine codec API for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -41,8 +41,11 @@ int ce_codec_init(struct ce_codec *codec,
     return 1;
   }
 
-  /* Fill codec common data */
-  // Nothing to fill here yet, so this call is right now, just a validator
+  /* Presets */
+  codec->encode.data = NULL;
+  codec->encode.message = NULL;
+  codec->decode.data = NULL;
+  codec->decode.message = NULL;
 
   /* Now call the low level init function, and go */
   return (ce_codec_low_level_init(codec));

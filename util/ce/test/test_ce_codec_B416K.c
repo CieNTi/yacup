@@ -19,9 +19,9 @@
 #include "yacup/rb.h"
 #include "yacup/rb/debug.h"
 #include "yacup/rb/driver/overwrite.h"
-#include "yacup/ce/debug.h"
 #include "yacup/ce/codec.h"
 #include "yacup/ce/codec/B416K.h"
+#include "yacup/ce/debug_codec.h"
 
 /* This include acts like an external application include, located elsewhere */
 //#include "ce_external.h"

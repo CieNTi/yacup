@@ -16,7 +16,6 @@
  */
 #include <stdint.h>
 #include <stddef.h>
-#include "yacup/ce.h"
 #include "yacup/ce/codec.h"
 #include "yacup/ce/codec/B416K.h"
 

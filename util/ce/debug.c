@@ -41,31 +41,5 @@ void ce_print_info(struct ce *ce)
   #undef YCP_FNAME
 }
 
-/* Print `ce_codec` information to STDOUT.
- * Read `yacup/ce/debug.h` for complete information. */
-void ce_codec_print_info(struct ce_codec *codec)
-{
-  /* Configure _dbg() */
-  #define YCP_FNAME "ce_codec_print_info"
-
-  /* Print codec information */
-  if (codec == NULL) { return; }
-  _dbg("codec ...........: %p\n",      (void *)codec);
-  _dbg("- encode ........: %p\n",      (void *)&codec->encode);
-  _dbg("  - data ........: %p (%p)\n", (void *)&codec->encode.data,
-                                       (void *)(size_t)codec->encode.data);
-  _dbg("  - message .....: %p (%p)\n", (void *)&codec->encode.message,
-                                       (void *)(size_t)codec->encode.message);
-  _dbg("- decode ........: %p\n",      (void *)&codec->decode);
-  _dbg("  - data ........: %p (%p)\n", (void *)&codec->decode.data,
-                                       (void *)(size_t)codec->decode.data);
-  _dbg("  - message .....: %p (%p)\n", (void *)&codec->decode.message,
-                                       (void *)(size_t)codec->decode.message);
-  return;
-
-  /* Free _dbg() config */
-  #undef YCP_FNAME
-}
-
 #undef YCP_NAME
 #undef YCP_FORCE_DEBUG

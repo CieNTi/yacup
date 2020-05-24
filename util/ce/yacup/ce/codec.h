@@ -1,4 +1,4 @@
-/* codec.h - Codec implementation interface for `ce` util usage
+/* codec.h - Command engine codec API for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify

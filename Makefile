@@ -81,11 +81,10 @@ test_fsm_driver_simple: $(addprefix $(ODIR)/, $(test_fsm_driver_simple_objs))
 test_ce_codec_B416K_objs=util/rb/rb.o                       \
                          util/rb/driver/overwrite.o         \
                          util/rb/debug.o                    \
-                         util/ce/ce.o                       \
                          util/ce/codec.o                    \
                          util/ce/codec/B416K.o              \
                          util/ce/test/test_ce_codec_B416K.o \
-                         util/ce/debug.o
+                         util/ce/debug_codec.o
 test_ce_codec_B416K: $(addprefix $(ODIR)/, $(test_ce_codec_B416K_objs))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
@@ -233,9 +232,9 @@ help:
 	@echo ""
 	@echo "Available targets related to utilities tests:"
 	@echo "  test_xyz_testname .........: Example 'xyz' template functionality"
-	@echo "  test_rb_driver_overwrite ..: 'rb' ring-buffer 'overwrite' driver"
-	@echo "  test_fsm_simple ...........: 'fsm' basic FSM functionality"
-	@echo "  test_ce_codec_B416K .......: 'ce' B416K codec functionality"
+	@echo "  test_rb_driver_overwrite ..: 'rb' module 'overwrite' driver"
+	@echo "  test_fsm_driver_simple ....: 'fsm' module 'simple' driver"
+	@echo "  test_ce_codec_B416K .......: 'ce_codec' module 'B416K' driver"
 	@echo "  test_ce_commands ..........: 'ce' commands functionality"
 	@echo ""
 	@echo "Available targets related to application tests:"
