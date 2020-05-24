@@ -38,10 +38,10 @@ int fsm_init(struct fsm *fsm, int (*fsm_driver_init)(struct fsm *))
 
   if (/* Invalid fsm? */
       (fsm == NULL) ||
-      /* Invalid low-level init? */
+      /* Invalid driver init? */
       (fsm_driver_init == NULL))
   {
-    _dbg("Invalid fsm or low-level init function\n");
+    _dbg("Invalid fsm or driver init function\n");
     return 1;
   }
 

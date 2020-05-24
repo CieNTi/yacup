@@ -35,7 +35,7 @@ int rb_init(struct rb *rb, int (*rb_driver_init)(struct rb *))
 
   if (/* Invalid rb? */
       (rb == NULL) ||
-      /* Invalid low-level init? */
+      /* Invalid driver init? */
       (rb_driver_init == NULL) ||
       /* Invalid buffer? */
       (rb->buffer == NULL) ||

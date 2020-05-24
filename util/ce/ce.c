@@ -63,7 +63,15 @@ int ce_send_command(struct ce *ce,
   if (ce_command_validate(ce->out.command_set, id, argument))
   {
     /* Cannot send, error */
-    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD1\n");
+    _dbg("Error when validating command\n");
+    return 1;
+  }
+
+  if (ce->chat.command_send == NULL ||
+      ce->chat.command_send(ce, id, argument))
+  {
+    /* Cannot send, error */
+    _dbg("Error when sending the command\n");
     return 1;
   }
 

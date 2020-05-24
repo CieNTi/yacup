@@ -176,9 +176,18 @@ static int ce_chat_fsm_driver(struct fsm *fsm)
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Initialize a `ce_chat_faf` type `ce_chat`.
  * Read `yacup/ce/chat/fire-and-forget.h` for complete information. */
-static int command_send(int avar)
+static int command_send(struct ce *ce,
+                        size_t id,
+                        struct ce_command_argument *argument[])
 {
-  return avar;
+  /* Configure _dbg() */
+  #define YCP_FNAME "command_send"
+
+  /* Let's go! */
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

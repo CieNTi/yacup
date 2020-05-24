@@ -34,10 +34,10 @@ int ce_codec_init(struct ce_codec *codec,
 
   if (/* Invalid codec? */
       (codec == NULL) ||
-      /* Invalid low-level init? */
+      /* Invalid driver init? */
       (ce_codec_driver_init == NULL))
   {
-    _dbg("Invalid codec or low-level init function\n");
+    _dbg("Invalid codec or driver init function\n");
     return 1;
   }
 

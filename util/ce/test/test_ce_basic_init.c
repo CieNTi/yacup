@@ -55,7 +55,8 @@ int test_ce_basic_init(int argc, const char* argv[])
   _dbg("Hi! from "__FILE__"\n");
 
   /* Out first `ce`, prepare the essential data */
-  #define CE_TEST_CH_BUF_LEN 256
+  #define CE_TEST_DATA_BUF_LEN 128
+  #define CE_TEST_MESSAGE_BUF_LEN 256
   struct ce ce0 =
   {
     /* Command engine entity parameters */
@@ -63,15 +64,21 @@ int test_ce_basic_init(int argc, const char* argv[])
 
     /* Output channel command set (subset_test.c) */
     .out.command_set = &test_command_set,
+    /* Output channel data buffer */
+    .out.data.buffer = (uint8_t [CE_TEST_DATA_BUF_LEN]) { 0x00 },
+    .out.data.size = CE_TEST_DATA_BUF_LEN,
     /* Output channel message buffer */
-    .out.rb.buffer = (uint8_t [CE_TEST_CH_BUF_LEN]) { 0x00 },
-    .out.rb.size = CE_TEST_CH_BUF_LEN,
+    .out.message.buffer = (uint8_t [CE_TEST_MESSAGE_BUF_LEN]) { 0x00 },
+    .out.message.size = CE_TEST_MESSAGE_BUF_LEN,
 
     /* Input channel command set (subset_test.c) */
     .in.command_set = &test_command_set,
+    /* Input channel data buffer */
+    .in.data.buffer = (uint8_t [CE_TEST_DATA_BUF_LEN]) { 0x00 },
+    .in.data.size = CE_TEST_DATA_BUF_LEN,
     /* Input channel message buffer */
-    .in.rb.buffer = (uint8_t [CE_TEST_CH_BUF_LEN]) { 0x00 },
-    .in.rb.size = CE_TEST_CH_BUF_LEN
+    .in.message.buffer = (uint8_t [CE_TEST_MESSAGE_BUF_LEN]) { 0x00 },
+    .in.message.size = CE_TEST_MESSAGE_BUF_LEN
   };
 
   /* Initializes first channels, then ce */

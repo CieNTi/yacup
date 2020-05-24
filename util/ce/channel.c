@@ -39,10 +39,12 @@ int ce_channel_init(struct ce_channel *channel,
       (channel->command_set == NULL) ||
       /* Valid codec? */
       ce_codec_init(&channel->codec, channels_codec_driver_init) ||
-      /* Valid rb? */
-      rb_init(&channel->rb, channels_rb_driver_init))
+      /* Valid data rb? */
+      rb_init(&channel->data, channels_rb_driver_init) ||
+      /* Valid message rb? */
+      rb_init(&channel->message, channels_rb_driver_init))
   {
-    _dbg("Invalid ce or low-level init function\n");
+    _dbg("Invalid ce_channel or driver init function\n");
     return 1;
   }
 

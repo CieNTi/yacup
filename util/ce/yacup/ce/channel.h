@@ -51,9 +51,14 @@ struct ce_channel
   struct ce_codec       codec;
 
   /**
+   * @brief      Ring-buffer for command-as-data block before encode as message
+   */
+  struct rb             data;
+
+  /**
    * @brief      Ring-buffer for codec messages (links with low level I/O)
    */
-  struct rb             rb;
+  struct rb             message;
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

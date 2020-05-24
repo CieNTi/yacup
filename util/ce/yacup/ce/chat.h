@@ -39,9 +39,14 @@ extern "C" {
 #include <stdint.h>
 #include <stddef.h>
 #include "yacup/rb.h"
+#include "yacup/ce.h"
 #include "yacup/ce/codec.h"
+#include "yacup/ce/command.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Pre-declare fsm struct */
+struct ce;
+
 /**
  * @brief      Structure that defines the input/output chat between parties
  *             (communication protocol)
@@ -56,7 +61,7 @@ struct ce_chat
   /**
    * @brief      Finite state machine controlling data/actions behaviour
    */
-  int (*command_send)(int);
+  int (*command_send)(struct ce *, size_t, struct ce_command_argument *[]);
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
