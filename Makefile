@@ -91,19 +91,29 @@ test_ce_codec_B416K: $(addprefix $(ODIR)/, $(test_ce_codec_B416K_o))
 	@echo "-----"
 
 # test_ce_command_validate: Test to check `ce` commands functionality
-test_ce_command_validate_o=util/rb/rb.o                            \
-                           util/rb/driver/overwrite.o              \
-                           util/rb/debug.o                         \
-                           util/fsm/fsm.o                          \
-                           util/fsm/debug.o                        \
-                           util/ce/ce.o                            \
-                           util/ce/codec.o                         \
-                           util/ce/codec/B416K.o                   \
-                           util/ce/command.o                       \
+test_ce_command_validate_o=util/ce/command.o                       \
                            util/ce/command/subset_test.o           \
-                           util/ce/test/test_ce_command_validate.o \
-                           util/ce/debug.o
+                           util/ce/test/test_ce_command_validate.o
 test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
+	@echo "-----"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
+	@echo "-----"
+
+# test_ce_basic_init: Test to check `ce` commands functionality
+test_ce_basic_init_o=util/rb/rb.o                      \
+                     util/rb/driver/overwrite.o        \
+                     util/rb/debug.o                   \
+                     util/fsm/fsm.o                    \
+                     util/fsm/debug.o                  \
+                     util/ce/ce.o                      \
+                     util/ce/codec.o                   \
+                     util/ce/codec/B416K.o             \
+                     util/ce/chat/fire-and-forget.o    \
+                     util/ce/command.o                 \
+                     util/ce/command/subset_test.o     \
+                     util/ce/test/test_ce_basic_init.o \
+                     util/ce/debug.o
+test_ce_basic_init: $(addprefix $(ODIR)/, $(test_ce_basic_init_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
@@ -172,7 +182,8 @@ all: clean debug prepare test_yacup               \
                          test_rb_driver_overwrite \
                          test_fsm_driver_simple   \
                          test_ce_codec_B416K      \
-                         test_ce_command_validate
+                         test_ce_command_validate \
+                         test_ce_basic_init
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""
@@ -236,6 +247,7 @@ help:
 	@echo "  test_fsm_driver_simple ....: 'fsm' module 'simple' driver"
 	@echo "  test_ce_codec_B416K .......: 'ce_codec' module 'B416K' driver"
 	@echo "  test_ce_command_validate ..: 'ce_command' validation functionality"
+	@echo "  test_ce_basic_init ........: 'ce' basic usage tests (devel mostly)"
 	@echo ""
 	@echo "Available targets related to application tests:"
 	@echo "  test_yacup ..: Example application test that runs all other utils"

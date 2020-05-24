@@ -100,6 +100,7 @@ int test_fsm_driver_simple(int argc, const char* argv[])
   return 0;
 
   /* Free _dbg() config */
+  _dbg("If you are reading this, everything went correctly :_)\n");
   #undef YCP_FNAME
 }
 

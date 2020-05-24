@@ -57,6 +57,11 @@ extern "C" {
 struct ce
 {
   /**
+   * @brief      ASCII name of this commands engine
+   */
+  char *name;
+
+  /**
    * @brief      Input/Output chat between parties (protocol)
    */
   struct fsm chat;
@@ -96,7 +101,7 @@ int ce_init(struct ce *ce, int (*chat_driver_init)(struct fsm *));
  *
  * @param      ce    Pointer to the command engine to tick
  *
- * @return     
+ * @return     One of:
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
@@ -112,7 +117,7 @@ int ce_tick(struct ce *ce);
  * @param      id        Unique command identifier of the command to send
  * @param      argument  Arguments to check against command signature and send
  *
- * @return     
+ * @return     One of:
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
@@ -129,7 +134,7 @@ int ce_send_command(struct ce *ce,
  * @param      id        Unique command identifier of the command to send
  * @param      listener  Incoming command listener
  *
- * @return     
+ * @return     One of:
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |

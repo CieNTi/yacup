@@ -160,7 +160,7 @@ struct ce_command_set
  * @param      id        Unique command identifier of the command to validate
  * @param      argument  Arguments to check against command signature
  *
- * @return     
+ * @return     One of:
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |

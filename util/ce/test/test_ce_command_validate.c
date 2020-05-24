@@ -69,6 +69,7 @@ int test_ce_command_validate(int argc, const char* argv[])
   };
 
   /* Validate command */
+  _dbg("Should validate: Valid 1 argument vs. 1 argument command\n");
   if (ce_command_validate(&cmd_set, CE_COMMAND_SUBSET_TEST_CMD1, cmd1_args))
   {
     /* Cannot send, error */
@@ -85,6 +86,7 @@ int test_ce_command_validate(int argc, const char* argv[])
   };
 
   /* Validate command */
+  _dbg("Should validate: Valid 2 arguments vs. 2 arguments command\n");
   if (ce_command_validate(&cmd_set, CE_COMMAND_SUBSET_TEST_CMD4, cmd2_args))
   {
     /* Cannot validate, error */
@@ -93,14 +95,34 @@ int test_ce_command_validate(int argc, const char* argv[])
   }
 
   /* Test invalid command */
-  if (ce_command_validate(&cmd_set, 1000, cmd2_args) == 0)
+  _dbg("Should not validate: Not supported/invalid command\n");
+  if (!ce_command_validate(&cmd_set, 1000, cmd2_args))
   {
     /* Validated, error */
     _dbg("Invalid command marked as valid! ERROR!\n");
     return 1;
   }
 
+  /* Test invalid arguments: 1 arg validated against 2 args command */
+  _dbg("Should not validate: Invalid 1 argument vs. 2 arguments command\n");
+  if (!ce_command_validate(&cmd_set, CE_COMMAND_SUBSET_TEST_CMD4, cmd1_args))
+  {
+    /* Validated, error */
+    _dbg("Invalid arguments marked as valid! ERROR!\n");
+    return 1;
+  }
+
+  /* Test invalid arguments: 2 args validated against 1 arg command */
+  _dbg("Should not validate: Invalid 2 arguments vs. 1 argument command\n");
+  if (!ce_command_validate(&cmd_set, CE_COMMAND_SUBSET_TEST_CMD3, cmd2_args))
+  {
+    /* Validated, error */
+    _dbg("Invalid arguments marked as valid! ERROR!\n");
+    return 1;
+  }
+
   /* Cya! */
+  _dbg("If you are reading this, everything went correctly :_)\n");
   return 0;
 
   /* Free _dbg() config */
