@@ -58,7 +58,9 @@ struct ce_channel
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Checks if passed command is found on set and has valid arguments
+ * @brief      Initializes a command engine channel using lower level inits
+ * @details    Prepares and initializes the channel: command set, codec and
+ *             codec message buffer
  *
  * @param      channel                     Poiner to channel to initialize
  * @param      command_set                 Valid command set for this channel
@@ -72,7 +74,6 @@ struct ce_channel
  *             | `!= 0` | Error            |
  */
 int ce_channel_init(struct ce_channel *channel,
-                    struct ce_command_set *command_set,
                     int (*channels_codec_driver_init)(struct ce_codec *),
                     int (*channels_rb_driver_init)(struct rb *));
 

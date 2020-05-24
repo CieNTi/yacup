@@ -24,6 +24,36 @@
 #define YCP_NAME "util/ce/ce"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Initializes a command engine channel using lower level inits
+ * Read `yacup/ce/channel.h` for complete information. */
+int ce_channel_init(struct ce_channel *channel,
+                    int (*channels_codec_driver_init)(struct ce_codec *),
+                    int (*channels_rb_driver_init)(struct rb *))
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "ce_channel_init"
+
+  if (/* Invalid channel? */
+      (channel == NULL) ||
+      /* No commands? */
+      (channel->command_set == NULL) ||
+      /* Valid codec? */
+      ce_codec_init(&channel->codec, channels_codec_driver_init) ||
+      /* Valid rb? */
+      rb_init(&channel->rb, channels_rb_driver_init))
+  {
+    _dbg("Invalid ce or low-level init function\n");
+    return 1;
+  }
+
+  /* Ok! */
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+
+}
+
 /* Initializes a command engine referenced by a `ce` pointer
  * Read `yacup/ce.h` for complete information. */
 int ce_init(struct ce *ce, int (*chat_driver_init)(struct fsm *))

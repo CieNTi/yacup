@@ -16,7 +16,13 @@
  */
 #include <stdint.h>
 #include <stdio.h>
+#include "yacup/rb.h"
+#include "yacup/rb/driver/overwrite.h"
 #include "yacup/ce.h"
+#include "yacup/ce/codec.h"
+#include "yacup/ce/codec/B416K.h"
+#include "yacup/ce/command.h"
+#include "yacup/ce/command/subset_test.h"
 #include "yacup/ce/chat/fire-and-forget.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -49,15 +55,31 @@ int test_ce_basic_init(int argc, const char* argv[])
   _dbg("Hi! from "__FILE__"\n");
 
   /* Out first `ce` */
-  struct ce ce0 = { 0x00 };
-  ce0.name = "Super Engine!";
-  ce0.chat.data = &(struct ce_chat_faf_data)
+  #define CE_TEST_CH_BUF_LEN 256
+  struct ce ce0 =
   {
-    .extra = 0,
-    .ce = &ce0
+    /* Command engine entity parameters */
+    .name = "Super Engine!",
+
+    /* Chat parameters this engine will use */
+    .chat.data = &(struct ce_chat_faf_data) { .ce = &ce0 },
+
+    /* Output channel command set (subset_test.c) */
+    .out.command_set = &test_command_set,
+    /* Output channel message buffer */
+    .out.rb.buffer = (uint8_t [CE_TEST_CH_BUF_LEN]) { 0x00 },
+    .out.rb.size = CE_TEST_CH_BUF_LEN,
+
+    /* Input channel command set (subset_test.c) */
+    .in.command_set = &test_command_set,
+    /* Input channel message buffer */
+    .in.rb.buffer = (uint8_t [CE_TEST_CH_BUF_LEN]) { 0x00 },
+    .in.rb.size = CE_TEST_CH_BUF_LEN
   };
 
-  if (ce_init(&ce0, ce_chat_faf))
+  if (ce_channel_init(&ce0.out, ce_codec_B416K, rb_driver_overwrite) ||
+      ce_channel_init(&ce0.in, ce_codec_B416K, rb_driver_overwrite) ||
+      ce_init(&ce0, ce_chat_faf))
   {
     /* Cannot init, error */
     _dbg("Error when initializing ce0\n");

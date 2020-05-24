@@ -100,8 +100,14 @@ test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
 	@echo "-----"
 
 # test_ce_basic_init: Test to check `ce` commands functionality
-test_ce_basic_init_o=util/ce/ce.o                      \
-                     util/ce/chat/fire-and-forget.o    \
+test_ce_basic_init_o=util/rb/rb.o                       \
+                     util/rb/driver/overwrite.o         \
+                     util/ce/ce.o                       \
+                     util/ce/codec.o                    \
+                     util/ce/codec/B416K.o              \
+                     util/ce/command.o                  \
+                     util/ce/command/subset_test.o      \
+                     util/ce/chat/fire-and-forget.o     \
                      util/ce/test/test_ce_basic_init.o
 test_ce_basic_init: $(addprefix $(ODIR)/, $(test_ce_basic_init_o))
 	@echo "-----"

@@ -31,16 +31,14 @@ extern "C" {
 #include "yacup/ce/command.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-enum command_subset_test_id
-{
-  CE_COMMAND_SUBSET_TEST_CMD1 = 0xF0,
-  CE_COMMAND_SUBSET_TEST_CMD2 = 0xF1,
-  CE_COMMAND_SUBSET_TEST_CMD3 = 0xF2,
-  CE_COMMAND_SUBSET_TEST_CMD4 = 0xF3
-};
+#define  CE_COMMAND_SUBSET_TEST_CMD1 0xF0
+#define  CE_COMMAND_SUBSET_TEST_CMD2 0xF1
+#define  CE_COMMAND_SUBSET_TEST_CMD3 0xF2
+#define  CE_COMMAND_SUBSET_TEST_CMD4 0xF3
 
 extern struct ce_command_subset test_command_subset_part_A;
 extern struct ce_command_subset test_command_subset_part_B;
+extern struct ce_command_set test_command_set;
 
 /** @} */
 

@@ -29,7 +29,7 @@
 /* List of implemented commands for this subset */
 struct ce_command_subset test_command_subset_part_A =
 {
-  .name = "test_subset_part_A",
+  .name = "test_command_subset_part_A",
   .command = (struct ce_command *[])
   {
     /* enum CE_COMMAND_SUBSET_TEST_CMD1 -> test_cmd1 */
@@ -63,7 +63,7 @@ struct ce_command_subset test_command_subset_part_A =
 /* List of implemented commands for this subset */
 struct ce_command_subset test_command_subset_part_B =
 {
-  .name = "test_subset_part_B",
+  .name = "test_command_subset_part_B",
   .command = (struct ce_command *[])
   {
     /* enum CE_COMMAND_SUBSET_TEST_CMD3 -> test_cmd3 */
@@ -90,6 +90,18 @@ struct ce_command_subset test_command_subset_part_B =
       },
       .listener = NULL
     },
+    NULL
+  }
+};
+
+/* Define the example command set compunded by the previous two subsets */
+struct ce_command_set test_command_set =
+{
+  .name = "test_command_set",
+  .subset = (struct ce_command_subset *[])
+  {
+    &test_command_subset_part_A,
+    &test_command_subset_part_B,
     NULL
   }
 };
