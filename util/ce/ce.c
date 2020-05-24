@@ -24,7 +24,7 @@
 #define YCP_NAME "util/ce/ce"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-int ce_init(struct ce *ce, int (*ce_low_level_init)(struct ce *))
+int ce_init(struct ce *ce, int (*chat_driver_init)(struct fsm *))
 {
   /* Configure _dbg() */
   #define YCP_FNAME "ce_init"
@@ -32,7 +32,7 @@ int ce_init(struct ce *ce, int (*ce_low_level_init)(struct ce *))
   if (/* Invalid ce? */
       (ce == NULL) ||
       /* Invalid low-level init? */
-      (ce_low_level_init == NULL))
+      (chat_driver_init == NULL))
   {
     _dbg("Invalid ce or low-level init function\n");
     return 1;
@@ -42,7 +42,7 @@ int ce_init(struct ce *ce, int (*ce_low_level_init)(struct ce *))
   // Nothing to fill here yet, so this call is right now, just a validator
 
   /* Now call the low level init function, and go */
-  return (ce_low_level_init(ce));
+  return (chat_driver_init(&ce->chat));
 
   /* Free _dbg() config */
   #undef YCP_FNAME

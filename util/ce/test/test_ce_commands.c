@@ -62,9 +62,9 @@ int test_ce_commands(int argc, const char* argv[])
   };
 
   /* Compose arguments */
-  struct ce_argument *cmd1_args[] =
+  struct ce_command_argument *cmd1_args[] =
   {
-    &(struct ce_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 250 },
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 250 },
     NULL
   };
 
@@ -77,10 +77,10 @@ int test_ce_commands(int argc, const char* argv[])
   }
 
   /* Compose arguments */
-  struct ce_argument *cmd2_args[] =
+  struct ce_command_argument *cmd2_args[] =
   {
-    &(struct ce_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 250    },
-    &(struct ce_argument) { .type = CE_DATA_DOUBLE,  .data.d  = -1.233 },
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 250  },
+    &(struct ce_command_argument) { .type = CE_DATA_DOUBLE,  .data.d  = -1.2 },
     NULL
   };
 

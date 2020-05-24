@@ -61,36 +61,42 @@ extern "C" {
 /* C libraries */
 #include <stdint.h>
 #include <stddef.h>
-#include "yacup/rb.h"
 #include "yacup/fsm.h"
 #include "yacup/ce/types.h"
-#include "yacup/ce/codec.h"
+#include "yacup/ce/channel.h"
+#include "yacup/ce/command.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Structure that defines a communication protocol
+ * @brief      Structure that defines a command engine
  */
 struct ce
 {
+  /**
+   * @brief      Input/Output chat between parties (protocol)
+   */
   struct fsm chat;
-  struct ce_channel
-  {
-    uint8_t         busy;
-    struct rb       buffer;
-    struct ce_codec codec;
-  } out, in;
+
+  /**
+   * @brief      Output channel
+   */
+  struct ce_channel out;
+
+  /**
+   * @brief      Input channel
+   */
+  struct ce_channel in;
 };
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Initializes a `ce`
+ * @brief      Initializes a command engine referenced by a `ce` pointer
  * @details    Checks and initializes `ce` common data, then calls the lower
- *             level init function passed by argument. The latter is defined at
- *             each `ce` unit, and it is where the `start` and `stop` states
- *             are really assigned.
+ *             level init function passed by argument.
  *
- * @param      ce   Pointer to a correctly initialized FSM
+ * @param      ce              Pointer to a CE to initialize
+ * @param[in]  ce_driver_init  Pointer to a driver initializer function
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -98,9 +104,56 @@ struct ce
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int ce_init(struct ce *ce, int (*ce_low_level_init)(struct ce *));
+int ce_init(struct ce *ce, int (*chat_driver_init)(struct fsm *));
 
-int ce_cycle(struct ce *ce);
+/**
+ * @brief      Executes a command engine chat `fsm` cycle. Required if data is
+ *             expected to be received and/or parsed
+ *
+ * @param      ce    Pointer to the command engine to tick
+ *
+ * @return     
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
+ */
+int ce_tick(struct ce *ce);
+
+/**
+ * @brief      Validates if a command is found in a set, and if it pass the
+ *             signature check, then encode its data into a message and send it
+ *
+ * @param      ce        Pointer to the engine that will handle this command
+ * @param      id        Unique command identifier of the command to send
+ * @param      argument  Arguments to check against command signature and send
+ *
+ * @return     
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
+ */
+int ce_send_command(struct ce *ce,
+                    size_t id,
+                    struct ce_command_argument *argument[]);
+
+/**
+ * @brief      Set a command listener, if found in a set
+ *
+ * @param      ce        Pointer to the engine that will handle this command
+ * @param      id        Unique command identifier of the command to send
+ * @param      listener  Incoming command listener
+ *
+ * @return     
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
+ */
+int ce_set_command_listener(struct ce *ce,
+                            size_t id,
+                            int (*listener)(struct ce_command *command));
 
 /** @} */
 
