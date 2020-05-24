@@ -100,19 +100,9 @@ test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
 	@echo "-----"
 
 # test_ce_basic_init: Test to check `ce` commands functionality
-test_ce_basic_init_o=util/rb/rb.o                      \
-                     util/rb/driver/overwrite.o        \
-                     util/rb/debug.o                   \
-                     util/fsm/fsm.o                    \
-                     util/fsm/debug.o                  \
-                     util/ce/ce.o                      \
-                     util/ce/codec.o                   \
-                     util/ce/codec/B416K.o             \
+test_ce_basic_init_o=util/ce/ce.o                      \
                      util/ce/chat/fire-and-forget.o    \
-                     util/ce/command.o                 \
-                     util/ce/command/subset_test.o     \
-                     util/ce/test/test_ce_basic_init.o \
-                     util/ce/debug.o
+                     util/ce/test/test_ce_basic_init.o
 test_ce_basic_init: $(addprefix $(ODIR)/, $(test_ce_basic_init_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
