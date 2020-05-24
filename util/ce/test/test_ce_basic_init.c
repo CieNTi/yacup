@@ -54,15 +54,12 @@ int test_ce_basic_init(int argc, const char* argv[])
 
   _dbg("Hi! from "__FILE__"\n");
 
-  /* Out first `ce` */
+  /* Out first `ce`, prepare the essential data */
   #define CE_TEST_CH_BUF_LEN 256
   struct ce ce0 =
   {
     /* Command engine entity parameters */
     .name = "Super Engine!",
-
-    /* Chat parameters this engine will use */
-    .chat.data = &(struct ce_chat_faf_data) { .ce = &ce0 },
 
     /* Output channel command set (subset_test.c) */
     .out.command_set = &test_command_set,
@@ -77,12 +74,30 @@ int test_ce_basic_init(int argc, const char* argv[])
     .in.rb.size = CE_TEST_CH_BUF_LEN
   };
 
+  /* Initializes first channels, then ce */
   if (ce_channel_init(&ce0.out, ce_codec_B416K, rb_driver_overwrite) ||
       ce_channel_init(&ce0.in, ce_codec_B416K, rb_driver_overwrite) ||
-      ce_init(&ce0, ce_chat_faf))
+      ce_init(&ce0, ce_driver_faf))
   {
     /* Cannot init, error */
     _dbg("Error when initializing ce0\n");
+    return 1;
+  }
+
+  /* 
+   * Send a command
+   */
+  /* Compose arguments */
+  struct ce_command_argument *cmd1_args[] =
+  {
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 250 },
+    NULL
+  };
+  /* Call for command send */
+  if (ce_send_command(&ce0, CE_COMMAND_SUBSET_TEST_CMD1, cmd1_args))
+  {
+    /* Cannot send, error */
+    _dbg("Error when sending CE_COMMAND_SUBSET_TEST_CMD1\n");
     return 1;
   }
 

@@ -50,7 +50,7 @@ struct fsm_driver_simple_data
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Low-level initializer function for `fsm_driver_simple` type FSM
+ * @brief      Driver initializer function for `fsm_driver_simple` type FSM
  * @details    This FSM just starts, execute `state_1` 5 times and finish
  *
  * @param      fsm   Pointer to a `fsm` to work with

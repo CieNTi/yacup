@@ -24,49 +24,19 @@
 #define YCP_NAME "util/ce/ce"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Initializes a command engine channel using lower level inits
- * Read `yacup/ce/channel.h` for complete information. */
-int ce_channel_init(struct ce_channel *channel,
-                    int (*channels_codec_driver_init)(struct ce_codec *),
-                    int (*channels_rb_driver_init)(struct rb *))
-{
-  /* Configure _dbg() */
-  #define YCP_FNAME "ce_channel_init"
-
-  if (/* Invalid channel? */
-      (channel == NULL) ||
-      /* No commands? */
-      (channel->command_set == NULL) ||
-      /* Valid codec? */
-      ce_codec_init(&channel->codec, channels_codec_driver_init) ||
-      /* Valid rb? */
-      rb_init(&channel->rb, channels_rb_driver_init))
-  {
-    _dbg("Invalid ce or low-level init function\n");
-    return 1;
-  }
-
-  /* Ok! */
-  return 0;
-
-  /* Free _dbg() config */
-  #undef YCP_FNAME
-
-}
-
 /* Initializes a command engine referenced by a `ce` pointer
  * Read `yacup/ce.h` for complete information. */
-int ce_init(struct ce *ce, int (*chat_driver_init)(struct fsm *))
+int ce_init(struct ce *ce, int (*ce_driver_init)(struct ce *))
 {
   /* Configure _dbg() */
   #define YCP_FNAME "ce_init"
 
   if (/* Invalid ce? */
       (ce == NULL) ||
-      /* Invalid low-level init? */
-      (chat_driver_init == NULL))
+      /* Invalid driver */
+      (ce_driver_init == NULL))
   {
-    _dbg("Invalid ce or low-level init function\n");
+    _dbg("Invalid ce or driver init function\n");
     return 1;
   }
 
@@ -74,7 +44,31 @@ int ce_init(struct ce *ce, int (*chat_driver_init)(struct fsm *))
   // Nothing to fill here yet, so this call is right now, just a validator
 
   /* Now call the low level init function, and go */
-  return (chat_driver_init(&ce->chat));
+  return (ce_driver_init(ce));
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/* Validates command if found, encode data into a message and send it
+ * Read `yacup/ce.h` for complete information. */
+int ce_send_command(struct ce *ce,
+                    size_t id,
+                    struct ce_command_argument *argument[])
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "ce_send_command"
+
+  /* Validate command */
+  if (ce_command_validate(ce->out.command_set, id, argument))
+  {
+    /* Cannot send, error */
+    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD1\n");
+    return 1;
+  }
+
+  /* Ok! */
+  return 0;
 
   /* Free _dbg() config */
   #undef YCP_FNAME

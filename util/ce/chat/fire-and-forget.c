@@ -28,14 +28,6 @@
 #define YCP_NAME "util/ce/chat/fire-and-forget"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Ease access from fsm->data */
-#define FSM_DATA(x) ((struct ce_chat_faf_data *)(x->data))
-
-/* Mientras veamos como rematar, fsm_data se define cutremente aqui */
-int (*FSM_DATAAio_req)(struct rb *rb);
-
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* States pre-declaration */
 static int start(struct fsm *fsm);
 static int state_1(struct fsm *fsm);
@@ -65,7 +57,7 @@ static int start(struct fsm *fsm)
   fsm->next = state_1;
 
   /* reset counter */
-  FSM_DATA(fsm)->extra = 0;
+  //FSM_DATA(fsm)->extra = 0;
 
   return 0;
 
@@ -95,16 +87,17 @@ static int state_1(struct fsm *fsm)
   /* Default next state */
   fsm->next = state_1;
 
-  /* This state will be executed 5 times */
-  if (FSM_DATA(fsm)->extra++ < 4)
-  {
-    printf(YCP_NAME" | state_1: Entering cycle #%lu\n", FSM_DATA(fsm)->extra);
-  }
-  else
-  {
-    printf(YCP_NAME" | state_1: Stop at cycle #%lu\n", FSM_DATA(fsm)->extra);
-    fsm->next = stop;
-  }
+//  /* This state will be executed 5 times */
+//  if (FSM_DATA(fsm)->extra++ < 4)
+//  {
+//    printf(YCP_NAME" | state_1: Entering cycle #%lu\n", FSM_DATA(fsm)->extra);
+//  }
+//  else
+//  {
+//    printf(YCP_NAME" | state_1: Stop at cycle #%lu\n", FSM_DATA(fsm)->extra);
+//    fsm->next = stop;
+//  }
+  fsm->next = stop;
   return 0;
 
   /* Free _dbg() config */
@@ -140,13 +133,21 @@ static int stop(struct fsm *fsm)
   #undef YCP_FNAME
 }
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Initialize a `ce_chat_faf` type FSM.
- * Read `yacup/fsm/debug.h` for complete information. */
-int ce_chat_faf(struct fsm *fsm)
+/**
+ * @brief      Internal ce_chat fsm initializer (fsm_init() compliant)
+ *
+ * @param      fsm   Pointer to a `fsm` to work with
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
+ */
+static int ce_chat_fsm_driver(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "ce_chat_faf"
+  #define YCP_FNAME "ce_chat_fsm_driver"
 
   /* Create it static, as this will not change along the execution */
   static struct fsm_driver this_driver =
@@ -162,19 +163,45 @@ int ce_chat_faf(struct fsm *fsm)
     return 1;
   }
 
-  /* This fsm will use data, do we have assigned storage for it? */
-  if (fsm->data == NULL)
+  /* Assign the essential states */
+  fsm->driver = &this_driver;
+
+  /* Let's go! */
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Initialize a `ce_chat_faf` type `ce_chat`.
+ * Read `yacup/ce/chat/fire-and-forget.h` for complete information. */
+static int command_send(int avar)
+{
+  return avar;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Initialize a command engine
+ * Read `yacup/ce/chat/fire-and-forget.h` for complete information. */
+int ce_driver_faf(struct ce *ce)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "ce_chat_faf"
+
+  if (/* Valid engine? */
+      ce == NULL ||
+      /* Valid chat? */
+      &ce->chat == NULL ||
+      /* Initialize chat fsm */
+      fsm_init(&ce->chat.fsm, ce_chat_fsm_driver))
   {
-    _dbg("Invalid fsm data (fsm = %s)\n", fsm->name);
+    _dbg("Cannot initialize this chat\n");
     return 1;
   }
 
-  /* Fill this specific FSM data */
-  FSM_DATA(fsm)->extra = 0;
-  _dbg("I/O chat name: '%s'\n", FSM_DATA(fsm)->ce->name);
-
-  /* Assign the essential states */
-  fsm->driver = &this_driver;
+  /* Assign the external chat-fsm API */
+  ce->chat.command_send = command_send;
 
   /* Let's go! */
   return 0;

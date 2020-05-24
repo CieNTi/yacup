@@ -1,4 +1,4 @@
-/* codec.c - Command engine codec API for yacup project
+/* channel.c - Command engine channel API for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,39 +16,38 @@
  */
 #include <stdint.h>
 #include <stdlib.h>
-#include "yacup/ce/codec.h"
+#include "yacup/ce/channel.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/ce/codec"
+#define YCP_NAME "util/ce/channel"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Initializes a `ce_codec`
- * Read `yacup/ce/codec.h` for complete information. */
-int ce_codec_init(struct ce_codec *codec,
-                  int (*ce_codec_driver_init)(struct ce_codec *))
+/* Initializes a command engine channel using driver initialization functions
+ * Read `yacup/ce/channel.h` for complete information. */
+int ce_channel_init(struct ce_channel *channel,
+                    int (*channels_codec_driver_init)(struct ce_codec *),
+                    int (*channels_rb_driver_init)(struct rb *))
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "ce_codec_init"
+  #define YCP_FNAME "ce_channel_init"
 
-  if (/* Invalid codec? */
-      (codec == NULL) ||
-      /* Invalid low-level init? */
-      (ce_codec_driver_init == NULL))
+  if (/* Invalid channel? */
+      (channel == NULL) ||
+      /* No commands? */
+      (channel->command_set == NULL) ||
+      /* Valid codec? */
+      ce_codec_init(&channel->codec, channels_codec_driver_init) ||
+      /* Valid rb? */
+      rb_init(&channel->rb, channels_rb_driver_init))
   {
-    _dbg("Invalid codec or low-level init function\n");
+    _dbg("Invalid ce or low-level init function\n");
     return 1;
   }
 
-  /* Presets */
-  codec->encode.data = NULL;
-  codec->encode.message = NULL;
-  codec->decode.data = NULL;
-  codec->decode.message = NULL;
-
-  /* Now call the low level init function, and go */
-  return (ce_codec_driver_init(codec));
+  /* Ok! */
+  return 0;
 
   /* Free _dbg() config */
   #undef YCP_FNAME

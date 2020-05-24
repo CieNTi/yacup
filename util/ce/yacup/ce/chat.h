@@ -1,4 +1,4 @@
-/* fire-and-forget.h - A `ce` chat that send/receive data without confirmation
+/* chat.h - Command engine chat state machine API for `ce` util usage
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,55 +14,61 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CE_CHAT_FIRE_AND_FORGET_H
-#define __CE_CHAT_FIRE_AND_FORGET_H
+#ifndef __CE_CHAT_H
+#define __CE_CHAT_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup   ce_chat_faf Fire and Forget
+ * @defgroup   ce_chat I/O Chats (Communication protocol)
  * @{
- *   @brief      A `ce` chat that send/receive data without confirmation
- *   @details    **TODO**
- *   @ingroup    ce_chat_available
+ *   @brief      NEED DETAILS
+ *   @details    NEED DETAILS
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
+ *   @ingroup    ce
+ * @}
+ * 
+ * @addtogroup ce_chat
+ * @{
  */
 
 /* C libraries */
+#include <stdint.h>
 #include <stddef.h>
-#include "yacup/ce.h"
+#include "yacup/rb.h"
+#include "yacup/ce/codec.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Internal data ce_chat_faf will use
+ * @brief      Structure that defines the input/output chat between parties
+ *             (communication protocol)
  */
-struct ce_chat_faf_data
+struct ce_chat
 {
   /**
-   * @brief      An extra variable
+   * @brief      Finite state machine controlling data/actions behaviour
    */
-  size_t extra;
+  struct fsm fsm;
 
   /**
-   * @brief      Pointer to the `ce` this chat will manage
+   * @brief      Finite state machine controlling data/actions behaviour
    */
-  struct ce *ce;
+  int (*command_send)(int);
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Low-level initializer function for `ce_chat_faf` type chat FSM
- * @details    This chat FSM will control input and output operations on a fire
- *             and forget type protocol, where the data is sent without any
- *             confirmation expectation or timeout, and when data is received
- *             there is no feedback to the remitent. It is the easiest form of
- *             protocol, where everything is supposed to be perfect, with no
- *             communication errors
+ * @brief      Initializes a command engine channel using lower level inits
+ * @details    Prepares and initializes the channel: command set, codec and
+ *             codec message buffer
  *
- * @param      fsm   Pointer to a `fsm` to work with
+ * @param      channel                     Poiner to channel to initialize
+ * @param      command_set                 Valid command set for this channel
+ * @param      channels_codec_driver_init  Channel codec driver initializer
+ * @param      channels_rb_driver_init     Message rb driver initializer
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -70,7 +76,9 @@ struct ce_chat_faf_data
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int ce_driver_faf(struct ce *ce);
+int ce_chat_init(struct ce_chat *channel,
+                 int (*channels_codec_driver_init)(struct ce_codec *),
+                 int (*channels_rb_driver_init)(struct rb *));
 
 /** @} */
 
@@ -78,4 +86,4 @@ int ce_driver_faf(struct ce *ce);
 }
 #endif /* __cplusplus */
 
-#endif /* __CE_CHAT_FIRE_AND_FORGET_H */
+#endif /* __CE_CHAT_H */

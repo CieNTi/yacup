@@ -47,6 +47,7 @@ extern "C" {
 #include <stddef.h>
 #include "yacup/fsm.h"
 #include "yacup/ce/types.h"
+#include "yacup/ce/chat.h"
 #include "yacup/ce/channel.h"
 #include "yacup/ce/command.h"
 
@@ -64,7 +65,7 @@ struct ce
   /**
    * @brief      Input/Output chat between parties (protocol)
    */
-  struct fsm chat;
+  struct ce_chat chat;
 
   /**
    * @brief      Output channel
@@ -93,7 +94,7 @@ struct ce
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int ce_init(struct ce *ce, int (*chat_driver_init)(struct fsm *));
+int ce_init(struct ce *ce, int (*ce_driver_init)(struct ce *));
 
 /**
  * @brief      Executes a command engine chat `fsm` cycle. Required if data is
