@@ -23,7 +23,7 @@
 #include "yacup/ce/codec/B416K.h"
 #include "yacup/ce/command.h"
 #include "yacup/ce/command/subset_test.h"
-#include "yacup/ce/chat/fire-and-forget.h"
+#include "yacup/ce/driver/fire-and-forget.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG

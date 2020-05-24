@@ -109,7 +109,7 @@ test_ce_initialization_o=util/rb/rb.o                          \
                          util/ce/channel.o                     \
                          util/ce/command.o                     \
                          util/ce/command/subset_test.o         \
-                         util/ce/chat/fire-and-forget.o        \
+                         util/ce/driver/fire-and-forget.o      \
                          util/ce/test/test_ce_initialization.o
 test_ce_initialization: $(addprefix $(ODIR)/, $(test_ce_initialization_o))
 	@echo "-----"

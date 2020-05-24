@@ -1,4 +1,4 @@
-/* fire-and-forget.c - A `ce` chat that send/receive data without confirmation
+/* fire-and-forget.c - A `ce` driver that send/receive data without confirm
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -20,12 +20,12 @@
 #include "yacup/fsm.h"
 #include "yacup/fsm/driver.h"
 #include "yacup/ce.h"
-#include "yacup/ce/chat/fire-and-forget.h"
+#include "yacup/ce/driver/fire-and-forget.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/ce/chat/fire-and-forget"
+#define YCP_NAME "util/ce/driver/fire-and-forget"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* States pre-declaration */
@@ -38,7 +38,7 @@ static int stop(struct fsm *fsm);
  * @brief      Sate `start`: Prepare `extra` variable
  *
  * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
- * @ingroup    ce_chat_faf
+ * @ingroup    ce_driver_faf
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -69,7 +69,7 @@ static int start(struct fsm *fsm)
  * @brief      State `state_1`: Stay here during 5 `extra` variable counts
  *
  * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
- * @ingroup    ce_chat_faf
+ * @ingroup    ce_driver_faf
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -108,7 +108,7 @@ static int state_1(struct fsm *fsm)
  * @brief      State `stop`: Prepare anything before stopping the fsm
  *
  * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
- * @ingroup    ce_chat_faf
+ * @ingroup    ce_driver_faf
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -134,7 +134,7 @@ static int stop(struct fsm *fsm)
 }
 
 /**
- * @brief      Internal ce_chat fsm initializer (fsm_init() compliant)
+ * @brief      Internal ce_driver fsm initializer (fsm_init() compliant)
  *
  * @param      fsm   Pointer to a `fsm` to work with
  *
@@ -144,10 +144,10 @@ static int stop(struct fsm *fsm)
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-static int ce_chat_fsm_driver(struct fsm *fsm)
+static int ce_driver_fsm_driver(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "ce_chat_fsm_driver"
+  #define YCP_FNAME "ce_driver_fsm_driver"
 
   /* Create it static, as this will not change along the execution */
   static struct fsm_driver this_driver =
@@ -174,8 +174,8 @@ static int ce_chat_fsm_driver(struct fsm *fsm)
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Initialize a `ce_chat_faf` type `ce_chat`.
- * Read `yacup/ce/chat/fire-and-forget.h` for complete information. */
+/* Initialize a `ce_driver_faf` type `ce_driver`.
+ * Read `yacup/ce/driver/fire-and-forget.h` for complete information. */
 static int command_send(struct ce *ce,
                         size_t id,
                         struct ce_command_argument *argument[])
@@ -192,25 +192,25 @@ static int command_send(struct ce *ce,
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Initialize a command engine
- * Read `yacup/ce/chat/fire-and-forget.h` for complete information. */
+ * Read `yacup/ce/driver/fire-and-forget.h` for complete information. */
 int ce_driver_faf(struct ce *ce)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "ce_chat_faf"
+  #define YCP_FNAME "ce_driver_faf"
 
   if (/* Valid engine? */
       ce == NULL ||
-      /* Valid chat? */
-      &ce->chat == NULL ||
-      /* Initialize chat fsm */
-      fsm_init(&ce->chat.fsm, ce_chat_fsm_driver))
+      /* Valid driver? */
+      &ce->driver == NULL ||
+      /* Initialize driver fsm */
+      fsm_init(&ce->driver.fsm, ce_driver_fsm_driver))
   {
-    _dbg("Cannot initialize this chat\n");
+    _dbg("Cannot initialize this command engine\n");
     return 1;
   }
 
-  /* Assign the external chat-fsm API */
-  ce->chat.command_send = command_send;
+  /* Assign the external driver-fsm API */
+  ce->driver.command_send = command_send;
 
   /* Let's go! */
   return 0;

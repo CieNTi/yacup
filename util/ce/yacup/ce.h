@@ -47,7 +47,7 @@ extern "C" {
 #include <stddef.h>
 #include "yacup/fsm.h"
 #include "yacup/ce/types.h"
-#include "yacup/ce/chat.h"
+#include "yacup/ce/driver.h"
 #include "yacup/ce/channel.h"
 #include "yacup/ce/command.h"
 
@@ -65,7 +65,7 @@ struct ce
   /**
    * @brief      Input/Output chat between parties (protocol)
    */
-  struct ce_chat chat;
+  struct ce_driver driver;
 
   /**
    * @brief      Output channel

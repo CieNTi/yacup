@@ -67,8 +67,8 @@ int ce_send_command(struct ce *ce,
     return 1;
   }
 
-  if (ce->chat.command_send == NULL ||
-      ce->chat.command_send(ce, id, argument))
+  if (ce->driver.command_send == NULL ||
+      ce->driver.command_send(ce, id, argument))
   {
     /* Cannot send, error */
     _dbg("Error when sending the command\n");

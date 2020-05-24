@@ -1,4 +1,4 @@
-/* chat.h - Command engine chat state machine API for `ce` util usage
+/* driver.h - Command engine driver API for `ce` util usage
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -22,16 +22,16 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup   ce_chat I/O Chats (Communication protocol)
+ * @defgroup   ce_driver Drivers
  * @{
- *   @brief      NEED DETAILS
+ *   @brief      Drivers: I/O Chats, Communication protocols
  *   @details    NEED DETAILS
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  *   @ingroup    ce
  * @}
  * 
- * @addtogroup ce_chat
+ * @addtogroup ce_driver
  * @{
  */
 
@@ -51,7 +51,7 @@ struct ce;
  * @brief      Structure that defines the input/output chat between parties
  *             (communication protocol)
  */
-struct ce_chat
+struct ce_driver
 {
   /**
    * @brief      Finite state machine controlling data/actions behaviour
@@ -81,7 +81,7 @@ struct ce_chat
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  */
-int ce_chat_init(struct ce_chat *channel,
+int ce_driver_init(struct ce_driver *channel,
                  int (*channels_codec_driver_init)(struct ce_codec *),
                  int (*channels_rb_driver_init)(struct rb *));
 
