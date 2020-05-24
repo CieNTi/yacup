@@ -37,16 +37,16 @@ int ce_channel_init(struct ce_channel *channel,
       (channel == NULL) ||
       /* No commands? */
       (channel->command_set == NULL) ||
-      /* Defined codec driver? */
-      (channels_codec_driver_init == NULL) ||
       /* Defined buffer driver? */
       (channels_rb_driver_init == NULL) ||
-      /* Valid codec? */
-      ce_codec_init(&channel->codec, channels_codec_driver_init) ||
+      /* Defined codec driver? */
+      (channels_codec_driver_init == NULL) ||
       /* Valid data rb? */
       rb_init(&channel->data, channels_rb_driver_init) ||
       /* Valid message rb? */
-      rb_init(&channel->message, channels_rb_driver_init))
+      rb_init(&channel->message, channels_rb_driver_init) ||
+      /* Valid codec? */
+      ce_codec_init(&channel->codec, channels_codec_driver_init))
   {
     _dbg("Invalid ce_channel or driver init function\n");
     return 1;

@@ -212,6 +212,7 @@ int rb_driver_overwrite(struct rb *rb)
   /* Create it static, as this will not change along the execution */
   static struct rb_driver this_driver =
   {
+    .name     = YCP_NAME,
     .validate = validate,
     .reset    = reset,
     .push     = push,

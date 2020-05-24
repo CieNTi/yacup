@@ -54,8 +54,14 @@ int ce_codec_init(struct ce_codec *codec,
     return 1;
   }
 
+  /* Assign default name, if not previously set */
+  if (codec->name == NULL)
+  {
+    codec->name = YCP_NAME;
+  }
+
   /* Ok! */
-  _dbg("Codec initialized successfully\n");
+  _dbg("Codec '%s' initialized successfully\n", codec->name);
   return 0;
 
   /* Free _dbg() config */

@@ -59,6 +59,20 @@ int rb_init(struct rb *rb, int (*rb_driver_init)(struct rb *))
     return 1;
   }
 
+  /* Assign operations driver */
+  if ((rb->driver->reset == NULL) || (rb->driver->validate == NULL))
+  {
+    /* Fail miserably */
+    _dbg("Essential operations reset() and validate() not assigned\n");
+    return 1;
+  }
+
+  /* Assign default name, if not previously set */
+  if (rb->driver->name == NULL)
+  {
+    rb->driver->name = YCP_NAME;
+  }
+
   /* Clean buffer and put it into a known state */
   rb->driver->reset(rb);
 
@@ -71,7 +85,7 @@ int rb_init(struct rb *rb, int (*rb_driver_init)(struct rb *))
   }
 
   /* And finish! */
-  _dbg("rb initialized successfully\n");
+  _dbg("rb '%s' initialized successfully\n", rb->driver->name);
   return 0;
 
   /* Free _dbg() config */

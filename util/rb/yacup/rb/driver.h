@@ -40,6 +40,11 @@ struct rb;
 struct rb_driver
 {
   /**
+   * @brief      ASCII name of this driver
+   */
+  char *name;
+
+  /**
    * @brief      Checks if the ring-buffer is valid or not
    *
    * @param      rb    Pointer to a ring-buffer previously created with create()

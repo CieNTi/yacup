@@ -62,9 +62,10 @@ int ce_command_validate(struct ce_command_set *cmd_set,
       {
         continue;
       }
-      _dbg("Command %lu: Found '%s'\n",
-           cx,
-           cmd_set->subset[sx]->command[cx]->name);
+      _dbg("Command '%s' (subset %lu, id %lu) found, checking arguments\n",
+           cmd_set->subset[sx]->command[cx]->name,
+           sx,
+           cx);
 
       /* Check if command signature is valid */
       for (ax = 0;
@@ -101,7 +102,10 @@ int ce_command_validate(struct ce_command_set *cmd_set,
       }
 
       /* Command found */
-      _dbg("Command found\n");
+      _dbg("Command '%s' (subset %lu, id %lu) is valid, returning it!\n",
+           cmd_set->subset[sx]->command[cx]->name,
+           sx,
+           cx);
       return 0;
     }
   }

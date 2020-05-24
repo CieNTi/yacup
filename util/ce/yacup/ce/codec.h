@@ -44,6 +44,11 @@ extern "C" {
 struct ce_codec
 {
   /**
+   * @brief      ASCII name of this codec
+   */
+  char *name;
+
+  /**
    * @brief      Structure that defines a `ce` codec encoder operations
    */
   struct ce_codec_encoder
