@@ -1,4 +1,4 @@
-/* test_ce_basic_init.c - Check validation over different test commands
+/* test_ce_initialization.c - Check validation over different test commands
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@
 #define YCP_FORCE_DEBUG
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/ce/test/test_ce_basic_init"
+#define YCP_NAME "util/ce/test/test_ce_initialization"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -47,10 +47,10 @@
  * @ingroup    util_test
  * @version    v1.0.0
  */
-int test_ce_basic_init(int argc, const char* argv[])
+int test_ce_initialization(int argc, const char* argv[])
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "test_ce_basic_init"
+  #define YCP_FNAME "test_ce_initialization"
 
   _dbg("Hi! from "__FILE__"\n");
 
