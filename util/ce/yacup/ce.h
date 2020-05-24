@@ -36,22 +36,6 @@ extern "C" {
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
- *
- *   @defgroup   ce_command Commands
- *   @{
- *     @brief      NEED DETAILS Commands definitions, usage and available sets
- *     @details    NEED DETAILS
- *     @author     CieNTi <cienti@cienti.com>
- *     @date       2020
- *   @}
- *
- *   @defgroup   ce_codec Codecs
- *   @{
- *     @brief      Available codecs for `ce` instances
- *     @details    Different encodings implementations ready to be used
- *     @author     CieNTi <cienti@cienti.com>
- *     @date       2020
- *   @}
  * @}
  * 
  * @addtogroup   ce_api
@@ -95,8 +79,8 @@ struct ce
  * @details    Checks and initializes `ce` common data, then calls the lower
  *             level init function passed by argument.
  *
- * @param      ce              Pointer to a CE to initialize
- * @param[in]  ce_driver_init  Pointer to a driver initializer function
+ * @param      ce                Pointer to a CE to initialize
+ * @param[in]  chat_driver_init  Pointer to a chat initializer function
  *
  * @return     One of:
  *             | Value  | Meaning          |

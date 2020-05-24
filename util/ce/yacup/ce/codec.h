@@ -22,8 +22,13 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup ce_codec
+ * @defgroup   ce_codec Codecs
  * @{
+ *   @brief      Available codecs for `ce` instances
+ *   @details    Different encodings implementations ready to be used
+ *   @author     CieNTi <cienti@cienti.com>
+ *   @date       2020
+ *   @ingroup    ce
  */
 
 /* C libraries */

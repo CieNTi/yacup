@@ -60,15 +60,16 @@ struct ce_channel
 /**
  * @brief      Checks if passed command is found on set and has valid arguments
  *
- * @param      cmd_set   Set of commands where to search
- * @param      id        Unique command identifier of the command to validate
- * @param      argument  Arguments to check against command signature
+ * @param      channel                     Poiner to channel to initialize
+ * @param      command_set                 Valid command set for this channel
+ * @param      channels_codec_driver_init  Channel codec driver initializer
+ * @param      channels_rb_driver_init     Message rb driver initializer
  *
  * @return     
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |
  *             | `== 0` | Ok               |
- *             | `!= 0` | Warning          |
+ *             | `!= 0` | Error            |
  */
 int ce_channel_init(struct ce_channel *channel,
                     struct ce_command_set *command_set,

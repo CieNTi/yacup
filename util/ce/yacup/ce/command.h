@@ -22,6 +22,23 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
+ * @defgroup   ce_command Commands
+ * @{
+ *   @brief      NEED DETAILS Commands definitions, usage and available sets
+ *   @details    NEED DETAILS
+ *   @author     CieNTi <cienti@cienti.com>
+ *   @date       2020
+ *   @ingroup    ce
+ *
+ *   @defgroup   ce_command_cmd How a command
+ *   @{
+ *     @brief      Operations on `ce` instances
+ *     @details    Centralized functions to allow multiple implementations
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *   @}
+ * @}
+ * 
  * @addtogroup ce_command
  * @{
  */

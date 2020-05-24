@@ -22,10 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @ingroup ce
- * @{
- *   @addtogroup ce_command_subset
- *   @{
+ * @addtogroup ce_command_subset
  */
 
 /* C libraries */
@@ -45,7 +42,6 @@ enum command_subset_test_id
 extern struct ce_command_subset test_command_subset_part_A;
 extern struct ce_command_subset test_command_subset_part_B;
 
-/** @} */
 /** @} */
 
 #ifdef __cplusplus
