@@ -24,6 +24,8 @@
 #define YCP_NAME "util/ce/ce"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Initializes a command engine referenced by a `ce` pointer
+ * Read `yacup/ce.h` for complete information. */
 int ce_init(struct ce *ce, int (*chat_driver_init)(struct fsm *))
 {
   /* Configure _dbg() */

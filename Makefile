@@ -49,61 +49,61 @@ LDLIBS = -lm
 # Targets for 'util' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~~
 # test_xyz_testname: Test to check `xyz` template functionality
-test_xyz_testname_objs=template/util_xyz/xyz.o                    \
-                       template/util_xyz/test/test_xyz_testname.o \
-                       template/util_xyz/debug.o
-test_xyz_testname: $(addprefix $(ODIR)/, $(test_xyz_testname_objs))
+test_xyz_testname_o=template/util_xyz/xyz.o                    \
+                    template/util_xyz/test/test_xyz_testname.o \
+                    template/util_xyz/debug.o
+test_xyz_testname: $(addprefix $(ODIR)/, $(test_xyz_testname_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
 # test_rb_driver_overwrite: Test to check `rb` overwrite driver functionality
-test_rb_driver_overwrite_objs=util/rb/rb.o                            \
-                              util/rb/driver/overwrite.o              \
-                              util/rb/test/test_rb_driver_overwrite.o \
-                              util/rb/debug.o
-test_rb_driver_overwrite: $(addprefix $(ODIR)/, $(test_rb_driver_overwrite_objs))
+test_rb_driver_overwrite_o=util/rb/rb.o                            \
+                           util/rb/driver/overwrite.o              \
+                           util/rb/test/test_rb_driver_overwrite.o \
+                           util/rb/debug.o
+test_rb_driver_overwrite: $(addprefix $(ODIR)/, $(test_rb_driver_overwrite_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
 # test_fsm_driver_simple: Test to check `fsm` functionality
-test_fsm_driver_simple_objs=util/fsm/fsm.o                         \
-                            util/fsm/driver/simple.o               \
-                            util/fsm/test/test_fsm_driver_simple.o \
-                            util/fsm/debug.o
-test_fsm_driver_simple: $(addprefix $(ODIR)/, $(test_fsm_driver_simple_objs))
+test_fsm_driver_simple_o=util/fsm/fsm.o                         \
+                         util/fsm/driver/simple.o               \
+                         util/fsm/test/test_fsm_driver_simple.o \
+                         util/fsm/debug.o
+test_fsm_driver_simple: $(addprefix $(ODIR)/, $(test_fsm_driver_simple_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
 # test_ce_codec_B416K: Test to check `ce` B416K protocol functionality
-test_ce_codec_B416K_objs=util/rb/rb.o                       \
-                         util/rb/driver/overwrite.o         \
-                         util/rb/debug.o                    \
-                         util/ce/codec.o                    \
-                         util/ce/codec/B416K.o              \
-                         util/ce/test/test_ce_codec_B416K.o \
-                         util/ce/debug_codec.o
-test_ce_codec_B416K: $(addprefix $(ODIR)/, $(test_ce_codec_B416K_objs))
+test_ce_codec_B416K_o=util/rb/rb.o                       \
+                      util/rb/driver/overwrite.o         \
+                      util/rb/debug.o                    \
+                      util/ce/codec.o                    \
+                      util/ce/codec/B416K.o              \
+                      util/ce/test/test_ce_codec_B416K.o \
+                      util/ce/debug_codec.o
+test_ce_codec_B416K: $(addprefix $(ODIR)/, $(test_ce_codec_B416K_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
-# test_ce_commands: Test to check `ce` commands functionality
-test_ce_commands_objs=util/rb/rb.o                       \
-                      util/rb/driver/overwrite.o         \
-                      util/rb/debug.o                    \
-                      util/fsm/fsm.o                     \
-                      util/fsm/debug.o                   \
-                      util/ce/ce.o                       \
-                      util/ce/codec.o                    \
-                      util/ce/codec/B416K.o              \
-                      util/ce/command.o                  \
-                      util/ce/command/subset_test.o      \
-                      util/ce/test/test_ce_commands.o    \
-                      util/ce/debug.o
-test_ce_commands: $(addprefix $(ODIR)/, $(test_ce_commands_objs))
+# test_ce_command_validate: Test to check `ce` commands functionality
+test_ce_command_validate_o=util/rb/rb.o                            \
+                           util/rb/driver/overwrite.o              \
+                           util/rb/debug.o                         \
+                           util/fsm/fsm.o                          \
+                           util/fsm/debug.o                        \
+                           util/ce/ce.o                            \
+                           util/ce/codec.o                         \
+                           util/ce/codec/B416K.o                   \
+                           util/ce/command.o                       \
+                           util/ce/command/subset_test.o           \
+                           util/ce/test/test_ce_command_validate.o \
+                           util/ce/debug.o
+test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
@@ -113,19 +113,19 @@ test_ce_commands: $(addprefix $(ODIR)/, $(test_ce_commands_objs))
 # Targets for 'src' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~
 # Test app compounding all other tests defined here
-test_yacup_objs=$(test_xyz_testname_objs)        \
-                $(test_rb_driver_overwrite_objs) \
-                $(test_fsm_driver_simple_objs)   \
-                $(test_ce_codec_B416K_objs)      \
-                src/test/test_yacup.o
-test_yacup: $(addprefix $(ODIR)/, $(test_yacup_objs))
+test_yacup_o=$(test_xyz_testname_o)        \
+             $(test_rb_driver_overwrite_o) \
+             $(test_fsm_driver_simple_o)   \
+             $(test_ce_codec_B416K_o)      \
+             src/test/test_yacup.o
+test_yacup: $(addprefix $(ODIR)/, $(test_yacup_o))
 	@echo "-----"
 	make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
 # Normal app (main() function is there)
-an_app_objs=some/object/file.o
-an_app: $(addprefix $(ODIR)/, $(an_app_objs))
+an_app_o=some/object/file.o
+an_app: $(addprefix $(ODIR)/, $(an_app_o))
 	@echo "-----"
 	@echo "\nLinking | << $^\n        | >> $(BDIR)/$@"
 	$(CC) $^ $(CFLAGS) $(LDLIBS) -o $(BDIR)/$@
@@ -145,18 +145,18 @@ $(ODIR)/%.o: $(SDIR)/%.c
 # My Little Phonies
 .PHONY: test_bin
 test_bin:
-	@if [ "$(TB_OBJ)"  = "" -o "$(TB_OBJS)" = "" -o "$(TB_NAME)" = "" ];  \
-	then                                                                        \
-	  echo "-----";                                                             \
-	  echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::";             \
-	  echo ":: This is not supposed to be called this way, son ::";             \
-	  echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::";             \
-	  echo ":: TB_OBJ .........: $(TB_OBJ)";                                    \
-	  echo ":: TB_OBJS ........: $(TB_OBJS)";                                   \
-	  echo ":: TB_NAME ........: $(TB_NAME)";                                   \
-	  echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::";             \
-	  echo "-----";                                                             \
-	  exit 1;                                                                   \
+	@if [ "$(TB_OBJ)"  = "" -o "$(TB_OBJS)" = "" -o "$(TB_NAME)" = "" ]; \
+	then                                                                 \
+	  echo "-----";                                                      \
+	  echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::";      \
+	  echo ":: This is not supposed to be called this way, son ::";      \
+	  echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::";      \
+	  echo ":: TB_OBJ .........: $(TB_OBJ)";                             \
+	  echo ":: TB_OBJS ........: $(TB_OBJS)";                            \
+	  echo ":: TB_NAME ........: $(TB_NAME)";                            \
+	  echo ":::::::::::::::::::::::::::::::::::::::::::::::::::::";      \
+	  echo "-----";                                                      \
+	  exit 1;                                                            \
   fi
 	@echo "-----\nSetting '$(TB_NAME)()' as the new 'main()'"
 	$(OBJCOPY) --redefine-sym $(TB_NAME)=main $(TB_OBJ)
@@ -172,7 +172,7 @@ all: clean debug prepare test_yacup               \
                          test_rb_driver_overwrite \
                          test_fsm_driver_simple   \
                          test_ce_codec_B416K      \
-                         test_ce_commands
+                         test_ce_command_validate
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""
@@ -235,7 +235,7 @@ help:
 	@echo "  test_rb_driver_overwrite ..: 'rb' module 'overwrite' driver"
 	@echo "  test_fsm_driver_simple ....: 'fsm' module 'simple' driver"
 	@echo "  test_ce_codec_B416K .......: 'ce_codec' module 'B416K' driver"
-	@echo "  test_ce_commands ..........: 'ce' commands functionality"
+	@echo "  test_ce_command_validate ..: 'ce_command' validation functionality"
 	@echo ""
 	@echo "Available targets related to application tests:"
 	@echo "  test_yacup ..: Example application test that runs all other utils"
