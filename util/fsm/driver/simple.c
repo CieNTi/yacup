@@ -18,14 +18,12 @@
 #include <stdio.h>
 #include "yacup/fsm.h"
 #include "yacup/fsm/driver.h"
-
-/* Header located near this file, used as an external header in app */
-#include "fsm_driver_simple.h"
+#include "yacup/fsm/driver/simple.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/fsm/test/fsm_driver_simple"
+#define YCP_NAME "util/fsm/driver/simple"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Ease access from fsm->data */

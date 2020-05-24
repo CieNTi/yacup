@@ -69,7 +69,7 @@ test_rb_driver_overwrite: $(addprefix $(ODIR)/, $(test_rb_driver_overwrite_objs)
 
 # test_fsm_driver_simple: Test to check `fsm` functionality
 test_fsm_driver_simple_objs=util/fsm/fsm.o                         \
-                            util/fsm/test/fsm_driver_simple.o      \
+                            util/fsm/driver/simple.o               \
                             util/fsm/test/test_fsm_driver_simple.o \
                             util/fsm/debug.o
 test_fsm_driver_simple: $(addprefix $(ODIR)/, $(test_fsm_driver_simple_objs))

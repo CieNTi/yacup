@@ -19,9 +19,7 @@
 #include <time.h>
 #include "yacup/fsm.h"
 #include "yacup/fsm/debug.h"
-
-/* This include acts like an external application include, located elsewhere */
-#include "fsm_driver_simple.h"
+#include "yacup/fsm/driver/simple.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG
