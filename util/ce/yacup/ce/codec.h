@@ -39,7 +39,7 @@ extern "C" {
 struct ce_codec
 {
   /**
-   * @brief      Encoding operations
+   * @brief      Structure that defines a `ce` codec encoder operations
    */
   struct ce_codec_encoder
   {
@@ -75,10 +75,15 @@ struct ce_codec
      *             | `!= 0` | Error            |
      */
     int (*message)(struct rb *rb_in, struct rb *rb_out);
-  } encode;
+  } 
 
   /**
-   * @brief      Decoding operations
+   * @brief      Encoding operations
+   */
+  encode;
+
+  /**
+   * @brief      Structure that defines a `ce` codec encoder operations
    */
   struct ce_codec_decoder
   {
@@ -115,7 +120,12 @@ struct ce_codec
      *             | `!= 0` | Error            |
      */
     int (*message)(struct rb *rb_in, struct rb *rb_out);
-  } decode;
+  } 
+
+  /**
+   * @brief      Decoding operations
+   */
+  decode;
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

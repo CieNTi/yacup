@@ -41,7 +41,6 @@ int encode_decode_check_by_type(struct ce_codec *codec,
   #define YCP_FNAME "encode_decode_check_by_type"
 
   /* All data types, source and destination flavours */
-  char     src_char[128] = "abcd";           char     dst_char[128] = "";
   uint8_t  src_uint8_t   = 100;              uint8_t  dst_uint8_t   = 0;
   int8_t   src_int8_t    = -100;             int8_t   dst_int8_t    = 0;
   uint16_t src_uint16_t  = 300;              uint16_t dst_uint16_t  = 0;
@@ -59,12 +58,6 @@ int encode_decode_check_by_type(struct ce_codec *codec,
   /* Branch on type to assign valid pointers */
   switch(type)
   {
-    case CE_DATA_CHAR:
-      _dbg("Selected data type CE_DATA_CHAR = %lu\n", (size_t)type);
-      src_pt = &src_char;     dst_pt = &dst_char;
-      /* strlen() counts all but 0x00, so add it here to directly decode it */
-      len_data = strlen(src_char) + 1;
-      break;
     case CE_DATA_UINT8_T:
       _dbg("Selected data type CE_DATA_UINT8_T = %lu\n", (size_t)type);
       src_pt = &src_uint8_t;  dst_pt = &dst_uint8_t;  len_data = 1;
@@ -132,11 +125,6 @@ int encode_decode_check_by_type(struct ce_codec *codec,
   uint8_t res = 0;
   switch(type)
   {
-    case CE_DATA_CHAR:
-      _dbg("Checking data type CE_DATA_CHAR = %lu\n", (size_t)type);
-      res = (strcmp(src_char, dst_char) == 0);
-      _dbg("%s == %s?\n", src_char, dst_char);
-      break;
     case CE_DATA_UINT8_T:
       _dbg("Checking data type CE_DATA_UINT8_T = %lu\n", (size_t)type);
       res = (src_uint8_t == dst_uint8_t);
@@ -295,8 +283,7 @@ int test_ce_codec_B416K(int argc, const char* argv[])
 
   /* Encode/decode and Compare data */
   _dbg("Per type: Encode -> Decode -> Compare\n");
-  if(encode_decode_check_by_type(&codec0, CE_DATA_CHAR, &rb_data) ||
-     encode_decode_check_by_type(&codec0, CE_DATA_UINT8_T, &rb_data) ||
+  if(encode_decode_check_by_type(&codec0, CE_DATA_UINT8_T, &rb_data) ||
      encode_decode_check_by_type(&codec0, CE_DATA_INT8_T, &rb_data) ||
      encode_decode_check_by_type(&codec0, CE_DATA_UINT16_T, &rb_data) ||
      encode_decode_check_by_type(&codec0, CE_DATA_INT16_T, &rb_data) ||

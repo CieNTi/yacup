@@ -149,7 +149,8 @@ struct fsm
  *             each `fsm` module, and it is where the `start` and `stop` states
  *             are really assigned.
  *
- * @param      fsm   Pointer to a correctly initialized FSM
+ * @param      fsm              Pointer to a FSM to initialize
+ * @param[in]  fsm_driver_init  Pointer to a driver initializer function
  *
  * @return     One of:
  *             | Value  | Meaning          |

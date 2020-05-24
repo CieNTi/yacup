@@ -33,7 +33,7 @@ extern "C" {
 /**
  * @brief      Print `ce_codec` information to STDOUT (encode/decode functions)
  *
- * @param      ce    Pointer to a valid `ce`
+ * @param      codec  Pointer to a valid `ce_codec`
  */
 void ce_codec_print_info(struct ce_codec *codec);
 

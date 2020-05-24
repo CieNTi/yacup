@@ -20,9 +20,6 @@
 #include "yacup/ce/command.h"
 #include "yacup/ce/command/subset_test.h"
 
-/* Header located near this file, used as an external header in app */
-//#include "ce_simple.h"
-
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG
 #include "yacup/debug.h"

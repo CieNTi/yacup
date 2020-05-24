@@ -76,18 +76,4 @@ int ce_command_validate(struct ce_command_set *cmd_set,
   #undef YCP_FNAME
 }
 
-/* Sends a `ce_command`: Put ready-to-send data into a ring-buffer
- * Read `yacup/ce/command.h` for complete information. */
-int ce_command_send(struct ce_command_set *cmd_set,
-                    size_t id,
-                    struct ce_argument *argument[])
-{
-  /* Configure _dbg() */
-  #define YCP_FNAME "ce_command_validate"
-
-
-  /* Free _dbg() config */
-  #undef YCP_FNAME
-}
-
 #undef YCP_NAME

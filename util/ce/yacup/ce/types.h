@@ -28,30 +28,81 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Data types a `ce` understand
+ * @brief      Supported data types in a command engine
  */
 enum ce_data_type
 {
-  CE_DATA_UINT8_T  = 0, CE_DATA_INT8_T  = 1,
-  CE_DATA_UINT16_T = 2, CE_DATA_INT16_T = 3,
-  CE_DATA_UINT32_T = 4, CE_DATA_INT32_T = 5,
-  CE_DATA_UINT64_T = 6, CE_DATA_INT64_T = 7,
-  CE_DATA_FLOAT    = 8, CE_DATA_DOUBLE  = 9,
-  CE_DATA_CHAR     = 10
+  CE_DATA_NULL,
+  CE_DATA_UINT8_T,
+  CE_DATA_INT8_T,
+  CE_DATA_UINT16_T,
+  CE_DATA_INT16_T,
+  CE_DATA_UINT32_T,
+  CE_DATA_INT32_T,
+  CE_DATA_UINT64_T,
+  CE_DATA_INT64_T,
+  CE_DATA_FLOAT,
+  CE_DATA_DOUBLE
 };
 
+/**
+ * @brief      Storage and namings for supported data types in a command engine
+ */
 union ce_data
 {
+  /**
+   * @brief      Reference to a uint8_t (matches with CE_DATA_UINT8_T)
+   */
   uint8_t  u8;
+  
+  /**
+   * @brief      Reference to a int8_t (matches with CE_DATA_INT8_T)
+   */
   int8_t   i8;
+  
+  /**
+   * @brief      Reference to a uint16_t (matches with CE_DATA_UINT16_T)
+   */
   uint16_t u16;
+  
+  /**
+   * @brief      Reference to a int16_t (matches with CE_DATA_INT16_T)
+   */
   int16_t  i16;
+  
+  /**
+   * @brief      Reference to a uint32_t (matches with CE_DATA_UINT32_T)
+   */
   uint32_t u32;
+  
+  /**
+   * @brief      Reference to a int32_t (matches with CE_DATA_INT32_T)
+   */
   int32_t  i32;
+  
+  /**
+   * @brief      Reference to a uint64_t (matches with CE_DATA_UINT64_T)
+   */
   uint64_t u64;
+  
+  /**
+   * @brief      Reference to a int64_t (matches with CE_DATA_INT64_T)
+   */
   int64_t  i64;
+  
+  /**
+   * @brief      Reference to a float (matches with CE_DATA_FLOAT)
+   */
   float    f;
+  
+  /**
+   * @brief      Reference to a double (matches with CE_DATA_DOUBLE)
+   */
   double   d;
+  
+  /**
+   * @brief      Reference to a char (matches with CE_DATA_CHAR)
+   */
   char     c;
 };
 

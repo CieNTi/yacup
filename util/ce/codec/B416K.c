@@ -43,10 +43,6 @@ static size_t codec_sizeof(enum ce_data_type type)
 
    switch(type)
   {
-    case CE_DATA_CHAR:
-      _dbg("Selected data type CE_DATA_CHAR\n");
-      return (sizeof(char));
-      break;
     case CE_DATA_UINT8_T:
       _dbg("Selected data type CE_DATA_UINT8_T\n");
       return (sizeof(uint8_t));

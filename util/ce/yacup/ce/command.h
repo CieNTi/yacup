@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup ce
+ * @addtogroup ce_command
  * @{
  */
 

@@ -1,4 +1,4 @@
-/* ce.h - CP implementation for yacup project
+/* ce.h - Command engine API for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,25 +14,33 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CP_H
-#define __CP_H
+#ifndef __CE_H
+#define __CE_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup ce Communications protocols
+ * @defgroup ce Command Engine
  * @{
- *   @brief      Yet another communications protocols implementation
- *   @details    Communications protocols made easy (for me xD)
+ *   @brief      Yet another command engine implementation
+ *   @details    Command engine made easy (for me xD)
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  *
  *   @defgroup   ce_api Interface
  *   @{
- *     @brief      Operations over `ce` instances
+ *     @brief      Operations on `ce` instances
  *     @details    Centralized functions to allow multiple implementations
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *   @}
+ *
+ *   @defgroup   ce_command Commands
+ *   @{
+ *     @brief      NEED DETAILS Commands definitions, usage and available sets
+ *     @details    NEED DETAILS
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
@@ -100,4 +108,4 @@ int ce_cycle(struct ce *ce);
 }
 #endif /* __cplusplus */
 
-#endif /* __CP_H */
+#endif /* __CE_H */
