@@ -68,29 +68,8 @@ int test_ce_command_codec(int argc, const char* argv[])
     }
   };
 
-  /* Compose arguments */
-  struct ce_command_argument *cmd1_args[] =
-  {
-    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 1 },
-    NULL
-  };
-
-  /* Validate command */
-  struct ce_command *cmd_to_encode = NULL;
-  _dbg("Should validate: Valid 1 argument vs. 1 argument command\n");
-  cmd_to_encode = ce_command_validate(&cmd_set,
-                                      CE_COMMAND_SUBSET_TEST_CMD1,
-                                      cmd1_args);
-  if (cmd_to_encode == NULL)
-  {
-    /* Cannot send, error */
-    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD1\n");
-    return 1;
-  }
-
-  /* Define command codec to use */
+  /* Define ce codec to use as underlying data encoding layer*/
   struct ce_codec         ce_codec0      = { 0x00 };
-  struct ce_command_codec command_codec0 = { 0x00 };
   _dbg("Should initialize ce_codec\n");
   if (ce_codec_init(&ce_codec0, ce_codec_B416K))
   {
@@ -99,6 +78,8 @@ int test_ce_command_codec(int argc, const char* argv[])
   }
   _dbg("- Ok\n");
 
+  /* Define command codec to use */
+  struct ce_command_codec command_codec0 = { 0x00 };
   _dbg("Should initialize command_codec\n");
   if (ce_command_codec_init(&command_codec0, ce_command_codec_binary))
   {
@@ -125,6 +106,31 @@ int test_ce_command_codec(int argc, const char* argv[])
   }
   _dbg("- Ok\n");
 
+  /* Pointer to validated command */
+  struct ce_command *cmd_to_encode = NULL;
+  
+  /* Encode 1-argument command
+   */
+
+  /* Compose arguments */
+  struct ce_command_argument *cmd1_args[] =
+  {
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 1 },
+    NULL
+  };
+
+  /* Validate command */
+  _dbg("Should validate: Valid 1 argument vs. 1 argument command\n");
+  cmd_to_encode = ce_command_validate(&cmd_set,
+                                      CE_COMMAND_SUBSET_TEST_CMD1,
+                                      cmd1_args);
+  if (cmd_to_encode == NULL)
+  {
+    /* Cannot validate, error */
+    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD1\n");
+    return 1;
+  }
+
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
        command_codec0.name);
@@ -134,7 +140,41 @@ int test_ce_command_codec(int argc, const char* argv[])
     return 1;
   }
   _dbg("- Ok\n");
+  _dbg("Data buffer content:\n");
+  rb_print_info(&rb_data);
 
+  /* Encode 2-arguments command
+   */
+
+  /* Compose arguments */
+  struct ce_command_argument *cmd2_args[] =
+  {
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 0x88 },
+    &(struct ce_command_argument) { .type = CE_DATA_DOUBLE,  .data.d  = -1.2 },
+    NULL
+  };
+
+  /* Validate command */
+  _dbg("Should validate: Valid 2 arguments vs. 2 arguments command\n");
+  cmd_to_encode = ce_command_validate(&cmd_set,
+                                      CE_COMMAND_SUBSET_TEST_CMD2,
+                                      cmd2_args);
+  if (cmd_to_encode == NULL)
+  {
+    /* Cannot validate, error */
+    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD2\n");
+    return 1;
+  }
+
+  /* Encode the command */
+  _dbg("Should encode a command using '%s' command codec\n",
+       command_codec0.name);
+  if (command_codec0.encode(&ce_codec0, cmd_to_encode, cmd2_args, &rb_data))
+  {
+    _dbg("Cannot encode command\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
   _dbg("Data buffer content:\n");
   rb_print_info(&rb_data);
 
