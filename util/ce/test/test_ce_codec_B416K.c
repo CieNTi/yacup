@@ -105,7 +105,7 @@ int encode_decode_check_by_type(struct ce_codec *codec,
 
   /* Encode selected variable */
   _dbg("Encoding type %lu from address %p\n", (size_t)type, src_pt);
-  if(codec->encode.data(rb, type, src_pt, len_data) < 1)
+  if(codec->encode.data(type, src_pt, len_data, rb) < 1)
   {
     _dbg("- Cannot encode the data. ERROR\n");
     return 1;
@@ -306,8 +306,9 @@ int test_ce_codec_B416K(int argc, const char* argv[])
 
   /* Encode data into a data buffer */
   _dbg("Preparing a data packet with %u bytes\n", __DATA_LEN);
-  if(codec0.encode.data(&rb_data, CE_DATA_UINT8_T,
-                        some_src_var, __DATA_LEN) < 1)
+  if(codec0.encode.data(CE_DATA_UINT8_T,
+                        some_src_var, __DATA_LEN,
+                        &rb_data) < 1)
   {
     _dbg("- Cannot encode the data. ERROR\n");
     return 1;

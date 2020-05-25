@@ -147,9 +147,9 @@ static int crc16_kermit(struct rb *rb, size_t skip, size_t len, uint16_t *crc)
 /* Encodes a defined type data and pushes it into a ring-buffer
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/ce/codec.h` for complete information. */
-static size_t encode_data(struct rb *rb,
-                          enum ce_data_type type,
-                          void *data, size_t num_data)
+static size_t encode_data(enum ce_data_type type,
+                          void *data, size_t num_data,
+                          struct rb *rb)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "encode_data"
@@ -239,7 +239,7 @@ static size_t decode_data(struct rb *rb,
 /* Takes `rb` raw data, encodes it as a message, and puts it back as `rb`
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/ce/codec.h` for complete information. */
-static int encode_message(struct rb *rb_in, struct rb *rb_out)
+static int encode_message(struct rb *rb_data, struct rb *rb_msg)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "encode_message"
@@ -248,9 +248,9 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
   uint16_t crc_holder = 0;
 
   /* Push header */
-  if (rb_push(rb_out, CE_CODEC_B416K_START_BYTE) ||
-      rb_push(rb_out, (uint8_t)(rb_len(rb_in) >> 8)) ||
-      rb_push(rb_out, (uint8_t)(rb_len(rb_in)))
+  if (rb_push(rb_msg, CE_CODEC_B416K_START_BYTE) ||
+      rb_push(rb_msg, (uint8_t)(rb_len(rb_data) >> 8)) ||
+      rb_push(rb_msg, (uint8_t)(rb_len(rb_data)))
       )
   {
     /* Cannot push, error */
@@ -259,9 +259,9 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
   }
 
   /* Move data */
-  while (rb_pull(rb_in, &data_holder) == 0)
+  while (rb_pull(rb_data, &data_holder) == 0)
   {
-    if (rb_push(rb_out, data_holder))
+    if (rb_push(rb_msg, data_holder))
     {
       /* Fial! Out of destination space */
       _dbg("Error when moving data packet to message buffer\n");
@@ -270,9 +270,9 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
   }
 
   /* Calculate and save CRC */
-  if (crc16_kermit(rb_out, 1, rb_len(rb_out) - 1, &crc_holder) ||
-      rb_push(rb_out, (uint8_t)(crc_holder >> 8))              ||
-      rb_push(rb_out, (uint8_t)(crc_holder)))
+  if (crc16_kermit(rb_msg, 1, rb_len(rb_msg) - 1, &crc_holder) ||
+      rb_push(rb_msg, (uint8_t)(crc_holder >> 8))                  ||
+      rb_push(rb_msg, (uint8_t)(crc_holder)))
   {
     /* Fial! Out of destination space */
     _dbg("Error when pushing message CRC\n");
@@ -289,7 +289,7 @@ static int encode_message(struct rb *rb_in, struct rb *rb_out)
 /* Read and delete a byte from a comm-protocol tail.
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/ce/codec.h` for complete information. */
-static int decode_message(struct rb *rb_in, struct rb *rb_out)
+static int decode_message(struct rb *rb_msg, struct rb *rb_data)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "decode_message"
@@ -299,11 +299,11 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   size_t data_len = 0;
 
   /* Seek for the header, discarding any other data found */
-  while (rb_len(rb_in)                               &&
-         (rb_read(rb_in, &data_holder, 0) == 0)      &&
+  while (rb_len(rb_msg)                               &&
+         (rb_read(rb_msg, &data_holder, 0) == 0)      &&
          (data_holder != CE_CODEC_B416K_START_BYTE))
   {
-    if (rb_pull(rb_in, &data_holder) || (rb_len(rb_in) == 0))
+    if (rb_pull(rb_msg, &data_holder) || (rb_len(rb_msg) == 0))
     {
       /* Input buffer exhausted without any header */
       _dbg("No message header found on buffer\n");
@@ -312,7 +312,7 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   }
 
   /* Calculate and save CRC */
-  if (crc16_kermit(rb_in, 1, rb_len(rb_in) - 3, &crc_holder[0]))
+  if (crc16_kermit(rb_msg, 1, rb_len(rb_msg) - 3, &crc_holder[0]))
   {
     /* Error when calculating CRC */
     _dbg("Error when calculating message CRC\n");
@@ -320,8 +320,8 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   }
 
   /* Read received CRC and compare it with calculated one */
-  if (rb_read(rb_in, (uint8_t *)&crc_holder[1] + 1, rb_len(rb_in) - 2) ||
-      rb_read(rb_in, (uint8_t *)&crc_holder[1]    , rb_len(rb_in) - 1))
+  if (rb_read(rb_msg, (uint8_t *)&crc_holder[1] + 1, rb_len(rb_msg) - 2) ||
+      rb_read(rb_msg, (uint8_t *)&crc_holder[1]    , rb_len(rb_msg) - 1))
   {
     /* Cannot push, error */
     _dbg("Error when reading message CRC\n");
@@ -338,9 +338,9 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   /* Once the message is validated, we can start to extract data */
   /* Pull Header, MSB + LSB of data length */
   data_len = 0;
-  if (rb_pull(rb_in, &data_holder) ||
-      rb_pull(rb_in, (uint8_t *)&data_len + 1) ||
-      rb_pull(rb_in, (uint8_t *)&data_len)
+  if (rb_pull(rb_msg, &data_holder) ||
+      rb_pull(rb_msg, (uint8_t *)&data_len + 1) ||
+      rb_pull(rb_msg, (uint8_t *)&data_len)
       )
   {
     /* Cannot push, error */
@@ -349,9 +349,9 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   }
 
   /* Move data */
-  while ((data_len > 0) && (rb_pull(rb_in, &data_holder) == 0))
+  while ((data_len > 0) && (rb_pull(rb_msg, &data_holder) == 0))
   {
-    if (rb_push(rb_out, data_holder))
+    if (rb_push(rb_data, data_holder))
     {
       /* Fial! Out of destination space */
       _dbg("Cannot push when moving data from message to data buffer\n");
@@ -361,8 +361,8 @@ static int decode_message(struct rb *rb_in, struct rb *rb_out)
   }
 
   /* Pull CRC bytes */
-  if (rb_pull(rb_in, &data_holder) ||
-      rb_pull(rb_in, &data_holder)
+  if (rb_pull(rb_msg, &data_holder) ||
+      rb_pull(rb_msg, &data_holder)
       )
   {
     /* Cannot push, error */

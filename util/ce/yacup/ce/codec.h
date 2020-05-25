@@ -69,10 +69,10 @@ struct ce_codec
     /**
      * @brief      Encodes a defined type data and pushes it into a ring-buffer
      *
-     * @param      rb        Pointer to a destination ring-buffer
      * @param      type      One of `CE_DATA_*` data types
      * @param      data      Pointer where the source data to encode is located
      * @param      num_data  Number of data entities to encode
+     * @param      rb        Pointer to a destination ring-buffer
      *
      * @return     One of:
      *             | Value  | Meaning                         |
@@ -80,16 +80,16 @@ struct ce_codec
      *             | `== 0` | No encoded data                 |
      *             | `>  0` | Number of encoded data entities |
      */
-    size_t (*data)(struct rb *rb,
-                   enum ce_data_type type,
-                   void *data, size_t num_data);
+    size_t (*data)(enum ce_data_type type,
+                   void *data, size_t num_data,
+                   struct rb *rb);
 
     /**
      * @brief      Takes an input `rb` with raw data, encodes it as a message,
      *             and puts it back into an output `rb`, ready to be decoded
      *
-     * @param      in    Pointer to a source ring-buffer containing the data
-     * @param      out   Pointer to a destination ring-buffer for the message
+     * @param      rb_data  Pointer to a ring-buffer containing the data
+     * @param      rb_msg   Pointer to a ring-buffer to save the message in
      *
      * @return     One of:
      *             | Value  | Meaning          |
@@ -97,7 +97,7 @@ struct ce_codec
      *             | `== 0` | Ok               |
      *             | `!= 0` | Error            |
      */
-    int (*message)(struct rb *rb_in, struct rb *rb_out);
+    int (*message)(struct rb *rb_data, struct rb *rb_msg);
   } 
 
   /**
@@ -133,8 +133,8 @@ struct ce_codec
      * @brief      Takes an input `rb` with an encoded message, decodes it,
      *             extract its data packet, and puts into a destination `rb`
      *
-     * @param      in    Pointer to a source ring-buffer containing the message
-     * @param      out   Pointer to a destination ring-buffer for the data
+     * @param      rb_msg   Pointer to a ring-buffer containing the message
+     * @param      rb_data  Pointer to a ring-buffer to save the data in
      *
      * @return     One of:
      *             | Value  | Meaning          |
@@ -142,7 +142,7 @@ struct ce_codec
      *             | `== 0` | Ok               |
      *             | `!= 0` | Error            |
      */
-    int (*message)(struct rb *rb_in, struct rb *rb_out);
+    int (*message)(struct rb *rb_msg, struct rb *rb_data);
   } 
 
   /**
