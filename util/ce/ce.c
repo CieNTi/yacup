@@ -77,8 +77,6 @@ int ce_send_command(struct ce *ce,
 
   if (/* Invalid ce? */
       (ce == NULL) ||
-      /* Invalid argument? */
-      (argument == NULL) ||
       /* Invalid command set? */
       (ce->out.command_set == NULL) ||
       /* Invalid command */
@@ -116,8 +114,6 @@ int ce_set_command_listener(struct ce *ce,
       (listener == NULL) ||
       /* Invalid listener function? */
       (listener->listener == NULL) ||
-      /* Invalid listener arguments? */
-      (listener->argument == NULL) ||
       /* Invalid command set? */
       (ce->in.command_set == NULL) ||
       /* Invalid command */

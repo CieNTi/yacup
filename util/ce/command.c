@@ -67,6 +67,25 @@ int ce_command_validate(struct ce_command_set *cmd_set,
            sx,
            cx);
 
+      /* No arguments passed, check if it fits */
+      if (argument == NULL)
+      {
+        if (cmd_set->subset[sx]->command[cx]->signature[0] != CE_DATA_NULL)
+        {
+          _dbg("Command expects at least 1 argument, none passed\n");
+
+          /* Argument type mismatch, next command */
+          continue;
+        }
+
+        /* Command found */
+        _dbg("Command '%s' (subset %lu, id %lu) is valid (no args)!\n",
+             cmd_set->subset[sx]->command[cx]->name,
+             sx,
+             cx);
+        return 0;
+      }
+
       /* Check if command signature is valid */
       for (ax = 0;
            ((argument[ax] != NULL) &&
@@ -100,7 +119,7 @@ int ce_command_validate(struct ce_command_set *cmd_set,
       }
 
       /* Command found */
-      _dbg("Command '%s' (subset %lu, id %lu) is valid, returning it!\n",
+      _dbg("Command '%s' (subset %lu, id %lu) is valid!\n",
            cmd_set->subset[sx]->command[cx]->name,
            sx,
            cx);
