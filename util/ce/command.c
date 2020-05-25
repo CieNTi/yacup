@@ -33,102 +33,72 @@ struct ce_command *ce_command_validate(struct ce_command_set *cmd_set,
   /* Configure _dbg() */
   #define YCP_FNAME "ce_command_validate"
 
-  /* subset index */
-  size_t sx = 0;
-  /* command index */
-  size_t cx = 0;
   /* argument index */
   size_t ax = 0;
 
   _dbg("Validating command 0x%02lX on set '%s' (%p)\n",
-       id,
-       cmd_set->name,
-       (void *)cmd_set);
+       id, cmd_set->name, (void *)cmd_set);
 
-  /* Iterate through subsets */
-  for (sx = 0; cmd_set->subset[sx] != NULL; sx++)
+  struct ce_command *ref_cmd = ce_command_locate_by_id(cmd_set, id);
+  if (ref_cmd == NULL)
   {
-    _dbg("Subset %lu: '%s' (%p)\n",
-         sx,
-         cmd_set->subset[sx]->name,
-         (void *)cmd_set->subset[sx]);
+    _dbg("Command not found\n");
+    return NULL;
+  }
 
-    /* Check if command is implemented */
-    for (cx = 0;
-         cmd_set->subset[sx]->command[cx] != NULL;
-         cx++)
+  _dbg("Command '%s' (0x%02lX) found, checking arguments\n",
+       ref_cmd->name, ref_cmd->id);
+
+  /* No arguments passed, check if it fits */
+  if (argument == NULL)
+  {
+    if (ref_cmd->signature[0] != CE_DATA_NULL)
     {
-      if (cmd_set->subset[sx]->command[cx]->id != id)
-      {
-        continue;
-      }
-      _dbg("Command '%s' (subset %lu, id %lu) found, checking arguments\n",
-           cmd_set->subset[sx]->command[cx]->name,
-           sx,
-           cx);
+      _dbg("Command expects at least 1 argument, none passed\n");
 
-      /* No arguments passed, check if it fits */
-      if (argument == NULL)
-      {
-        if (cmd_set->subset[sx]->command[cx]->signature[0] != CE_DATA_NULL)
-        {
-          _dbg("Command expects at least 1 argument, none passed\n");
+      /* Argument mismatch */
+      return NULL;
+    }
 
-          /* Argument type mismatch, next command */
-          continue;
-        }
+    /* Command found */
+    _dbg("Command '%s' (0x%02lX), without arguments, is valid\n",
+         ref_cmd->name, ref_cmd->id);
+    return ref_cmd;
+  }
 
-        /* Command found */
-        _dbg("Command '%s' (subset %lu, id %lu) is valid (no args)!\n",
-             cmd_set->subset[sx]->command[cx]->name,
-             sx,
-             cx);
-        return cmd_set->subset[sx]->command[cx];
-      }
+  /* Check if command signature is valid */
+  for (ax = 0;
+       ((argument[ax] != NULL) &&
+        (ref_cmd->signature[ax] != CE_DATA_NULL));
+       ax++)
+  {
+    if (ref_cmd->signature[ax] !=
+        argument[ax]->type)
+    {
+      _dbg("Argument type mismatch %lu (%u vs. %u)\n",
+           ax, argument[ax]->type, ref_cmd->signature[ax]);
 
-      /* Check if command signature is valid */
-      for (ax = 0;
-           ((argument[ax] != NULL) &&
-            (cmd_set->subset[sx]->command[cx]->signature[ax] != CE_DATA_NULL));
-           ax++)
-      {
-        if (cmd_set->subset[sx]->command[cx]->signature[ax] !=
-            argument[ax]->type)
-        {
-          _dbg("Argument type mismatch %lu (%u vs. %u)\n",
-               ax,
-               argument[ax]->type,
-               cmd_set->subset[sx]->command[cx]->signature[ax]);
-
-          /* Argument type mismatch, next command */
-          break;
-        }
-      }
-
-      /* After the last command, both need to be NULL or one has extra arg */
-      if ((cmd_set->subset[sx]->command[cx]->signature[ax] != CE_DATA_NULL) ||
-          (argument[ax] != NULL))
-      {
-        _dbg("Extra argument not matched %lu (%u vs. %u)\n",
-             ax,
-             (argument[ax] == NULL)?CE_DATA_NULL:argument[ax]->type,
-             cmd_set->subset[sx]->command[cx]->signature[ax]);
-
-        /* Extra argument not matched, next command */
-        continue;
-      }
-
-      /* Command found */
-      _dbg("Command '%s' (subset %lu, id %lu) is valid!\n",
-           cmd_set->subset[sx]->command[cx]->name,
-           sx,
-           cx);
-      return cmd_set->subset[sx]->command[cx];
+      /* Argument type mismatch */
+      return NULL;
     }
   }
 
-  _dbg("Command not found\n");
-  return NULL;
+  /* After the last command, both need to be NULL or one has extra arg */
+  if ((ref_cmd->signature[ax] != CE_DATA_NULL) ||
+      (argument[ax] != NULL))
+  {
+    _dbg("Extra argument not matched %lu (%u vs. %u)\n",
+         ax,
+         (argument[ax] == NULL)?CE_DATA_NULL:argument[ax]->type,
+         ref_cmd->signature[ax]);
+
+    /* Extra argument not matched, next command */
+    return NULL;
+  }
+
+  /* Command found */
+  _dbg("Command '%s' (0x%02lX) is valid\n", ref_cmd->name, ref_cmd->id);
+  return ref_cmd;
 
   /* Free _dbg() config */
   #undef YCP_FNAME

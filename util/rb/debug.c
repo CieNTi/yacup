@@ -84,7 +84,9 @@ void rb_print_info(struct rb *rb)
     {
       if ((idx_line * RB_DBG_LINE_BYTES) + idx_byte < rb->size)
       {
-        sprintf(debug_line_pt, " %02X",
+        sprintf(debug_line_pt, "%c%02X",
+             (((idx_line * RB_DBG_LINE_BYTES) + idx_byte == rb->tail)?'[':
+              ((idx_line * RB_DBG_LINE_BYTES) + idx_byte == rb->head)?']':' '),
                 rb->buffer[(idx_line * RB_DBG_LINE_BYTES) + idx_byte]);
       }
       else

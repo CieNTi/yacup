@@ -109,6 +109,38 @@ int test_ce_command_codec(int argc, const char* argv[])
   /* Pointer to validated command */
   struct ce_command *cmd_to_encode = NULL;
   
+  /* Encode 0-arguments command (with NULL argument [not array of])
+   */
+
+  /* Compose arguments */
+  //struct ce_command_argument *cmd5_args[] =
+  //{
+  //  NULL
+  //};
+
+  /* Validate command */
+  _dbg("Should validate: Valid 0 argument vs. 0 argument command\n");
+  cmd_to_encode = ce_command_validate(&cmd_set,
+                                      CE_COMMAND_SUBSET_TEST_CMD5,
+                                      NULL);
+  if (cmd_to_encode == NULL)
+  {
+    /* Cannot validate, error */
+    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD5\n");
+    return 1;
+  }
+
+  /* Encode the command */
+  _dbg("Should encode a command using '%s' command codec\n",
+       command_codec0.name);
+  if (command_codec0.encode(cmd_to_encode, NULL, &ce_codec0, &rb_data))
+  {
+    _dbg("Cannot encode command\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+  rb_print_info(&rb_data);
+
   /* Encode 1-argument command
    */
 
@@ -134,13 +166,12 @@ int test_ce_command_codec(int argc, const char* argv[])
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
        command_codec0.name);
-  if (command_codec0.encode(&ce_codec0, cmd_to_encode, cmd1_args, &rb_data))
+  if (command_codec0.encode(cmd_to_encode, cmd1_args, &ce_codec0, &rb_data))
   {
     _dbg("Cannot encode command\n");
     return 1;
   }
   _dbg("- Ok\n");
-  _dbg("Data buffer content:\n");
   rb_print_info(&rb_data);
 
   /* Encode 2-arguments command
@@ -169,7 +200,7 @@ int test_ce_command_codec(int argc, const char* argv[])
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
        command_codec0.name);
-  if (command_codec0.encode(&ce_codec0, cmd_to_encode, cmd2_args, &rb_data))
+  if (command_codec0.encode(cmd_to_encode, cmd2_args, &ce_codec0, &rb_data))
   {
     _dbg("Cannot encode command\n");
     return 1;

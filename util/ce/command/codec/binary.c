@@ -28,22 +28,28 @@
 /* Encodes a command as a data-block into a rb
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/ce/command_codec.h` for complete information. */
-static size_t encode_command(struct ce_codec *codec,
-                             struct ce_command *command,
+static size_t encode_command(struct ce_command *command,
                              struct ce_command_argument *argument[],
+                             struct ce_codec *codec,
                              struct rb *rb_data)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "encode_command"
 
   /* Header: Encode command id as uint16_t */
-  if(codec->encode.data(CE_DATA_UINT32_T,
+  if(codec->encode.data(CE_DATA_UINT8_T,
                         &command->id,
                         1,
                         rb_data) == 0)
   {
     _dbg("- Cannot encode the command id. ERROR\n");
     return 1;
+  }
+
+  if (argument == NULL)
+  {
+    /* No arguments, stop here with success */
+    return 0;
   }
 
   /* Encode all passed arguments (pre-validated) */

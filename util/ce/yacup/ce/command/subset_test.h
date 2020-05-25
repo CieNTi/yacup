@@ -31,10 +31,11 @@ extern "C" {
 #include "yacup/ce/command.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#define  CE_COMMAND_SUBSET_TEST_CMD1 0xDEADBEEF
-#define  CE_COMMAND_SUBSET_TEST_CMD2 0xF1
-#define  CE_COMMAND_SUBSET_TEST_CMD3 0xF2
-#define  CE_COMMAND_SUBSET_TEST_CMD4 0xF3
+#define  CE_COMMAND_SUBSET_TEST_CMD1 0xA1
+#define  CE_COMMAND_SUBSET_TEST_CMD2 0xA2
+#define  CE_COMMAND_SUBSET_TEST_CMD3 0xA3
+#define  CE_COMMAND_SUBSET_TEST_CMD4 0xA4
+#define  CE_COMMAND_SUBSET_TEST_CMD5 0xA5
 
 extern struct ce_command_listener test_cmd1_listener;
 

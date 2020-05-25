@@ -129,6 +129,17 @@ struct ce_command_subset test_command_subset_part_B =
       },
       .listener = NULL
     },
+    /* enum CE_COMMAND_SUBSET_TEST_CMD5 -> test_cmd5 */
+    &(struct ce_command)
+    {
+      .id   = CE_COMMAND_SUBSET_TEST_CMD5,
+      .name = "test_cmd5",
+      .signature = (enum ce_data_type [])
+      {
+        CE_DATA_NULL
+      },
+      .listener = NULL
+    },
     NULL
   }
 };
