@@ -27,7 +27,7 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Listener for test_cmd1 */
-static int test_cmd1_listener_fn(struct ce_command_argument *argument[])
+static void test_cmd1_listener_fn(struct ce_command_argument *argument[])
 {
   /* Configure _dbg() */
   #define YCP_FNAME "test_cmd1_listener_fn"
@@ -43,12 +43,12 @@ static int test_cmd1_listener_fn(struct ce_command_argument *argument[])
       argument[1] != NULL)
   {
     _dbg("Invalid argument. Expecting (uint8_t < 251)\n");
-    return 1;
+    return;
   }
-  _dbg("Valid, ready to send\n");
+  _dbg("Valid arguments, do some action here now :D\n");
 
   /* Cya! */
-  return 0;
+  return;
 
   /* Free _dbg() config */
   #undef YCP_FNAME

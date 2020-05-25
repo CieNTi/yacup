@@ -76,7 +76,7 @@ struct ce_command_listener
    *             validation, so contained values can be trusted in error-free
    *             reception and type. Value itself is the listener duty ;)
    */
-  int (*listener)(struct ce_command_argument *argument[]);
+  void (*listener)(struct ce_command_argument *argument[]);
 
   /**
    * @brief      NULL-terminated list of pointers to arguments. It is used for
