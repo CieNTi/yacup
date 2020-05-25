@@ -184,6 +184,22 @@ struct ce_command *ce_command_validate(struct ce_command_set *cmd_set,
                                        size_t id,
                                        struct ce_command_argument *argument[]);
 
+/**
+ * @brief      Set a command listener, if found in a set
+ *
+ * @param      cmd_set   Set of commands where to search for commands
+ * @param      id        Unique command identifier of the command to send
+ * @param      listener  Incoming command listener
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
+ */
+int ce_command_set_listener(struct ce_command_set *cmd_set,
+                            size_t id,
+                            struct ce_command_listener *listener);
 /** @} */
 
 #ifdef __cplusplus

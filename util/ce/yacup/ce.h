@@ -131,23 +131,6 @@ int ce_send_command(struct ce *ce,
                     size_t id,
                     struct ce_command_argument *argument[]);
 
-/**
- * @brief      Set a command listener, if found in a set
- *
- * @param      ce        Pointer to the engine that will handle this command
- * @param      id        Unique command identifier of the command to send
- * @param      listener  Incoming command listener
- *
- * @return     One of:
- *             | Value  | Meaning          |
- *             | :----: | :--------------- |
- *             | `== 0` | Ok               |
- *             | `!= 0` | Error            |
- */
-int ce_set_command_listener(struct ce *ce,
-                            size_t id,
-                            struct ce_command_listener *listener);
-
 /** @} */
 
 #ifdef __cplusplus

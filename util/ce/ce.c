@@ -99,36 +99,4 @@ int ce_send_command(struct ce *ce,
   #undef YCP_FNAME
 }
 
-/* Set a command listener, if found in a set
- * Read `yacup/ce.h` for complete information. */
-int ce_set_command_listener(struct ce *ce,
-                            size_t id,
-                            struct ce_command_listener *listener)
-{
-  /* Configure _dbg() */
-  #define YCP_FNAME "ce_set_command_listener"
-
-  if (/* Invalid ce? */
-      (ce == NULL) ||
-      /* Invalid listener structure? */
-      (listener == NULL) ||
-      /* Invalid listener function? */
-      (listener->listener == NULL) ||
-      /* Invalid command set? */
-      (ce->in.command_set == NULL) ||
-      /* Invalid command */
-      (ce_command_validate(ce->in.command_set, id, listener->argument) == NULL))
-  {
-    /* Cannot send, error */
-    _dbg("Error when attaching a listener to a command\n");
-    return 1;
-  }
-
-  /* Ok! */
-  _dbg("Listener attached successfully\n");
-  return 0;
-
-  /* Free _dbg() config */
-  #undef YCP_FNAME
-}
 #undef YCP_NAME
