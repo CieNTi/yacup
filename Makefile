@@ -99,6 +99,15 @@ test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
+# test_ce_command_codec: Test to check `ce` commands functionality
+test_ce_command_codec_o=util/ce/command.o                    \
+                        util/ce/command/subset_test.o        \
+                        util/ce/test/test_ce_command_codec.o
+test_ce_command_codec: $(addprefix $(ODIR)/, $(test_ce_command_codec_o))
+	@echo "-----"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
+	@echo "-----"
+
 # test_ce_initialization: Test to check `ce` commands functionality
 test_ce_initialization_o=util/rb/rb.o                          \
                          util/rb/driver/overwrite.o            \
@@ -126,6 +135,7 @@ test_yacup_o=$(test_xyz_testname_o)        \
              $(test_fsm_driver_simple_o)   \
              $(test_ce_codec_B416K_o)      \
              $(test_ce_command_validate_o) \
+             $(test_ce_command_codec_o)    \
              $(test_ce_initialization_o)   \
              src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_o))
@@ -183,6 +193,7 @@ all: clean debug prepare test_yacup               \
                          test_fsm_driver_simple   \
                          test_ce_codec_B416K      \
                          test_ce_command_validate \
+                         test_ce_command_codec    \
                          test_ce_initialization
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
@@ -247,6 +258,7 @@ help:
 	@echo "  test_fsm_driver_simple ....: 'fsm' module 'simple' driver"
 	@echo "  test_ce_codec_B416K .......: 'ce_codec' module 'B416K' driver"
 	@echo "  test_ce_command_validate ..: 'ce_command' validation functionality"
+	@echo "  test_ce_command_codec .....: 'ce_command_codec' validations"
 	@echo "  test_ce_initialization ....: 'ce' basic usage tests (devel mostly)"
 	@echo ""
 	@echo "Available targets related to application tests:"

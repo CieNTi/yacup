@@ -1,4 +1,4 @@
-/* driver_v1.c - Test to check rb's driver_v1 functionality
+/* test_ce_command_codec.c - Validates a command codec
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,26 +14,26 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+#include <stdint.h>
 #include <stdio.h>
+#include "yacup/rb.h"
+#include "yacup/rb/driver/overwrite.h"
+#include "yacup/ce.h"
+#include "yacup/ce/codec.h"
+#include "yacup/ce/codec/B416K.h"
+#include "yacup/ce/command.h"
+#include "yacup/ce/command/subset_test.h"
+
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "app/test/test_yacup"
+#define YCP_NAME "util/ce/test/test_ce_command_codec"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Pre-declare required tests here (there is no header for them!) */
-int test_xyz_testname(int argc, const char* argv[]);
-int test_rb_driver_overwrite(int argc, const char* argv[]);
-int test_fsm_driver_simple(int argc, const char* argv[]);
-int test_ce_codec_B416K(int argc, const char* argv[]);
-int test_ce_command_validate(int argc, const char* argv[]);
-int test_ce_command_codec(int argc, const char* argv[]);
-int test_ce_initialization(int argc, const char* argv[]);
-
 /**
- * @brief      The main of the mains
+ * @brief      Test to check `ce` functionality using a single ce
  *
  * @param[in]  argc  The count of arguments
  * @param      argv  The arguments array
@@ -44,31 +44,18 @@ int test_ce_initialization(int argc, const char* argv[]);
  *             | `== 0` | Ok               |
  *             | `!= 0` | Error            |
  *
- * @ingroup    app_test
+ * @ingroup    util_test
  * @version    v1.0.0
  */
-int test_yacup(int argc, const char* argv[])
+int test_ce_command_codec(int argc, const char* argv[])
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "test_yacup"
+  #define YCP_FNAME "test_ce_command_codec"
 
   _dbg("Hi! from "__FILE__"\n");
 
-  printf("Result from test_xyz_testname() = %i\n", 
-         test_xyz_testname(argc, argv));
-  printf("Result from test_rb_driver_overwrite() = %i\n", 
-         test_rb_driver_overwrite(argc, argv));
-  printf("Result from test_fsm_driver_simple() = %i\n", 
-         test_fsm_driver_simple(argc, argv));
-  printf("Result from test_ce_codec_B416K() = %i\n", 
-         test_ce_codec_B416K(argc, argv));
-  printf("Result from test_ce_command_validate() = %i\n", 
-         test_ce_command_validate(argc, argv));
-  printf("Result from test_ce_command_codec() = %i\n", 
-         test_ce_command_codec(argc, argv));
-  printf("Result from test_ce_initialization() = %i\n", 
-         test_ce_initialization(argc, argv));
-  _dbg("Hi! from "__FILE__"\n");
+  /* Cya! */
+  _dbg("If you are reading this, everything went correctly :_)\n");
   return 0;
 
   /* Free _dbg() config */
