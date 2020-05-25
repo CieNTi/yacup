@@ -37,15 +37,14 @@ static void test_cmd1_listener_fn(struct ce_command_argument *argument[])
    * - arguments type, ensured storage as per ce_command_argument declaration
    */
 
-  if (/* We can do some value check */
-      !(argument[0]->data.u8 < 251)        ||
-      /* And should not be another argument */
-      argument[1] != NULL)
+  /* We can do some value check */
+  if (!(argument[0]->data.u8 < 251))
   {
     _dbg("Invalid argument. Expecting (uint8_t < 251)\n");
     return;
   }
-  _dbg("Valid arguments, do some action here now :D\n");
+  _dbg("Valid uint8_t = %u, do some action here now :D\n",
+       argument[0]->data.u8);
 
   /* Cya! */
   return;

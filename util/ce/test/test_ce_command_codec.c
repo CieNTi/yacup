@@ -73,10 +73,10 @@ int test_ce_command_codec(int argc, const char* argv[])
   _dbg("Should initialize ce_codec\n");
   if (ce_codec_init(&ce_codec0, ce_codec_B416K))
   {
-    _dbg("- Cannot initialize the codec. ERROR\n");
+    _dbg("Cannot initialize the codec. ERROR\n");
     return 1;
   }
-  _dbg("- Ok\n");
+  _dbg("Ok\n");
 
   /* Define command codec to use */
   struct ce_command_codec command_codec0 = { 0x00 };
@@ -86,7 +86,7 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Oops! Cannot initialize the command codec\n");
     return 1;
   }
-  _dbg("- Ok\n");
+  _dbg("Ok\n");
 
   /* Prepare a rb for encoding storage */
   #define TEST_CE_COMMAND_CODEC_DATA 512
@@ -104,7 +104,7 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Cannot initialize rb_data\n");
     return 1;
   }
-  _dbg("- Ok\n");
+  _dbg("Ok\n");
 
   /* Pointer to validated command */
   struct ce_command *cmd_to_encode = NULL;
@@ -138,7 +138,7 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Cannot encode command\n");
     return 1;
   }
-  _dbg("- Ok\n");
+  _dbg("Ok\n");
   rb_print_info(&rb_data);
 
   /* Encode 1-argument command
@@ -171,7 +171,7 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Cannot encode command\n");
     return 1;
   }
-  _dbg("- Ok\n");
+  _dbg("Ok\n");
   rb_print_info(&rb_data);
 
   /* Encode 2-arguments command
@@ -205,9 +205,18 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Cannot encode command\n");
     return 1;
   }
-  _dbg("- Ok\n");
+  _dbg("Ok\n");
   rb_print_info(&rb_data);
 
+  /* Set a command listener, so at least a command will answer the phone */
+  if (ce_command_set_listener(&cmd_set,
+                              CE_COMMAND_SUBSET_TEST_CMD1,
+                              &test_cmd1_listener))
+  {
+    /* Cannot set it, error */
+    _dbg("Error when setting listener for CE_COMMAND_SUBSET_TEST_CMD1\n");
+    return 1;
+  }
 
   /* Decode command (overwrite rb = FIFO) */
   _dbg("Should decode a command using '%s' command codec\n",
@@ -217,7 +226,7 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Cannot decode command\n");
     return 1;
   }
-  _dbg("- Ok\n");
+  _dbg("Ok\n");
   rb_print_info(&rb_data);
 
   /* Decode command (overwrite rb = FIFO) */
@@ -228,7 +237,7 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Cannot decode command\n");
     return 1;
   }
-  _dbg("- Ok\n");
+  _dbg("Ok\n");
   rb_print_info(&rb_data);
 
   /* Decode command (overwrite rb = FIFO) */
@@ -239,10 +248,8 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Cannot decode command\n");
     return 1;
   }
-  _dbg("- Ok\n");
+  _dbg("Ok\n");
   rb_print_info(&rb_data);
-
-
 
   /* Cya! */
   _dbg("If you are reading this, everything went correctly :_)\n");
