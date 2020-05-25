@@ -16,10 +16,16 @@
  */
 #include <stdint.h>
 #include <stdio.h>
+#include "yacup/rb.h"
+#include "yacup/rb/debug.h"
+#include "yacup/rb/driver/overwrite.h"
+#include "yacup/ce/codec.h"
+#include "yacup/ce/codec/B416K.h"
+#include "yacup/ce/debug_codec.h"
 #include "yacup/ce/command.h"
+#include "yacup/ce/command/subset_test.h"
 #include "yacup/ce/command_codec.h"
 #include "yacup/ce/command/codec/binary.h"
-
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG
@@ -50,13 +56,85 @@ int test_ce_command_codec(int argc, const char* argv[])
 
   _dbg("Hi! from "__FILE__"\n");
 
-  struct ce_command_codec command_codec0 = { 0x00 };
+  /* Define the command set this `ce` will understand how to send/receive */
+  struct ce_command_set cmd_set =
+  {
+    .name = "test_set",
+    .subset = (struct ce_command_subset *[])
+    {
+      &test_command_subset_part_A,
+      &test_command_subset_part_B,
+      NULL
+    }
+  };
 
+  /* Compose arguments */
+  struct ce_command_argument *cmd1_args[] =
+  {
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 1 },
+    NULL
+  };
+
+  /* Validate command */
+  struct ce_command *cmd_to_encode = NULL;
+  _dbg("Should validate: Valid 1 argument vs. 1 argument command\n");
+  cmd_to_encode = ce_command_validate(&cmd_set,
+                                      CE_COMMAND_SUBSET_TEST_CMD1,
+                                      cmd1_args);
+  if (cmd_to_encode == NULL)
+  {
+    /* Cannot send, error */
+    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD1\n");
+    return 1;
+  }
+
+  /* Define command codec to use */
+  struct ce_codec         ce_codec0      = { 0x00 };
+  struct ce_command_codec command_codec0 = { 0x00 };
+  _dbg("Should initialize ce_codec\n");
+  if (ce_codec_init(&ce_codec0, ce_codec_B416K))
+  {
+    _dbg("- Cannot initialize the codec. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+
+  _dbg("Should initialize command_codec\n");
   if (ce_command_codec_init(&command_codec0, ce_command_codec_binary))
   {
     _dbg("Oops! Cannot initialize the command codec\n");
     return 1;
   }
+  _dbg("- Ok\n");
+
+  /* Prepare a rb for encoding storage */
+  #define TEST_CE_COMMAND_CODEC_DATA 512
+  uint8_t buffer_data[TEST_CE_COMMAND_CODEC_DATA];
+  struct rb rb_data =
+  {
+    .buffer = buffer_data,
+    .size = TEST_CE_COMMAND_CODEC_DATA
+  };
+
+  /* Create rb_data using overwrite driver */
+  _dbg("Should initialize the 'rb_data' ring-buffer\n");
+  if (rb_init(&rb_data, rb_driver_overwrite))
+  {
+    _dbg("Cannot initialize rb_data\n");
+    return 1;
+  }
+
+  /* Encode the command */
+  _dbg("Should encode a command using '%s' command codec\n",
+       command_codec0.name);
+  if (command_codec0.encode(&ce_codec0, cmd_to_encode, cmd1_args, &rb_data))
+  {
+    _dbg("Cannot encode command\n");
+    return 1;
+  }
+
+  _dbg("Data buffer content:\n");
+  rb_print_info(&rb_data);
 
   /* Cya! */
   _dbg("If you are reading this, everything went correctly :_)\n");

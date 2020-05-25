@@ -16,7 +16,6 @@
  */
 #include <stdint.h>
 #include <stdio.h>
-#include "yacup/ce.h"
 #include "yacup/ce/command.h"
 #include "yacup/ce/command/subset_test.h"
 

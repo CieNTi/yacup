@@ -100,7 +100,13 @@ test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
 	@echo "-----"
 
 # test_ce_command_codec: Test to check `ce` commands functionality
-test_ce_command_codec_o=util/ce/command.o                    \
+test_ce_command_codec_o=util/rb/rb.o                         \
+                        util/rb/driver/overwrite.o           \
+                        util/rb/debug.o                      \
+                        util/ce/codec.o                      \
+                        util/ce/codec/B416K.o                \
+                        util/ce/command.o                    \
+                        util/ce/command/subset_test.o        \
                         util/ce/command_codec.o              \
                         util/ce/command/codec/binary.o       \
                         util/ce/test/test_ce_command_codec.o

@@ -36,6 +36,7 @@ extern "C" {
 #include <stddef.h>
 #include "yacup/rb.h"
 #include "yacup/ce/types.h"
+#include "yacup/ce/codec.h"
 #include "yacup/ce/command.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -52,6 +53,7 @@ struct ce_command_codec
   /**
    * @brief      Encodes a command as a data-block into a rb
    *
+   * @param      codec     Pointer to a `ce` codec for data encoding operations
    * @param      command   Pointer to a command to be encoded
    * @param      argument  Command arguments data to encode
    * @param      rb        Pointer to a destination data block ring-buffer
@@ -62,7 +64,8 @@ struct ce_command_codec
    *             | `== 0` | No encoded data                  |
    *             | `>  0` | Number of encoded data, in bytes |
    */
-  size_t (*encode)(struct ce_command *command,
+  size_t (*encode)(struct ce_codec *codec,
+                   struct ce_command *command,
                    struct ce_command_argument *argument[],
                    struct rb *rb_data);
 
@@ -70,6 +73,7 @@ struct ce_command_codec
    * @brief      Decodes a data-block into a validated command with arguments
    * @todo       Is this the parser to listener call?
    *
+   * @param      codec     Pointer to a `ce` codec for data decoding operations
    * @param      rb        Pointer to a destination data block ring-buffer
    * @param      command   Pointer to a command to be encoded
    * @param      argument  Command arguments data to encode
@@ -80,7 +84,8 @@ struct ce_command_codec
    *             | `== 0` | No encoded data                  |
    *             | `>  0` | Number of decoded data, in bytes |
    */
-  size_t (*decode)(struct rb *rb,
+  size_t (*decode)(struct ce_codec *codec,
+                   struct rb *rb,
                    struct ce_command *command,
                    struct ce_command_argument *argument[]);
 };

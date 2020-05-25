@@ -28,12 +28,27 @@
 /* Encodes a command as a data-block into a rb
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/ce/command_codec.h` for complete information. */
-static size_t encode_command(struct ce_command *command,
+static size_t encode_command(struct ce_codec *codec,
+                             struct ce_command *command,
                              struct ce_command_argument *argument[],
                              struct rb *rb_data)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "encode_command"
+
+  /* Encode selected variable */
+  _dbg("Encoding type %lu from address %p\n",
+       (size_t)argument[0]->type,
+       (void *)&argument[0]->data);
+  if(codec->encode.data(argument[0]->type,
+                        &argument[0]->data,
+                        codec->codec_sizeof(argument[0]->type),
+                        rb_data) == 0)
+  {
+    _dbg("- Cannot encode the data. ERROR\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
 
   /* And return with success */
   return 0;
@@ -45,7 +60,8 @@ static size_t encode_command(struct ce_command *command,
 /* Decodes a data-block into a validated command with arguments
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/ce/command_codec.h` for complete information. */
-static size_t decode_command(struct rb *rb,
+static size_t decode_command(struct ce_codec *codec,
+                             struct rb *rb,
                              struct ce_command *command,
                              struct ce_command_argument *argument[])
 {
