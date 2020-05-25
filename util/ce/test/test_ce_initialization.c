@@ -90,7 +90,7 @@ int test_ce_initialization(int argc, const char* argv[])
   }
 
   /* Set a command listener */
-  if (ce_set_command_listener(&ce0,
+  if (ce_command_set_listener(&test_command_set,
                               CE_COMMAND_SUBSET_TEST_CMD1,
                               &test_cmd1_listener))
   {
