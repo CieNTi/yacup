@@ -125,6 +125,8 @@ test_yacup_o=$(test_xyz_testname_o)        \
              $(test_rb_driver_overwrite_o) \
              $(test_fsm_driver_simple_o)   \
              $(test_ce_codec_B416K_o)      \
+             $(test_ce_command_validate_o) \
+             $(test_ce_initialization_o)   \
              src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_o))
 	@echo "-----"

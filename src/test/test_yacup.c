@@ -28,6 +28,8 @@ int test_xyz_testname(int argc, const char* argv[]);
 int test_rb_driver_overwrite(int argc, const char* argv[]);
 int test_fsm_driver_simple(int argc, const char* argv[]);
 int test_ce_codec_B416K(int argc, const char* argv[]);
+int test_ce_command_validate(int argc, const char* argv[]);
+int test_ce_initialization(int argc, const char* argv[]);
 
 /**
  * @brief      The main of the mains
@@ -59,6 +61,10 @@ int test_yacup(int argc, const char* argv[])
          test_fsm_driver_simple(argc, argv));
   printf("Result from test_ce_codec_B416K() = %i\n", 
          test_ce_codec_B416K(argc, argv));
+  printf("Result from test_ce_command_validate() = %i\n", 
+         test_ce_command_validate(argc, argv));
+  printf("Result from test_ce_initialization() = %i\n", 
+         test_ce_initialization(argc, argv));
   _dbg("Hi! from "__FILE__"\n");
   return 0;
 
