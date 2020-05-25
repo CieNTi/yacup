@@ -89,6 +89,16 @@ int test_ce_initialization(int argc, const char* argv[])
     return 1;
   }
 
+  /* Set a command listener */
+  if (ce_set_command_listener(&ce0,
+                              CE_COMMAND_SUBSET_TEST_CMD1,
+                              &test_cmd1_listener))
+  {
+    /* Cannot init, error */
+    _dbg("Error when setting listener for CE_COMMAND_SUBSET_TEST_CMD1\n");
+    return 1;
+  }
+
   /* 
    * Send a command
    */

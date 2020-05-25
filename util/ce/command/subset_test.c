@@ -26,6 +26,45 @@
 #define YCP_NAME "util/ce/command/subset_test"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Listener for test_cmd1 */
+static int test_cmd1_listener_fn(struct ce_command_argument *argument[])
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "test_cmd1_listener_fn"
+
+  /* Command is already validated, so we can trust on:
+   * - arguments type, checked by ce_command_validate()
+   * - arguments type, ensured storage as per ce_command_argument declaration
+   */
+
+  if (/* We can do some value check */
+      !(argument[0]->data.u8 < 251)        ||
+      /* And should not be another argument */
+      argument[1] != NULL)
+  {
+    _dbg("Invalid argument. Expecting (uint8_t < 251)\n");
+    return 1;
+  }
+  _dbg("Valid, ready to send\n");
+
+  /* Cya! */
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/* Listener structure (function + storage space for arguments) */
+struct ce_command_listener test_cmd1_listener =
+{
+  .listener = test_cmd1_listener_fn,
+  .argument = (struct ce_command_argument *[])
+  {
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 0 },
+    NULL
+  }
+};
+
 /* List of implemented commands for this subset */
 struct ce_command_subset test_command_subset_part_A =
 {

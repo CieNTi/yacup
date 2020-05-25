@@ -49,6 +49,19 @@ struct ce_codec
   char *name;
 
   /**
+   * @brief      Bytes the codec will use to store/retrieve a type
+   * 
+   * @param      type      One of `CE_DATA_*` data types
+   * 
+   * @return     One of:
+   *             | Value  | Meaning                               |
+   *             | :----: | :------------------------------------ |
+   *             | `== 0` | Invalid type or not supported         |
+   *             | `>  0` | Length in bytes of the requested data |
+   */
+  size_t (*codec_sizeof)(enum ce_data_type type);
+
+  /**
    * @brief      Structure that defines a `ce` codec encoder operations
    */
   struct ce_codec_encoder
@@ -57,7 +70,7 @@ struct ce_codec
      * @brief      Encodes a defined type data and pushes it into a ring-buffer
      *
      * @param      rb        Pointer to a destination ring-buffer
-     * @param      type      One of `CE_CODEC_DATA_*` data types
+     * @param      type      One of `CE_DATA_*` data types
      * @param      data      Pointer where the source data to encode is located
      * @param      num_data  Number of data entities to encode
      *
@@ -102,7 +115,7 @@ struct ce_codec
      *             saves it into a pointed variable
      *
      * @param      rb        Pointer to a source ring-buffer with encoded data
-     * @param      type      One of `CE_CODEC_DATA_*` data types
+     * @param      type      One of `CE_DATA_*` data types
      * @param      data      Pointer to a destination for decoded data
      * @param      num_data  Number of data entities to decode
      *

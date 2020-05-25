@@ -393,6 +393,7 @@ int ce_codec_B416K(struct ce_codec *codec)
 
   /* Ok assign the operations */
   codec->name           = YCP_NAME;
+  codec->codec_sizeof   = codec_sizeof;
   codec->encode.data    = encode_data;
   codec->encode.message = encode_message;
   codec->decode.data    = decode_data;

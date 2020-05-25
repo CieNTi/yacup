@@ -73,19 +73,17 @@ int ce_command_validate(struct ce_command_set *cmd_set,
             (cmd_set->subset[sx]->command[cx]->signature[ax] != CE_DATA_NULL));
            ax++)
       {
-        if (cmd_set->subset[sx]->command[cx]->signature[ax] ==
+        if (cmd_set->subset[sx]->command[cx]->signature[ax] !=
             argument[ax]->type)
         {
-          /* Argument type match */
-          continue;
-        }
-        _dbg("Argument type mismatch %lu (%u vs. %u)\n",
-             ax,
-             argument[ax]->type,
-             cmd_set->subset[sx]->command[cx]->signature[ax]);
+          _dbg("Argument type mismatch %lu (%u vs. %u)\n",
+               ax,
+               argument[ax]->type,
+               cmd_set->subset[sx]->command[cx]->signature[ax]);
 
-        /* Argument type mismatch, next command */
-        continue;
+          /* Argument type mismatch, next command */
+          break;
+        }
       }
 
       /* After the last command, both need to be NULL or one has extra arg */

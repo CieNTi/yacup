@@ -146,7 +146,7 @@ int ce_send_command(struct ce *ce,
  */
 int ce_set_command_listener(struct ce *ce,
                             size_t id,
-                            int (*listener)(struct ce_command *command));
+                            struct ce_command_listener *listener);
 
 /** @} */
 

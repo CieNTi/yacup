@@ -36,6 +36,8 @@ extern "C" {
 #define  CE_COMMAND_SUBSET_TEST_CMD3 0xF2
 #define  CE_COMMAND_SUBSET_TEST_CMD4 0xF3
 
+extern struct ce_command_listener test_cmd1_listener;
+
 extern struct ce_command_subset test_command_subset_part_A;
 extern struct ce_command_subset test_command_subset_part_B;
 extern struct ce_command_set test_command_set;

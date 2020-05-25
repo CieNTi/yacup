@@ -44,21 +44,14 @@ int ce_init(struct ce *ce,
       (rb_driver_init == NULL) ||
       /* Invalid channels init */
       ce_channel_init(&ce->out, ce_codec_driver_init, rb_driver_init) ||
-      ce_channel_init(&ce->in,  ce_codec_driver_init, rb_driver_init)
-      )
+      ce_channel_init(&ce->in,  ce_codec_driver_init, rb_driver_init) ||
+      /* And try to initialize this ce driver */
+      ce_driver_init(ce))
   {
     _dbg("Invalid ce or driver init function\n");
     return 1;
   }
       
-  /* Finally, check if driver validates it */
-  if (ce_driver_init(ce))
-  {
-    /* Fail miserably */
-    _dbg("Invalid ce after initialization\n");
-    return 1;
-  }
-
   /* Assign default name, if not previously set */
   if (ce->name == NULL)
   {
@@ -82,15 +75,17 @@ int ce_send_command(struct ce *ce,
   /* Configure _dbg() */
   #define YCP_FNAME "ce_send_command"
 
-  /* Validate command */
-  if (ce_command_validate(ce->out.command_set, id, argument))
-  {
-    /* Cannot send, error */
-    _dbg("Error when validating command\n");
-    return 1;
-  }
-
-  if (ce->driver.send_command == NULL ||
+  if (/* Invalid ce? */
+      (ce == NULL) ||
+      /* Invalid argument? */
+      (argument == NULL) ||
+      /* Invalid command set? */
+      (ce->out.command_set == NULL) ||
+      /* Invalid command */
+      ce_command_validate(ce->out.command_set, id, argument) ||
+      /* Invalid send_command() ? */
+      (ce->driver.send_command == NULL) ||
+      /* Cannot send the command ? */
       ce->driver.send_command(ce, id, argument))
   {
     /* Cannot send, error */
@@ -99,10 +94,45 @@ int ce_send_command(struct ce *ce,
   }
 
   /* Ok! */
+  _dbg("Command sent\n");
   return 0;
 
   /* Free _dbg() config */
   #undef YCP_FNAME
 }
 
+/* Set a command listener, if found in a set
+ * Read `yacup/ce.h` for complete information. */
+int ce_set_command_listener(struct ce *ce,
+                            size_t id,
+                            struct ce_command_listener *listener)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "ce_set_command_listener"
+
+  if (/* Invalid ce? */
+      (ce == NULL) ||
+      /* Invalid listener structure? */
+      (listener == NULL) ||
+      /* Invalid listener function? */
+      (listener->listener == NULL) ||
+      /* Invalid listener arguments? */
+      (listener->argument == NULL) ||
+      /* Invalid command set? */
+      (ce->in.command_set == NULL) ||
+      /* Invalid command */
+      ce_command_validate(ce->in.command_set, id, listener->argument))
+  {
+    /* Cannot send, error */
+    _dbg("Error when attaching a listener to a command\n");
+    return 1;
+  }
+
+  /* Ok! */
+  _dbg("Listener attached successfully\n");
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
 #undef YCP_NAME
