@@ -53,41 +53,39 @@ struct ce_command_codec
   /**
    * @brief      Encodes a command as a data-block into a rb
    *
-   * @param      codec     Pointer to a `ce` codec for data encoding operations
    * @param      command   Pointer to a command to be encoded
    * @param      argument  Command arguments data to encode
-   * @param      rb        Pointer to a destination data block ring-buffer
+   * @param      codec     Pointer to a `ce` codec for data encoding operations
+   * @param      rb_data   Pointer to a destination data block ring-buffer
    *
    * @return     One of:
-   *             | Value  | Meaning                          |
-   *             | :----: | :------------------------------- |
-   *             | `== 0` | No encoded data                  |
-   *             | `>  0` | Number of encoded data, in bytes |
+   *             | Value  | Meaning          |
+   *             | :----: | :--------------- |
+   *             | `== 0` | Ok               |
+   *             | `!= 0` | Error            |
    */
-  size_t (*encode)(struct ce_codec *codec,
-                   struct ce_command *command,
+  size_t (*encode)(struct ce_command *command,
                    struct ce_command_argument *argument[],
+                   struct ce_codec *codec,
                    struct rb *rb_data);
 
   /**
    * @brief      Decodes a data-block into a validated command with arguments
    * @todo       Is this the parser to listener call?
    *
+   * @param      rb_data   Pointer to a destination data block ring-buffer
    * @param      codec     Pointer to a `ce` codec for data decoding operations
-   * @param      rb        Pointer to a destination data block ring-buffer
-   * @param      command   Pointer to a command to be encoded
-   * @param      argument  Command arguments data to encode
+   * @param      cmd_set   Set of commands where to search for commands
    *
    * @return     One of:
-   *             | Value  | Meaning                          |
-   *             | :----: | :------------------------------- |
-   *             | `== 0` | No encoded data                  |
-   *             | `>  0` | Number of decoded data, in bytes |
+   *             | Value  | Meaning          |
+   *             | :----: | :--------------- |
+   *             | `== 0` | Ok               |
+   *             | `!= 0` | Error            |
    */
-  size_t (*decode)(struct ce_codec *codec,
-                   struct rb *rb,
-                   struct ce_command *command,
-                   struct ce_command_argument *argument[]);
+  size_t (*decode)(struct rb *rb_data,
+                   struct ce_codec *codec,
+                   struct ce_command_set *cmd_set);
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

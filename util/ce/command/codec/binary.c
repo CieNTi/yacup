@@ -77,13 +77,48 @@ static size_t encode_command(struct ce_command *command,
 /* Decodes a data-block into a validated command with arguments
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/ce/command_codec.h` for complete information. */
-static size_t decode_command(struct ce_codec *codec,
-                             struct rb *rb,
-                             struct ce_command *command,
-                             struct ce_command_argument *argument[])
+static size_t decode_command(struct rb *rb_data,
+                             struct ce_codec *codec,
+                             struct ce_command_set *cmd_set)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "decode_command"
+
+  size_t cmd_id = 0;
+
+  /* Header: Decode command id as uint16_t */
+  if(codec->decode.data(rb_data,
+                        CE_DATA_UINT8_T,
+                        &cmd_id,
+                        1) == 0)
+  {
+    _dbg("- Cannot decode the command id. ERROR\n");
+    return 1;
+  }
+  _dbg("- Decoded header\n");
+
+  struct ce_command *ref_cmd = ce_command_locate_by_id(cmd_set, cmd_id);
+  if (ref_cmd == NULL)
+  {
+    _dbg("Command not found\n");
+    return 1;
+  }
+
+  /* Decode arguments, following command signature */
+  size_t idx = 0;
+  for (idx = 0; ref_cmd->signature[idx] != CE_DATA_NULL; idx++)
+  {
+    /* Encode argument */
+    if(codec->decode.data(rb_data,
+                          ref_cmd->signature[idx],
+                          &cmd_id,
+                          1) == 0)
+    {
+      _dbg("- Cannot encode the data at index %lu. ERROR\n", idx);
+      return 1;
+    }
+    _dbg("- Decoded (as size_t): %lu\n", cmd_id);
+  }
 
   /* And return with success */
   return 0;
@@ -91,7 +126,6 @@ static size_t decode_command(struct ce_codec *codec,
   /* Free _dbg() config */
   #undef YCP_FNAME
 }
-
 
 /* Initialize a `binary` type comm-protocol codec.
  * Read `yacup/ce/command_codec.h` for complete information. */

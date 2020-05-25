@@ -206,8 +206,43 @@ int test_ce_command_codec(int argc, const char* argv[])
     return 1;
   }
   _dbg("- Ok\n");
-  _dbg("Data buffer content:\n");
   rb_print_info(&rb_data);
+
+
+  /* Decode command (overwrite rb = FIFO) */
+  _dbg("Should decode a command using '%s' command codec\n",
+       command_codec0.name);
+  if (command_codec0.decode(&rb_data, &ce_codec0, &cmd_set))
+  {
+    _dbg("Cannot decode command\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+  rb_print_info(&rb_data);
+
+  /* Decode command (overwrite rb = FIFO) */
+  _dbg("Should decode a command using '%s' command codec\n",
+       command_codec0.name);
+  if (command_codec0.decode(&rb_data, &ce_codec0, &cmd_set))
+  {
+    _dbg("Cannot decode command\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+  rb_print_info(&rb_data);
+
+  /* Decode command (overwrite rb = FIFO) */
+  _dbg("Should decode a command using '%s' command codec\n",
+       command_codec0.name);
+  if (command_codec0.decode(&rb_data, &ce_codec0, &cmd_set))
+  {
+    _dbg("Cannot decode command\n");
+    return 1;
+  }
+  _dbg("- Ok\n");
+  rb_print_info(&rb_data);
+
+
 
   /* Cya! */
   _dbg("If you are reading this, everything went correctly :_)\n");
