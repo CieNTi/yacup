@@ -101,7 +101,8 @@ test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
 
 # test_ce_command_codec: Test to check `ce` commands functionality
 test_ce_command_codec_o=util/ce/command.o                    \
-                        util/ce/command/subset_test.o        \
+                        util/ce/command_codec.o              \
+                        util/ce/command/codec/binary.o       \
                         util/ce/test/test_ce_command_codec.o
 test_ce_command_codec: $(addprefix $(ODIR)/, $(test_ce_command_codec_o))
 	@echo "-----"

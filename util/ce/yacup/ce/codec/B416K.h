@@ -45,8 +45,10 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Low-level initializer function for `B416K` type `ce` codec
+ * @brief      Codec initializer function for `B416K` type `ce` codec
  * @details    Binary 4-byte + CRC-16/Kermit codec
+ *
+ * @param      codec  Pointer to a codec to initialize
  *
  * @return     One of:
  *             | Value  | Meaning          |

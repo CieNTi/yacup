@@ -38,7 +38,7 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Low-level initializer function for `overwrite` RB driver
+ * @brief      Driver initializer function for `overwrite` RB driver
  * @details    Lowest level checks, variables and operations assignment to `rb`
  * 
  * This set of operations belongs to a first driver implementation, where a

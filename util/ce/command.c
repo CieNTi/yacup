@@ -26,9 +26,9 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Validates a `ce_command`
  * Read `yacup/ce/command.h` for complete information. */
-struct ce_command * ce_command_validate(struct ce_command_set *cmd_set,
-                                      size_t id,
-                                      struct ce_command_argument *argument[])
+struct ce_command *ce_command_validate(struct ce_command_set *cmd_set,
+                                       size_t id,
+                                       struct ce_command_argument *argument[])
 {
   /* Configure _dbg() */
   #define YCP_FNAME "ce_command_validate"

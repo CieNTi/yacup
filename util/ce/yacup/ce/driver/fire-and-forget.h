@@ -54,7 +54,7 @@ struct ce_chat_faf_data
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Low-level initializer function for `ce_chat_faf` type chat FSM
+ * @brief      Driver initializer function for `ce_chat_faf` type chat FSM
  * @details    This chat FSM will control input and output operations on a fire
  *             and forget type protocol, where the data is sent without any
  *             confirmation expectation or timeout, and when data is received

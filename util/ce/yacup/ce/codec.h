@@ -160,13 +160,13 @@ struct ce_codec
  *             decoding functions are really assigned.
  *
  * @param      codec                 Pointer to a codec to initialize
- * @param[in]  ce_codec_driver_init  The ce codec driver initializer function
+ * @param      ce_codec_driver_init  The ce codec driver initializer function
  *
  * @return     One of:
- *             | Value         | Meaning          |
- *             | :-----------: | :--------------- |
- *             | `struct ce *` | Ok               |
- *             | `NULL`        | Error            |
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Error            |
  */
 int ce_codec_init(struct ce_codec *codec,
                   int (*ce_codec_driver_init)(struct ce_codec *));

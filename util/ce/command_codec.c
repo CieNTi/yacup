@@ -1,4 +1,4 @@
-/* test_ce_command_codec.c - Validates a command codec
+/* command_codec.c - Command engine command codec API for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -15,51 +15,51 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
-#include <stdio.h>
-#include "yacup/ce/command.h"
+#include <stdlib.h>
 #include "yacup/ce/command_codec.h"
-#include "yacup/ce/command/codec/binary.h"
-
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#define YCP_FORCE_DEBUG
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/ce/test/test_ce_command_codec"
+#define YCP_NAME "util/ce/codec"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/**
- * @brief      Test to check `ce` functionality using a single ce
- *
- * @param[in]  argc  The count of arguments
- * @param      argv  The arguments array
- *
- * @return     One of:
- *             | Value  | Meaning          |
- *             | :----: | :--------------- |
- *             | `== 0` | Ok               |
- *             | `!= 0` | Error            |
- *
- * @ingroup    util_test
- * @version    v1.0.0
- */
-int test_ce_command_codec(int argc, const char* argv[])
+/* Initializes a `ce_command_codec`
+ * Read `yacup/ce/codec.h` for complete information. */
+int ce_command_codec_init(struct ce_command_codec *codec,
+               int (*ce_command_codec_driver_init)(struct ce_command_codec *))
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "test_ce_command_codec"
+  #define YCP_FNAME "ce_command_codec_init"
 
-  _dbg("Hi! from "__FILE__"\n");
-
-  struct ce_command_codec command_codec0 = { 0x00 };
-
-  if (ce_command_codec_init(&command_codec0, ce_command_codec_binary))
+  if (/* Invalid codec? */
+      (codec == NULL) ||
+      /* Invalid driver init? */
+      (ce_command_codec_driver_init == NULL))
   {
-    _dbg("Oops! Cannot initialize the command codec\n");
+    _dbg("Invalid codec or driver init function\n");
     return 1;
   }
 
-  /* Cya! */
-  _dbg("If you are reading this, everything went correctly :_)\n");
+  /* Presets */
+  codec->encode = NULL;
+  codec->decode = NULL;
+
+  /* Now call the driver init function, and go */
+  if (ce_command_codec_driver_init(codec))
+  {
+    _dbg("Failed channel initialization\n");
+    return 1;
+  }
+
+  /* Assign default name, if not previously set */
+  if (codec->name == NULL)
+  {
+    codec->name = YCP_NAME;
+  }
+
+  /* Ok! */
+  _dbg("Codec '%s' initialized successfully\n", codec->name);
   return 0;
 
   /* Free _dbg() config */
@@ -67,4 +67,3 @@ int test_ce_command_codec(int argc, const char* argv[])
 }
 
 #undef YCP_NAME
-#undef YCP_FORCE_DEBUG

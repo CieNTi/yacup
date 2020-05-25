@@ -161,14 +161,14 @@ struct ce_command_set
  * @param      argument  Arguments to check against command signature
  *
  * @return     One of:
- *             | Value  | Meaning          |
- *             | :----: | :--------------- |
- *             | `== 0` | Ok               |
- *             | `!= 0` | Warning          |
+ *             | Value     | Meaning                  |
+ *             | :-------: | :----------------------- |
+ *             | `== NULL` | Command not valid        |
+ *             | `!= NULL` | Pointer to valid command |
  */
-struct ce_command * ce_command_validate(struct ce_command_set *cmd_set,
-                                      size_t id,
-                                      struct ce_command_argument *argument[]);
+struct ce_command *ce_command_validate(struct ce_command_set *cmd_set,
+                                       size_t id,
+                                       struct ce_command_argument *argument[]);
 
 /** @} */
 
