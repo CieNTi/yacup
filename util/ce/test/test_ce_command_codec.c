@@ -123,6 +123,7 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Cannot initialize rb_data\n");
     return 1;
   }
+  _dbg("- Ok\n");
 
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
@@ -132,6 +133,7 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Cannot encode command\n");
     return 1;
   }
+  _dbg("- Ok\n");
 
   _dbg("Data buffer content:\n");
   rb_print_info(&rb_data);

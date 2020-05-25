@@ -36,19 +36,30 @@ static size_t encode_command(struct ce_codec *codec,
   /* Configure _dbg() */
   #define YCP_FNAME "encode_command"
 
-  /* Encode selected variable */
-  _dbg("Encoding type %lu from address %p\n",
-       (size_t)argument[0]->type,
-       (void *)&argument[0]->data);
-  if(codec->encode.data(argument[0]->type,
-                        &argument[0]->data,
-                        codec->codec_sizeof(argument[0]->type),
+  /* Header: Encode command id as uint16_t */
+  if(codec->encode.data(CE_DATA_UINT32_T,
+                        &command->id,
+                        1,
                         rb_data) == 0)
   {
-    _dbg("- Cannot encode the data. ERROR\n");
+    _dbg("- Cannot encode the command id. ERROR\n");
     return 1;
   }
-  _dbg("- Ok\n");
+
+  /* Encode all passed arguments (pre-validated) */
+  size_t idx = 0;
+  for (idx = 0; argument[idx] != NULL; idx++)
+  {
+    /* Encode argument */
+    if(codec->encode.data(argument[idx]->type,
+                          &argument[idx]->data,
+                          1,
+                          rb_data) == 0)
+    {
+      _dbg("- Cannot encode the data at index %lu. ERROR\n", idx);
+      return 1;
+    }
+  }
 
   /* And return with success */
   return 0;

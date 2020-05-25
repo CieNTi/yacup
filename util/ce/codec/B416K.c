@@ -160,7 +160,7 @@ static size_t encode_data(enum ce_data_type type,
   uint8_t *data_pt = NULL;
 
   /* TBD / TODO: Can be a codec configuration */
-  uint8_t big_endian = 1;
+  uint8_t big_endian = 0;
 
   len_bytes = codec_sizeof(type);
   for (idx_data = 0; idx_data < num_data; idx_data++)
@@ -170,15 +170,23 @@ static size_t encode_data(enum ce_data_type type,
       /* Select endianess */
       if (big_endian)
       {
-        data_pt = (uint8_t *)data + (idx_data * len_bytes) + idx_byte;
-        if (rb_push(rb, *data_pt))
-        {
-          /* We expected that bytes to be here, should be error or warning? */
-          _dbg("WARNING [Cannot push (data %lu, byte %lu). No space?]\n",
-               idx_data,
-               idx_byte);
-          return idx_data;
-        }
+        data_pt = (uint8_t *)data +
+                  (idx_data * len_bytes) +
+                  idx_byte;
+      }
+      else
+      {
+        data_pt = (uint8_t *)data +
+                  (idx_data * len_bytes) +
+                  (len_bytes - (idx_byte + 1));
+      }
+      if (rb_push(rb, *data_pt))
+      {
+        /* We expected that bytes to be here, should be error or warning? */
+        _dbg("WARNING [Cannot push (data %lu, byte %lu). No space?]\n",
+             idx_data,
+             idx_byte);
+        return idx_data;
       }
     }
   }
@@ -206,7 +214,7 @@ static size_t decode_data(struct rb *rb,
   uint8_t *data_pt = NULL;
 
   /* TBD / TODO: Can be a codec configuration */
-  uint8_t big_endian = 1;
+  uint8_t big_endian = 0;
 
   len_bytes = codec_sizeof(type);
   for (idx_data = 0; idx_data < num_data; idx_data++)
@@ -216,15 +224,23 @@ static size_t decode_data(struct rb *rb,
       /* Select endianess */
       if (big_endian)
       {
-        data_pt = (uint8_t *)data + (idx_data * len_bytes) + idx_byte;
-        if (rb_pull(rb, data_pt))
-        {
-          /* We expected that bytes to be here, should be error or warning? */
-          _dbg("WARNING [Cannot pull (data %lu, byte %lu). No space?]\n",
-               idx_data,
-               idx_byte);
-          return idx_data;
-        }
+        data_pt = (uint8_t *)data +
+                  (idx_data * len_bytes) +
+                  idx_byte;
+      }
+      else
+      {
+        data_pt = (uint8_t *)data +
+                  (idx_data * len_bytes) +
+                  (len_bytes - (idx_byte + 1));
+      }
+      if (rb_pull(rb, data_pt))
+      {
+        /* We expected that bytes to be here, should be error or warning? */
+        _dbg("WARNING [Cannot pull (data %lu, byte %lu). No space?]\n",
+             idx_data,
+             idx_byte);
+        return idx_data;
       }
     }
   }

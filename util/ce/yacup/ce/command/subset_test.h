@@ -31,7 +31,7 @@ extern "C" {
 #include "yacup/ce/command.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#define  CE_COMMAND_SUBSET_TEST_CMD1 0xF0
+#define  CE_COMMAND_SUBSET_TEST_CMD1 0xDEADBEEF
 #define  CE_COMMAND_SUBSET_TEST_CMD2 0xF1
 #define  CE_COMMAND_SUBSET_TEST_CMD3 0xF2
 #define  CE_COMMAND_SUBSET_TEST_CMD4 0xF3
