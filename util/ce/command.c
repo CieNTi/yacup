@@ -26,9 +26,9 @@
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Validates a `ce_command`
  * Read `yacup/ce/command.h` for complete information. */
-int ce_command_validate(struct ce_command_set *cmd_set,
-                        size_t id,
-                        struct ce_command_argument *argument[])
+struct ce_command * ce_command_validate(struct ce_command_set *cmd_set,
+                                      size_t id,
+                                      struct ce_command_argument *argument[])
 {
   /* Configure _dbg() */
   #define YCP_FNAME "ce_command_validate"
@@ -83,7 +83,7 @@ int ce_command_validate(struct ce_command_set *cmd_set,
              cmd_set->subset[sx]->command[cx]->name,
              sx,
              cx);
-        return 0;
+        return cmd_set->subset[sx]->command[cx];
       }
 
       /* Check if command signature is valid */
@@ -123,12 +123,12 @@ int ce_command_validate(struct ce_command_set *cmd_set,
            cmd_set->subset[sx]->command[cx]->name,
            sx,
            cx);
-      return 0;
+      return cmd_set->subset[sx]->command[cx];
     }
   }
 
   _dbg("Command not found\n");
-  return 1;
+  return NULL;
 
   /* Free _dbg() config */
   #undef YCP_FNAME

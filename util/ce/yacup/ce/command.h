@@ -166,9 +166,9 @@ struct ce_command_set
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  */
-int ce_command_validate(struct ce_command_set *cmd_set,
-                        size_t id,
-                        struct ce_command_argument *argument[]);
+struct ce_command * ce_command_validate(struct ce_command_set *cmd_set,
+                                      size_t id,
+                                      struct ce_command_argument *argument[]);
 
 /** @} */
 

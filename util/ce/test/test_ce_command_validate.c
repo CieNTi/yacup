@@ -70,7 +70,9 @@ int test_ce_command_validate(int argc, const char* argv[])
 
   /* Validate command */
   _dbg("Should validate: Valid 1 argument vs. 1 argument command\n");
-  if (ce_command_validate(&cmd_set, CE_COMMAND_SUBSET_TEST_CMD1, cmd1_args))
+  if (ce_command_validate(&cmd_set,
+                          CE_COMMAND_SUBSET_TEST_CMD1,
+                          cmd1_args) == NULL)
   {
     /* Cannot send, error */
     _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD1\n");
@@ -87,7 +89,9 @@ int test_ce_command_validate(int argc, const char* argv[])
 
   /* Validate command */
   _dbg("Should validate: Valid 2 arguments vs. 2 arguments command\n");
-  if (ce_command_validate(&cmd_set, CE_COMMAND_SUBSET_TEST_CMD4, cmd2_args))
+  if (ce_command_validate(&cmd_set,
+                          CE_COMMAND_SUBSET_TEST_CMD4,
+                          cmd2_args) == NULL)
   {
     /* Cannot validate, error */
     _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD2\n");
@@ -96,7 +100,9 @@ int test_ce_command_validate(int argc, const char* argv[])
 
   /* Test invalid command */
   _dbg("Should not validate: Not supported/invalid command\n");
-  if (!ce_command_validate(&cmd_set, 1000, cmd2_args))
+  if (ce_command_validate(&cmd_set,
+                          1000,
+                          cmd2_args) != NULL)
   {
     /* Validated, error */
     _dbg("Invalid command marked as valid! ERROR!\n");
@@ -105,7 +111,9 @@ int test_ce_command_validate(int argc, const char* argv[])
 
   /* Test invalid arguments: 1 arg validated against 2 args command */
   _dbg("Should not validate: Invalid 1 argument vs. 2 arguments command\n");
-  if (!ce_command_validate(&cmd_set, CE_COMMAND_SUBSET_TEST_CMD4, cmd1_args))
+  if (ce_command_validate(&cmd_set,
+                          CE_COMMAND_SUBSET_TEST_CMD4,
+                          cmd1_args) != NULL)
   {
     /* Validated, error */
     _dbg("Invalid arguments marked as valid! ERROR!\n");
@@ -114,7 +122,9 @@ int test_ce_command_validate(int argc, const char* argv[])
 
   /* Test invalid arguments: 2 args validated against 1 arg command */
   _dbg("Should not validate: Invalid 2 arguments vs. 1 argument command\n");
-  if (!ce_command_validate(&cmd_set, CE_COMMAND_SUBSET_TEST_CMD3, cmd2_args))
+  if (ce_command_validate(&cmd_set,
+                          CE_COMMAND_SUBSET_TEST_CMD3,
+                          cmd2_args) != NULL)
   {
     /* Validated, error */
     _dbg("Invalid arguments marked as valid! ERROR!\n");

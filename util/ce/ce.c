@@ -80,7 +80,7 @@ int ce_send_command(struct ce *ce,
       /* Invalid command set? */
       (ce->out.command_set == NULL) ||
       /* Invalid command */
-      ce_command_validate(ce->out.command_set, id, argument) ||
+      (ce_command_validate(ce->out.command_set, id, argument) == NULL) ||
       /* Invalid send_command() ? */
       (ce->driver.send_command == NULL) ||
       /* Cannot send the command ? */
@@ -117,7 +117,7 @@ int ce_set_command_listener(struct ce *ce,
       /* Invalid command set? */
       (ce->in.command_set == NULL) ||
       /* Invalid command */
-      ce_command_validate(ce->in.command_set, id, listener->argument))
+      (ce_command_validate(ce->in.command_set, id, listener->argument) == NULL))
   {
     /* Cannot send, error */
     _dbg("Error when attaching a listener to a command\n");

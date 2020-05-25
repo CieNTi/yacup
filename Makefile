@@ -77,7 +77,7 @@ test_fsm_driver_simple: $(addprefix $(ODIR)/, $(test_fsm_driver_simple_o))
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
-# test_ce_codec_B416K: Test to check `ce` B416K protocol functionality
+# test_ce_codec_B416K: Test to check `ce` B416K codec functionality
 test_ce_codec_B416K_o=util/rb/rb.o                       \
                       util/rb/driver/overwrite.o         \
                       util/rb/debug.o                    \

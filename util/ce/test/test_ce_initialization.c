@@ -94,7 +94,7 @@ int test_ce_initialization(int argc, const char* argv[])
                               CE_COMMAND_SUBSET_TEST_CMD1,
                               &test_cmd1_listener))
   {
-    /* Cannot init, error */
+    /* Cannot set it, error */
     _dbg("Error when setting listener for CE_COMMAND_SUBSET_TEST_CMD1\n");
     return 1;
   }
