@@ -99,8 +99,8 @@ test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
-# test_ce_command_codec: Test to check `ce` commands functionality
-test_ce_command_codec_o=util/rb/rb.o                         \
+# test_ce_command_codec_binary: Test to check `ce` commands functionality
+test_ce_command_codec_binary_o=util/rb/rb.o                         \
                         util/rb/driver/overwrite.o           \
                         util/rb/debug.o                      \
                         util/ce/codec.o                      \
@@ -109,8 +109,9 @@ test_ce_command_codec_o=util/rb/rb.o                         \
                         util/ce/command/subset_test.o        \
                         util/ce/command_codec.o              \
                         util/ce/command/codec/binary.o       \
-                        util/ce/test/test_ce_command_codec.o
-test_ce_command_codec: $(addprefix $(ODIR)/, $(test_ce_command_codec_o))
+                        util/ce/test/test_ce_command_codec_binary.o
+test_ce_command_codec_binary: $(addprefix $(ODIR)/, \
+																						 $(test_ce_command_codec_binary_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
@@ -142,7 +143,7 @@ test_yacup_o=$(test_xyz_testname_o)        \
              $(test_fsm_driver_simple_o)   \
              $(test_ce_codec_B416K_o)      \
              $(test_ce_command_validate_o) \
-             $(test_ce_command_codec_o)    \
+             $(test_ce_command_codec_binary_o)    \
              $(test_ce_initialization_o)   \
              src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_o))
@@ -200,7 +201,7 @@ all: clean debug prepare test_yacup               \
                          test_fsm_driver_simple   \
                          test_ce_codec_B416K      \
                          test_ce_command_validate \
-                         test_ce_command_codec    \
+                         test_ce_command_codec_binary    \
                          test_ce_initialization
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
@@ -249,7 +250,7 @@ clean:
 .PHONY: help
 help:
 	@echo "Usage:"
-	@echo "  make target"
+	@echo "  make <target>"
 	@echo ""
 	@echo "Available targets related to common tasks:"
 	@echo "  default ..: Executed if 'make' without target. Default: all"
@@ -260,17 +261,31 @@ help:
 	@echo "  help .....: Print this information"
 	@echo ""
 	@echo "Available targets related to utilities tests:"
-	@echo "  test_xyz_testname .........: Example 'xyz' template functionality"
-	@echo "  test_rb_driver_overwrite ..: 'rb' module 'overwrite' driver"
-	@echo "  test_fsm_driver_simple ....: 'fsm' module 'simple' driver"
-	@echo "  test_ce_codec_B416K .......: 'ce_codec' module 'B416K' driver"
-	@echo "  test_ce_command_validate ..: 'ce_command' validation functionality"
-	@echo "  test_ce_command_codec .....: 'ce_command_codec' validations"
-	@echo "  test_ce_initialization ....: 'ce' basic usage tests (devel mostly)"
+	@echo "  - test_xyz_testname"
+	@echo "    'xyz' template tests as a guideline for development purposes"
+	@echo ""
+	@echo "  - test_rb_driver_overwrite"
+	@echo "    'rb' module tests on 'overwrite' driver implementation"
+	@echo ""
+	@echo "  - test_fsm_driver_simple"
+	@echo "    'fsm' module tests on 'simple' driver implementation"
+	@echo ""
+	@echo "  - test_ce_codec_B416K"
+	@echo "    'ce_codec' module tests, 'B416K' codec implementation"
+	@echo ""
+	@echo "  - test_ce_command_validate"
+	@echo "    'ce_command' validation flows tests and checks"
+	@echo ""
+	@echo "  - test_ce_command_codec_binary"
+	@echo "    'ce_command_codec' tests using 'binary' codec implementation"
+	@echo ""
+	@echo "  - test_ce_initialization"
+	@echo "    'ce' basic initialize and usage tests (devel mostly)"
+	@echo ""
 	@echo ""
 	@echo "Available targets related to application tests:"
-	@echo "  test_yacup ..: Example application test that runs all other utils"
-	@echo "                 tests in a row"
+	@echo "  - test_yacup"
+	@echo "    Example application test that runs all other utils tests in a row"
 	@echo ""
 	@echo "Example:"
 	@echo "  - Prepare a clean environment, enable debug and print a brief"

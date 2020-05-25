@@ -1,4 +1,4 @@
-/* test_ce_command_codec.c - Validates a command codec
+/* test_ce_command_codec_binary.c - Validates a command codec
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@
 #define YCP_FORCE_DEBUG
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/ce/test/test_ce_command_codec"
+#define YCP_NAME "util/ce/test/test_ce_command_codec_binary"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -49,10 +49,10 @@
  * @ingroup    util_test
  * @version    v1.0.0
  */
-int test_ce_command_codec(int argc, const char* argv[])
+int test_ce_command_codec_binary(int argc, const char* argv[])
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "test_ce_command_codec"
+  #define YCP_FNAME "test_ce_command_codec_binary"
 
   _dbg("Hi! from "__FILE__"\n");
 
@@ -89,12 +89,12 @@ int test_ce_command_codec(int argc, const char* argv[])
   _dbg("Ok\n");
 
   /* Prepare a rb for encoding storage */
-  #define TEST_CE_COMMAND_CODEC_DATA 512
-  uint8_t buffer_data[TEST_CE_COMMAND_CODEC_DATA];
+  #define TEST_CE_COMMAND_CODEC_BINARY_DATA 512
+  uint8_t buffer_data[TEST_CE_COMMAND_CODEC_BINARY_DATA];
   struct rb rb_data =
   {
     .buffer = buffer_data,
-    .size = TEST_CE_COMMAND_CODEC_DATA
+    .size = TEST_CE_COMMAND_CODEC_BINARY_DATA
   };
 
   /* Create rb_data using overwrite driver */
