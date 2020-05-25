@@ -84,20 +84,19 @@ static size_t decode_command(struct rb *rb_data,
   /* Configure _dbg() */
   #define YCP_FNAME "decode_command"
 
-  size_t cmd_id = 0;
+  size_t aux_var = 0;
 
   /* Header: Decode command id as uint16_t */
   if(codec->decode.data(rb_data,
                         CE_DATA_UINT8_T,
-                        &cmd_id,
+                        &aux_var,
                         1) == 0)
   {
     _dbg("Cannot decode the command id. ERROR\n");
     return 1;
   }
-  _dbg("Decoded header\n");
 
-  struct ce_command *ref_cmd = ce_command_locate_by_id(cmd_set, cmd_id);
+  struct ce_command *ref_cmd = ce_command_locate_by_id(cmd_set, aux_var);
   if (ref_cmd == NULL)
   {
     _dbg("Command not found\n");
@@ -106,23 +105,20 @@ static size_t decode_command(struct rb *rb_data,
 
   /* Decode arguments, following command signature */
   size_t idx = 0;
-  void *data_holder = NULL;
+  void *data_holder = &aux_var;
 
-  /* Define data holder (save or destroy) */
-  if ((ref_cmd->listener == NULL) ||
-      (ref_cmd->listener->argument == NULL) ||
-      (ref_cmd->signature[idx] != ref_cmd->listener->argument[idx]->type))
-  {
-    data_holder = &cmd_id;
-  }
-  else
-  {
-    data_holder = &ref_cmd->listener->argument[idx]->data;
-  }
-
-  /* Decode arguments */
+  /* Decode arguments (mandatory, with or without listener) */
   for (idx = 0; ref_cmd->signature[idx] != CE_DATA_NULL; idx++)
   {
+    /* Define data holder (save or destroy) */
+    if ((ref_cmd->listener != NULL) &&
+        (ref_cmd->listener->argument != NULL) &&
+        (ref_cmd->signature[idx] == ref_cmd->listener->argument[idx]->type))
+    {
+      _dbg("Assigned &ref_cmd\n");
+      data_holder = &ref_cmd->listener->argument[idx]->data;
+    }
+
     if(codec->decode.data(rb_data,
                           ref_cmd->signature[idx],
                           data_holder,
@@ -131,12 +127,11 @@ static size_t decode_command(struct rb *rb_data,
       _dbg("Cannot encode the data at index %lu. ERROR\n", idx);
       return 1;
     }
-    _dbg("Decoded (as size_t): %lu\n", cmd_id);
+    _dbg("Decoded (as hexed size_t): 0x%02lX\n", *(size_t *)data_holder);
   }
-  _dbg("Command decoding has finished\n");
 
-  /* Not cmd_id? Then we have a listener ready to be called! */
-  if (data_holder != &cmd_id)
+  /* Not aux_var? Then we have a listener ready to be called! */
+  if (data_holder != &aux_var)
   {
     ref_cmd->listener->listener(ref_cmd->listener->argument);
   }

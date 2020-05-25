@@ -82,8 +82,8 @@ static void test_cmd2_listener_fn(struct ce_command_argument *argument[])
     _dbg("Invalid argument. Expecting (uint8_t < 251)\n");
     return;
   }
-  _dbg("Valid uint8_t = %u\n",
-       argument[0]->data.u8);
+  _dbg("Valid uint8_t = %u 0x%02X\n",
+       argument[0]->data.u8, argument[0]->data.u8);
   _dbg("Valid double  = %f, do some action here now :D\n",
        argument[1]->data.d);
 
