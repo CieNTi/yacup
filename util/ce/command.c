@@ -24,6 +24,58 @@
 #define YCP_NAME "util/ce/command"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Locate a command in a set by its unique identifier
+ * Read `yacup/ce/command.h` for complete information. */
+struct ce_command *ce_command_locate_by_id(struct ce_command_set *cmd_set,
+                                           size_t id)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "ce_command_locate_by_id"
+
+  /* subset index */
+  size_t sx = 0;
+  /* command index */
+  size_t cx = 0;
+
+  _dbg("Locating command 0x%02lX on set '%s' (%p)\n",
+       id,
+       cmd_set->name,
+       (void *)cmd_set);
+
+  /* Iterate through subsets */
+  for (sx = 0; cmd_set->subset[sx] != NULL; sx++)
+  {
+    _dbg("Subset %lu: '%s' (%p)\n",
+         sx,
+         cmd_set->subset[sx]->name,
+         (void *)cmd_set->subset[sx]);
+
+    /* Check if command is implemented */
+    for (cx = 0;
+         cmd_set->subset[sx]->command[cx] != NULL;
+         cx++)
+    {
+      /* id found? */
+      if (cmd_set->subset[sx]->command[cx]->id != id)
+      {
+        /* No, next */
+        continue;
+      }
+      _dbg("Command '%s' (subset %lu, id %lu) found\n",
+           cmd_set->subset[sx]->command[cx]->name,
+           sx,
+           cx);
+      return cmd_set->subset[sx]->command[cx];
+    }
+  }
+
+  _dbg("Command not found\n");
+  return NULL;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
 /* Validates a `ce_command`
  * Read `yacup/ce/command.h` for complete information. */
 struct ce_command *ce_command_validate(struct ce_command_set *cmd_set,

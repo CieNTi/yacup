@@ -154,9 +154,23 @@ struct ce_command_set
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
+ * @brief      Locate a command in a set by its unique identifier
+ *
+ * @param      cmd_set   Set of commands where to search for commands
+ * @param      id        Unique command identifier of the command to validate
+ *
+ * @return     One of:
+ *             | Value     | Meaning                  |
+ *             | :-------: | :----------------------- |
+ *             | `== NULL` | Command not valid        |
+ *             | `!= NULL` | Pointer to valid command |
+ */
+struct ce_command *ce_command_locate_by_id(struct ce_command_set *cmd_set,
+                                           size_t id);
+/**
  * @brief      Checks if passed command is found on set and has valid arguments
  *
- * @param      cmd_set   Set of commands where to search
+ * @param      cmd_set   Set of commands where to search for commands
  * @param      id        Unique command identifier of the command to validate
  * @param      argument  Arguments to check against command signature
  *
