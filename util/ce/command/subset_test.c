@@ -64,6 +64,49 @@ struct ce_command_listener test_cmd1_listener =
   }
 };
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Listener for test_cmd1 */
+static void test_cmd2_listener_fn(struct ce_command_argument *argument[])
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "test_cmd2_listener_fn"
+
+  /* Command is already validated, so we can trust on:
+   * - arguments type, checked by ce_command_validate()
+   * - arguments type, ensured storage as per ce_command_argument declaration
+   */
+
+  /* We can do some value check */
+  if (!(argument[0]->data.u8 < 251))
+  {
+    _dbg("Invalid argument. Expecting (uint8_t < 251)\n");
+    return;
+  }
+  _dbg("Valid uint8_t = %u\n",
+       argument[0]->data.u8);
+  _dbg("Valid double  = %f, do some action here now :D\n",
+       argument[1]->data.d);
+
+  /* Cya! */
+  return;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/* Listener structure (function + storage space for arguments) */
+struct ce_command_listener test_cmd2_listener =
+{
+  .listener = test_cmd2_listener_fn,
+  .argument = (struct ce_command_argument *[])
+  {
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 0   },
+    &(struct ce_command_argument) { .type = CE_DATA_DOUBLE,  .data.d  = 0.0 },
+    NULL
+  }
+};
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* List of implemented commands for this subset */
 struct ce_command_subset test_command_subset_part_A =
 {

@@ -129,6 +129,7 @@ int test_ce_command_codec(int argc, const char* argv[])
     _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD5\n");
     return 1;
   }
+  _dbg("Ok\n");
 
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
@@ -208,13 +209,23 @@ int test_ce_command_codec(int argc, const char* argv[])
   _dbg("Ok\n");
   rb_print_info(&rb_data);
 
-  /* Set a command listener, so at least a command will answer the phone */
+  /* Set a command listener */
   if (ce_command_set_listener(&cmd_set,
                               CE_COMMAND_SUBSET_TEST_CMD1,
                               &test_cmd1_listener))
   {
     /* Cannot set it, error */
     _dbg("Error when setting listener for CE_COMMAND_SUBSET_TEST_CMD1\n");
+    return 1;
+  }
+
+  /* Set a command listener */
+  if (ce_command_set_listener(&cmd_set,
+                              CE_COMMAND_SUBSET_TEST_CMD2,
+                              &test_cmd2_listener))
+  {
+    /* Cannot set it, error */
+    _dbg("Error when setting listener for CE_COMMAND_SUBSET_TEST_CMD2\n");
     return 1;
   }
 
