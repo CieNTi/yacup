@@ -23,9 +23,6 @@
 #include "yacup/ce/codec/B416K.h"
 #include "yacup/ce/debug_codec.h"
 
-/* This include acts like an external application include, located elsewhere */
-//#include "ce_external.h"
-
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG
 #include "yacup/debug.h"

@@ -246,6 +246,110 @@ static size_t decode_data(struct rb *rb,
   #undef YCP_FNAME
 }
 
+/* Encodes a command as a data-block into a rb
+ * WARNING: Assumes pre-validation. Not safe as direct call!
+ * Read `yacup/ce/codec.h` for complete information. */
+static size_t encode_command(struct ce_command *command,
+                             struct ce_command_argument *argument[],
+                             struct rb *rb_data)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "encode_command"
+
+  /* Header: Encode command id as uint16_t */
+  if(encode_data(CE_DATA_UINT8_T, &command->id, 1, rb_data) == 0)
+  {
+    _dbg("Cannot encode the command id. ERROR\n");
+    return 1;
+  }
+
+  if (argument == NULL)
+  {
+    /* No arguments, stop here with success */
+    return 0;
+  }
+
+  /* Encode all passed arguments (pre-validated) */
+  size_t idx = 0;
+  for (idx = 0; argument[idx] != NULL; idx++)
+  {
+    /* Encode argument */
+    if(encode_data(argument[idx]->type, &argument[idx]->data, 1, rb_data) == 0)
+    {
+      _dbg("Cannot encode the data at index %lu. ERROR\n", idx);
+      return 1;
+    }
+    _dbg("Encoded argument: 0x%02lX\n", *(size_t *)&argument[idx]->data);
+  }
+
+  /* And return with success */
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/* Decodes a data-block into a validated command with arguments
+ * WARNING: Assumes pre-validation. Not safe as direct call!
+ * Read `yacup/ce/codec.h` for complete information. */
+static size_t decode_command(struct rb *rb_data,
+                             struct ce_command_set *cmd_set)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "decode_command"
+
+  size_t aux_var = 0;
+
+  /* Header: Decode command id as uint16_t */
+  if(decode_data(rb_data, CE_DATA_UINT8_T, &aux_var, 1) == 0)
+  {
+    _dbg("Cannot decode the command id. ERROR\n");
+    return 1;
+  }
+
+  struct ce_command *ref_cmd = ce_command_locate_by_id(cmd_set, aux_var);
+  if (ref_cmd == NULL)
+  {
+    _dbg("Command not found\n");
+    return 1;
+  }
+
+  /* Decode arguments, following command signature */
+  size_t idx = 0;
+  void *data_holder = &aux_var;
+
+  /* Decode arguments (mandatory, with or without listener) */
+  for (idx = 0; ref_cmd->signature[idx] != CE_DATA_NULL; idx++)
+  {
+    /* Define data holder (save or destroy) */
+    if ((ref_cmd->listener != NULL) &&
+        (ref_cmd->listener->argument != NULL) &&
+        (ref_cmd->signature[idx] == ref_cmd->listener->argument[idx]->type))
+    {
+      data_holder = &ref_cmd->listener->argument[idx]->data;
+    }
+
+    if(decode_data(rb_data, ref_cmd->signature[idx], data_holder, 1) == 0)
+    {
+      _dbg("Cannot encode the data at index %lu. ERROR\n", idx);
+      return 1;
+    }
+    _dbg("Decoded argument: 0x%02lX\n", *(size_t *)data_holder);
+  }
+
+  /* Not aux_var? Then we have a listener ready to be called! */
+  if (data_holder != &aux_var)
+  {
+    ref_cmd->listener->listener(ref_cmd->listener->argument);
+  }
+
+  /* And return with success */
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
 /* Takes `rb` raw data, encodes it as a message, and puts it back as `rb`
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/ce/codec.h` for complete information. */
@@ -404,8 +508,10 @@ int ce_codec_B416K(struct ce_codec *codec)
   /* Ok assign the operations */
   codec->name           = YCP_NAME;
   codec->codec_sizeof   = codec_sizeof;
+  codec->encode.command = encode_command;
   codec->encode.data    = encode_data;
   codec->encode.message = encode_message;
+  codec->decode.command = decode_command;
   codec->decode.data    = decode_data;
   codec->decode.message = decode_message;
 

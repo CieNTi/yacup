@@ -183,6 +183,7 @@ struct ce_command *ce_command_validate(struct ce_command_set *cmd_set,
 int ce_command_set_listener(struct ce_command_set *cmd_set,
                             size_t id,
                             struct ce_command_listener *listener);
+
 /** @} */
 
 #ifdef __cplusplus

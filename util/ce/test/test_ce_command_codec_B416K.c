@@ -1,4 +1,4 @@
-/* test_ce_command_codec_binary.c - Validates a command codec
+/* test_ce_command_codec_B416K.c - Validates a command codec using B416K
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -24,14 +24,12 @@
 #include "yacup/ce/debug_codec.h"
 #include "yacup/ce/command.h"
 #include "yacup/ce/command/set_test.h"
-#include "yacup/ce/command_codec.h"
-#include "yacup/ce/command/codec/binary.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/ce/test/test_ce_command_codec_binary"
+#define YCP_NAME "util/ce/test/test_ce_command_codec_B416K"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -49,10 +47,10 @@
  * @ingroup    util_test
  * @version    v1.0.0
  */
-int test_ce_command_codec_binary(int argc, const char* argv[])
+int test_ce_command_codec_B416K(int argc, const char* argv[])
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "test_ce_command_codec_binary"
+  #define YCP_FNAME "test_ce_command_codec_B416K"
 
   _dbg("Hi! from "__FILE__"\n");
 
@@ -78,15 +76,15 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
   }
   _dbg("Ok\n");
 
-  /* Define command codec to use */
-  struct ce_command_codec command_codec0 = { 0x00 };
-  _dbg("Should initialize command_codec\n");
-  if (ce_command_codec_init(&command_codec0, ce_command_codec_binary))
-  {
-    _dbg("Oops! Cannot initialize the command codec\n");
-    return 1;
-  }
-  _dbg("Ok\n");
+  //////////* Define command codec to use */
+  /////////struct ce_command_codec command_codec0 = { 0x00 };
+  /////////_dbg("Should initialize command_codec\n");
+  /////////if (ce_command_codec_init(&command_codec0, ce_command_codec_binary))
+  /////////{
+  /////////  _dbg("Oops! Cannot initialize the command codec\n");
+  /////////  return 1;
+  /////////}
+  /////////_dbg("Ok\n");
 
   /* Prepare a rb for encoding storage */
   #define TEST_CE_COMMAND_CODEC_BINARY_DATA 512
@@ -133,8 +131,8 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
 
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
-       command_codec0.name);
-  if (command_codec0.encode(cmd_to_encode, NULL, &ce_codec0, &rb_data))
+       ce_codec0.name);
+  if (ce_codec0.encode.command(cmd_to_encode, NULL, &rb_data))
   {
     _dbg("Cannot encode command\n");
     return 1;
@@ -166,8 +164,8 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
 
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
-       command_codec0.name);
-  if (command_codec0.encode(cmd_to_encode, cmd1_args, &ce_codec0, &rb_data))
+       ce_codec0.name);
+  if (ce_codec0.encode.command(cmd_to_encode, cmd1_args, &rb_data))
   {
     _dbg("Cannot encode command\n");
     return 1;
@@ -200,8 +198,8 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
 
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
-       command_codec0.name);
-  if (command_codec0.encode(cmd_to_encode, cmd2_args, &ce_codec0, &rb_data))
+       ce_codec0.name);
+  if (ce_codec0.encode.command(cmd_to_encode, cmd2_args, &rb_data))
   {
     _dbg("Cannot encode command\n");
     return 1;
@@ -231,8 +229,8 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
 
   /* Decode command (overwrite rb = FIFO) */
   _dbg("Should decode a command using '%s' command codec\n",
-       command_codec0.name);
-  if (command_codec0.decode(&rb_data, &ce_codec0, &cmd_set))
+       ce_codec0.name);
+  if (ce_codec0.decode.command(&rb_data, &cmd_set))
   {
     _dbg("Cannot decode command\n");
     return 1;
@@ -242,8 +240,8 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
 
   /* Decode command (overwrite rb = FIFO) */
   _dbg("Should decode a command using '%s' command codec\n",
-       command_codec0.name);
-  if (command_codec0.decode(&rb_data, &ce_codec0, &cmd_set))
+       ce_codec0.name);
+  if (ce_codec0.decode.command(&rb_data, &cmd_set))
   {
     _dbg("Cannot decode command\n");
     return 1;
@@ -253,8 +251,8 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
 
   /* Decode command (overwrite rb = FIFO) */
   _dbg("Should decode a command using '%s' command codec\n",
-       command_codec0.name);
-  if (command_codec0.decode(&rb_data, &ce_codec0, &cmd_set))
+       ce_codec0.name);
+  if (ce_codec0.decode.command(&rb_data, &cmd_set))
   {
     _dbg("Cannot decode command\n");
     return 1;

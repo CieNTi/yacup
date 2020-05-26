@@ -42,8 +42,10 @@ int ce_codec_init(struct ce_codec *codec,
   }
 
   /* Presets */
+  codec->encode.command = NULL;
   codec->encode.data = NULL;
   codec->encode.message = NULL;
+  codec->decode.command = NULL;
   codec->decode.data = NULL;
   codec->decode.message = NULL;
 

@@ -83,6 +83,7 @@ test_ce_codec_B416K_o=util/rb/rb.o                       \
                       util/rb/debug.o                    \
                       util/ce/codec.o                    \
                       util/ce/codec/B416K.o              \
+                      util/ce/command.o                  \
                       util/ce/test/test_ce_codec_B416K.o \
                       util/ce/debug_codec.o
 test_ce_codec_B416K: $(addprefix $(ODIR)/, $(test_ce_codec_B416K_o))
@@ -99,19 +100,17 @@ test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
 
-# test_ce_command_codec_binary: Test to check `ce` commands functionality
-test_ce_command_codec_binary_o=util/rb/rb.o                                \
-                               util/rb/driver/overwrite.o                  \
-                               util/rb/debug.o                             \
-                               util/ce/codec.o                             \
-                               util/ce/codec/B416K.o                       \
-                               util/ce/command.o                           \
-                               util/ce/command/set_test.o                  \
-                               util/ce/command_codec.o                     \
-                               util/ce/command/codec/binary.o              \
-                               util/ce/test/test_ce_command_codec_binary.o
-test_ce_command_codec_binary: $(addprefix $(ODIR)/, \
-																						 $(test_ce_command_codec_binary_o))
+# test_ce_command_codec_B416K: Test to check `ce` commands functionality
+test_ce_command_codec_B416K_o=util/rb/rb.o                               \
+                              util/rb/driver/overwrite.o                 \
+                              util/rb/debug.o                            \
+                              util/ce/codec.o                            \
+                              util/ce/codec/B416K.o                      \
+                              util/ce/command.o                          \
+                              util/ce/command/set_test.o                 \
+                              util/ce/test/test_ce_command_codec_B416K.o
+test_ce_command_codec_B416K: $(addprefix $(ODIR)/, \
+																						 $(test_ce_command_codec_B416K_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
@@ -143,7 +142,7 @@ test_yacup_o=$(test_xyz_testname_o)            \
              $(test_fsm_driver_simple_o)       \
              $(test_ce_codec_B416K_o)          \
              $(test_ce_command_validate_o)     \
-             $(test_ce_command_codec_binary_o) \
+             $(test_ce_command_codec_B416K_o)  \
              $(test_ce_initialization_o)       \
              src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_o))
@@ -195,13 +194,13 @@ test_bin:
 	@echo "-----"
 
 .PHONY: all
-all: clean debug prepare test_yacup                   \
-                         test_xyz_testname            \
-                         test_rb_driver_overwrite     \
-                         test_fsm_driver_simple       \
-                         test_ce_codec_B416K          \
-                         test_ce_command_validate     \
-                         test_ce_command_codec_binary \
+all: clean debug prepare test_yacup                  \
+                         test_xyz_testname           \
+                         test_rb_driver_overwrite    \
+                         test_fsm_driver_simple      \
+                         test_ce_codec_B416K         \
+                         test_ce_command_validate    \
+                         test_ce_command_codec_B416K \
                          test_ce_initialization
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
@@ -276,7 +275,7 @@ help:
 	@echo "  - test_ce_command_validate"
 	@echo "    'ce_command' validation flows tests and checks"
 	@echo ""
-	@echo "  - test_ce_command_codec_binary"
+	@echo "  - test_ce_command_codec_B416K"
 	@echo "    'ce_command_codec' tests using 'binary' codec implementation"
 	@echo ""
 	@echo "  - test_ce_initialization"

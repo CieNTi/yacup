@@ -31,6 +31,7 @@ extern "C" {
 #include <stddef.h>
 #include "yacup/rb.h"
 #include "yacup/ce/types.h"
+#include "yacup/ce/command.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -80,6 +81,23 @@ struct ce_codec
                    struct rb *rb);
 
     /**
+     * @brief      Encodes a command as a data-block into a rb
+     *
+     * @param      command   Pointer to a command to be encoded
+     * @param      argument  Command arguments data to encode
+     * @param      rb_data   Pointer to a destination data block ring-buffer
+     *
+     * @return     One of:
+     *             | Value  | Meaning          |
+     *             | :----: | :--------------- |
+     *             | `== 0` | Ok               |
+     *             | `!= 0` | Error            |
+     */
+    size_t (*command)(struct ce_command *command,
+                      struct ce_command_argument *argument[],
+                      struct rb *rb_data);
+
+    /**
      * @brief      Takes an input `rb` with raw data, encodes it as a message,
      *             and puts it back into an output `rb`, ready to be decoded
      *
@@ -123,6 +141,23 @@ struct ce_codec
     size_t (*data)(struct rb *rb,
                    enum ce_data_type type,
                    void *data, size_t num_data);
+
+    /**
+     * @brief      Decodes a data-block into a validated command with arguments
+     * @todo       Is this the parser to listener call?
+     *
+     * @param      rb_data   Pointer to a destination data block ring-buffer
+     * @param      codec     Pointer to a `ce` codec for data decoding operations
+     * @param      cmd_set   Set of commands where to search for commands
+     *
+     * @return     One of:
+     *             | Value  | Meaning          |
+     *             | :----: | :--------------- |
+     *             | `== 0` | Ok               |
+     *             | `!= 0` | Error            |
+     */
+    size_t (*command)(struct rb *rb_data,
+                      struct ce_command_set *cmd_set);
 
     /**
      * @brief      Takes an input `rb` with an encoded message, decodes it,
