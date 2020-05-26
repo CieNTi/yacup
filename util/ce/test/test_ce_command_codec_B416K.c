@@ -230,7 +230,6 @@ int test_ce_command_codec_B416K(int argc, const char* argv[])
   }
   _dbg("Ok\n");
   rb_print_info(&rb_data);
-
   _dbg("Decoded command '%s'\n", cmd_to_decode->name);
 
   /* Decode command (overwrite rb = FIFO) */
@@ -243,7 +242,6 @@ int test_ce_command_codec_B416K(int argc, const char* argv[])
   }
   _dbg("Ok\n");
   rb_print_info(&rb_data);
-
   _dbg("Decoded command '%s'\n", cmd_to_decode->name);
 
   /* Decode command (overwrite rb = FIFO) */
@@ -256,7 +254,6 @@ int test_ce_command_codec_B416K(int argc, const char* argv[])
   }
   _dbg("Ok\n");
   rb_print_info(&rb_data);
-
   _dbg("Decoded command '%s'\n", cmd_to_decode->name);
 
   /* Cya! */

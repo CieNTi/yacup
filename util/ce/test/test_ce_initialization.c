@@ -62,6 +62,9 @@ int test_ce_initialization(int argc, const char* argv[])
     /* Command engine entity parameters */
     .name = "Super Engine!",
 
+    /* Driver requirements */
+    .driver.fsm.data = &(struct ce_driver_faf_data) { .some_string = "Init!" },
+
     /* Output channel command set (set_test.c) */
     .out.command_set = &test_command_set,
     /* Output channel data buffer */

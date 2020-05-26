@@ -133,7 +133,19 @@ test_ce_initialization: $(addprefix $(ODIR)/, $(test_ce_initialization_o))
 	@echo "-----"
 
 # test_ce_driver_faf: Test to check `ce` commands functionality
-test_ce_driver_faf_o=util/ce/test/test_ce_driver_faf.o
+test_ce_driver_faf_o=util/rb/rb.o                      \
+                     util/rb/driver/overwrite.o        \
+                     util/rb/debug.o                   \
+                     util/fsm/fsm.o                    \
+                     util/fsm/debug.o                  \
+                     util/ce/ce.o                      \
+                     util/ce/codec.o                   \
+                     util/ce/codec/B416K.o             \
+                     util/ce/channel.o                 \
+                     util/ce/command.o                 \
+                     util/ce/command/set_test.o        \
+                     util/ce/driver/fire-and-forget.o  \
+                     util/ce/test/test_ce_driver_faf.o
 test_ce_driver_faf: $(addprefix $(ODIR)/, $(test_ce_driver_faf_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"

@@ -38,18 +38,29 @@ extern "C" {
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
  * @brief      Internal data *ce_driver_faf* will use
+ * @todo       If some variable is common to all drivers, migrate it to the
+ *             *struct ce_driver*, at the same level as *ce*. Otherwise, it is
+ *             just this driver (fsm) dependant.
  */
 struct ce_driver_faf_data
 {
-  /**
-   * @brief      An extra variable
-   */
-  size_t extra;
-
+  char *some_string;
   /**
    * @brief      Pointer to the *ce* this driver will manage
    */
   struct ce *ce;
+
+  struct ce_command *command;
+  struct ce_command_argument **argument;
+
+  /* Status flags */
+  uint8_t request_to_send;
+  uint8_t data_ready_to_send;
+  uint8_t message_sent;
+  uint8_t request_to_receive;
+  uint8_t data_ready_to_decode;
+  uint8_t message_decoded;
+  uint8_t error_invalid_ce;
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

@@ -27,7 +27,7 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Ease access from fsm->data */
-#define FSM_DATA(x) ((struct fsm_driver_simple_data *)(x->data))
+#define FSM_DATA(x) ((struct fsm_driver_simple_data *)((x)->data))
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* States pre-declaration */

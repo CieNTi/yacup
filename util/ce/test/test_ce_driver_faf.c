@@ -64,6 +64,9 @@ int test_ce_driver_faf(int argc, const char* argv[])
     /* Command engine entity parameters */
     .name = "CE Engine with driver",
 
+    /* Driver requirements */
+    .driver.fsm.data = &(struct ce_driver_faf_data) { .some_string = "Hey!" },
+
     /* Output channel command set (set_test.c) */
     .out.command_set = &test_command_set,
     /* Output channel data buffer */
@@ -92,6 +95,7 @@ int test_ce_driver_faf(int argc, const char* argv[])
     return 1;
   }
   _dbg("Ok\n");
+  return 0;
 
   /* Set a command listener */
   _dbg("Should set listener to command 0x%02lX\n", CE_COMMAND_SET_TEST_CMD1);

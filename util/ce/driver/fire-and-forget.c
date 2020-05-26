@@ -16,9 +16,11 @@
  */
 #include <stdint.h>
 #include <stdio.h>
+#include <time.h>
 #include "yacup/rb.h"
 #include "yacup/fsm.h"
 #include "yacup/fsm/driver.h"
+#include "yacup/fsm/debug.h"
 #include "yacup/ce.h"
 #include "yacup/ce/driver/fire-and-forget.h"
 
@@ -26,6 +28,10 @@
 #include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/ce/driver/fire-and-forget"
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Ease access from fsm->data */
+#define FSM_DATA(x) ((struct ce_driver_faf_data *)((x)->data))
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* States pre-declaration */
@@ -36,7 +42,8 @@
  *   @{
  */
 static int start(struct fsm *fsm);
-static int state_1(struct fsm *fsm);
+static int state_idle(struct fsm *fsm);
+static int state_error(struct fsm *fsm);
 static int stop(struct fsm *fsm);
 /**  @}
  * @}
@@ -61,12 +68,32 @@ static int start(struct fsm *fsm)
 
   _dbg("%s\n", fsm->name);
 
-  /* Default next state */
-  fsm->next = state_1;
+  if (FSM_DATA(fsm)->ce == NULL)
+  {
+    /* Set error source flag */
+    FSM_DATA(fsm)->error_invalid_ce = 1;
 
-  /* reset counter */
-  //FSM_DATA(fsm)->extra = 0;
+    /* Default next state */
+    fsm->next = state_error;
+  }
+  else
+  {
+    /* Reset fsm */
+    FSM_DATA(fsm)->command = NULL;
+    FSM_DATA(fsm)->argument = NULL;
+    FSM_DATA(fsm)->request_to_send = 0;
+    FSM_DATA(fsm)->data_ready_to_send = 0;
+    FSM_DATA(fsm)->message_sent = 0;
+    FSM_DATA(fsm)->request_to_receive = 0;
+    FSM_DATA(fsm)->data_ready_to_decode = 0;
+    FSM_DATA(fsm)->message_decoded = 0;
+    FSM_DATA(fsm)->error_invalid_ce = 0;
 
+    /* Default next state */
+    fsm->next = state_idle;
+  }
+
+  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == state_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -84,27 +111,62 @@ static int start(struct fsm *fsm)
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  */
-static int state_1(struct fsm *fsm)
+static int state_idle(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "state_1"
+  #define YCP_FNAME "state_idle"
 
   _dbg("%s\n", fsm->name);
 
   /* Default next state */
-  fsm->next = state_1;
+  fsm->next = state_idle;
 
 //  /* This state will be executed 5 times */
 //  if (FSM_DATA(fsm)->extra++ < 4)
 //  {
-//    printf(YCP_NAME" | state_1: Entering cycle #%lu\n", FSM_DATA(fsm)->extra);
+//    printf(YCP_NAME" | state_idle: Entering cycle #%lu\n", FSM_DATA(fsm)->extra);
 //  }
 //  else
 //  {
-//    printf(YCP_NAME" | state_1: Stop at cycle #%lu\n", FSM_DATA(fsm)->extra);
+//    printf(YCP_NAME" | state_idle: Stop at cycle #%lu\n", FSM_DATA(fsm)->extra);
 //    fsm->next = stop;
 //  }
   fsm->next = stop;
+  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == state_error)?"FAIL":"OK");
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/**
+ * @brief      Some error happened. Wops!
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Warning          |
+ */
+static int state_error(struct fsm *fsm)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "state_idle"
+
+  _dbg("ERROR in '%s'. Status flags:\n", fsm->name);
+  _dbg("- request_to_send .......: %X\n", FSM_DATA(fsm)->request_to_send);
+  _dbg("- data_ready_to_send ....: %X\n", FSM_DATA(fsm)->data_ready_to_send);
+  _dbg("- message_sent ........  : %X\n", FSM_DATA(fsm)->message_sent);
+  _dbg("- request_to_receive ....: %X\n", FSM_DATA(fsm)->request_to_receive);
+  _dbg("- data_ready_to_decode ..: %X\n", FSM_DATA(fsm)->data_ready_to_decode);
+  _dbg("- message_decoded .......: %X\n", FSM_DATA(fsm)->message_decoded);
+  _dbg("- error_invalid_ce ......: %X\n", FSM_DATA(fsm)->error_invalid_ce);
+
+  /* Default next state */
+  fsm->next = stop;
+  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == state_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -133,6 +195,7 @@ static int stop(struct fsm *fsm)
   /* stop state do not need fsm->next, it's ignored by stepper anyway */
 
   (void)fsm;
+  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == state_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -192,6 +255,13 @@ static int send_command(struct ce *ce,
    */
   _dbg("FAF is sending command '%s' (0x%02lX)\n", command->name, command->id);
 
+  /* Prepare driver fsm if ready */
+  if (/** @todo Check ready! */1)
+  {
+    FSM_DATA(&ce->driver.fsm)->request_to_send = 1;
+  }
+
+
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
        ce->out.codec.name);
@@ -219,14 +289,29 @@ int ce_driver_faf(struct ce *ce)
 
   if (/* Valid engine? */
       ce == NULL ||
-      /* Valid driver? */
-      &ce->driver == NULL ||
-      /* Initialize driver fsm */
-      fsm_init(&ce->driver.fsm, ce_driver_fsm_driver))
+      /* Valid required fsm data */
+      ce->driver.fsm.data == NULL)
+  {
+    _dbg("Invalid command engine or required data\n");
+    return 1;
+  }
+
+  /* Assign fsm *ce* */
+  FSM_DATA(&ce->driver.fsm)->ce = ce;
+
+  if (fsm_init(&ce->driver.fsm, ce_driver_fsm_driver))
   {
     _dbg("Cannot initialize this command engine\n");
     return 1;
   }
+
+  /* Basics: enable + auto-restart + start as soon as possible */
+  fsm_enable(&ce->driver.fsm);
+  fsm_set_loop(&ce->driver.fsm);
+  fsm_request_start(&ce->driver.fsm);
+
+  /* fsm cycles */
+  fsm_print_info(&ce->driver.fsm);
 
   /* Assign default name, if not previously set */
   if (ce->name == NULL)
@@ -236,6 +321,28 @@ int ce_driver_faf(struct ce *ce)
 
   /* Assign the external driver-fsm API */
   ce->driver.send_command = send_command;
+
+  #define ABCDEDF 10
+  uint8_t current_cycle = ABCDEDF;
+  while (current_cycle--)
+  {
+    /* Start cycle */
+    _dbg("Cycle #%02u\n", ABCDEDF - current_cycle);
+
+    /* Test the fsm */
+    if (fsm_do_cycle(&ce->driver.fsm))
+    {
+      _dbg("Error when executing a fsm cycle\n");
+      fsm_print_info(&ce->driver.fsm);
+      fsm_print_stats(&ce->driver.fsm);
+      return 1;
+    }
+
+    /* Finish cycle */
+    /* Simulate some time spent on the cycle */
+    nanosleep(&(struct timespec){ .tv_sec = 0, .tv_nsec = 100*1000000 }, NULL);
+  }
+
 
   /* Let's go! */
   return 0;
