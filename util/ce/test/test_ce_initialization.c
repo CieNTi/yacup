@@ -55,8 +55,8 @@ int test_ce_initialization(int argc, const char* argv[])
   _dbg("Hi! from "__FILE__"\n");
 
   /* Out first `ce`, prepare the essential data */
-  #define CE_TEST_DATA_BUF_LEN 128
-  #define CE_TEST_MESSAGE_BUF_LEN 256
+  #define CE_INIT_TEST_DATA_BUF_LEN 128
+  #define CE_INIT_TEST_MESSAGE_BUF_LEN 256
   struct ce ce0 =
   {
     /* Command engine entity parameters */
@@ -65,31 +65,34 @@ int test_ce_initialization(int argc, const char* argv[])
     /* Output channel command set (set_test.c) */
     .out.command_set = &test_command_set,
     /* Output channel data buffer */
-    .out.data.buffer = (uint8_t [CE_TEST_DATA_BUF_LEN]) { 0x00 },
-    .out.data.size = CE_TEST_DATA_BUF_LEN,
+    .out.data.buffer = (uint8_t [CE_INIT_TEST_DATA_BUF_LEN]) { 0x00 },
+    .out.data.size = CE_INIT_TEST_DATA_BUF_LEN,
     /* Output channel message buffer */
-    .out.message.buffer = (uint8_t [CE_TEST_MESSAGE_BUF_LEN]) { 0x00 },
-    .out.message.size = CE_TEST_MESSAGE_BUF_LEN,
+    .out.message.buffer = (uint8_t [CE_INIT_TEST_MESSAGE_BUF_LEN]) { 0x00 },
+    .out.message.size = CE_INIT_TEST_MESSAGE_BUF_LEN,
 
     /* Input channel command set (set_test.c) */
     .in.command_set = &test_command_set,
     /* Input channel data buffer */
-    .in.data.buffer = (uint8_t [CE_TEST_DATA_BUF_LEN]) { 0x00 },
-    .in.data.size = CE_TEST_DATA_BUF_LEN,
+    .in.data.buffer = (uint8_t [CE_INIT_TEST_DATA_BUF_LEN]) { 0x00 },
+    .in.data.size = CE_INIT_TEST_DATA_BUF_LEN,
     /* Input channel message buffer */
-    .in.message.buffer = (uint8_t [CE_TEST_MESSAGE_BUF_LEN]) { 0x00 },
-    .in.message.size = CE_TEST_MESSAGE_BUF_LEN
+    .in.message.buffer = (uint8_t [CE_INIT_TEST_MESSAGE_BUF_LEN]) { 0x00 },
+    .in.message.size = CE_INIT_TEST_MESSAGE_BUF_LEN
   };
 
   /* Initializes the engine */
+  _dbg("Should initialize command engine '%s' correctly\n", ce0.name);
   if (ce_init(&ce0, ce_driver_faf, ce_codec_B416K, rb_driver_overwrite))
   {
     /* Cannot init, error */
     _dbg("Error when initializing ce0\n");
     return 1;
   }
+  _dbg("Ok\n");
 
   /* Set a command listener */
+  _dbg("Should set listener to command 0x%02luX\n", CE_COMMAND_SET_TEST_CMD1);
   if (ce_command_set_listener(&test_command_set,
                               CE_COMMAND_SET_TEST_CMD1,
                               &test_cmd1_listener))
@@ -98,6 +101,7 @@ int test_ce_initialization(int argc, const char* argv[])
     _dbg("Error when setting listener for CE_COMMAND_SET_TEST_CMD1\n");
     return 1;
   }
+  _dbg("Ok\n");
 
   /* 
    * Send a command
@@ -109,12 +113,14 @@ int test_ce_initialization(int argc, const char* argv[])
     NULL
   };
   /* Call for command send */
+  _dbg("Should send a command 0x%02luX\n", CE_COMMAND_SET_TEST_CMD1);
   if (ce_send_command(&ce0, CE_COMMAND_SET_TEST_CMD1, cmd1_args))
   {
     /* Cannot send, error */
     _dbg("Error when sending CE_COMMAND_SET_TEST_CMD1\n");
     return 1;
   }
+  _dbg("Ok\n");
 
   /* Cya! */
   _dbg("If you are reading this, everything went correctly :_)\n");
