@@ -17,10 +17,13 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "yacup/rb.h"
+#include "yacup/rb/debug.h"
 #include "yacup/rb/driver/overwrite.h"
 #include "yacup/fsm.h"
+#include "yacup/ce.h"
 #include "yacup/ce/codec.h"
 #include "yacup/ce/codec/B416K.h"
+#include "yacup/ce/command.h"
 #include "yacup/ce/command/set_test.h"
 #include "yacup/ce/driver/fire-and-forget.h"
 
@@ -90,9 +93,78 @@ int test_ce_driver_faf(int argc, const char* argv[])
   }
   _dbg("Ok\n");
 
+  /* Set a command listener */
+  _dbg("Should set listener to command 0x%02lX\n", CE_COMMAND_SET_TEST_CMD1);
+  if (ce_command_set_listener(&test_command_set,
+                              CE_COMMAND_SET_TEST_CMD1,
+                              &test_cmd1_listener))
+  {
+    /* Cannot set it, error */
+    _dbg("Error when setting listener for CE_COMMAND_SET_TEST_CMD1\n");
+    return 1;
+  }
+  _dbg("Ok\n");
+
+  /* Print output buffer info and content before sending a message */
+  rb_print_info(&ce0.out.data);
+
+  /* 
+   * Send a command with 1 argument
+   */
+  /* Compose arguments */
+  struct ce_command_argument *cmd1_args[] =
+  {
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 250 },
+    NULL
+  };
+  /* Call for command send */
+  _dbg("Should send a command 0x%02lX with a uint8_t argument\n",
+       CE_COMMAND_SET_TEST_CMD1);
+  if (ce_send_command(&ce0, CE_COMMAND_SET_TEST_CMD1, cmd1_args))
+  {
+    /* Cannot send, error */
+    _dbg("Error when sending CE_COMMAND_SET_TEST_CMD1\n");
+    return 1;
+  }
+  _dbg("Ok\n");
+
+  /* Print output buffer info and content after sending a message */
+  rb_print_info(&ce0.out.data);
+
+  /* 
+   * Send a command with 2 argument
+   */
+  /* Compose arguments */
+  struct ce_command_argument *cmd2_args[] =
+  {
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 250 },
+    &(struct ce_command_argument) { .type = CE_DATA_DOUBLE,  .data.d  = 2.3 },
+    NULL
+  };
+  /* Call for command send */
+  _dbg("Should send a command 0x%02lX with a uint8_t argument\n",
+       CE_COMMAND_SET_TEST_CMD2);
+  if (ce_send_command(&ce0, CE_COMMAND_SET_TEST_CMD2, cmd2_args))
+  {
+    /* Cannot send, error */
+    _dbg("Error when sending CE_COMMAND_SET_TEST_CMD2\n");
+    return 1;
+  }
+  _dbg("Ok\n");
+
+  /* Print output buffer info and content after sending a message */
+  rb_print_info(&ce0.out.data);
+
   /* Cya! */
   _dbg("If you are reading this, everything went correctly :_)\n");
   return 0;
+
+// THIS IS CE_DRIVER TASK! NOT CODEC!
+//  /* Not aux_var? Then we have a listener ready to be called! */
+//  if (data_holder != &aux_var)
+//  {
+//    command->listener->listener(command->listener->argument);
+//  }
 
   /* Free _dbg() config */
   #undef YCP_FNAME

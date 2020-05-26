@@ -52,7 +52,9 @@ struct ce_driver
   /**
    * @brief      Finite state machine controlling data/actions behaviour
    */
-  int (*send_command)(struct ce *, size_t, struct ce_command_argument *[]);
+  int (*send_command)(struct ce *,
+                      struct ce_command *,
+                      struct ce_command_argument *[]);
 };
 
 /** @} */

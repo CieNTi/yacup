@@ -31,6 +31,7 @@ int test_ce_codec_B416K(int argc, const char* argv[]);
 int test_ce_command_validate(int argc, const char* argv[]);
 int test_ce_command_codec_B416K(int argc, const char* argv[]);
 int test_ce_initialization(int argc, const char* argv[]);
+int test_ce_driver_faf(int argc, const char* argv[]);
 
 /**
  * @brief      The main of the mains
@@ -68,6 +69,8 @@ int test_yacup(int argc, const char* argv[])
          test_ce_command_codec_B416K(argc, argv));
   printf("Result from test_ce_initialization() = %i\n", 
          test_ce_initialization(argc, argv));
+  printf("Result from test_ce_driver_faf() = %i\n", 
+         test_ce_driver_faf(argc, argv));
   _dbg("Hi! from "__FILE__"\n");
   return 0;
 

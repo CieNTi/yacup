@@ -180,7 +180,7 @@ static int ce_driver_fsm_driver(struct fsm *fsm)
 /* Initialize a *ce_driver_faf* type *ce_driver*.
  * Read `yacup/ce/driver/fire-and-forget.h` for complete information. */
 static int send_command(struct ce *ce,
-                        size_t id,
+                        struct ce_command *command,
                         struct ce_command_argument *argument[])
 {
   /* Configure _dbg() */
@@ -190,6 +190,17 @@ static int send_command(struct ce *ce,
    * - arguments type, checked by ce_command_validate()
    * - arguments type, ensured storage as per ce_command_argument declaration
    */
+  _dbg("FAF is sending command '%s' (0x%02lX)\n", command->name, command->id);
+
+  /* Encode the command */
+  _dbg("Should encode a command using '%s' command codec\n",
+       ce->out.codec.name);
+  if (ce->out.codec.encode.command(command, argument, &ce->out.data))
+  {
+    _dbg("Cannot encode command\n");
+    return 1;
+  }
+  _dbg("Ok\n");
 
   /* Let's go! */
   return 0;

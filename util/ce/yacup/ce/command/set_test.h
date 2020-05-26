@@ -44,28 +44,28 @@ extern "C" {
  * @brief      *test_cmd1(u8)* identifier. Related to @ref test_cmd1_listener,
  *             @ref test_command_subset_part_A and @ref test_command_set
  */
-#define  CE_COMMAND_SET_TEST_CMD1 0xA1
+#define  CE_COMMAND_SET_TEST_CMD1 (size_t)0xA1
 /**
  * @brief      *test_cmd2(u8, d)* identifier. Related to @ref
  *             test_cmd2_listener, @ref test_command_subset_part_A and @ref
  *             test_command_set
  */
-#define  CE_COMMAND_SET_TEST_CMD2 0xA2
+#define  CE_COMMAND_SET_TEST_CMD2 (size_t)0xA2
 /**
  * @brief      *test_cmd3(u8)* identifier. Related to @ref
  *             test_command_subset_part_B and @ref test_command_set
  */
-#define  CE_COMMAND_SET_TEST_CMD3 0xA3
+#define  CE_COMMAND_SET_TEST_CMD3 (size_t)0xA3
 /**
  * @brief      *test_cmd4(u8, d)* identifier. Related to @ref
  *             test_command_subset_part_B and @ref test_command_set
  */
-#define  CE_COMMAND_SET_TEST_CMD4 0xA4
+#define  CE_COMMAND_SET_TEST_CMD4 (size_t)0xA4
 /**
  * @brief      *test_cmd5(void)* identifier. Related to @ref
  *             test_command_subset_part_B and @ref test_command_set
  */
-#define  CE_COMMAND_SET_TEST_CMD5 0xA5
+#define  CE_COMMAND_SET_TEST_CMD5 (size_t)0xA5
 /** @} */
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

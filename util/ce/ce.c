@@ -75,16 +75,28 @@ int ce_send_command(struct ce *ce,
   /* Configure _dbg() */
   #define YCP_FNAME "ce_send_command"
 
+  /* Pointer to validated command */
+  struct ce_command *cmd_to_send = NULL;
+  
   if (/* Invalid ce? */
       (ce == NULL) ||
       /* Invalid command set? */
       (ce->out.command_set == NULL) ||
-      /* Invalid command */
-      (ce_command_validate(ce->out.command_set, id, argument) == NULL) ||
       /* Invalid send_command() ? */
-      (ce->driver.send_command == NULL) ||
+      (ce->driver.send_command == NULL))
+  {
+    /* Cannot send, error */
+    _dbg("Error when sending a command: Invalid ce, command set or driver\n");
+    return 1;
+  }
+
+  /* Look for it, validate and return a pointer if found and valid */
+  cmd_to_send = ce_command_validate(ce->out.command_set, id, argument);
+
+  if (/* Invalid command */
+      (cmd_to_send == NULL) ||
       /* Cannot send the command ? */
-      ce->driver.send_command(ce, id, argument))
+      ce->driver.send_command(ce, cmd_to_send, argument))
   {
     /* Cannot send, error */
     _dbg("Error when sending the command\n");
