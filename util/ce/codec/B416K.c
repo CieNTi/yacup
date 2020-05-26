@@ -293,7 +293,8 @@ static size_t encode_command(struct ce_command *command,
  * WARNING: Assumes pre-validation. Not safe as direct call!
  * Read `yacup/ce/codec.h` for complete information. */
 static size_t decode_command(struct rb *rb_data,
-                             struct ce_command_set *cmd_set)
+                             struct ce_command_set *cmd_set,
+                             struct ce_command **command)
 {
   /* Configure _dbg() */
   #define YCP_FNAME "decode_command"
@@ -307,8 +308,8 @@ static size_t decode_command(struct rb *rb_data,
     return 1;
   }
 
-  struct ce_command *ref_cmd = ce_command_locate_by_id(cmd_set, aux_var);
-  if (ref_cmd == NULL)
+  *command = ce_command_locate_by_id(cmd_set, aux_var);
+  if (*command == NULL)
   {
     _dbg("Command not found\n");
     return 1;
@@ -319,28 +320,23 @@ static size_t decode_command(struct rb *rb_data,
   void *data_holder = &aux_var;
 
   /* Decode arguments (mandatory, with or without listener) */
-  for (idx = 0; ref_cmd->signature[idx] != CE_DATA_NULL; idx++)
+  for (idx = 0; (*command)->signature[idx] != CE_DATA_NULL; idx++)
   {
     /* Define data holder (save or destroy) */
-    if ((ref_cmd->listener != NULL) &&
-        (ref_cmd->listener->argument != NULL) &&
-        (ref_cmd->signature[idx] == ref_cmd->listener->argument[idx]->type))
+    if (((*command)->listener != NULL) &&
+        ((*command)->listener->argument != NULL) &&
+        ((*command)->signature[idx] == (*command)->listener->argument[idx]->type))
     {
-      data_holder = &ref_cmd->listener->argument[idx]->data;
+      data_holder = &(*command)->listener->argument[idx]->data;
     }
 
-    if(decode_data(rb_data, ref_cmd->signature[idx], data_holder, 1) == 0)
+    if(decode_data(rb_data, (*command)->signature[idx], data_holder, 1) == 0)
     {
-      _dbg("Cannot encode the data at index %lu. ERROR\n", idx);
+      _dbg("Cannot decode the data at index %lu. ERROR\n", idx);
+      *command = NULL;
       return 1;
     }
     _dbg("Decoded argument: 0x%02lX\n", *(size_t *)data_holder);
-  }
-
-  /* Not aux_var? Then we have a listener ready to be called! */
-  if (data_holder != &aux_var)
-  {
-    ref_cmd->listener->listener(ref_cmd->listener->argument);
   }
 
   /* And return with success */

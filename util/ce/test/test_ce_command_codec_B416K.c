@@ -76,16 +76,6 @@ int test_ce_command_codec_B416K(int argc, const char* argv[])
   }
   _dbg("Ok\n");
 
-  //////////* Define command codec to use */
-  /////////struct ce_command_codec command_codec0 = { 0x00 };
-  /////////_dbg("Should initialize command_codec\n");
-  /////////if (ce_command_codec_init(&command_codec0, ce_command_codec_binary))
-  /////////{
-  /////////  _dbg("Oops! Cannot initialize the command codec\n");
-  /////////  return 1;
-  /////////}
-  /////////_dbg("Ok\n");
-
   /* Prepare a rb for encoding storage */
   #define TEST_CE_COMMAND_CODEC_BINARY_DATA 512
   uint8_t buffer_data[TEST_CE_COMMAND_CODEC_BINARY_DATA];
@@ -110,7 +100,7 @@ int test_ce_command_codec_B416K(int argc, const char* argv[])
   /* Encode 0-arguments command (with NULL argument [not array of])
    */
 
-  /* Compose arguments */
+  /* Compose arguments. The following shows a not-defined but valid argument */
   //struct ce_command_argument *cmd5_args[] =
   //{
   //  NULL
@@ -227,10 +217,13 @@ int test_ce_command_codec_B416K(int argc, const char* argv[])
     return 1;
   }
 
+  /* Pointer to validated command */
+  struct ce_command *cmd_to_decode = NULL;
+  
   /* Decode command (overwrite rb = FIFO) */
   _dbg("Should decode a command using '%s' command codec\n",
        ce_codec0.name);
-  if (ce_codec0.decode.command(&rb_data, &cmd_set))
+  if (ce_codec0.decode.command(&rb_data, &cmd_set, &cmd_to_decode))
   {
     _dbg("Cannot decode command\n");
     return 1;
@@ -238,10 +231,12 @@ int test_ce_command_codec_B416K(int argc, const char* argv[])
   _dbg("Ok\n");
   rb_print_info(&rb_data);
 
+  _dbg("Decoded command '%s'\n", cmd_to_decode->name);
+
   /* Decode command (overwrite rb = FIFO) */
   _dbg("Should decode a command using '%s' command codec\n",
        ce_codec0.name);
-  if (ce_codec0.decode.command(&rb_data, &cmd_set))
+  if (ce_codec0.decode.command(&rb_data, &cmd_set, &cmd_to_decode))
   {
     _dbg("Cannot decode command\n");
     return 1;
@@ -249,16 +244,20 @@ int test_ce_command_codec_B416K(int argc, const char* argv[])
   _dbg("Ok\n");
   rb_print_info(&rb_data);
 
+  _dbg("Decoded command '%s'\n", cmd_to_decode->name);
+
   /* Decode command (overwrite rb = FIFO) */
   _dbg("Should decode a command using '%s' command codec\n",
        ce_codec0.name);
-  if (ce_codec0.decode.command(&rb_data, &cmd_set))
+  if (ce_codec0.decode.command(&rb_data, &cmd_set, &cmd_to_decode))
   {
     _dbg("Cannot decode command\n");
     return 1;
   }
   _dbg("Ok\n");
   rb_print_info(&rb_data);
+
+  _dbg("Decoded command '%s'\n", cmd_to_decode->name);
 
   /* Cya! */
   _dbg("If you are reading this, everything went correctly :_)\n");

@@ -92,7 +92,7 @@ int test_ce_initialization(int argc, const char* argv[])
   _dbg("Ok\n");
 
   /* Set a command listener */
-  _dbg("Should set listener to command 0x%02luX\n", CE_COMMAND_SET_TEST_CMD1);
+  _dbg("Should set listener to command 0x%02lX\n", CE_COMMAND_SET_TEST_CMD1);
   if (ce_command_set_listener(&test_command_set,
                               CE_COMMAND_SET_TEST_CMD1,
                               &test_cmd1_listener))
@@ -113,7 +113,7 @@ int test_ce_initialization(int argc, const char* argv[])
     NULL
   };
   /* Call for command send */
-  _dbg("Should send a command 0x%02luX\n", CE_COMMAND_SET_TEST_CMD1);
+  _dbg("Should send a command 0x%02lX\n", CE_COMMAND_SET_TEST_CMD1);
   if (ce_send_command(&ce0, CE_COMMAND_SET_TEST_CMD1, cmd1_args))
   {
     /* Cannot send, error */

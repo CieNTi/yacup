@@ -83,6 +83,7 @@ extern "C" {
 #include "yacup/fsm.h"
 #include "yacup/ce/types.h"
 #include "yacup/ce/driver.h"
+#include "yacup/ce/codec.h"
 #include "yacup/ce/channel.h"
 #include "yacup/ce/command.h"
 

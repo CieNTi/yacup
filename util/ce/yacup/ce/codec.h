@@ -118,9 +118,9 @@ struct ce_codec_decoder
    * @brief      Decodes a data-block into a validated command with arguments
    * @todo       Is this the parser to listener call?
    *
-   * @param      rb_data   Pointer to a destination data block ring-buffer
-   * @param      codec     Pointer to a `ce` codec for data decoding operations
-   * @param      cmd_set   Set of commands where to search for commands
+   * @param      rb_data  Pointer to a destination data block ring-buffer
+   * @param      cmd_set  Set of commands where to search for commands
+   * @param      command  Pointer to command holding the decoded one, or NULL
    *
    * @return     One of:
    *             | Value  | Meaning          |
@@ -129,7 +129,8 @@ struct ce_codec_decoder
    *             | `!= 0` | Error            |
    */
   size_t (*command)(struct rb *rb_data,
-                    struct ce_command_set *cmd_set);
+                    struct ce_command_set *cmd_set,
+                    struct ce_command **command);
 
   /**
    * @brief      Takes an input `rb` with an encoded message, decodes it,
