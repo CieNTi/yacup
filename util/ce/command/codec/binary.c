@@ -65,6 +65,7 @@ static size_t encode_command(struct ce_command *command,
       _dbg("Cannot encode the data at index %lu. ERROR\n", idx);
       return 1;
     }
+    _dbg("Encoded argument: 0x%02lX\n", *(size_t *)&argument[idx]->data);
   }
 
   /* And return with success */
@@ -115,7 +116,6 @@ static size_t decode_command(struct rb *rb_data,
         (ref_cmd->listener->argument != NULL) &&
         (ref_cmd->signature[idx] == ref_cmd->listener->argument[idx]->type))
     {
-      _dbg("Assigned &ref_cmd\n");
       data_holder = &ref_cmd->listener->argument[idx]->data;
     }
 
@@ -127,7 +127,7 @@ static size_t decode_command(struct rb *rb_data,
       _dbg("Cannot encode the data at index %lu. ERROR\n", idx);
       return 1;
     }
-    _dbg("Decoded (as hexed size_t): 0x%02lX\n", *(size_t *)data_holder);
+    _dbg("Decoded argument: 0x%02lX\n", *(size_t *)data_holder);
   }
 
   /* Not aux_var? Then we have a listener ready to be called! */

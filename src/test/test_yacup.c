@@ -29,7 +29,7 @@ int test_rb_driver_overwrite(int argc, const char* argv[]);
 int test_fsm_driver_simple(int argc, const char* argv[]);
 int test_ce_codec_B416K(int argc, const char* argv[]);
 int test_ce_command_validate(int argc, const char* argv[]);
-int test_ce_command_codec(int argc, const char* argv[]);
+int test_ce_command_codec_binary(int argc, const char* argv[]);
 int test_ce_initialization(int argc, const char* argv[]);
 
 /**
@@ -64,8 +64,8 @@ int test_yacup(int argc, const char* argv[])
          test_ce_codec_B416K(argc, argv));
   printf("Result from test_ce_command_validate() = %i\n", 
          test_ce_command_validate(argc, argv));
-  printf("Result from test_ce_command_codec() = %i\n", 
-         test_ce_command_codec(argc, argv));
+  printf("Result from test_ce_command_codec_binary() = %i\n", 
+         test_ce_command_codec_binary(argc, argv));
   printf("Result from test_ce_initialization() = %i\n", 
          test_ce_initialization(argc, argv));
   _dbg("Hi! from "__FILE__"\n");

@@ -100,16 +100,16 @@ test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
 	@echo "-----"
 
 # test_ce_command_codec_binary: Test to check `ce` commands functionality
-test_ce_command_codec_binary_o=util/rb/rb.o                         \
-                        util/rb/driver/overwrite.o           \
-                        util/rb/debug.o                      \
-                        util/ce/codec.o                      \
-                        util/ce/codec/B416K.o                \
-                        util/ce/command.o                    \
-                        util/ce/command/subset_test.o        \
-                        util/ce/command_codec.o              \
-                        util/ce/command/codec/binary.o       \
-                        util/ce/test/test_ce_command_codec_binary.o
+test_ce_command_codec_binary_o=util/rb/rb.o                                \
+                               util/rb/driver/overwrite.o                  \
+                               util/rb/debug.o                             \
+                               util/ce/codec.o                             \
+                               util/ce/codec/B416K.o                       \
+                               util/ce/command.o                           \
+                               util/ce/command/subset_test.o               \
+                               util/ce/command_codec.o                     \
+                               util/ce/command/codec/binary.o              \
+                               util/ce/test/test_ce_command_codec_binary.o
 test_ce_command_codec_binary: $(addprefix $(ODIR)/, \
 																						 $(test_ce_command_codec_binary_o))
 	@echo "-----"
@@ -138,13 +138,13 @@ test_ce_initialization: $(addprefix $(ODIR)/, $(test_ce_initialization_o))
 # Targets for 'src' folder
 # ~~~~~~~~~~~~~~~~~~~~~~~~
 # Test app compounding all other tests defined here
-test_yacup_o=$(test_xyz_testname_o)        \
-             $(test_rb_driver_overwrite_o) \
-             $(test_fsm_driver_simple_o)   \
-             $(test_ce_codec_B416K_o)      \
-             $(test_ce_command_validate_o) \
-             $(test_ce_command_codec_binary_o)    \
-             $(test_ce_initialization_o)   \
+test_yacup_o=$(test_xyz_testname_o)            \
+             $(test_rb_driver_overwrite_o)     \
+             $(test_fsm_driver_simple_o)       \
+             $(test_ce_codec_B416K_o)          \
+             $(test_ce_command_validate_o)     \
+             $(test_ce_command_codec_binary_o) \
+             $(test_ce_initialization_o)       \
              src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_o))
 	@echo "-----"
