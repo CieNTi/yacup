@@ -25,7 +25,7 @@ extern "C" {
  * @defgroup   fsm_driver_simple Simple FSM
  * @{
  *   @brief      A simple finite state machine for testing purposes
- *   @details    This FSM just starts, execute state_1 5 times and finish
+ *   @details    This FSM just starts, execute *state_1* 5 times and finish
  *   @ingroup    fsm_driver
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
@@ -38,22 +38,22 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Internal data fsm_driver_simple will use
+ * @brief      Internal data *fsm_driver_simple* will use
  */
 struct fsm_driver_simple_data
 {
   /**
-   * @brief      Number of cycles the FSM passed over state_1
+   * @brief      Number of cycles the FSM passed over *state_1*
    */
   size_t cycles;
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Driver initializer function for `fsm_driver_simple` type FSM
- * @details    This FSM just starts, execute `state_1` 5 times and finish
+ * @brief      Driver initializer function for *fsm_driver_simple* type FSM
+ * @details    This FSM just starts, execute *state_1* 5 times and finish
  *
- * @param      fsm   Pointer to a `fsm` to work with
+ * @param      fsm   Pointer to a *fsm* to work with
  *
  * @return     One of:
  *             | Value  | Meaning          |

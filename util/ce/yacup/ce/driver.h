@@ -14,24 +14,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __CE_CHAT_H
-#define __CE_CHAT_H
+#ifndef __CE_DRIVER_H
+#define __CE_DRIVER_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup   ce_driver Drivers
- * @{
- *   @brief      Drivers: I/O Chats, Communication protocols
- *   @details    NEED DETAILS
- *   @author     CieNTi <cienti@cienti.com>
- *   @date       2020
- *   @ingroup    ce
- * @}
- * 
- * @addtogroup ce_driver
+ * @addtogroup   ce_api
  * @{
  */
 
@@ -70,4 +61,4 @@ struct ce_driver
 }
 #endif /* __cplusplus */
 
-#endif /* __CE_CHAT_H */
+#endif /* __CE_DRIVER_H */

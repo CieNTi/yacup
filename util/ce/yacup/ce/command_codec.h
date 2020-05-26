@@ -22,13 +22,8 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup   ce_command_codec Codecs
+ * @addtogroup   ce_api
  * @{
- *   @brief      Available codecs for commands
- *   @details    Different encodings implementations ready to be used
- *   @author     CieNTi <cienti@cienti.com>
- *   @date       2020
- *   @ingroup    ce
  */
 
 /* C libraries */

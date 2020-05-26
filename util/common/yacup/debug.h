@@ -17,7 +17,7 @@
 /* No include guards in this file so each module gets its own version */
 
 /**
- * @ingroup debug_functions
+ * @addtogroup debug_functions
  * @{
  */
 

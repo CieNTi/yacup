@@ -24,7 +24,7 @@ extern "C" {
 /**
  * @defgroup   rb_driver_overwrite Overwrite
  * @{
- *   @brief      First `rb` driver implementation, overwrite if full
+ *   @brief      First *rb* driver implementation, overwrite if full
  *   @details    This implementation will overwrite data if full, updating
  *               both head and tail indices without throwing an error.
  *   @ingroup    rb_driver

@@ -22,13 +22,11 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup   ce_codec_B416K B416K
+ * @defgroup   ce_command_codec_binary Binary
  * @{
- *   @brief      Binary 4-byte + CRC-16/Kermit codec for `ce` util
- *   @details    This implementation will use a `rb` to store or retrieve data,
- *               and will compose the data frame as follows:
- *               start_flag
- *   @ingroup    ce_codec
+ *   @brief      Binary command encoding
+ *   @todo       Write a description/\@details
+ *   @ingroup    ce_command_codec
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  */
@@ -39,8 +37,7 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Codec initializer function for `B416K` type `ce` codec
- * @details    Binary 4-byte + CRC-16/Kermit codec
+ * @brief      Codec initializer function for `binary` type `ce_command` codec
  *
  * @param      codec  Pointer to a codec to initialize
  *

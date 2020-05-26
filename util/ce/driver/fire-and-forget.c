@@ -29,16 +29,24 @@
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* States pre-declaration */
+/**
+ * @addtogroup  ce_driver_faf
+ * @{
+ *   @name        FSM States
+ *   @{
+ */
 static int start(struct fsm *fsm);
 static int state_1(struct fsm *fsm);
 static int stop(struct fsm *fsm);
+/**  @}
+ * @}
+ */
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Sate `start`: Prepare `extra` variable
+ * @brief      Prepare *extra* variable
  *
  * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
- * @ingroup    ce_driver_faf
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -66,10 +74,9 @@ static int start(struct fsm *fsm)
 }
 
 /**
- * @brief      State `state_1`: Stay here during 5 `extra` variable counts
+ * @brief      Stay here during 5 counts of *extra* variable
  *
  * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
- * @ingroup    ce_driver_faf
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -105,10 +112,9 @@ static int state_1(struct fsm *fsm)
 }
 
 /**
- * @brief      State `stop`: Prepare anything before stopping the fsm
+ * @brief      Prepare anything before stopping the fsm
  *
  * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
- * @ingroup    ce_driver_faf
  *
  * @return     One of:
  *             | Value  | Meaning          |
@@ -133,17 +139,8 @@ static int stop(struct fsm *fsm)
   #undef YCP_FNAME
 }
 
-/**
- * @brief      Internal ce_driver fsm initializer (fsm_init() compliant)
- *
- * @param      fsm   Pointer to a `fsm` to work with
- *
- * @return     One of:
- *             | Value  | Meaning          |
- *             | :----: | :--------------- |
- *             | `== 0` | Ok               |
- *             | `!= 0` | Error            |
- */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Internal ce_driver fsm initializer (fsm_init() compliant) */
 static int ce_driver_fsm_driver(struct fsm *fsm)
 {
   /* Configure _dbg() */
@@ -180,7 +177,7 @@ static int ce_driver_fsm_driver(struct fsm *fsm)
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* Initialize a `ce_driver_faf` type `ce_driver`.
+/* Initialize a *ce_driver_faf* type *ce_driver*.
  * Read `yacup/ce/driver/fire-and-forget.h` for complete information. */
 static int send_command(struct ce *ce,
                         size_t id,

@@ -1,4 +1,4 @@
-/* fire-and-forget.h - A `ce` chat that send/receive data without confirmation
+/* fire-and-forget.h - A *ce* chat that send/receive data without confirmation
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -22,11 +22,11 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup   ce_chat_faf Fire and Forget
+ * @defgroup   ce_driver_faf Fire and Forget
  * @{
- *   @brief      A `ce` chat that send/receive data without confirmation
- *   @details    **TODO**
- *   @ingroup    ce_chat_available
+ *   @brief      A *ce* chat that send/receive data without confirmation
+ *   @todo       Write a description/\@details
+ *   @ingroup    ce_driver
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  */
@@ -37,9 +37,9 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Internal data ce_chat_faf will use
+ * @brief      Internal data *ce_driver_faf* will use
  */
-struct ce_chat_faf_data
+struct ce_driver_faf_data
 {
   /**
    * @brief      An extra variable
@@ -47,14 +47,14 @@ struct ce_chat_faf_data
   size_t extra;
 
   /**
-   * @brief      Pointer to the `ce` this chat will manage
+   * @brief      Pointer to the *ce* this driver will manage
    */
   struct ce *ce;
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Driver initializer function for `ce_chat_faf` type chat FSM
+ * @brief      Driver initializer function for *ce_driver_faf* type CE
  * @details    This chat FSM will control input and output operations on a fire
  *             and forget type protocol, where the data is sent without any
  *             confirmation expectation or timeout, and when data is received
@@ -62,7 +62,7 @@ struct ce_chat_faf_data
  *             protocol, where everything is supposed to be perfect, with no
  *             communication errors
  *
- * @param      ce    Pointer to a `ce` to work with
+ * @param      ce    Pointer to a *ce* to work with
  *
  * @return     One of:
  *             | Value  | Meaning          |

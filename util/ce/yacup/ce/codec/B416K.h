@@ -1,4 +1,4 @@
-/* B416K.h - Binary 4-byte + CRC-16/Kermit codec for `ce` util
+/* B416K.h - Binary 4-byte + CRC-16/Kermit codec for *ce* util
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -24,8 +24,8 @@ extern "C" {
 /**
  * @defgroup   ce_codec_B416K B416K
  * @{
- *   @brief      Binary 4-byte + CRC-16/Kermit codec for `ce` util
- *   @details    This implementation will use a `rb` to store or retrieve data,
+ *   @brief      Binary 4-byte + CRC-16/Kermit codec for *ce* util
+ *   @details    This implementation will use a *rb* to store or retrieve data,
  *               and will compose the data frame as follows:
  *               start_flag
  *   @ingroup    ce_codec
@@ -45,7 +45,7 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Codec initializer function for `B416K` type `ce` codec
+ * @brief      Codec initializer function for *B416K* type *ce* codec
  * @details    Binary 4-byte + CRC-16/Kermit codec
  *
  * @param      codec  Pointer to a codec to initialize

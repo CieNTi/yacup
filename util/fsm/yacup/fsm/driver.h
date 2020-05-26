@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup fsm_driver
+ * @addtogroup fsm_api
  * @{
  */
 

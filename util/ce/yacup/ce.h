@@ -25,14 +25,65 @@ extern "C" {
  * @defgroup ce Command Engine
  * @{
  *   @brief      Yet another command engine implementation
- *   @details    Command engine made easy (for me xD)
+ *   @todo       Write a description/\@details
+ *   @ingroup    util
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  *
  *   @defgroup   ce_api Interface
  *   @{
- *     @brief      Operations on `ce` instances
- *     @details    Centralized functions to allow multiple implementations
+ *     @brief      Complete API documentation for finite state machine setup,
+ *                 instantiation and usage.
+ *     @details    Complete API documentation for command engines setup,
+ *                 instantiation and usage. This will help to familiarize with
+ *                 **commands** (signature, validation, argument, listener...),
+ *                 **subsets** of commands (allow to create different commands
+ *                 dictionaries for different scenarios) and **sets** of
+ *                 subsets (a specific full composed dictionary a specific
+ *                 command engine will be able to send or receive)
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *   @}
+ *
+ *   @defgroup   ce_driver Available drivers
+ *   @{
+ *     @brief      Already made and tested CE drivers for different purposes
+ *     @details    Each CE driver found here can be instantiated by calling
+ *                 its init function.
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *   @}
+ *
+ *   @defgroup   ce_codec_all Available codecs
+ *   @{
+ *     @brief      Already made and tested codecs for commands, data and
+ *                 messages for different purposes
+ *     @details    Each CE data/message and CE command codec found here can be
+ *                 instantiated by calling its init function.
+ *     @author     CieNTi <cienti@cienti.com>
+ *     @date       2020
+ *
+ *     @defgroup   ce_codec For data or message
+ *     @{
+ *       @brief      Already made and tested commands, subsets, and listeners,
+ *                   packed as command sets for different purposes
+ *       @author     CieNTi <cienti@cienti.com>
+ *       @date       2020
+ *     @}
+ *
+ *     @defgroup   ce_command_codec For commands
+ *     @{
+ *       @brief      Already made and tested commands, subsets, and listeners,
+ *                   packed as command sets for different purposes
+ *       @author     CieNTi <cienti@cienti.com>
+ *       @date       2020
+ *     @}
+ *   @}
+ *
+ *   @defgroup   ce_command Available commands
+ *   @{
+ *     @brief      Already made and tested commands, subsets, and listeners,
+ *                 packed as command sets for different purposes
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}

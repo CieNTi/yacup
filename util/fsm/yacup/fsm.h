@@ -25,14 +25,16 @@ extern "C" {
  * @defgroup fsm Finite state machine
  * @{
  *   @brief      Yet another finite-state machine implementation
- *   @details    FSM made easy (for me xD)
+ *   @todo       Write a description/\@details
+ *   @ingroup    util
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  *
  *   @defgroup   fsm_api Interface
  *   @{
- *     @brief      Operations over `fsm` instances
- *     @details    Centralized functions to allow different FSM coexistence
+ *     @brief      Complete API documentation for finite state machine setup,
+ *                 instantiation and usage.
+ *     @todo       Write a description/\@details
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
@@ -41,9 +43,7 @@ extern "C" {
  *   @{
  *     @brief      Already made and tested FSM drivers for different purposes
  *     @details    Each FSM driver found here can be instantiated by calling
- *                 its init function. It can be duplicated and/or combinated,
- *                 as all required storage is dinamically allocated and cannot
- *                 ends in any kind of clash.
+ *                 its init function.
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}

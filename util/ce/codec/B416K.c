@@ -25,17 +25,8 @@
 #define YCP_NAME "util/ce/codec/B416K"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/**
- * @brief      Calculate this encoding size of a specified type, in bytes
- *
- * @param      type    Valid `ce_data_type` to get size of
- *
- * @return     One of:
- *             | Value  | Meaning                  |
- *             | :----: | :----------------------- |
- *             | `== 0` | Not implemented/Invalid  |
- *             | `!= 0` | Size in bytes of a type  |
- */
+/* Calculate this encoding size of a specified type, in bytes
+ * Read `yacup/ce/codec.h` for complete information. */
 static size_t codec_sizeof(enum ce_data_type type)
 {
   /* Configure _dbg() */
@@ -98,10 +89,13 @@ static size_t codec_sizeof(enum ce_data_type type)
 /**
  * @brief      Calculate CRC-16/KERMIT (According to https://crccalc.com/)
  *
- * @param      data    The data
- * @param      length  The length of 'data'
- *
  * @warning    Assumed safe environment, all pre-checks already done
+ *
+ * @param      rb    Ring-buffer to use for read data (not pulled)
+ * @param      skip  Amount of bytes to skip before start the computations
+ * @param      len   Amount of bytes to use for computations
+ * @param      crc   Pointer to calculated CRC holder
+ *
  * @return     One of:
  *             | Value  | Meaning          |
  *             | :----: | :--------------- |

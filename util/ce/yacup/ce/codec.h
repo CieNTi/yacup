@@ -22,13 +22,8 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @defgroup   ce_codec Codecs
+ * @addtogroup   ce_api
  * @{
- *   @brief      Available codecs for `ce` instances
- *   @details    Different encodings implementations ready to be used
- *   @author     CieNTi <cienti@cienti.com>
- *   @date       2020
- *   @ingroup    ce
  */
 
 /* C libraries */
@@ -51,7 +46,7 @@ struct ce_codec
   /**
    * @brief      Bytes the codec will use to store/retrieve a type
    * 
-   * @param      type      One of `CE_DATA_*` data types
+   * @param      type      One of *ce_data_type*'s `CE_DATA_*` data types
    * 
    * @return     One of:
    *             | Value  | Meaning                               |

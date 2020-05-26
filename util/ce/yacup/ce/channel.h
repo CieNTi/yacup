@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @addtogroup ce_command
+ * @addtogroup   ce_api
  * @{
  */
 
@@ -31,8 +31,8 @@ extern "C" {
 #include <stddef.h>
 #include "yacup/rb.h"
 #include "yacup/ce/types.h"
-#include "yacup/ce/command.h"
 #include "yacup/ce/codec.h"
+#include "yacup/ce/command.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**

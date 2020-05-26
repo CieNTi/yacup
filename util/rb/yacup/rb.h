@@ -25,14 +25,16 @@ extern "C" {
  * @defgroup rb Ring-buffer
  * @{
  *   @brief      Yet another ring-buffer implementation
- *   @details    Ring buffer made easy (for me xD)
+ *   @todo       Write a description/\@details
+ *   @ingroup    util
  *   @author     CieNTi <cienti@cienti.com>
  *   @date       2020
  *
  *   @defgroup   rb_api Interface
  *   @{
- *     @brief      Operations on `rb` instances
- *     @details    Centralized functions to allow multiple implementations
+ *     @brief      Complete API documentation for ring buffers setup,
+ *                 instantiation and usage.
+ *     @todo       Write a description/\@details
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
@@ -41,9 +43,7 @@ extern "C" {
  *   @{
  *     @brief      Already made and tested RB drivers for different purposes
  *     @details    Each RB driver found here can be instantiated by calling
- *                 its init function. It can be duplicated and/or combinated,
- *                 as all required storage is dinamically allocated and cannot
- *                 ends in any kind of clash.
+ *                 its init function.
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
