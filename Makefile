@@ -92,7 +92,7 @@ test_ce_codec_B416K: $(addprefix $(ODIR)/, $(test_ce_codec_B416K_o))
 
 # test_ce_command_validate: Test to check `ce` commands functionality
 test_ce_command_validate_o=util/ce/command.o                       \
-                           util/ce/command/subset_test.o           \
+                           util/ce/command/set_test.o              \
                            util/ce/test/test_ce_command_validate.o
 test_ce_command_validate: $(addprefix $(ODIR)/, $(test_ce_command_validate_o))
 	@echo "-----"
@@ -106,7 +106,7 @@ test_ce_command_codec_binary_o=util/rb/rb.o                                \
                                util/ce/codec.o                             \
                                util/ce/codec/B416K.o                       \
                                util/ce/command.o                           \
-                               util/ce/command/subset_test.o               \
+                               util/ce/command/set_test.o                  \
                                util/ce/command_codec.o                     \
                                util/ce/command/codec/binary.o              \
                                util/ce/test/test_ce_command_codec_binary.o
@@ -125,7 +125,7 @@ test_ce_initialization_o=util/rb/rb.o                          \
                          util/ce/codec/B416K.o                 \
                          util/ce/channel.o                     \
                          util/ce/command.o                     \
-                         util/ce/command/subset_test.o         \
+                         util/ce/command/set_test.o            \
                          util/ce/driver/fire-and-forget.o      \
                          util/ce/test/test_ce_initialization.o
 test_ce_initialization: $(addprefix $(ODIR)/, $(test_ce_initialization_o))
@@ -195,13 +195,13 @@ test_bin:
 	@echo "-----"
 
 .PHONY: all
-all: clean debug prepare test_yacup               \
-                         test_xyz_testname        \
-                         test_rb_driver_overwrite \
-                         test_fsm_driver_simple   \
-                         test_ce_codec_B416K      \
-                         test_ce_command_validate \
-                         test_ce_command_codec_binary    \
+all: clean debug prepare test_yacup                   \
+                         test_xyz_testname            \
+                         test_rb_driver_overwrite     \
+                         test_fsm_driver_simple       \
+                         test_ce_codec_B416K          \
+                         test_ce_command_validate     \
+                         test_ce_command_codec_binary \
                          test_ce_initialization
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"

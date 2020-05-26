@@ -17,7 +17,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "yacup/ce/command.h"
-#include "yacup/ce/command/subset_test.h"
+#include "yacup/ce/command/set_test.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #define YCP_FORCE_DEBUG
@@ -70,11 +70,11 @@ int test_ce_command_validate(int argc, const char* argv[])
   /* Validate command */
   _dbg("Should validate: Valid 1 argument vs. 1 argument command\n");
   if (ce_command_validate(&cmd_set,
-                          CE_COMMAND_SUBSET_TEST_CMD1,
+                          CE_COMMAND_SET_TEST_CMD1,
                           cmd1_args) == NULL)
   {
     /* Cannot send, error */
-    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD1\n");
+    _dbg("Error when validating CE_COMMAND_SET_TEST_CMD1\n");
     return 1;
   }
 
@@ -89,11 +89,11 @@ int test_ce_command_validate(int argc, const char* argv[])
   /* Validate command */
   _dbg("Should validate: Valid 2 arguments vs. 2 arguments command\n");
   if (ce_command_validate(&cmd_set,
-                          CE_COMMAND_SUBSET_TEST_CMD4,
+                          CE_COMMAND_SET_TEST_CMD4,
                           cmd2_args) == NULL)
   {
     /* Cannot validate, error */
-    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD2\n");
+    _dbg("Error when validating CE_COMMAND_SET_TEST_CMD2\n");
     return 1;
   }
 
@@ -111,7 +111,7 @@ int test_ce_command_validate(int argc, const char* argv[])
   /* Test invalid arguments: 1 arg validated against 2 args command */
   _dbg("Should not validate: Invalid 1 argument vs. 2 arguments command\n");
   if (ce_command_validate(&cmd_set,
-                          CE_COMMAND_SUBSET_TEST_CMD4,
+                          CE_COMMAND_SET_TEST_CMD4,
                           cmd1_args) != NULL)
   {
     /* Validated, error */
@@ -122,7 +122,7 @@ int test_ce_command_validate(int argc, const char* argv[])
   /* Test invalid arguments: 2 args validated against 1 arg command */
   _dbg("Should not validate: Invalid 2 arguments vs. 1 argument command\n");
   if (ce_command_validate(&cmd_set,
-                          CE_COMMAND_SUBSET_TEST_CMD3,
+                          CE_COMMAND_SET_TEST_CMD3,
                           cmd2_args) != NULL)
   {
     /* Validated, error */

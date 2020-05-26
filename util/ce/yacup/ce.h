@@ -85,8 +85,10 @@ struct ce
  * @details    Checks and initializes `ce` common data, then calls the lower
  *             level init function passed by argument.
  *
- * @param      ce                Pointer to a CE to initialize
- * @param[in]  chat_driver_init  Pointer to a chat initializer function
+ * @param      ce                          Pointer to a CE to initialize
+ * @param      ce_driver_init              `ce` driver to handle this CE
+ * @param      channels_codec_driver_init  `ce_codec` to use for data/messages
+ * @param      channels_rb_driver_init     `rb` driver to handle channels RB
  *
  * @return     One of:
  *             | Value  | Meaning          |

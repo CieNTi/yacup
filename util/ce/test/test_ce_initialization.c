@@ -22,7 +22,7 @@
 #include "yacup/ce/codec.h"
 #include "yacup/ce/codec/B416K.h"
 #include "yacup/ce/command.h"
-#include "yacup/ce/command/subset_test.h"
+#include "yacup/ce/command/set_test.h"
 #include "yacup/ce/driver/fire-and-forget.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -62,7 +62,7 @@ int test_ce_initialization(int argc, const char* argv[])
     /* Command engine entity parameters */
     .name = "Super Engine!",
 
-    /* Output channel command set (subset_test.c) */
+    /* Output channel command set (set_test.c) */
     .out.command_set = &test_command_set,
     /* Output channel data buffer */
     .out.data.buffer = (uint8_t [CE_TEST_DATA_BUF_LEN]) { 0x00 },
@@ -71,7 +71,7 @@ int test_ce_initialization(int argc, const char* argv[])
     .out.message.buffer = (uint8_t [CE_TEST_MESSAGE_BUF_LEN]) { 0x00 },
     .out.message.size = CE_TEST_MESSAGE_BUF_LEN,
 
-    /* Input channel command set (subset_test.c) */
+    /* Input channel command set (set_test.c) */
     .in.command_set = &test_command_set,
     /* Input channel data buffer */
     .in.data.buffer = (uint8_t [CE_TEST_DATA_BUF_LEN]) { 0x00 },
@@ -91,11 +91,11 @@ int test_ce_initialization(int argc, const char* argv[])
 
   /* Set a command listener */
   if (ce_command_set_listener(&test_command_set,
-                              CE_COMMAND_SUBSET_TEST_CMD1,
+                              CE_COMMAND_SET_TEST_CMD1,
                               &test_cmd1_listener))
   {
     /* Cannot set it, error */
-    _dbg("Error when setting listener for CE_COMMAND_SUBSET_TEST_CMD1\n");
+    _dbg("Error when setting listener for CE_COMMAND_SET_TEST_CMD1\n");
     return 1;
   }
 
@@ -109,10 +109,10 @@ int test_ce_initialization(int argc, const char* argv[])
     NULL
   };
   /* Call for command send */
-  if (ce_send_command(&ce0, CE_COMMAND_SUBSET_TEST_CMD1, cmd1_args))
+  if (ce_send_command(&ce0, CE_COMMAND_SET_TEST_CMD1, cmd1_args))
   {
     /* Cannot send, error */
-    _dbg("Error when sending CE_COMMAND_SUBSET_TEST_CMD1\n");
+    _dbg("Error when sending CE_COMMAND_SET_TEST_CMD1\n");
     return 1;
   }
 

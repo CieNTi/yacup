@@ -62,7 +62,7 @@ struct ce_chat_faf_data
  *             protocol, where everything is supposed to be perfect, with no
  *             communication errors
  *
- * @param      fsm   Pointer to a `fsm` to work with
+ * @param      ce    Pointer to a `ce` to work with
  *
  * @return     One of:
  *             | Value  | Meaning          |

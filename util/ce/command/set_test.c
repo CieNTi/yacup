@@ -1,4 +1,4 @@
-/* subset_test.c - Tests commands subset for `ce` for yacup project
+/* set_test.c - Tests commands subset for `ce` for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -18,12 +18,12 @@
 #include <stddef.h>
 #include "yacup/ce.h"
 #include "yacup/ce/command.h"
-#include "yacup/ce/command/subset_test.h"
+#include "yacup/ce/command/set_test.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/ce/command/subset_test"
+#define YCP_NAME "util/ce/command/set_test"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Listener for test_cmd1 */
@@ -113,10 +113,10 @@ struct ce_command_subset test_command_subset_part_A =
   .name = "test_command_subset_part_A",
   .command = (struct ce_command *[])
   {
-    /* enum CE_COMMAND_SUBSET_TEST_CMD1 -> test_cmd1 */
+    /* enum CE_COMMAND_SET_TEST_CMD1 -> test_cmd1 */
     &(struct ce_command)
     {
-      .id   = CE_COMMAND_SUBSET_TEST_CMD1,
+      .id   = CE_COMMAND_SET_TEST_CMD1,
       .name = "test_cmd1",
       .signature = (enum ce_data_type [])
       {
@@ -125,10 +125,10 @@ struct ce_command_subset test_command_subset_part_A =
       },
       .listener = NULL
     },
-    /* enum CE_COMMAND_SUBSET_TEST_CMD2 -> test_cmd2 */
+    /* enum CE_COMMAND_SET_TEST_CMD2 -> test_cmd2 */
     &(struct ce_command)
     {
-      .id   = CE_COMMAND_SUBSET_TEST_CMD2,
+      .id   = CE_COMMAND_SET_TEST_CMD2,
       .name = "test_cmd2",
       .signature = (enum ce_data_type [])
       {
@@ -147,10 +147,10 @@ struct ce_command_subset test_command_subset_part_B =
   .name = "test_command_subset_part_B",
   .command = (struct ce_command *[])
   {
-    /* enum CE_COMMAND_SUBSET_TEST_CMD3 -> test_cmd3 */
+    /* enum CE_COMMAND_SET_TEST_CMD3 -> test_cmd3 */
     &(struct ce_command)
     {
-      .id   = CE_COMMAND_SUBSET_TEST_CMD3,
+      .id   = CE_COMMAND_SET_TEST_CMD3,
       .name = "test_cmd3",
       .signature = (enum ce_data_type [])
       {
@@ -159,10 +159,10 @@ struct ce_command_subset test_command_subset_part_B =
       },
       .listener = NULL
     },
-    /* enum CE_COMMAND_SUBSET_TEST_CMD4 -> test_cmd4 */
+    /* enum CE_COMMAND_SET_TEST_CMD4 -> test_cmd4 */
     &(struct ce_command)
     {
-      .id   = CE_COMMAND_SUBSET_TEST_CMD4,
+      .id   = CE_COMMAND_SET_TEST_CMD4,
       .name = "test_cmd4",
       .signature = (enum ce_data_type [])
       {
@@ -171,10 +171,10 @@ struct ce_command_subset test_command_subset_part_B =
       },
       .listener = NULL
     },
-    /* enum CE_COMMAND_SUBSET_TEST_CMD5 -> test_cmd5 */
+    /* enum CE_COMMAND_SET_TEST_CMD5 -> test_cmd5 */
     &(struct ce_command)
     {
-      .id   = CE_COMMAND_SUBSET_TEST_CMD5,
+      .id   = CE_COMMAND_SET_TEST_CMD5,
       .name = "test_cmd5",
       .signature = (enum ce_data_type [])
       {

@@ -23,7 +23,7 @@
 #include "yacup/ce/codec/B416K.h"
 #include "yacup/ce/debug_codec.h"
 #include "yacup/ce/command.h"
-#include "yacup/ce/command/subset_test.h"
+#include "yacup/ce/command/set_test.h"
 #include "yacup/ce/command_codec.h"
 #include "yacup/ce/command/codec/binary.h"
 
@@ -121,12 +121,12 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
   /* Validate command */
   _dbg("Should validate: Valid 0 argument vs. 0 argument command\n");
   cmd_to_encode = ce_command_validate(&cmd_set,
-                                      CE_COMMAND_SUBSET_TEST_CMD5,
+                                      CE_COMMAND_SET_TEST_CMD5,
                                       NULL);
   if (cmd_to_encode == NULL)
   {
     /* Cannot validate, error */
-    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD5\n");
+    _dbg("Error when validating CE_COMMAND_SET_TEST_CMD5\n");
     return 1;
   }
   _dbg("Ok\n");
@@ -155,12 +155,12 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
   /* Validate command */
   _dbg("Should validate: Valid 1 argument vs. 1 argument command\n");
   cmd_to_encode = ce_command_validate(&cmd_set,
-                                      CE_COMMAND_SUBSET_TEST_CMD1,
+                                      CE_COMMAND_SET_TEST_CMD1,
                                       cmd1_args);
   if (cmd_to_encode == NULL)
   {
     /* Cannot validate, error */
-    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD1\n");
+    _dbg("Error when validating CE_COMMAND_SET_TEST_CMD1\n");
     return 1;
   }
 
@@ -189,12 +189,12 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
   /* Validate command */
   _dbg("Should validate: Valid 2 arguments vs. 2 arguments command\n");
   cmd_to_encode = ce_command_validate(&cmd_set,
-                                      CE_COMMAND_SUBSET_TEST_CMD2,
+                                      CE_COMMAND_SET_TEST_CMD2,
                                       cmd2_args);
   if (cmd_to_encode == NULL)
   {
     /* Cannot validate, error */
-    _dbg("Error when validating CE_COMMAND_SUBSET_TEST_CMD2\n");
+    _dbg("Error when validating CE_COMMAND_SET_TEST_CMD2\n");
     return 1;
   }
 
@@ -211,21 +211,21 @@ int test_ce_command_codec_binary(int argc, const char* argv[])
 
   /* Set a command listener */
   if (ce_command_set_listener(&cmd_set,
-                              CE_COMMAND_SUBSET_TEST_CMD1,
+                              CE_COMMAND_SET_TEST_CMD1,
                               &test_cmd1_listener))
   {
     /* Cannot set it, error */
-    _dbg("Error when setting listener for CE_COMMAND_SUBSET_TEST_CMD1\n");
+    _dbg("Error when setting listener for CE_COMMAND_SET_TEST_CMD1\n");
     return 1;
   }
 
   /* Set a command listener */
   if (ce_command_set_listener(&cmd_set,
-                              CE_COMMAND_SUBSET_TEST_CMD2,
+                              CE_COMMAND_SET_TEST_CMD2,
                               &test_cmd2_listener))
   {
     /* Cannot set it, error */
-    _dbg("Error when setting listener for CE_COMMAND_SUBSET_TEST_CMD2\n");
+    _dbg("Error when setting listener for CE_COMMAND_SET_TEST_CMD2\n");
     return 1;
   }
 

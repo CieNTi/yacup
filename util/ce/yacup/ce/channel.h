@@ -68,7 +68,6 @@ struct ce_channel
  *             codec message buffer
  *
  * @param      channel                     Poiner to channel to initialize
- * @param      command_set                 Valid command set for this channel
  * @param      channels_codec_driver_init  Channel codec driver initializer
  * @param      channels_rb_driver_init     Message rb driver initializer
  *
