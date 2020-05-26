@@ -54,7 +54,7 @@ extern "C" {
  *     @date       2020
  *   @}
  *
- *   @defgroup   ce_codec_all Available codecs
+ *   @defgroup   ce_codec Available codecs
  *   @{
  *     @brief      Already made and tested codecs for commands, data and
  *                 messages for different purposes
@@ -62,22 +62,6 @@ extern "C" {
  *                 instantiated by calling its init function.
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
- *
- *     @defgroup   ce_codec For data or message
- *     @{
- *       @brief      Already made and tested commands, subsets, and listeners,
- *                   packed as command sets for different purposes
- *       @author     CieNTi <cienti@cienti.com>
- *       @date       2020
- *     @}
- *
- *     @defgroup   ce_command_codec For commands
- *     @{
- *       @brief      Already made and tested commands, subsets, and listeners,
- *                   packed as command sets for different purposes
- *       @author     CieNTi <cienti@cienti.com>
- *       @date       2020
- *     @}
  *   @}
  *
  *   @defgroup   ce_command Available commands

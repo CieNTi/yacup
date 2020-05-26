@@ -35,6 +35,119 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
+ * @brief      Structure that defines a `ce` codec encoder operations
+ */
+struct ce_codec_encoder
+{
+  /**
+   * @brief      Encodes a defined type data and pushes it into a ring-buffer
+   *
+   * @param      type      One of `CE_DATA_*` data types
+   * @param      data      Pointer where the source data to encode is located
+   * @param      num_data  Number of data entities to encode
+   * @param      rb        Pointer to a destination ring-buffer
+   *
+   * @return     One of:
+   *             | Value  | Meaning                         |
+   *             | :----: | :------------------------------ |
+   *             | `== 0` | No encoded data                 |
+   *             | `>  0` | Number of encoded data entities |
+   */
+  size_t (*data)(enum ce_data_type type,
+                 void *data, size_t num_data,
+                 struct rb *rb);
+
+  /**
+   * @brief      Encodes a command as a data-block into a rb
+   *
+   * @param      command   Pointer to a command to be encoded
+   * @param      argument  Command arguments data to encode
+   * @param      rb_data   Pointer to a destination data block ring-buffer
+   *
+   * @return     One of:
+   *             | Value  | Meaning          |
+   *             | :----: | :--------------- |
+   *             | `== 0` | Ok               |
+   *             | `!= 0` | Error            |
+   */
+  size_t (*command)(struct ce_command *command,
+                    struct ce_command_argument *argument[],
+                    struct rb *rb_data);
+
+  /**
+   * @brief      Takes an input `rb` with raw data, encodes it as a message,
+   *             and puts it back into an output `rb`, ready to be decoded
+   *
+   * @param      rb_data  Pointer to a ring-buffer containing the data
+   * @param      rb_msg   Pointer to a ring-buffer to save the message in
+   *
+   * @return     One of:
+   *             | Value  | Meaning          |
+   *             | :----: | :--------------- |
+   *             | `== 0` | Ok               |
+   *             | `!= 0` | Error            |
+   */
+  int (*message)(struct rb *rb_data, struct rb *rb_msg);
+};
+
+/**
+ * @brief      Structure that defines a `ce` codec encoder operations
+ */
+struct ce_codec_decoder
+{
+  /**
+   * @brief      Pulls and decodes a defined type data from a ring-buffer and
+   *             saves it into a pointed variable
+   *
+   * @param      rb        Pointer to a source ring-buffer with encoded data
+   * @param      type      One of `CE_DATA_*` data types
+   * @param      data      Pointer to a destination for decoded data
+   * @param      num_data  Number of data entities to decode
+   *
+   * @return     One of:
+   *             | Value  | Meaning                         |
+   *             | :----: | :------------------------------ |
+   *             | `== 0` | No decoded data                 |
+   *             | `>  0` | Number of decoded data entities |
+   */
+  size_t (*data)(struct rb *rb,
+                 enum ce_data_type type,
+                 void *data, size_t num_data);
+
+  /**
+   * @brief      Decodes a data-block into a validated command with arguments
+   * @todo       Is this the parser to listener call?
+   *
+   * @param      rb_data   Pointer to a destination data block ring-buffer
+   * @param      codec     Pointer to a `ce` codec for data decoding operations
+   * @param      cmd_set   Set of commands where to search for commands
+   *
+   * @return     One of:
+   *             | Value  | Meaning          |
+   *             | :----: | :--------------- |
+   *             | `== 0` | Ok               |
+   *             | `!= 0` | Error            |
+   */
+  size_t (*command)(struct rb *rb_data,
+                    struct ce_command_set *cmd_set);
+
+  /**
+   * @brief      Takes an input `rb` with an encoded message, decodes it,
+   *             extract its data packet, and puts into a destination `rb`
+   *
+   * @param      rb_msg   Pointer to a ring-buffer containing the message
+   * @param      rb_data  Pointer to a ring-buffer to save the data in
+   *
+   * @return     One of:
+   *             | Value  | Meaning          |
+   *             | :----: | :--------------- |
+   *             | `== 0` | Ok               |
+   *             | `!= 0` | Error            |
+   */
+  int (*message)(struct rb *rb_msg, struct rb *rb_data);
+} ;
+  
+/**
  * @brief      Structure that defines a `ce` codec operations
  */
 struct ce_codec
@@ -58,127 +171,14 @@ struct ce_codec
   size_t (*codec_sizeof)(enum ce_data_type type);
 
   /**
-   * @brief      Structure that defines a `ce` codec encoder operations
-   */
-  struct ce_codec_encoder
-  {
-    /**
-     * @brief      Encodes a defined type data and pushes it into a ring-buffer
-     *
-     * @param      type      One of `CE_DATA_*` data types
-     * @param      data      Pointer where the source data to encode is located
-     * @param      num_data  Number of data entities to encode
-     * @param      rb        Pointer to a destination ring-buffer
-     *
-     * @return     One of:
-     *             | Value  | Meaning                         |
-     *             | :----: | :------------------------------ |
-     *             | `== 0` | No encoded data                 |
-     *             | `>  0` | Number of encoded data entities |
-     */
-    size_t (*data)(enum ce_data_type type,
-                   void *data, size_t num_data,
-                   struct rb *rb);
-
-    /**
-     * @brief      Encodes a command as a data-block into a rb
-     *
-     * @param      command   Pointer to a command to be encoded
-     * @param      argument  Command arguments data to encode
-     * @param      rb_data   Pointer to a destination data block ring-buffer
-     *
-     * @return     One of:
-     *             | Value  | Meaning          |
-     *             | :----: | :--------------- |
-     *             | `== 0` | Ok               |
-     *             | `!= 0` | Error            |
-     */
-    size_t (*command)(struct ce_command *command,
-                      struct ce_command_argument *argument[],
-                      struct rb *rb_data);
-
-    /**
-     * @brief      Takes an input `rb` with raw data, encodes it as a message,
-     *             and puts it back into an output `rb`, ready to be decoded
-     *
-     * @param      rb_data  Pointer to a ring-buffer containing the data
-     * @param      rb_msg   Pointer to a ring-buffer to save the message in
-     *
-     * @return     One of:
-     *             | Value  | Meaning          |
-     *             | :----: | :--------------- |
-     *             | `== 0` | Ok               |
-     *             | `!= 0` | Error            |
-     */
-    int (*message)(struct rb *rb_data, struct rb *rb_msg);
-  } 
-
-  /**
    * @brief      Encoding operations
    */
-  encode;
-
-  /**
-   * @brief      Structure that defines a `ce` codec encoder operations
-   */
-  struct ce_codec_decoder
-  {
-    /**
-     * @brief      Pulls and decodes a defined type data from a ring-buffer and
-     *             saves it into a pointed variable
-     *
-     * @param      rb        Pointer to a source ring-buffer with encoded data
-     * @param      type      One of `CE_DATA_*` data types
-     * @param      data      Pointer to a destination for decoded data
-     * @param      num_data  Number of data entities to decode
-     *
-     * @return     One of:
-     *             | Value  | Meaning                         |
-     *             | :----: | :------------------------------ |
-     *             | `== 0` | No decoded data                 |
-     *             | `>  0` | Number of decoded data entities |
-     */
-    size_t (*data)(struct rb *rb,
-                   enum ce_data_type type,
-                   void *data, size_t num_data);
-
-    /**
-     * @brief      Decodes a data-block into a validated command with arguments
-     * @todo       Is this the parser to listener call?
-     *
-     * @param      rb_data   Pointer to a destination data block ring-buffer
-     * @param      codec     Pointer to a `ce` codec for data decoding operations
-     * @param      cmd_set   Set of commands where to search for commands
-     *
-     * @return     One of:
-     *             | Value  | Meaning          |
-     *             | :----: | :--------------- |
-     *             | `== 0` | Ok               |
-     *             | `!= 0` | Error            |
-     */
-    size_t (*command)(struct rb *rb_data,
-                      struct ce_command_set *cmd_set);
-
-    /**
-     * @brief      Takes an input `rb` with an encoded message, decodes it,
-     *             extract its data packet, and puts into a destination `rb`
-     *
-     * @param      rb_msg   Pointer to a ring-buffer containing the message
-     * @param      rb_data  Pointer to a ring-buffer to save the data in
-     *
-     * @return     One of:
-     *             | Value  | Meaning          |
-     *             | :----: | :--------------- |
-     *             | `== 0` | Ok               |
-     *             | `!= 0` | Error            |
-     */
-    int (*message)(struct rb *rb_msg, struct rb *rb_data);
-  } 
+  struct ce_codec_encoder encode;
 
   /**
    * @brief      Decoding operations
    */
-  decode;
+  struct ce_codec_decoder decode;
 };
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
