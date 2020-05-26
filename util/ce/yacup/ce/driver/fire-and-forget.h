@@ -33,7 +33,13 @@ extern "C" {
 
 /* C libraries */
 #include <stddef.h>
+#include <time.h>
 #include "yacup/ce.h"
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define CE_DRIVER_FAF_FSM_DELAY_MS 10
+#define CE_DRIVER_FAF_SEND_TIMEOUT_MS 1000
+#define CE_DRIVER_FAF_RECEIVE_TIMEOUT_MS 1000
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
@@ -50,8 +56,14 @@ struct ce_driver_faf_data
    */
   struct ce *ce;
 
+  /* Inter-state command links */
   struct ce_command *command;
   struct ce_command_argument **argument;
+
+  /* Timming configurations */
+  struct timespec fsm_delay;
+  struct timespec send_timeout;
+  struct timespec receive_timeout;
 
   /* Status flags */
   uint8_t request_to_send;

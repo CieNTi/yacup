@@ -95,7 +95,6 @@ int test_ce_driver_faf(int argc, const char* argv[])
     return 1;
   }
   _dbg("Ok\n");
-  return 0;
 
   /* Set a command listener */
   _dbg("Should set listener to command 0x%02lX\n", CE_COMMAND_SET_TEST_CMD1);
