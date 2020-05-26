@@ -131,6 +131,13 @@ test_ce_initialization: $(addprefix $(ODIR)/, $(test_ce_initialization_o))
 	@echo "-----"
 	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
 	@echo "-----"
+
+# test_ce_driver_faf: Test to check `ce` commands functionality
+test_ce_driver_faf_o=util/ce/test/test_ce_driver_faf.o
+test_ce_driver_faf: $(addprefix $(ODIR)/, $(test_ce_driver_faf_o))
+	@echo "-----"
+	@make test_bin TB_OBJ=$(firstword $(filter %$@.o,$^)) TB_NAME=$@ TB_OBJS="$^"
+	@echo "-----"
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -144,6 +151,7 @@ test_yacup_o=$(test_xyz_testname_o)            \
              $(test_ce_command_validate_o)     \
              $(test_ce_command_codec_B416K_o)  \
              $(test_ce_initialization_o)       \
+             $(test_ce_driver_faf_o)           \
              src/test/test_yacup.o
 test_yacup: $(addprefix $(ODIR)/, $(test_yacup_o))
 	@echo "-----"
@@ -201,7 +209,8 @@ all: clean debug prepare test_yacup                  \
                          test_ce_codec_B416K         \
                          test_ce_command_validate    \
                          test_ce_command_codec_B416K \
-                         test_ce_initialization
+                         test_ce_initialization      \
+                         test_ce_driver_faf
 	@echo "-----"
 	@echo "Success after 'make $@' ('make $^')"
 	@echo ""
@@ -279,7 +288,10 @@ help:
 	@echo "    'ce_command_codec' tests using 'binary' codec implementation"
 	@echo ""
 	@echo "  - test_ce_initialization"
-	@echo "    'ce' basic initialize and usage tests (devel mostly)"
+	@echo "    'ce' basic initialize and usage tests (partial, devel mostly)"
+	@echo ""
+	@echo "  - test_ce_driver_faf"
+	@echo "    'ce' API basic tests: All previous tests features as a compund"
 	@echo ""
 	@echo ""
 	@echo "Available targets related to application tests:"

@@ -95,13 +95,16 @@ int test_fsm_driver_simple(int argc, const char* argv[])
     nanosleep(&(struct timespec){ .tv_sec = 0, .tv_nsec = 100*1000000 }, NULL);
   }
 
-  /* Cya! */
+  /* Show some love */
   fsm_print_stats(&fsm_driver_simple0);
+
+  /* Cya! */
+  _dbg("If you are reading this, everything went correctly :_)\n");
   return 0;
 
   /* Free _dbg() config */
-  _dbg("If you are reading this, everything went correctly :_)\n");
   #undef YCP_FNAME
+
 }
 
 #undef YCP_NAME

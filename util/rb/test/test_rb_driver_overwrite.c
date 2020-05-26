@@ -169,6 +169,7 @@ int test_rb_driver_overwrite(int argc, const char* argv[])
   /* Debug it! */
   rb_print_info(&rb0);
 
+  /* Cya! */
   _dbg("If you are reading this, everything went correctly :_)\n");
   return 0;
 
