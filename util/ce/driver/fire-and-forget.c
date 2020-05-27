@@ -42,7 +42,7 @@
  *   @{
  */
 static int s_start(struct fsm *fsm);
-static int s_idle(struct fsm *fsm);
+static int s_wait_cmd(struct fsm *fsm);
 static int s_encode(struct fsm *fsm);
 static int s_send(struct fsm *fsm);
 static int s_error(struct fsm *fsm);
@@ -68,8 +68,6 @@ static int s_start(struct fsm *fsm)
   /* Configure _dbg() */
   #define YCP_FNAME "s_start"
 
-  _dbg("%s\n", fsm->name);
-
   if (FSM_DATA(fsm)->ce == NULL)
   {
     /* Set error source flag */
@@ -83,20 +81,15 @@ static int s_start(struct fsm *fsm)
     /* Reset fsm */
     FSM_DATA(fsm)->command = NULL;
     FSM_DATA(fsm)->argument = NULL;
-
     FSM_DATA(fsm)->request_to_send = 0;
     FSM_DATA(fsm)->message_sent = 0;
-    
     FSM_DATA(fsm)->request_to_receive = 0;
     FSM_DATA(fsm)->message_decoded = 0;
-    
     FSM_DATA(fsm)->error_invalid_ce = 0;
 
     /* Default next state */
-    fsm->next = s_idle;
+    fsm->next = s_wait_cmd;
   }
-
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -114,23 +107,19 @@ static int s_start(struct fsm *fsm)
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  */
-static int s_idle(struct fsm *fsm)
+static int s_wait_cmd(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "s_idle"
-
-  _dbg("%s\n", fsm->name);
+  #define YCP_FNAME "s_wait_cmd"
 
   /* Default next state */
-  fsm->next = s_idle;
+  fsm->next = s_wait_cmd;
 
   /* This state will be executed 5 times */
   if (FSM_DATA(fsm)->request_to_send == 1)
   {
     fsm->next = s_encode;
   }
-
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -153,14 +142,10 @@ static int s_encode(struct fsm *fsm)
   /* Configure _dbg() */
   #define YCP_FNAME "s_encode"
 
-  _dbg("%s\n", fsm->name);
-
   /* Default next state */
   fsm->next = s_send;
 
   /* Encode the command */
-  _dbg("Should encode a command using '%s' command codec\n",
-       FSM_DATA(fsm)->ce->out.codec.name);
   if (FSM_DATA(fsm)->ce->out.codec.encode.command(FSM_DATA(fsm)->command,
                                                   FSM_DATA(fsm)->argument,
                                                &(FSM_DATA(fsm)->ce->out.data)))
@@ -171,10 +156,6 @@ static int s_encode(struct fsm *fsm)
     _dbg("Cannot encode command\n");
     return 1;
   }
-  _dbg("Ok\n");
-
-
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -197,17 +178,15 @@ static int s_send(struct fsm *fsm)
   /* Configure _dbg() */
   #define YCP_FNAME "s_encode"
 
-  _dbg("%s\n", fsm->name);
-
   /* Default next state */
-  fsm->next = s_idle;
+  fsm->next = s_stop;
 
-  /* Encode the command */
-  _dbg("Should send the command\n");
-  _dbg("Ok\n");
+  /* Send the command */
+  //
+  // Code here to actually send the data, if required
+  //
   FSM_DATA(fsm)->message_sent = 1;
 
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -228,7 +207,7 @@ static int s_send(struct fsm *fsm)
 static int s_error(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "s_idle"
+  #define YCP_FNAME "s_error"
 
   _dbg("ERROR in '%s'. Status flags:\n", fsm->name);
   _dbg("- request_to_send .......: %X\n", FSM_DATA(fsm)->request_to_send);
@@ -237,7 +216,7 @@ static int s_error(struct fsm *fsm)
   _dbg("- message_decoded .......: %X\n", FSM_DATA(fsm)->message_decoded);
   _dbg("- error_invalid_ce ......: %X\n", FSM_DATA(fsm)->error_invalid_ce);
 
-  /* Default next state */
+  /* Set next state */
   fsm->next = s_stop;
   return 0;
 
@@ -261,10 +240,10 @@ static int s_stop(struct fsm *fsm)
   /* Configure _dbg() */
   #define YCP_FNAME "s_stop"
 
-  _dbg("%s\n", fsm->name);
-
   /* Default next state */
-  /* stop state do not need fsm->next, it's ignored by stepper anyway */
+  // 
+  // Stop state do not need fsm->next, it's ignored by stepper anyway
+  // 
 
   (void)fsm;
   return 0;
@@ -344,16 +323,12 @@ static int send_command(struct ce *ce,
   do
   {
     /* Test the fsm */
-    if (ce->driver.fsm.next == s_idle)
+    if (ce->driver.fsm.next == s_wait_cmd)
     {
-      _dbg("Setting command, argument and req-to-send flag\n");
       FSM_DATA(&ce->driver.fsm)->command = command;
       FSM_DATA(&ce->driver.fsm)->argument = argument;
       FSM_DATA(&ce->driver.fsm)->request_to_send = 1;
     }
-    _dbg("Entering next: '%s' %s\n",
-         YCP_FNAME,
-         (ce->driver.fsm.next == s_error)?"FAIL":"OK");
     if (fsm_do_cycle(&ce->driver.fsm))
     {
       _dbg("Error when executing a fsm cycle\n");
@@ -361,13 +336,17 @@ static int send_command(struct ce *ce,
       fsm_print_stats(&ce->driver.fsm);
       return 1;
     }
-    _dbg("Exiting. Next: '%s' %s\n",
-         YCP_FNAME,
-         (ce->driver.fsm.next == s_error)?"FAIL":"OK");
-    if (FSM_DATA(&ce->driver.fsm)->message_sent == 1)
+    if ((ce->driver.fsm.now == s_stop) &&
+        (ce->driver.fsm.next == s_start))
     {
-      /* Sent! */
-      return 0;
+      if (FSM_DATA(&ce->driver.fsm)->message_sent == 1)
+      {
+        /* Sent! */
+        return 0;
+      }
+      /* Not sent! */
+      _dbg("Cannot send the command\n");
+      return 1;
     }
 
     /* Simulate some time spent on the cycle */
@@ -378,7 +357,8 @@ static int send_command(struct ce *ce,
           ((time_after.tv_sec == time_to_finish.tv_sec) && 
            (time_after.tv_nsec < time_to_finish.tv_nsec))));
 
-  /* Let's go! */
+  /* Ouch! */
+  _dbg("Timeout\n");
   return 1;
 
   /* Free _dbg() config */
