@@ -169,6 +169,10 @@ int ce_send_command(struct ce *ce,
                     size_t id,
                     struct ce_command_argument *argument[]);
 
+int ce_wait_command(struct ce *ce,
+                    size_t *id,
+                    struct ce_command_argument *argument[]);
+
 /** @} */
 
 #ifdef __cplusplus

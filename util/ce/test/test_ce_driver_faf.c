@@ -156,12 +156,37 @@ int test_ce_driver_faf(int argc, const char* argv[])
     NULL
   };
   /* Call for command send */
-  _dbg("Should send a command 0x%02lX with a uint8_t argument\n",
+  _dbg("Should send a command 0x%02lX with a uint8_t + double arguments\n",
        CE_COMMAND_SET_TEST_CMD2);
   if (ce_send_command(&ce0, CE_COMMAND_SET_TEST_CMD2, cmd2_args))
   {
     /* Cannot send, error */
     _dbg("Error when sending CE_COMMAND_SET_TEST_CMD2\n");
+    return 1;
+  }
+  _dbg("Ok\n");
+
+  /* Print output buffer info and content after sending a message */
+  rb_print_info(&ce0.out.data);
+
+  /* 
+   * Receive a command with 2 argument
+   */
+  /* Compose arguments */
+  size_t read_cmd2_id = 0;
+  struct ce_command_argument *read_cmd2_args[] =
+  {
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 0 },
+    &(struct ce_command_argument) { .type = CE_DATA_DOUBLE,  .data.d  = 0 },
+    NULL
+  };
+  /* Call for command send */
+  _dbg("Should receive a command 0x%02lX with a uint8_t + double arguments\n",
+       CE_COMMAND_SET_TEST_CMD2);
+  if (ce_wait_command(&ce0, &read_cmd2_id, read_cmd2_args))
+  {
+    /* Cannot send, error */
+    _dbg("Error when receiving CE_COMMAND_SET_TEST_CMD2\n");
     return 1;
   }
   _dbg("Ok\n");
