@@ -339,6 +339,12 @@ static size_t decode_command(struct rb *rb_data,
     _dbg("Decoded argument: 0x%02lX\n", *(size_t *)data_holder);
   }
 
+//  /* Not aux_var? Then we have a listener ready to be called! */
+//  if (data_holder != &aux_var)
+//  {
+//    command->listener->listener(command->listener->argument);
+//  }
+
   /* And return with success */
   return 0;
 

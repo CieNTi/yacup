@@ -64,13 +64,13 @@ struct ce_driver_faf_data
   struct timespec send_timeout;
   struct timespec receive_timeout;
 
-  /* Status flags */
+  /* Requests flags */
   uint8_t request_to_send;
-  uint8_t message_sent;
-
   uint8_t request_to_receive;
-  uint8_t message_decoded;
 
+  /* Status flags */
+  uint8_t message_sent;
+  uint8_t message_decoded;
   uint8_t error_invalid_ce;
 };
 

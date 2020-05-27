@@ -44,6 +44,7 @@
 static int s_start(struct fsm *fsm);
 static int s_wait_cmd(struct fsm *fsm);
 static int s_encode(struct fsm *fsm);
+static int s_decode(struct fsm *fsm);
 static int s_send(struct fsm *fsm);
 static int s_error(struct fsm *fsm);
 static int s_stop(struct fsm *fsm);
@@ -115,10 +116,17 @@ static int s_wait_cmd(struct fsm *fsm)
   /* Default next state */
   fsm->next = s_wait_cmd;
 
-  /* This state will be executed 5 times */
+  /* Do you want to send? */
   if (FSM_DATA(fsm)->request_to_send == 1)
   {
+    FSM_DATA(fsm)->message_sent = 0;
     fsm->next = s_encode;
+  }
+  /* Or do you want to receive? */
+  if (FSM_DATA(fsm)->request_to_receive == 1)
+  {
+    FSM_DATA(fsm)->message_decoded = 0;
+    fsm->next = s_decode;
   }
   return 0;
 
@@ -150,12 +158,50 @@ static int s_encode(struct fsm *fsm)
                                                   FSM_DATA(fsm)->argument,
                                                &(FSM_DATA(fsm)->ce->out.data)))
   {
-    /* Encoded, so send it now */
     fsm->next = s_error;
 
     _dbg("Cannot encode command\n");
     return 1;
   }
+
+  /* Encoded, so send it now */
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/**
+ * @brief      Encode command + data as a message
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Warning          |
+ */
+static int s_decode(struct fsm *fsm)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "s_encode"
+
+  /* Default next state */
+  fsm->next = s_send;
+
+  /* Encode the command */
+  if (FSM_DATA(fsm)->ce->in.codec.decode.command(&(FSM_DATA(fsm)->ce->in.data),
+                                             FSM_DATA(fsm)->ce->in.command_set,
+                                                 &FSM_DATA(fsm)->command))
+  {
+    fsm->next = s_error;
+
+    _dbg("Cannot decode command\n");
+    return 1;
+  }
+
+  /* Decoded, so go back now */
   return 0;
 
   /* Free _dbg() config */
@@ -381,6 +427,7 @@ static int wait_command(struct ce *ce,
    */
   _dbg("FAF is waiting commands\n");
 
+  struct ce_command *cmd_to_decode = NULL;
   struct timespec time_to_finish = { 0x00 };
   struct timespec time_after = { 0x00 };
 
@@ -398,12 +445,12 @@ static int wait_command(struct ce *ce,
   FSM_DATA(&ce->driver.fsm)->message_decoded = 0;
   do
   {
-    //if (ce->driver.fsm.next == s_wait_cmd)
-    //{
-    //  FSM_DATA(&ce->driver.fsm)->command = command;
-    //  FSM_DATA(&ce->driver.fsm)->argument = argument;
-    //  FSM_DATA(&ce->driver.fsm)->request_to_send = 1;
-    //}
+    if (ce->driver.fsm.next == s_wait_cmd)
+    {
+      FSM_DATA(&ce->driver.fsm)->command = cmd_to_decode;
+      FSM_DATA(&ce->driver.fsm)->argument = argument;
+      FSM_DATA(&ce->driver.fsm)->request_to_receive = 1;
+    }
     if (fsm_do_cycle(&ce->driver.fsm))
     {
       _dbg("Error when executing a fsm cycle\n");
