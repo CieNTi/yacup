@@ -65,7 +65,18 @@ int test_ce_driver_faf(int argc, const char* argv[])
     .name = "CE Engine with driver",
 
     /* Driver requirements */
-    .driver.fsm.data = &(struct ce_driver_faf_data) { .some_string = "Hey!" },
+    .driver.fsm.data = &(struct ce_driver_faf_data) {
+      /* We can configure here timeouts, ex: 2.5 s both send/receive */
+      //.send_timeout.tv_sec = 2,
+      //.send_timeout.tv_nsec = 500000000,
+      //.receive_timeout.tv_sec = 2,
+      //.receive_timeout.tv_nsec = 500000000,
+      /* Or some different cycle delay (avoids high-cpu usage), ex: 250 ms */
+      //.fsm_delay.tv_sec = 0,
+      //.fsm_delay.tv_nsec = 250000000,
+      .command = NULL,
+      .argument = NULL
+    },
 
     /* Output channel command set (set_test.c) */
     .out.command_set = &test_command_set,

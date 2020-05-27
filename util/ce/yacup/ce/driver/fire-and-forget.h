@@ -37,7 +37,7 @@ extern "C" {
 #include "yacup/ce.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-#define CE_DRIVER_FAF_FSM_DELAY_MS 10
+#define CE_DRIVER_FAF_FSM_DELAY_MS 50
 #define CE_DRIVER_FAF_SEND_TIMEOUT_MS 1000
 #define CE_DRIVER_FAF_RECEIVE_TIMEOUT_MS 1000
 
@@ -50,7 +50,6 @@ extern "C" {
  */
 struct ce_driver_faf_data
 {
-  char *some_string;
   /**
    * @brief      Pointer to the *ce* this driver will manage
    */

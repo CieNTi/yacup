@@ -291,21 +291,22 @@ static int send_command(struct ce *ce,
    */
   _dbg("FAF is sending command '%s' (0x%02lX)\n", command->name, command->id);
 
-  /* Prepare driver fsm if ready */
-  if (/** @todo Check ready! */1)
+  struct timespec time_to_finish = { 0x00 };
+  struct timespec time_after = { 0x00 };
+
+  /* Calculate when the timeout will happen */
+  if(clock_gettime(CLOCK_REALTIME, &time_to_finish))
   {
-    FSM_DATA(&ce->driver.fsm)->request_to_send = 1;
-    FSM_DATA(&ce->driver.fsm)->command = command;
-    FSM_DATA(&ce->driver.fsm)->argument = argument;
+    time_to_finish.tv_sec = 0;
+    time_to_finish.tv_nsec = 0;
   }
+  time_to_finish.tv_sec  += FSM_DATA(&ce->driver.fsm)->send_timeout.tv_sec;
+  time_to_finish.tv_nsec += FSM_DATA(&ce->driver.fsm)->send_timeout.tv_nsec;
+  time_to_finish.tv_sec += time_to_finish.tv_nsec / 1000000000;
+  time_to_finish.tv_nsec = time_to_finish.tv_nsec % 1000000000;
 
-  #define ABCDEDF 10
-  uint8_t current_cycle = ABCDEDF;
-  while (current_cycle--)
+  do
   {
-    /* Start cycle */
-    _dbg("Cycle #%02u\n", ABCDEDF - current_cycle);
-
     /* Test the fsm */
     if (fsm_do_cycle(&ce->driver.fsm))
     {
@@ -318,6 +319,10 @@ static int send_command(struct ce *ce,
     /* Simulate some time spent on the cycle */
     nanosleep(&(FSM_DATA(&ce->driver.fsm)->fsm_delay), NULL);
   }
+  while ((clock_gettime(CLOCK_REALTIME, &time_after) == 0) &&
+         ((time_after.tv_sec  < time_to_finish.tv_sec) ||
+          ((time_after.tv_sec == time_to_finish.tv_sec) && 
+           (time_after.tv_nsec < time_to_finish.tv_nsec))));
 
   /* Let's go! */
   return 0;
@@ -345,24 +350,43 @@ int ce_driver_faf(struct ce *ce)
 
   /* Assign fsm external variables */
   FSM_DATA(&ce->driver.fsm)->ce = ce;
-  FSM_DATA(&ce->driver.fsm)->fsm_delay.tv_sec =
-                                 (CE_DRIVER_FAF_FSM_DELAY_MS / 1000);
-  FSM_DATA(&ce->driver.fsm)->fsm_delay.tv_nsec =
-                                 (CE_DRIVER_FAF_FSM_DELAY_MS % 1000) * 1000000;
 
+  /* Set cycle delay if not */
+  if ((FSM_DATA(&ce->driver.fsm)->fsm_delay.tv_sec == 0) &&
+      (FSM_DATA(&ce->driver.fsm)->fsm_delay.tv_nsec == 0))
+  {
+    FSM_DATA(&ce->driver.fsm)->fsm_delay.tv_sec =
+                                 (CE_DRIVER_FAF_FSM_DELAY_MS / 1000);
+    FSM_DATA(&ce->driver.fsm)->fsm_delay.tv_nsec =
+                                 (CE_DRIVER_FAF_FSM_DELAY_MS % 1000) * 1000000;
+  }
+
+  /* Set cycle delay if not */
+  if ((FSM_DATA(&ce->driver.fsm)->send_timeout.tv_sec == 0) &&
+      (FSM_DATA(&ce->driver.fsm)->send_timeout.tv_nsec == 0))
+  {
+    FSM_DATA(&ce->driver.fsm)->send_timeout.tv_sec =
+                              (CE_DRIVER_FAF_SEND_TIMEOUT_MS / 1000);
+    FSM_DATA(&ce->driver.fsm)->send_timeout.tv_nsec =
+                              (CE_DRIVER_FAF_SEND_TIMEOUT_MS % 1000) * 1000000;
+  }
+
+  /* Set cycle delay if not */
+  if ((FSM_DATA(&ce->driver.fsm)->receive_timeout.tv_sec == 0) &&
+      (FSM_DATA(&ce->driver.fsm)->receive_timeout.tv_nsec == 0))
+  {
+    FSM_DATA(&ce->driver.fsm)->receive_timeout.tv_sec =
+                           (CE_DRIVER_FAF_RECEIVE_TIMEOUT_MS / 1000);
+    FSM_DATA(&ce->driver.fsm)->receive_timeout.tv_nsec =
+                           (CE_DRIVER_FAF_RECEIVE_TIMEOUT_MS % 1000) * 1000000;
+  }
+
+  /* Once configured/fixed, initialize this driver fsm */
   if (fsm_init(&ce->driver.fsm, ce_driver_fsm_driver))
   {
     _dbg("Cannot initialize this command engine\n");
     return 1;
   }
-
-  /* Basics: enable + auto-restart + start as soon as possible */
-  fsm_enable(&ce->driver.fsm);
-  fsm_set_loop(&ce->driver.fsm);
-  fsm_request_start(&ce->driver.fsm);
-
-  /* fsm cycles */
-  fsm_print_info(&ce->driver.fsm);
 
   /* Assign default name, if not previously set */
   if (ce->name == NULL)
@@ -372,6 +396,14 @@ int ce_driver_faf(struct ce *ce)
 
   /* Assign the external driver-fsm API */
   ce->driver.send_command = send_command;
+
+  /* Basics: enable + auto-restart + start as soon as possible */
+  fsm_enable(&ce->driver.fsm);
+  fsm_set_loop(&ce->driver.fsm);
+  fsm_request_start(&ce->driver.fsm);
+
+  /* fsm cycles */
+  fsm_print_info(&ce->driver.fsm);
 
   /* Let's go! */
   return 0;
