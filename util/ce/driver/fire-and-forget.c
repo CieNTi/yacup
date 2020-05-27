@@ -156,7 +156,7 @@ static int s_encode(struct fsm *fsm)
   _dbg("%s\n", fsm->name);
 
   /* Default next state */
-  fsm->next = s_stop;
+  fsm->next = s_send;
 
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
@@ -165,13 +165,14 @@ static int s_encode(struct fsm *fsm)
                                                   FSM_DATA(fsm)->argument,
                                                &(FSM_DATA(fsm)->ce->out.data)))
   {
+    /* Encoded, so send it now */
+    fsm->next = s_error;
+
     _dbg("Cannot encode command\n");
     return 1;
   }
   _dbg("Ok\n");
 
-  /* Encoded, so send it now */
-  fsm->next = s_send;
 
   _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
@@ -199,13 +200,12 @@ static int s_send(struct fsm *fsm)
   _dbg("%s\n", fsm->name);
 
   /* Default next state */
-  fsm->next = s_stop;
+  fsm->next = s_idle;
 
   /* Encode the command */
   _dbg("Should send the command\n");
   _dbg("Ok\n");
   FSM_DATA(fsm)->message_sent = 1;
-  fsm->next = s_idle;
 
   _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
@@ -239,7 +239,6 @@ static int s_error(struct fsm *fsm)
 
   /* Default next state */
   fsm->next = s_stop;
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -268,7 +267,6 @@ static int s_stop(struct fsm *fsm)
   /* stop state do not need fsm->next, it's ignored by stepper anyway */
 
   (void)fsm;
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -353,6 +351,9 @@ static int send_command(struct ce *ce,
       FSM_DATA(&ce->driver.fsm)->argument = argument;
       FSM_DATA(&ce->driver.fsm)->request_to_send = 1;
     }
+    _dbg("Entering next: '%s' %s\n",
+         YCP_FNAME,
+         (ce->driver.fsm.next == s_error)?"FAIL":"OK");
     if (fsm_do_cycle(&ce->driver.fsm))
     {
       _dbg("Error when executing a fsm cycle\n");
@@ -360,6 +361,9 @@ static int send_command(struct ce *ce,
       fsm_print_stats(&ce->driver.fsm);
       return 1;
     }
+    _dbg("Exiting. Next: '%s' %s\n",
+         YCP_FNAME,
+         (ce->driver.fsm.next == s_error)?"FAIL":"OK");
     if (FSM_DATA(&ce->driver.fsm)->message_sent == 1)
     {
       /* Sent! */
