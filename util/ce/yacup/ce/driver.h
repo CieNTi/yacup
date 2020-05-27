@@ -55,6 +55,13 @@ struct ce_driver
   int (*send_command)(struct ce *,
                       struct ce_command *,
                       struct ce_command_argument *[]);
+
+  /**
+   * @brief      Finite state machine controlling data/actions behaviour
+   */
+  int (*wait_command)(struct ce *,
+                      size_t *,
+                      struct ce_command_argument *[]);
 };
 
 /** @} */

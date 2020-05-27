@@ -111,4 +111,58 @@ int ce_send_command(struct ce *ce,
   #undef YCP_FNAME
 }
 
+/* Wait for a command and returns its id and data if success
+ * Read `yacup/ce.h` for complete information. */
+int ce_wait_command(struct ce *ce,
+                    size_t *id,
+                    struct ce_command_argument *argument[])
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "ce_wait_command"
+
+  /* Pointer to validated command */
+  struct ce_command *cmd_to_wait = NULL;
+  
+  if (/* Invalid ce? */
+      (ce == NULL) ||
+      /* Invalid command ID holder? */
+      (id == NULL) ||
+      /* Invalid arguments ? */
+      (argument == NULL) ||
+      /* Invalid send_command() ? */
+      (ce->driver.wait_command == NULL))
+  {
+    /* Cannot send, error */
+    _dbg("Error when waiting commands: Invalid ce, id or argument holders\n");
+    return 1;
+  }
+
+  /* Cannot receive any command ? */
+  if (ce->driver.wait_command(ce, id, argument))
+  {
+    /* Cannot send, error */
+    _dbg("Error when receiving the command\n");
+    return 1;
+  }
+
+  /* Look for it, validate and return a pointer if found and valid */
+  cmd_to_wait = ce_command_validate(ce->in.command_set, *id, argument);
+  if (cmd_to_wait == NULL)
+  {
+    /* Cannot send, error */
+    _dbg("Cannot validate command\n");
+    return 1;
+  }
+
+  /* set id and go */
+  *id = cmd_to_wait->id;
+
+  /* Ok! */
+  _dbg("Command sent\n");
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
 #undef YCP_NAME

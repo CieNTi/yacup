@@ -322,7 +322,7 @@ static int send_command(struct ce *ce,
   FSM_DATA(&ce->driver.fsm)->message_sent = 0;
   do
   {
-    /* Test the fsm */
+    /* Once requests are accepted, put the command and go! */
     if (ce->driver.fsm.next == s_wait_cmd)
     {
       FSM_DATA(&ce->driver.fsm)->command = command;
@@ -346,6 +346,81 @@ static int send_command(struct ce *ce,
       }
       /* Not sent! */
       _dbg("Cannot send the command\n");
+      return 1;
+    }
+
+    /* Simulate some time spent on the cycle */
+    nanosleep(&(FSM_DATA(&ce->driver.fsm)->fsm_delay), NULL);
+  }
+  while ((clock_gettime(CLOCK_REALTIME, &time_after) == 0) &&
+         ((time_after.tv_sec  < time_to_finish.tv_sec) ||
+          ((time_after.tv_sec == time_to_finish.tv_sec) && 
+           (time_after.tv_nsec < time_to_finish.tv_nsec))));
+
+  /* Ouch! */
+  _dbg("Timeout\n");
+  return 1;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* Initialize a *ce_driver_faf* type *ce_driver*.
+ * Read `yacup/ce/driver/fire-and-forget.h` for complete information. */
+static int wait_command(struct ce *ce,
+                        size_t *id,
+                        struct ce_command_argument *argument[])
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "wait_command"
+
+  /* Command is already validated, so we can trust on:
+   * - arguments type, checked by ce_command_validate()
+   * - arguments type, ensured storage as per ce_command_argument declaration
+   */
+  _dbg("FAF is waiting commands\n");
+
+  struct timespec time_to_finish = { 0x00 };
+  struct timespec time_after = { 0x00 };
+
+  /* Calculate when the timeout will happen */
+  if(clock_gettime(CLOCK_REALTIME, &time_to_finish))
+  {
+    time_to_finish.tv_sec = 0;
+    time_to_finish.tv_nsec = 0;
+  }
+  time_to_finish.tv_sec  += FSM_DATA(&ce->driver.fsm)->receive_timeout.tv_sec;
+  time_to_finish.tv_nsec += FSM_DATA(&ce->driver.fsm)->receive_timeout.tv_nsec;
+  time_to_finish.tv_sec += time_to_finish.tv_nsec / 1000000000;
+  time_to_finish.tv_nsec = time_to_finish.tv_nsec % 1000000000;
+
+  FSM_DATA(&ce->driver.fsm)->message_decoded = 0;
+  do
+  {
+    //if (ce->driver.fsm.next == s_wait_cmd)
+    //{
+    //  FSM_DATA(&ce->driver.fsm)->command = command;
+    //  FSM_DATA(&ce->driver.fsm)->argument = argument;
+    //  FSM_DATA(&ce->driver.fsm)->request_to_send = 1;
+    //}
+    if (fsm_do_cycle(&ce->driver.fsm))
+    {
+      _dbg("Error when executing a fsm cycle\n");
+      fsm_print_info(&ce->driver.fsm);
+      fsm_print_stats(&ce->driver.fsm);
+      return 1;
+    }
+    if ((ce->driver.fsm.now == s_stop) &&
+        (ce->driver.fsm.next == s_start))
+    {
+      if (FSM_DATA(&ce->driver.fsm)->message_decoded == 1)
+      {
+        /* Sent! */
+        return 0;
+      }
+      /* Not sent! */
+      _dbg("Cannot decode the command\n");
       return 1;
     }
 
@@ -430,6 +505,7 @@ int ce_driver_faf(struct ce *ce)
 
   /* Assign the external driver-fsm API */
   ce->driver.send_command = send_command;
+  ce->driver.wait_command = wait_command;
 
   /* Basics: enable + auto-restart + start as soon as possible */
   fsm_enable(&ce->driver.fsm);
