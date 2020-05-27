@@ -41,11 +41,12 @@
  *   @name        FSM States
  *   @{
  */
-static int start(struct fsm *fsm);
-static int state_idle(struct fsm *fsm);
-static int state_encode(struct fsm *fsm);
-static int state_error(struct fsm *fsm);
-static int stop(struct fsm *fsm);
+static int s_start(struct fsm *fsm);
+static int s_idle(struct fsm *fsm);
+static int s_encode(struct fsm *fsm);
+static int s_send(struct fsm *fsm);
+static int s_error(struct fsm *fsm);
+static int s_stop(struct fsm *fsm);
 /**  @}
  * @}
  */
@@ -62,10 +63,10 @@ static int stop(struct fsm *fsm);
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  */
-static int start(struct fsm *fsm)
+static int s_start(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "start"
+  #define YCP_FNAME "s_start"
 
   _dbg("%s\n", fsm->name);
 
@@ -75,26 +76,27 @@ static int start(struct fsm *fsm)
     FSM_DATA(fsm)->error_invalid_ce = 1;
 
     /* Default next state */
-    fsm->next = state_error;
+    fsm->next = s_error;
   }
   else
   {
     /* Reset fsm */
     FSM_DATA(fsm)->command = NULL;
     FSM_DATA(fsm)->argument = NULL;
+
     FSM_DATA(fsm)->request_to_send = 0;
-    FSM_DATA(fsm)->data_ready_to_send = 0;
     FSM_DATA(fsm)->message_sent = 0;
+    
     FSM_DATA(fsm)->request_to_receive = 0;
-    FSM_DATA(fsm)->data_ready_to_decode = 0;
     FSM_DATA(fsm)->message_decoded = 0;
+    
     FSM_DATA(fsm)->error_invalid_ce = 0;
 
     /* Default next state */
-    fsm->next = state_idle;
+    fsm->next = s_idle;
   }
 
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == state_error)?"FAIL":"OK");
+  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -112,23 +114,23 @@ static int start(struct fsm *fsm)
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  */
-static int state_idle(struct fsm *fsm)
+static int s_idle(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "state_idle"
+  #define YCP_FNAME "s_idle"
 
   _dbg("%s\n", fsm->name);
 
   /* Default next state */
-  fsm->next = state_idle;
+  fsm->next = s_idle;
 
   /* This state will be executed 5 times */
   if (FSM_DATA(fsm)->request_to_send == 1)
   {
-    fsm->next = state_encode;
+    fsm->next = s_encode;
   }
 
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == state_error)?"FAIL":"OK");
+  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -146,15 +148,15 @@ static int state_idle(struct fsm *fsm)
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  */
-static int state_encode(struct fsm *fsm)
+static int s_encode(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "state_encode"
+  #define YCP_FNAME "s_encode"
 
   _dbg("%s\n", fsm->name);
 
   /* Default next state */
-  fsm->next = stop;
+  fsm->next = s_stop;
 
   /* Encode the command */
   _dbg("Should encode a command using '%s' command codec\n",
@@ -168,7 +170,44 @@ static int state_encode(struct fsm *fsm)
   }
   _dbg("Ok\n");
 
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == state_error)?"FAIL":"OK");
+  /* Encoded, so send it now */
+  fsm->next = s_send;
+
+  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/**
+ * @brief      Send the message to the outside world
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Warning          |
+ */
+static int s_send(struct fsm *fsm)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "s_encode"
+
+  _dbg("%s\n", fsm->name);
+
+  /* Default next state */
+  fsm->next = s_stop;
+
+  /* Encode the command */
+  _dbg("Should send the command\n");
+  _dbg("Ok\n");
+  FSM_DATA(fsm)->message_sent = 1;
+  fsm->next = s_idle;
+
+  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -186,23 +225,21 @@ static int state_encode(struct fsm *fsm)
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  */
-static int state_error(struct fsm *fsm)
+static int s_error(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "state_idle"
+  #define YCP_FNAME "s_idle"
 
   _dbg("ERROR in '%s'. Status flags:\n", fsm->name);
   _dbg("- request_to_send .......: %X\n", FSM_DATA(fsm)->request_to_send);
-  _dbg("- data_ready_to_send ....: %X\n", FSM_DATA(fsm)->data_ready_to_send);
   _dbg("- message_sent ........  : %X\n", FSM_DATA(fsm)->message_sent);
   _dbg("- request_to_receive ....: %X\n", FSM_DATA(fsm)->request_to_receive);
-  _dbg("- data_ready_to_decode ..: %X\n", FSM_DATA(fsm)->data_ready_to_decode);
   _dbg("- message_decoded .......: %X\n", FSM_DATA(fsm)->message_decoded);
   _dbg("- error_invalid_ce ......: %X\n", FSM_DATA(fsm)->error_invalid_ce);
 
   /* Default next state */
-  fsm->next = stop;
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == state_error)?"FAIL":"OK");
+  fsm->next = s_stop;
+  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -220,10 +257,10 @@ static int state_error(struct fsm *fsm)
  *             | `== 0` | Ok               |
  *             | `!= 0` | Warning          |
  */
-static int stop(struct fsm *fsm)
+static int s_stop(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "stop"
+  #define YCP_FNAME "s_stop"
 
   _dbg("%s\n", fsm->name);
 
@@ -231,7 +268,7 @@ static int stop(struct fsm *fsm)
   /* stop state do not need fsm->next, it's ignored by stepper anyway */
 
   (void)fsm;
-  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == state_error)?"FAIL":"OK");
+  _dbg("Exit '%s' %s\n", YCP_FNAME, (fsm->next == s_error)?"FAIL":"OK");
   return 0;
 
   /* Free _dbg() config */
@@ -248,8 +285,8 @@ static int ce_driver_fsm_driver(struct fsm *fsm)
   /* Create it static, as this will not change along the execution */
   static struct fsm_driver this_driver =
   {
-    .start = start,
-    .stop = stop
+    .start = s_start,
+    .stop = s_stop
   };
 
   /* Valid fsm? */
@@ -305,15 +342,28 @@ static int send_command(struct ce *ce,
   time_to_finish.tv_sec += time_to_finish.tv_nsec / 1000000000;
   time_to_finish.tv_nsec = time_to_finish.tv_nsec % 1000000000;
 
+  FSM_DATA(&ce->driver.fsm)->message_sent = 0;
   do
   {
     /* Test the fsm */
+    if (ce->driver.fsm.next == s_idle)
+    {
+      _dbg("Setting command, argument and req-to-send flag\n");
+      FSM_DATA(&ce->driver.fsm)->command = command;
+      FSM_DATA(&ce->driver.fsm)->argument = argument;
+      FSM_DATA(&ce->driver.fsm)->request_to_send = 1;
+    }
     if (fsm_do_cycle(&ce->driver.fsm))
     {
       _dbg("Error when executing a fsm cycle\n");
       fsm_print_info(&ce->driver.fsm);
       fsm_print_stats(&ce->driver.fsm);
       return 1;
+    }
+    if (FSM_DATA(&ce->driver.fsm)->message_sent == 1)
+    {
+      /* Sent! */
+      return 0;
     }
 
     /* Simulate some time spent on the cycle */
@@ -325,7 +375,7 @@ static int send_command(struct ce *ce,
            (time_after.tv_nsec < time_to_finish.tv_nsec))));
 
   /* Let's go! */
-  return 0;
+  return 1;
 
   /* Free _dbg() config */
   #undef YCP_FNAME
