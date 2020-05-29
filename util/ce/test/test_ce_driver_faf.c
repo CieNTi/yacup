@@ -194,20 +194,49 @@ int test_ce_driver_faf(int argc, const char* argv[])
   rb_print_info(&ce0.in.message);
 
   /* 
+   * Receive a command with 1 argument
+   */
+  /* Compose arguments */
+  size_t read_cmd1_id = 0;
+  struct ce_command_argument **read_cmd1_args;
+  /* Call for command send */
+  _dbg("Should receive a command 0x%02lX with a uint8_t argument\n",
+       CE_COMMAND_SET_TEST_CMD1);
+  if (ce_wait_command(&ce0, &read_cmd1_id, &read_cmd1_args))
+  {
+    /* Cannot send, error */
+    _dbg("Error when receiving CE_COMMAND_SET_TEST_CMD1\n");
+    return 1;
+  }
+
+  _dbg("Received command id: 0x%02lX (should be 0x%02lX)\n",
+       read_cmd1_id,
+       CE_COMMAND_SET_TEST_CMD1);
+  _dbg("Received command argument: 0x%02X (should be uint8_t 0x%02X)\n",
+       read_cmd1_args[0]->data.u8,
+       123);
+
+  if ((read_cmd1_id != CE_COMMAND_SET_TEST_CMD1) ||
+      (read_cmd1_args[0]->data.u8 != 123))
+  {
+    _dbg("Something is not working in the guts ... ouch!\n");
+    return 1;
+  }
+  _dbg("Ok\n");
+
+  /* Print output buffer info and content after sending a message */
+  rb_print_info(&ce0.out.data);
+
+  /* 
    * Receive a command with 2 argument
    */
   /* Compose arguments */
   size_t read_cmd2_id = 0;
-  struct ce_command_argument *read_cmd2_args[] =
-  {
-    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 0 },
-    &(struct ce_command_argument) { .type = CE_DATA_DOUBLE,  .data.d  = 0 },
-    NULL
-  };
+  struct ce_command_argument **read_cmd2_args;
   /* Call for command send */
   _dbg("Should receive a command 0x%02lX with a uint8_t + double arguments\n",
        CE_COMMAND_SET_TEST_CMD2);
-  if (ce_wait_command(&ce0, &read_cmd2_id, read_cmd2_args))
+  if (ce_wait_command(&ce0, &read_cmd2_id, &read_cmd2_args))
   {
     /* Cannot send, error */
     _dbg("Error when receiving CE_COMMAND_SET_TEST_CMD2\n");

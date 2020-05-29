@@ -483,7 +483,7 @@ static int send_command(struct ce *ce,
  * Read `yacup/ce/driver/fire-and-forget.h` for complete information. */
 static int wait_command(struct ce *ce,
                         size_t *id,
-                        struct ce_command_argument *argument[])
+                        struct ce_command_argument **argument[])
 {
   /* Configure _dbg() */
   #define YCP_FNAME "wait_command"
@@ -494,7 +494,6 @@ static int wait_command(struct ce *ce,
    */
   _dbg("FAF is waiting commands\n");
 
-  struct ce_command *cmd_to_decode = NULL;
   struct timespec time_to_finish = { 0x00 };
   struct timespec time_after = { 0x00 };
 
@@ -514,8 +513,8 @@ static int wait_command(struct ce *ce,
   {
     if (ce->driver.fsm.next == s_wait_cmd)
     {
-      FSM_DATA(&ce->driver.fsm)->command = cmd_to_decode;
-      FSM_DATA(&ce->driver.fsm)->argument = argument;
+      FSM_DATA(&ce->driver.fsm)->command = NULL;
+      FSM_DATA(&ce->driver.fsm)->argument = NULL;
       FSM_DATA(&ce->driver.fsm)->request_to_receive = 1;
     }
     if (fsm_do_cycle(&ce->driver.fsm))
@@ -530,7 +529,15 @@ static int wait_command(struct ce *ce,
     {
       if (FSM_DATA(&ce->driver.fsm)->message_decoded == 1)
       {
-        /* Sent! */
+        _dbg("Here, or at s_decode, listener->listener can be called\n");
+        /* Fill id and arguments of caller */
+        *id = FSM_DATA(&ce->driver.fsm)->command->id;
+        *argument = NULL;
+        if (FSM_DATA(&ce->driver.fsm)->command->listener != NULL)
+        {
+          *argument = FSM_DATA(&ce->driver.fsm)->command->listener->argument;
+        }
+        /* Received! */
         return 0;
       }
       /* Not sent! */
