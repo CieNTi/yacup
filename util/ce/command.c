@@ -168,9 +168,9 @@ int ce_command_set_listener(struct ce_command_set *cmd_set,
   if (/* Invalid command set? */
       (cmd_set == NULL) ||
       /* Invalid listener structure? */
-      (listener == NULL) ||
-      /* Invalid listener function? */
-      (listener->listener == NULL))
+      (listener == NULL)
+      /* Removed listener->listener check as we maybe just want the data
+       * and not the full callback+data. To be checked where executed */)
   {
     /* Cannot send, error */
     _dbg("Invalid data when attaching a listener to a command\n");

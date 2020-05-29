@@ -61,7 +61,7 @@ struct ce_driver
    */
   int (*wait_command)(struct ce *,
                       size_t *,
-                      struct ce_command_argument *[]);
+                      struct ce_command_argument **[]);
 };
 
 /** @} */

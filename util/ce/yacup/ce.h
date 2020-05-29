@@ -171,7 +171,7 @@ int ce_send_command(struct ce *ce,
 
 int ce_wait_command(struct ce *ce,
                     size_t *id,
-                    struct ce_command_argument *argument[]);
+                    struct ce_command_argument **argument[]);
 
 /** @} */
 

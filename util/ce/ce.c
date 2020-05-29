@@ -115,7 +115,7 @@ int ce_send_command(struct ce *ce,
  * Read `yacup/ce.h` for complete information. */
 int ce_wait_command(struct ce *ce,
                     size_t *id,
-                    struct ce_command_argument *argument[])
+                    struct ce_command_argument **argument[])
 {
   /* Configure _dbg() */
   #define YCP_FNAME "ce_wait_command"
@@ -146,7 +146,7 @@ int ce_wait_command(struct ce *ce,
   }
 
   /* Look for it, validate and return a pointer if found and valid */
-  cmd_to_wait = ce_command_validate(ce->in.command_set, *id, argument);
+  cmd_to_wait = ce_command_validate(ce->in.command_set, *id, *argument);
   if (cmd_to_wait == NULL)
   {
     /* Cannot send, error */
@@ -158,7 +158,7 @@ int ce_wait_command(struct ce *ce,
   *id = cmd_to_wait->id;
 
   /* Ok! */
-  _dbg("Command sent\n");
+  _dbg("Command received\n");
   return 0;
 
   /* Free _dbg() config */
