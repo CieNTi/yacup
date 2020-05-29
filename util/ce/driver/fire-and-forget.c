@@ -155,14 +155,29 @@ static int s_encode(struct fsm *fsm)
   /* Default next state */
   fsm->next = s_send;
 
-  /* Encode the command */
+  /* Encode the command as a data payload */
   if (FSM_DATA(fsm)->ce->out.codec.encode.command(FSM_DATA(fsm)->command,
                                                   FSM_DATA(fsm)->argument,
                                                &(FSM_DATA(fsm)->ce->out.data)))
   {
     fsm->next = s_error;
 
-    _dbg("Cannot encode command\n");
+    _dbg("Cannot encode command to payload\n");
+    return 1;
+  }
+
+  /* Print output buffer before using the data */
+  _dbg("Data buffer (should be still filled, but it will be erased now)\n");
+  rb_print_info(&(FSM_DATA(fsm)->ce->out.data));
+
+  /* Encode the data payload as a message */
+  if (FSM_DATA(fsm)->ce->out.codec.encode.message(
+                                            &(FSM_DATA(fsm)->ce->out.data), 
+                                            &(FSM_DATA(fsm)->ce->out.message)))
+  {
+    fsm->next = s_error;
+
+    _dbg("Cannot encode payload to message\n");
     return 1;
   }
 
@@ -242,15 +257,16 @@ static int s_decode(struct fsm *fsm)
 static int s_send(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "s_encode"
+  #define YCP_FNAME "s_send"
 
   /* Default next state */
   fsm->next = s_stop;
 
-  /* Send the command */
+  /* Send the message */
   //
   // Code here to actually send the data, if required
   //
+  _dbg("Go send .. brrrrrrrr\n");
   FSM_DATA(fsm)->message_sent = 1;
 
   return 0;
