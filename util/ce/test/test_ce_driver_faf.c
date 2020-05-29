@@ -120,6 +120,7 @@ int test_ce_driver_faf(int argc, const char* argv[])
   _dbg("Ok\n");
 
   /* Print output buffer info and content before sending a message */
+  _dbg("Data buffer (should be empty, with no signs of any previous usage)\n");
   rb_print_info(&ce0.out.data);
 
   /* 
@@ -128,7 +129,7 @@ int test_ce_driver_faf(int argc, const char* argv[])
   /* Compose arguments */
   struct ce_command_argument *cmd1_args[] =
   {
-    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 250 },
+    &(struct ce_command_argument) { .type = CE_DATA_UINT8_T, .data.u8 = 123 },
     NULL
   };
   /* Call for command send */
@@ -143,7 +144,10 @@ int test_ce_driver_faf(int argc, const char* argv[])
   _dbg("Ok\n");
 
   /* Print output buffer info and content after sending a message */
+  _dbg("Data buffer (should be empty, but with used indices)\n");
   rb_print_info(&ce0.out.data);
+  _dbg("Message buffer (should hold a message)\n");
+  rb_print_info(&ce0.out.message);
 
   /* 
    * Send a command with 2 argument
@@ -167,7 +171,27 @@ int test_ce_driver_faf(int argc, const char* argv[])
   _dbg("Ok\n");
 
   /* Print output buffer info and content after sending a message */
+  _dbg("Data buffer (should be empty, but with used indices)\n");
   rb_print_info(&ce0.out.data);
+  _dbg("Message buffer (should hold 2 outgoing messages)\n");
+  rb_print_info(&ce0.out.message);
+
+  /* At this point, there is a message waiting to be delivered, so we simulate
+   * a transmission by blindly moving the data from out to in */
+  uint8_t abyte = 0;
+  while (rb_pull(&ce0.out.message, &abyte) == 0)
+  {
+    if (rb_push(&ce0.in.message, abyte))
+    {
+      _dbg("Error when pushing a byte\n");
+      return 1;
+    }
+  }
+  _dbg("Transmission simulation finished, outgoing data is now received\n");
+
+  /* Print input buffer info and content before receiving a message */
+  _dbg("Message buffer (should hold 2 incoming messages)\n");
+  rb_print_info(&ce0.in.message);
 
   /* 
    * Receive a command with 2 argument

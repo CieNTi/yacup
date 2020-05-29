@@ -429,8 +429,8 @@ static int send_command(struct ce *ce,
   }
   time_to_finish.tv_sec  += FSM_DATA(&ce->driver.fsm)->send_timeout.tv_sec;
   time_to_finish.tv_nsec += FSM_DATA(&ce->driver.fsm)->send_timeout.tv_nsec;
-  time_to_finish.tv_sec += time_to_finish.tv_nsec / 1000000000;
-  time_to_finish.tv_nsec = time_to_finish.tv_nsec % 1000000000;
+  time_to_finish.tv_sec  += time_to_finish.tv_nsec / 1000000000;
+  time_to_finish.tv_nsec  = time_to_finish.tv_nsec % 1000000000;
 
   FSM_DATA(&ce->driver.fsm)->message_sent = 0;
   do
@@ -506,8 +506,8 @@ static int wait_command(struct ce *ce,
   }
   time_to_finish.tv_sec  += FSM_DATA(&ce->driver.fsm)->receive_timeout.tv_sec;
   time_to_finish.tv_nsec += FSM_DATA(&ce->driver.fsm)->receive_timeout.tv_nsec;
-  time_to_finish.tv_sec += time_to_finish.tv_nsec / 1000000000;
-  time_to_finish.tv_nsec = time_to_finish.tv_nsec % 1000000000;
+  time_to_finish.tv_sec  += time_to_finish.tv_nsec / 1000000000;
+  time_to_finish.tv_nsec  = time_to_finish.tv_nsec % 1000000000;
 
   FSM_DATA(&ce->driver.fsm)->message_decoded = 0;
   do
