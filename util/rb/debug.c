@@ -18,49 +18,90 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "yacup/rb.h"
-#include "yacup/rb/op.h"
+#include "yacup/rb/driver.h"
 #include "yacup/rb/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/rb/debug"
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#ifndef _dbg
-  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Print `rb` information to STDOUT.
  * Read `yacup/rb/debug.h` for complete information. */
 void rb_print_info(struct rb *rb)
 {
-  if ((rb == NULL) || (rb->op == NULL) || rb->op->validate(rb))
+  /* Configure _dbg() */
+  #define YCP_FNAME "rb_print_info"
+
+  if ((rb == NULL) || (rb->driver == NULL) || rb->driver->validate(rb))
   {
     _dbg("Provided rb is not valid\n");
     return;
   }
 
-  /* Required vars */
-  size_t idx = 0;
-
-  /* Show data */
-  _dbg("[s: %3lu, h: %3lu, t: %3lu, of: %1u, len: %3lu]"
-         "[buf:",
+  /* Show parameters data */
+  _dbg("[s: %3lu, h: %3lu, t: %3lu, of: %1u, len: %3lu]\n",
          rb->size,
          rb->head,
          rb->tail,
          rb->head_of,
-         rb->op->len(rb)
+         rb->driver->len(rb)
          );
-  for (idx = 0; idx < rb->size; idx++)
+
+  /* Required vars to print a data table */
+  size_t idx_byte = 0;
+  size_t idx_line = 0;
+  #define RB_DBG_LINE_BYTES 24
+  #define __RB_DBG_TOTAL ((RB_DBG_LINE_BYTES * 3) + 10)
+  char debug_line[__RB_DBG_TOTAL] = { 0x00 };
+  char *debug_line_pt = NULL;
+
+  /* Show top row with index */
+  debug_line_pt = debug_line;
+  for (idx_byte = 0; idx_byte < RB_DBG_LINE_BYTES; idx_byte++)
   {
-    printf(" %02X", rb->buffer[idx]);
+    sprintf(debug_line_pt, " %02lX", idx_byte);
+    debug_line_pt += 3;
   }
-  printf("]\n");
-  fflush(stdout);
+  _dbg("[    |%s ]\n", debug_line);
+
+  /* Show row with separator */
+  debug_line_pt = debug_line;
+  for (idx_byte = 0; idx_byte < RB_DBG_LINE_BYTES; idx_byte++)
+  {
+    sprintf(debug_line_pt, "~~~");
+    debug_line_pt += 3;
+  }
+  _dbg("[~~~~+%s~]\n", debug_line);
+
+  /* Show rows with data */
+  for (idx_line = 0; (idx_line * RB_DBG_LINE_BYTES) < rb->size; idx_line++)
+  {
+    debug_line_pt = debug_line;
+    for (idx_byte = 0; idx_byte < RB_DBG_LINE_BYTES; idx_byte++)
+    {
+      if ((idx_line * RB_DBG_LINE_BYTES) + idx_byte < rb->size)
+      {
+        sprintf(debug_line_pt, "%c%02X",
+             (((idx_line * RB_DBG_LINE_BYTES) + idx_byte == rb->tail)?'[':
+              ((idx_line * RB_DBG_LINE_BYTES) + idx_byte == rb->head)?']':' '),
+                rb->buffer[(idx_line * RB_DBG_LINE_BYTES) + idx_byte]);
+      }
+      else
+      {
+        sprintf(debug_line_pt, " ~~");
+      }
+      debug_line_pt += 3;
+    }
+    _dbg("[ %02lX |%s ]\n", idx_line, debug_line);
+  }
   return; 
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG

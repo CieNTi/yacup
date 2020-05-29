@@ -1,4 +1,4 @@
-/* op.h - Ring buffers operations for yacup project
+/* driver.h - Ring buffers operations driver for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -14,22 +14,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-#ifndef __RB_OP_H
-#define __RB_OP_H
+#ifndef __RB_DRIVER_H
+#define __RB_DRIVER_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @ingroup rb_api
+ * @addtogroup rb_api
  * @{
  */
 
 /* C libraries */
 #include <stdint.h>
 #include <stddef.h>
-#include "yacup/rb.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Pre-declare rb struct */
@@ -38,8 +37,13 @@ struct rb;
 /**
  * @brief      Structure that defines valid operations on ring buffers
  */
-struct rb_op
+struct rb_driver
 {
+  /**
+   * @brief      ASCII name of this driver
+   */
+  char *name;
+
   /**
    * @brief      Checks if the ring-buffer is valid or not
    *
@@ -170,4 +174,4 @@ struct rb_op
 }
 #endif /* __cplusplus */
 
-#endif /* __RB_OP_H */
+#endif /* __RB_DRIVER_H */

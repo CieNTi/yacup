@@ -40,13 +40,13 @@ extern "C" {
  *   @defgroup   xyz_driver Drivers
  *   @{
  *     @brief      Operations driver for `xyz` instances
- *     @details    Different ring buffer implementations interfaces
+ *     @details    Different XYZ implementations interfaces
  *     @author     CieNTi <cienti@cienti.com>
  *     @date       2020
  *   @}
  * @}
  * 
- * @ingroup   xyz_api
+ * @addtogroup   xyz_api
  * @{
  */
 
@@ -56,7 +56,7 @@ extern "C" {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      A nice structure briefly described
+ * @brief      Structure that defines a XYZ
  */
 struct xyz
 {

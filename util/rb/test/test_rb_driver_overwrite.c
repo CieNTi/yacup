@@ -1,4 +1,4 @@
-/* test_rb_driver_v1.c - Test to check rb's driver_v1 functionality
+/* test_rb_driver_overwrite.c - Test to check rb's `overwrite` driver
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,23 +16,20 @@
  */
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include "yacup/rb.h"
 #include "yacup/rb/debug.h"
-#include "yacup/rb/driver_v1.h"
+#include "yacup/rb/driver/overwrite.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/rb/test/test_rb_driver_v1"
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#ifndef _dbg
-  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-#endif
+#define YCP_NAME "util/rb/test/test_rb_driver_overwrite"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /**
- * @brief      Tests driver_v1 API and functionality
+ * @brief      Tests `overwrite` driver API and functionality
  *
  * @param[in]  argc  The count of arguments
  * @param      argv  The arguments array
@@ -46,9 +43,12 @@
  * @ingroup    util_test
  * @version    v1.0.0
  */
-int test_rb_driver_v1(int argc, const char* argv[])
+int test_rb_driver_overwrite(int argc, const char* argv[])
 {
-  printf("Hi! from "__FILE__"\n");
+  /* Configure _dbg() */
+  #define YCP_FNAME "cp_codec_print_info"
+
+  _dbg("Hi! from "__FILE__"\n");
 
   /* Variables related to the test itself */
   size_t idx = 0;
@@ -56,42 +56,46 @@ int test_rb_driver_v1(int argc, const char* argv[])
   uint8_t data_by_pull[RB_TEST_DATA_BUF_LEN];
   uint8_t data_by_read[RB_TEST_DATA_BUF_LEN];
 
-  /* Allocate buffer space */
+  /* Allocate buffer and fsm storage spaces, and do the assignments */
   #define SIMPLE_TEST_BUF_LEN 6
   uint8_t rb_test_buf[SIMPLE_TEST_BUF_LEN] = { 0x00 };
-
-  /* Create a rb from it */
-  _dbg("Creating ring-buffer\n");
-  struct rb *rb0 = rb_create(rb_test_buf, SIMPLE_TEST_BUF_LEN, rb_driver_v1);
-  if (rb0 == NULL)
+  struct rb rb0 =
   {
-    _dbg("Cannot create a rb\n");
+    .buffer = rb_test_buf,
+    .size = SIMPLE_TEST_BUF_LEN
+  };
+
+  /* Create a rb using overwrite driver */
+  _dbg("Initializing the ring-buffer\n");
+  if (rb_init(&rb0, rb_driver_overwrite))
+  {
+    _dbg("Cannot initialize rb0\n");
     return 1;
   }
 
   /* Debug it! */
-  rb_print_info(rb0);
+  rb_print_info(&rb0);
 
   /* Push some data */
   _dbg("Pushing data to ring-buffer\n");
-  if (rb_push(rb0, 'y')) { _dbg("rb_push('y') fail. ERROR\n"); return 1; }
-  rb_print_info(rb0);
-  if (rb_push(rb0, 'C')) { _dbg("rb_push('C') fail. ERROR\n"); return 1; }
-  rb_print_info(rb0);
-  if (rb_push(rb0, 'i')) { _dbg("rb_push('i') fail. ERROR\n"); return 1; }
-  rb_print_info(rb0);
-  if (rb_push(rb0, 'e')) { _dbg("rb_push('e') fail. ERROR\n"); return 1; }
-  rb_print_info(rb0);
-  if (rb_push(rb0, 'N')) { _dbg("rb_push('N') fail. ERROR\n"); return 1; }
-  rb_print_info(rb0);
-  if (rb_push(rb0, 'T')) { _dbg("rb_push('T') fail. ERROR\n"); return 1; }
-  rb_print_info(rb0);
-  if (rb_push(rb0, 'i')) { _dbg("rb_push('i') fail. ERROR\n"); return 1; }
-  rb_print_info(rb0);
+  if (rb_push(&rb0, 'y')) { _dbg("rb_push('y') fail. ERROR\n"); return 1; }
+  rb_print_info(&rb0);
+  if (rb_push(&rb0, 'C')) { _dbg("rb_push('C') fail. ERROR\n"); return 1; }
+  rb_print_info(&rb0);
+  if (rb_push(&rb0, 'i')) { _dbg("rb_push('i') fail. ERROR\n"); return 1; }
+  rb_print_info(&rb0);
+  if (rb_push(&rb0, 'e')) { _dbg("rb_push('e') fail. ERROR\n"); return 1; }
+  rb_print_info(&rb0);
+  if (rb_push(&rb0, 'N')) { _dbg("rb_push('N') fail. ERROR\n"); return 1; }
+  rb_print_info(&rb0);
+  if (rb_push(&rb0, 'T')) { _dbg("rb_push('T') fail. ERROR\n"); return 1; }
+  rb_print_info(&rb0);
+  if (rb_push(&rb0, 'i')) { _dbg("rb_push('i') fail. ERROR\n"); return 1; }
+  rb_print_info(&rb0);
 
   /* Check if full */
   _dbg("Ring-buffer is supposed to be full right now\n");
-  if (rb_full(rb0) != 1)
+  if (rb_full(&rb0) != 1)
   {
     _dbg("- But is not. ERROR\n");
     return 1;
@@ -100,9 +104,9 @@ int test_rb_driver_v1(int argc, const char* argv[])
 
   /* Now we have data, we can read it without pull it */
   _dbg("Reading without pull (data is kept, head/tail are not changed)\n");
-  for (idx = 0; (idx < rb_len(rb0)) && (idx < RB_TEST_DATA_BUF_LEN); idx++)
+  for (idx = 0; (idx < rb_len(&rb0)) && (idx < RB_TEST_DATA_BUF_LEN); idx++)
   {
-    if (rb_read(rb0, &data_by_read[idx], idx))
+    if (rb_read(&rb0, &data_by_read[idx], idx))
     {
       printf("read() failed at position %lu\n", idx);
     }
@@ -120,21 +124,21 @@ int test_rb_driver_v1(int argc, const char* argv[])
 
   /* Now we can write new data without push it */
   _dbg("Writing without push (data is changed, head/tail are not changed)\n");
-  if (rb_write(rb0, 'c', 0)) { _dbg("rb_write('c') fail. ERROR\n"); return 1; }
-  rb_print_info(rb0);
-  if (rb_write(rb0, 'n', 3)) { _dbg("rb_write('n') fail. ERROR\n"); return 1; }
-  rb_print_info(rb0);
-  if (rb_write(rb0, 't', 4)) { _dbg("rb_write('t') fail. ERROR\n"); return 1; }
-  rb_print_info(rb0);
+  if (rb_write(&rb0, 'c', 0)) { _dbg("rb_write('c') fail. ERROR\n"); return 1; }
+  rb_print_info(&rb0);
+  if (rb_write(&rb0, 'n', 3)) { _dbg("rb_write('n') fail. ERROR\n"); return 1; }
+  rb_print_info(&rb0);
+  if (rb_write(&rb0, 't', 4)) { _dbg("rb_write('t') fail. ERROR\n"); return 1; }
+  rb_print_info(&rb0);
 
   /* Pull it */
   _dbg("Pulling data from ring-buffer\n");
   for (idx = 0; idx < RB_TEST_DATA_BUF_LEN; idx++)
   {
-    if (rb_pull(rb0, &data_by_pull[idx]))
+    if (rb_pull(&rb0, &data_by_pull[idx]))
     {
       _dbg("Pulling failed, but it can be empty\n");
-      if (rb_len(rb0) == 0)
+      if (rb_len(&rb0) == 0)
       {
         _dbg("- Empty. OK\n");
         /* Finish as string */
@@ -147,7 +151,7 @@ int test_rb_driver_v1(int argc, const char* argv[])
         return 1;
       }
     }
-    rb_print_info(rb0);
+    rb_print_info(&rb0);
   }
 
   /* Print the data */
@@ -160,13 +164,18 @@ int test_rb_driver_v1(int argc, const char* argv[])
   _dbg("- OK\n");
 
   /* Reset it! */
-  rb_reset(rb0);
+  rb_reset(&rb0);
 
   /* Debug it! */
-  rb_print_info(rb0);
+  rb_print_info(&rb0);
 
+  /* Cya! */
   _dbg("If you are reading this, everything went correctly :_)\n");
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG

@@ -1,4 +1,4 @@
-/* fsm.c - Finite state machine implementation for yacup project
+/* fsm.c - Finite state machine API for yacup project
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,28 +16,64 @@
  */
 #include <stdint.h>
 #include "yacup/fsm.h"
+#include "yacup/fsm/driver.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/fsm/fsm"
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Configuration flags */
 #define FSM_CONFIG_ENABLED      (uint32_t)(1 << 0)
 #define FSM_CONFIG_AUTO_RESTART (uint32_t)(1 << 1)
 #define FSM_CONFIG_STARTED      (uint32_t)(1 << 2)
+
+/* Initializes a `fsm` common data, then lower level init, passed by argument.
+ * Read `yacup/fsm.h` for complete information. */
+int fsm_init(struct fsm *fsm, int (*fsm_driver_init)(struct fsm *))
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "fsm_init"
+
+  if (/* Invalid fsm? */
+      (fsm == NULL) ||
+      /* Invalid driver init? */
+      (fsm_driver_init == NULL))
+  {
+    _dbg("Invalid fsm or driver init function\n");
+    return 1;
+  }
+
+  /* Fill FSM common data */
+  fsm->config = 0;
+  fsm->state = FSM_NEW;
+  fsm->stats[FSM_NEW] = 0;
+  fsm->stats[FSM_PAUSE] = 0;
+  fsm->stats[FSM_RUN] = 0;
+  fsm->stats[FSM_ERROR] = 0;
+  fsm->stats[FSM_ALL] = 0;
+
+  /* Now call the driver init function, and go */
+  if (fsm_driver_init(fsm))
+  {
+    _dbg("Failed fsm initialization\n");
+    return 1;
+  }
+
+  /* Assign default name, if not previously set */
+  if (fsm->name == NULL)
+  {
+    fsm->name = YCP_NAME;
+  }
+
+  /* Ok! */
+  _dbg("fsm '%s' initialized successfully\n", fsm->name);
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
 
 /* Sets the enable bit, allowing this `fsm` to perform actions
  * Read `yacup/fsm.h` for complete information. */
@@ -91,9 +127,12 @@ void fsm_request_stop(struct fsm *fsm)
  * Read `yacup/fsm.h` for complete information. */
 int fsm_do_cycle(struct fsm *fsm)
 {
+  /* Configure _dbg() */
+  #define YCP_FNAME "fsm_do_cycle"
+
   if (fsm == NULL)
   {
-    _dbg("fsm_do_cycle: fsm is NULL. ERROR\n");
+    _dbg("fsm is NULL. ERROR\n");
 
     /* Totally wrong, return dramatically */
     return 1;
@@ -101,7 +140,7 @@ int fsm_do_cycle(struct fsm *fsm)
 
   if (!(fsm->config & FSM_CONFIG_ENABLED))
   {
-    _dbg("fsm_do_cycle: %s@disabled\n", fsm->name);
+    _dbg("%s@disabled\n", fsm->name);
 
     /* Disabled, return silently */
     return 0;
@@ -113,34 +152,36 @@ int fsm_do_cycle(struct fsm *fsm)
   /* Behavior */
   switch (fsm->state)
   {
-    /* This should be a 1-pass state only, just for initialization and checks */
+    /* This should be a 1-pass state only, only initialization and checks */
     case FSM_NEW:
-      _dbg("fsm_do_cycle: %s@FSM_NEW\n", fsm->name);
-      _dbg("fsm_do_cycle: fsm has been created. Lets configure it\n");
+      _dbg("%s@FSM_NEW\n", fsm->name);
+      _dbg("fsm has been created. Lets configure it\n");
 
       /* Record FSM_NEW stat */
       fsm->stats[FSM_NEW]++;
 
       /* Checks */
-      if (fsm->start == NULL)
+      if (fsm->driver->start == NULL)
       {
-        _dbg("fsm_do_cycle: '%s' has no start. Ooops! Breaking here now ...\n", fsm->name);
+        _dbg("'%s' has no start. Ooops! Breaking here now ...\n",
+             fsm->name);
 
         /* Exits inmediately */
         fsm->stats[FSM_ERROR]++;
         return 1;        
       }
 
-      if (fsm->stop == NULL)
+      if (fsm->driver->stop == NULL)
       {
-        _dbg("fsm_do_cycle: '%s' has no stop, enabling FSM_CONFIG_AUTO_RESTART\n", fsm->name);
+        _dbg("'%s' has no stop. FSM_CONFIG_AUTO_RESTART set\n",
+             fsm->name);
 
         /* Infinite loop for non-stoppable fsm */
         fsm->config |= FSM_CONFIG_AUTO_RESTART;
       }
 
       /* Configure */
-      fsm->next = fsm->start;
+      fsm->next = fsm->driver->start;
 
       /* Pause, if rearm is set it'll run automagically in 2 cycles */
       fsm->state = FSM_PAUSE;
@@ -148,44 +189,45 @@ int fsm_do_cycle(struct fsm *fsm)
 
     /* 'Nothing to do' state. fsm possibly ended and no rearm bit was found */
     case FSM_PAUSE:
-      _dbg("fsm_do_cycle: %s@FSM_PAUSE\n", fsm->name);
+      _dbg("%s@FSM_PAUSE\n", fsm->name);
 
       /* Record FSM_PAUSE stat */
       fsm->stats[FSM_PAUSE]++;
 
       /* Check if it should be ran */
       if ((fsm->config & FSM_CONFIG_STARTED) &&
-          ((fsm->next == fsm->start) ||
+          ((fsm->next == fsm->driver->start) ||
            (fsm->config & FSM_CONFIG_AUTO_RESTART)))
       {
-        _dbg("fsm_do_cycle: '%s' fsm is ready or restart bit is set. Run it now!\n", fsm->name);
+        _dbg("'%s' fsm is ready/restart bit is set. Run it!\n",
+             fsm->name);
 
         /* Armed fsm, run it again */
-        fsm->next = fsm->start;
+        fsm->next = fsm->driver->start;
         fsm->state = FSM_RUN;
       }
       break;
 
     /* Machine core, where the things happens */
     case FSM_RUN:
-      _dbg("fsm_do_cycle: %s@FSM_RUN\n", fsm->name);
+      _dbg("%s@FSM_RUN\n", fsm->name);
 
       /* Record FSM_RUN stat */
       fsm->stats[FSM_RUN]++;
 
       /* fsm was ran and finished, and it also was rearmed */
-      if ((fsm->stop != NULL) && (fsm->now == fsm->stop))
+      if ((fsm->driver->stop != NULL) && (fsm->now == fsm->driver->stop))
       {
-        _dbg("fsm_do_cycle: '%s' has been restarted\n", fsm->name);
+        _dbg("'%s' has been restarted\n", fsm->name);
 
         /* Ensure a valid start point */
-        fsm->next = fsm->start;
+        fsm->next = fsm->driver->start;
       }
 
       /* Evaluate next state validity */
       if (fsm->next == NULL)
       {
-        _dbg("fsm_do_cycle: '%s' fsm has no 'next' state\n", fsm->name);
+        _dbg("'%s' fsm has no 'next' state\n", fsm->name);
 
         /* Error, try last? */
         /* @todo Error for now */
@@ -207,7 +249,8 @@ int fsm_do_cycle(struct fsm *fsm)
       if (fsm->now(fsm))
       {
         /* Error, break */
-        _dbg("fsm_do_cycle: '%s' executed state but something wrong happened\n", fsm->name);
+        _dbg("'%s' executed, but something wrong happened\n",
+             fsm->name);
 
         /* @todo Error for now */
         fsm->state = FSM_ERROR;
@@ -215,7 +258,7 @@ int fsm_do_cycle(struct fsm *fsm)
       }
 
       /* Capture if this fsm is terminated */
-      if ((fsm->stop != NULL) && (fsm->now == fsm->stop))
+      if ((fsm->driver->stop != NULL) && (fsm->now == fsm->driver->stop))
       {
         fsm->state = FSM_PAUSE;
       }
@@ -223,12 +266,12 @@ int fsm_do_cycle(struct fsm *fsm)
 
     /* You're in a little trouble if you are here */
     case FSM_ERROR:
-      _dbg("fsm_do_cycle: %s@FSM_ERROR\n", fsm->name);
-      _dbg("fsm_do_cycle: '%s' fsm entered error state\n", fsm->name);
-      _dbg("fsm_do_cycle: - fsm->last .: %p\n", (void *)(size_t)fsm->last);
-      _dbg("fsm_do_cycle: - fsm->now ..: %p\n", (void *)(size_t)fsm->now);
-      _dbg("fsm_do_cycle: - fsm->next .: %p\n", (void *)(size_t)fsm->next);
-      _dbg("fsm_do_cycle: App needs to rearm it before continue\n");
+      _dbg("%s@FSM_ERROR\n", fsm->name);
+      _dbg("'%s' fsm entered error state\n", fsm->name);
+      _dbg("- fsm->last .: %p\n", (void *)(size_t)fsm->last);
+      _dbg("- fsm->now ..: %p\n", (void *)(size_t)fsm->now);
+      _dbg("- fsm->next .: %p\n", (void *)(size_t)fsm->next);
+      _dbg("App needs to rearm it before continue\n");
 
       /* Record FSM_ERROR stat */
       fsm->stats[FSM_ERROR]++;
@@ -237,7 +280,7 @@ int fsm_do_cycle(struct fsm *fsm)
     /* You're in a big trouble if you are here */
     default:
       /* No stats here (Resultant is 'all' - 'sum of all of the rest') */
-      _dbg("fsm_do_cycle: '%s' went crazy, it shouldn't be here\n", fsm->name);
+      _dbg("'%s' went crazy, it shouldn't be here\n", fsm->name);
 
       /* @todo Error for now */
       fsm->state = FSM_ERROR;
@@ -246,6 +289,9 @@ int fsm_do_cycle(struct fsm *fsm)
   }
 
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME

@@ -18,46 +18,55 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "yacup/fsm.h"
+#include "yacup/fsm/driver.h"
 #include "yacup/fsm/debug.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "util/fsm/debug"
-#include <time.h>
-#include <stdio.h>
-#include <string.h>
-#ifndef _dbg
-  #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Print `fsm` information to STDOUT.
  * Read `yacup/fsm/debug.h` for complete information. */
 void fsm_print_info(struct fsm *fsm)
 {
+  /* Configure _dbg() */
+  #define YCP_FNAME "fsm_print_info"
+
   if (fsm == NULL) { return; }
-  _dbg("fsm_print_info: name .......: %s\n", fsm->name);
-  _dbg("fsm_print_info: config .....: %u\n", fsm->config);
-  _dbg("fsm_print_info: state ......: %u\n", fsm->state);
-  _dbg("fsm_print_info: start ......: %p\n", (void *)(size_t)fsm->start);
-  _dbg("fsm_print_info: stop .......: %p\n", (void *)(size_t)fsm->stop);
-  _dbg("fsm_print_info: last .......: %p\n", (void *)(size_t)fsm->last);
-  _dbg("fsm_print_info: now ........: %p\n", (void *)(size_t)fsm->now);
-  _dbg("fsm_print_info: next .......: %p\n", (void *)(size_t)fsm->next);
-  fflush(stdout);
+  _dbg("name .......: %s\n", fsm->name);
+  _dbg("config .....: %u\n", fsm->config);
+  _dbg("state ......: %u\n", fsm->state);
+  _dbg("driver .....: %p\n", (void *)(size_t)fsm->driver);
+  _dbg(" .start ....: %p\n", (void *)(size_t)fsm->driver->start);
+  _dbg(" .stop .....: %p\n", (void *)(size_t)fsm->driver->stop);
+  _dbg("last .......: %p\n", (void *)(size_t)fsm->last);
+  _dbg("now ........: %p\n", (void *)(size_t)fsm->now);
+  _dbg("next .......: %p\n", (void *)(size_t)fsm->next);
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 /* Print `fsm` stats to STDOUT.
  * Read `yacup/fsm/debug.h` for complete information. */
 void fsm_print_stats(struct fsm *fsm)
 {
+  /* Configure _dbg() */
+  #define YCP_FNAME "fsm_print_stats"
+
   if (fsm == NULL) { return; }
-  _dbg("fsm_print_stats: FSM_ALL ...: %lu\n", fsm->stats[FSM_ALL]);
-  _dbg("fsm_print_stats: FSM_NEW ...: %lu\n", fsm->stats[FSM_NEW]);
-  _dbg("fsm_print_stats: FSM_PAUSE .: %lu\n", fsm->stats[FSM_PAUSE]);
-  _dbg("fsm_print_stats: FSM_RUN ...: %lu\n", fsm->stats[FSM_RUN]);
-  _dbg("fsm_print_stats: FSM_ERROR .: %lu\n", fsm->stats[FSM_ERROR]);
-  fflush(stdout);
+  _dbg("FSM_ALL ...: %lu\n", fsm->stats[FSM_ALL]);
+  _dbg("FSM_NEW ...: %lu\n", fsm->stats[FSM_NEW]);
+  _dbg("FSM_PAUSE .: %lu\n", fsm->stats[FSM_PAUSE]);
+  _dbg("FSM_RUN ...: %lu\n", fsm->stats[FSM_RUN]);
+  _dbg("FSM_ERROR .: %lu\n", fsm->stats[FSM_ERROR]);
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG

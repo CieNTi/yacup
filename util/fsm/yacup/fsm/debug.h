@@ -22,7 +22,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /**
- * @ingroup debug_functions
+ * @addtogroup debug_functions
  * @{
  */
 

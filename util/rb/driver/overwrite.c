@@ -1,4 +1,4 @@
-/* driver_v1.c - Driver for yacup ring-buffers. First implementation
+/* overwrite.c - Driver for yacup ring-buffers. Overwrite if full
  * Copyright (C) 2020 CieNTi <cienti@cienti.com>
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -17,30 +17,22 @@
 #include <stdint.h>
 #include <stddef.h>
 #include "yacup/rb.h"
-#include "yacup/rb/op.h"
+#include "yacup/rb/driver.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#include "yacup/debug.h"
 #undef YCP_NAME
-#define YCP_NAME "util/rb/driver_v1"
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
-#endif
+#define YCP_NAME "util/rb/driver/overwrite"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Checks if the ring-buffer is valid or not.
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static int validate(struct rb *rb)
 {
-  if (/* rb cannot be null */  
+  /* Configure _dbg() */
+  #define YCP_FNAME "validate"
+
+  if (/* rb cannot be null */
       (rb == NULL) ||
       /* Buffer cannot be null */ 
       (rb->buffer == NULL) ||
@@ -53,7 +45,7 @@ static int validate(struct rb *rb)
       /* Head >= tail */          
       (((rb->size * rb->head_of) + rb->head) < rb->tail))
   {
-    _dbg("validate ~~~~~~~~~~~~~~~~~~~~~~\n");
+    _dbg("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     _dbg("- rb cannot be null .....: %4s\n",
          (rb == NULL)?"FAIL":"OK");
     _dbg("- Buffer cannot be null .: %4s\n",
@@ -72,11 +64,14 @@ static int validate(struct rb *rb)
 
   /* Ok */
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 /* Reset a ring-buffer by cleaning its content and making it empty.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static void reset(struct rb *rb)
 {
   /* Put properties to reset state */
@@ -97,13 +92,13 @@ static void reset(struct rb *rb)
 
 /* Add a byte to a ring-buffer head, overwritting if needed.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static int push(struct rb *rb, uint8_t byte)
 {
   /* Add the data, overwritting if needed */
   rb->buffer[rb->head] = byte;
 
-  if (rb->op->full(rb))
+  if (rb->driver->full(rb))
   {
     rb->tail++;
   }
@@ -128,12 +123,15 @@ static int push(struct rb *rb, uint8_t byte)
 
 /* Read and delete a byte from a ring-buffer tail.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static int pull(struct rb *rb, uint8_t *byte)
 {
-  if (rb->op->len(rb) == 0)
+  /* Configure _dbg() */
+  #define YCP_FNAME "pull"
+
+  if (rb->driver->len(rb) == 0)
   {
-    _dbg("pull: Pulling from empty rb not allowed\n");
+    _dbg("Pulling from empty rb not allowed\n");
     return 1;
   }
 
@@ -151,11 +149,14 @@ static int pull(struct rb *rb, uint8_t *byte)
 
   /* Ok! */
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 /* Write a byte by position on a ring-buffer, without updating head/tail.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static int write(struct rb *rb, uint8_t byte, size_t position)
 {
   /* Use position as index over tail, with overflow management */
@@ -167,7 +168,7 @@ static int write(struct rb *rb, uint8_t byte, size_t position)
 
 /* Read a byte by position from a ring-buffer, without deleting it.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static int read(struct rb *rb, uint8_t *byte, size_t position)
 {
   /* Use position as index over tail, with overflow management */
@@ -179,7 +180,7 @@ static int read(struct rb *rb, uint8_t *byte, size_t position)
 
 /* Returns max available size of a ring-buffer buffer.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static size_t size(struct rb *rb)
 {
   return rb->size;
@@ -187,7 +188,7 @@ static size_t size(struct rb *rb)
 
 /* Returns available data size inside a ring-buffer.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static size_t len(struct rb *rb)
 {
   return (((rb->size * rb->head_of) + rb->head) - rb->tail);
@@ -195,19 +196,23 @@ static size_t len(struct rb *rb)
 
 /* Checks if a ring-buffer is full or not.
  * WARNING: Assumed `rb/rb.c` pre-validation. Not safe as direct call!
- * Read `yacup/rb/op.h` for complete information. */
+ * Read `yacup/rb/driver.h` for complete information. */
 static uint8_t full(struct rb *rb)
 {
   return ((rb->head_of == 1) && (rb->head == rb->tail));
 }
 
-/* Compose a `rb_op` structure and returns it as a pointer.
- * Read `yacup/rb/op.h` for complete information. */
-struct rb_op *rb_driver_v1(void)
+/* Initialize a `overwrite` type RB.
+ * Read `yacup/rb/driver.h` for complete information. */
+int rb_driver_overwrite(struct rb *rb)
 {
-  /* Create it static, as it will not change along the execution */
-  static struct rb_op rb_driver_v1_op =
+  /* Configure _dbg() */
+  #define YCP_FNAME "rb_driver_overwrite"
+
+  /* Create it static, as this will not change along the execution */
+  static struct rb_driver this_driver =
   {
+    .name     = YCP_NAME,
     .validate = validate,
     .reset    = reset,
     .push     = push,
@@ -219,8 +224,21 @@ struct rb_op *rb_driver_v1(void)
     .full     = full
   };
 
-  /* And return it as a pointer */
-  return &rb_driver_v1_op;
+  /* Valid rb? */
+  if (rb == NULL)
+  {
+    _dbg("Direct calls not recommended, read the doc\n");
+    return 1;
+  }
+
+  /* Ok assign the operations */
+  rb->driver = &this_driver;
+
+  /* And return with success */
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME

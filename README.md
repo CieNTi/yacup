@@ -1,4 +1,4 @@
-# yacup: Yet Another C Utilities Package
+# Yet Another C Utilities Package
 
 Set of utilities ready to be used in C projects. Originally located at [GitHub](https://github.com/CieNTi/yacup).
 

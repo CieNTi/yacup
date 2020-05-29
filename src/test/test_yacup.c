@@ -17,26 +17,21 @@
 #include <stdio.h>
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+#define YCP_FORCE_DEBUG
+#include "yacup/debug.h"
 #undef YCP_NAME
 #define YCP_NAME "app/test/test_yacup"
-#ifdef YACUP_DEBUG
-  #include <time.h>
-  #include <stdio.h>
-  #include <string.h>
-  #ifndef _dbg
-    #define _dbg(...) printf(YCP_NAME" | "__VA_ARGS__)
-  #endif
-#else
-  #ifndef _dbg
-    #define _dbg(...)
-  #endif
-#endif
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* Pre-declare required tests here (there is no header for them!) */
 int test_xyz_testname(int argc, const char* argv[]);
-int test_rb_driver_v1(int argc, const char* argv[]);
-int test_fsm_simple(int argc, const char* argv[]);
+int test_rb_driver_overwrite(int argc, const char* argv[]);
+int test_fsm_driver_simple(int argc, const char* argv[]);
+int test_ce_codec_B416K(int argc, const char* argv[]);
+int test_ce_command_validate(int argc, const char* argv[]);
+int test_ce_command_codec_B416K(int argc, const char* argv[]);
+int test_ce_initialization(int argc, const char* argv[]);
+int test_ce_driver_faf(int argc, const char* argv[]);
 
 /**
  * @brief      The main of the mains
@@ -55,14 +50,33 @@ int test_fsm_simple(int argc, const char* argv[]);
  */
 int test_yacup(int argc, const char* argv[])
 {
-  int _test_xyz_testname = test_xyz_testname(argc, argv);
-  int _test_rb_driver_v1 = test_rb_driver_v1(argc, argv);
-  int _test_fsm_simple   = test_fsm_simple(argc, argv);
-  printf("Result from test_xyz_testname() = %i\n", _test_xyz_testname);
-  printf("Result from test_rb_driver_v1() = %i\n", _test_rb_driver_v1);
-  printf("Result from test_fsm_simple() = %i\n", _test_fsm_simple);
-  printf("Hi! from "__FILE__"\n");
+  /* Configure _dbg() */
+  #define YCP_FNAME "test_yacup"
+
+  _dbg("Hi! from "__FILE__"\n");
+
+  printf("Result from test_xyz_testname() = %i\n", 
+         test_xyz_testname(argc, argv));
+  printf("Result from test_rb_driver_overwrite() = %i\n", 
+         test_rb_driver_overwrite(argc, argv));
+  printf("Result from test_fsm_driver_simple() = %i\n", 
+         test_fsm_driver_simple(argc, argv));
+  printf("Result from test_ce_codec_B416K() = %i\n", 
+         test_ce_codec_B416K(argc, argv));
+  printf("Result from test_ce_command_validate() = %i\n", 
+         test_ce_command_validate(argc, argv));
+  printf("Result from test_ce_command_codec_B416K() = %i\n", 
+         test_ce_command_codec_B416K(argc, argv));
+  printf("Result from test_ce_initialization() = %i\n", 
+         test_ce_initialization(argc, argv));
+  printf("Result from test_ce_driver_faf() = %i\n", 
+         test_ce_driver_faf(argc, argv));
+  _dbg("Hi! from "__FILE__"\n");
   return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
 }
 
 #undef YCP_NAME
+#undef YCP_FORCE_DEBUG
