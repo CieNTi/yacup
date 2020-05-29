@@ -118,7 +118,9 @@ test_ce_command_codec_B416K: $(addprefix $(ODIR)/, \
 # test_ce_initialization: Test to check `ce` commands functionality
 test_ce_initialization_o=util/rb/rb.o                          \
                          util/rb/driver/overwrite.o            \
+                         util/rb/debug.o                       \
                          util/fsm/fsm.o                        \
+                         util/fsm/debug.o                      \
                          util/ce/ce.o                          \
                          util/ce/codec.o                       \
                          util/ce/codec/B416K.o                 \
