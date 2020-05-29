@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['read_116',['read',['../structrb__op.html#acb79ebdbf886c9ebf832bdecce02234e',1,'rb_op']]],
-  ['reset_117',['reset',['../structrb__op.html#a1e7bc55b0ae915ec3efbb307e719148e',1,'rb_op']]]
+  ['message_265',['message',['../structce__channel.html#a57e26d5e2c9099eb3b15e04283dd5f21',1,'ce_channel::message()'],['../structce__codec__encoder.html#a9824424e009cc6350236bb8fa5018f2d',1,'ce_codec_encoder::message()'],['../structce__codec__decoder.html#ac436df74701a5f5ca56ff9af4ffbd585',1,'ce_codec_decoder::message()']]]
 ];

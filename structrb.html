@@ -1,6 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- HTML header for doxygen 1.8.14-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="cache-control" content="max-age=86400"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
@@ -9,10 +11,20 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen_extra.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,6 +38,21 @@
    </div>
    <div id="projectbrief">Yet Another C Utilities Package</div>
   </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -37,16 +64,23 @@
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
+$(document).ready(function(){initNavTree('structrb.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,12 +95,11 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-attribs">Data Fields</a>  </div>
   <div class="headertitle">
-<div class="title">rb Struct Reference<div class="ingroups"><a class="el" href="group__rb.html">Ring-buffers</a> &raquo; <a class="el" href="group__rb__api.html">Interface</a></div></div>  </div>
+<div class="title">rb Struct Reference<div class="ingroups"><a class="el" href="group__util.html">Utilities</a> &raquo; <a class="el" href="group__rb.html">Ring-buffer</a> &raquo; <a class="el" href="group__rb__api.html">Interface</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -79,51 +112,50 @@ Collaboration diagram for rb:</div>
 <div class="dyncontent">
 <div class="center"><img src="structrb__coll__graph.png" border="0" usemap="#rb_coll__map" alt="Collaboration graph"/></div>
 <map name="rb_coll__map" id="rb_coll__map">
-<area shape="rect" title="Structure that defines a ring buffer." alt="" coords="13,95,52,121"/>
-<area shape="rect" href="structrb__op.html" title="Structure that defines valid operations on ring buffers." alt="" coords="5,5,60,32"/>
+<area shape="rect" title="Structure that defines a ring buffer." alt="" coords="22,95,61,121"/>
+<area shape="rect" href="structrb__driver.html" title="Structure that defines valid operations on ring buffers." alt="" coords="5,5,77,32"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr class="memitem:a56ed84df35de10bdb65e72b184309497"><td class="memItemLeft" align="right" valign="top"><a id="a56ed84df35de10bdb65e72b184309497"></a>
-uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#a56ed84df35de10bdb65e72b184309497">buffer</a></td></tr>
-<tr class="memdesc:a56ed84df35de10bdb65e72b184309497"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to real reserved data holder (provided by the user) <br /></td></tr>
-<tr class="separator:a56ed84df35de10bdb65e72b184309497"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a854352f53b148adc24983a58a1866d66"><td class="memItemLeft" align="right" valign="top"><a id="a854352f53b148adc24983a58a1866d66"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#a854352f53b148adc24983a58a1866d66">size</a></td></tr>
-<tr class="memdesc:a854352f53b148adc24983a58a1866d66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total amount of space on buffer that we can use. <br /></td></tr>
-<tr class="separator:a854352f53b148adc24983a58a1866d66"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75844ce74940ef333d11ae090e07c9af"><td class="memItemLeft" align="right" valign="top"><a id="a75844ce74940ef333d11ae090e07c9af"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#a75844ce74940ef333d11ae090e07c9af">head</a></td></tr>
-<tr class="memdesc:a75844ce74940ef333d11ae090e07c9af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Location inside buffer where to place the next byte. <br /></td></tr>
-<tr class="separator:a75844ce74940ef333d11ae090e07c9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad71c3da585299fa719501f5149814fd7"><td class="memItemLeft" align="right" valign="top"><a id="ad71c3da585299fa719501f5149814fd7"></a>
-size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#ad71c3da585299fa719501f5149814fd7">tail</a></td></tr>
-<tr class="memdesc:ad71c3da585299fa719501f5149814fd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Location inside buffer where the first valid data resides. <br /></td></tr>
-<tr class="separator:ad71c3da585299fa719501f5149814fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24739de82db358dbccd56b12644868e6"><td class="memItemLeft" align="right" valign="top"><a id="a24739de82db358dbccd56b12644868e6"></a>
-uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#a24739de82db358dbccd56b12644868e6">head_of</a></td></tr>
-<tr class="memdesc:a24739de82db358dbccd56b12644868e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to mark if head did overflow or not. <br /></td></tr>
-<tr class="separator:a24739de82db358dbccd56b12644868e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:accc5dee2c374ebafadac8460cc2e686d"><td class="memItemLeft" align="right" valign="top"><a id="accc5dee2c374ebafadac8460cc2e686d"></a>
-struct <a class="el" href="structrb__op.html">rb_op</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#accc5dee2c374ebafadac8460cc2e686d">op</a></td></tr>
-<tr class="memdesc:accc5dee2c374ebafadac8460cc2e686d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to a operations structure. <br /></td></tr>
-<tr class="separator:accc5dee2c374ebafadac8460cc2e686d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accbd37a5392972b0c7ccb67428d96eb4"><td class="memItemLeft" align="right" valign="top"><a id="accbd37a5392972b0c7ccb67428d96eb4"></a>
+uint8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#accbd37a5392972b0c7ccb67428d96eb4">buffer</a></td></tr>
+<tr class="memdesc:accbd37a5392972b0c7ccb67428d96eb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to real reserved data holder (provided by the user) <br /></td></tr>
+<tr class="separator:accbd37a5392972b0c7ccb67428d96eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04577a711cec0d310cb97de73fc7448a"><td class="memItemLeft" align="right" valign="top"><a id="a04577a711cec0d310cb97de73fc7448a"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#a04577a711cec0d310cb97de73fc7448a">size</a></td></tr>
+<tr class="memdesc:a04577a711cec0d310cb97de73fc7448a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total amount of space on buffer that we can use. <br /></td></tr>
+<tr class="separator:a04577a711cec0d310cb97de73fc7448a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb9ab3c61315d86b80936e432a064333"><td class="memItemLeft" align="right" valign="top"><a id="acb9ab3c61315d86b80936e432a064333"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#acb9ab3c61315d86b80936e432a064333">head</a></td></tr>
+<tr class="memdesc:acb9ab3c61315d86b80936e432a064333"><td class="mdescLeft">&#160;</td><td class="mdescRight">Location inside buffer where to place the next byte. <br /></td></tr>
+<tr class="separator:acb9ab3c61315d86b80936e432a064333"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a424fc0fc147631ae1731e8076034e034"><td class="memItemLeft" align="right" valign="top"><a id="a424fc0fc147631ae1731e8076034e034"></a>
+size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#a424fc0fc147631ae1731e8076034e034">tail</a></td></tr>
+<tr class="memdesc:a424fc0fc147631ae1731e8076034e034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Location inside buffer where the first valid data resides. <br /></td></tr>
+<tr class="separator:a424fc0fc147631ae1731e8076034e034"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d04204442ab0315ce601549312a5203"><td class="memItemLeft" align="right" valign="top"><a id="a2d04204442ab0315ce601549312a5203"></a>
+uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#a2d04204442ab0315ce601549312a5203">head_of</a></td></tr>
+<tr class="memdesc:a2d04204442ab0315ce601549312a5203"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used to mark if head did overflow or not. <br /></td></tr>
+<tr class="separator:a2d04204442ab0315ce601549312a5203"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa13fca92d5c397ccbc8d62e391f84a5d"><td class="memItemLeft" align="right" valign="top"><a id="aa13fca92d5c397ccbc8d62e391f84a5d"></a>
+struct <a class="el" href="structrb__driver.html">rb_driver</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html#aa13fca92d5c397ccbc8d62e391f84a5d">driver</a></td></tr>
+<tr class="memdesc:aa13fca92d5c397ccbc8d62e391f84a5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to a operations driver structure. <br /></td></tr>
+<tr class="separator:aa13fca92d5c397ccbc8d62e391f84a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Structure that defines a ring buffer. </p>
 
-<p class="definition">Definition at line <a class="el" href="rb_8h_source.html#l00061">61</a> of file <a class="el" href="rb_8h_source.html">rb.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rb_8h_source.html#l00064">64</a> of file <a class="el" href="rb_8h_source.html">rb.h</a>.</p>
 </div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li><a class="el" href="rb_8h_source.html">rb.h</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.14-->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.18
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+</div>
 </body>
 </html>

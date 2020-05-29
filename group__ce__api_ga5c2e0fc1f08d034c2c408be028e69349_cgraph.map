@@ -1,0 +1,5 @@
+<map id="ce_command_set_listener" name="ce_command_set_listener">
+<area shape="rect" id="node1" title="Set a command listener, if found in a set." alt="" coords="5,5,180,32"/>
+<area shape="rect" id="node2" href="$group__ce__api.html#ga518296b367f5d7d290abf4f333cc918c" title="Checks if passed command is found on set and has valid arguments." alt="" coords="228,5,380,32"/>
+<area shape="rect" id="node3" href="$group__ce__api.html#gaea3edf5686bd9f619d31d901e341da50" title="Locate a command in a set by its unique identifier." alt="" coords="428,5,607,32"/>
+</map>

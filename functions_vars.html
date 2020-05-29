@@ -1,6 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- HTML header for doxygen 1.8.14-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="cache-control" content="max-age=86400"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
@@ -9,10 +11,20 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen_extra.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,6 +38,21 @@
    </div>
    <div id="projectbrief">Yet Another C Utilities Package</div>
   </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -37,17 +64,23 @@
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
-</div><!-- top -->
+$(document).ready(function(){initNavTree('functions_vars.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -65,150 +98,268 @@ $(function() {
 <div class="contents">
 &#160;
 
+<h3><a id="index_a"></a>- a -</h3><ul>
+<li>argument
+: <a class="el" href="structce__command__listener.html#a44f66a8cc6c8c3f4f0ed4c3d79163334">ce_command_listener</a>
+</li>
+</ul>
+
+
 <h3><a id="index_b"></a>- b -</h3><ul>
 <li>buffer
-: <a class="el" href="structnice__structure.html#a56ed84df35de10bdb65e72b184309497">nice_structure</a>
-, <a class="el" href="structrb.html#a56ed84df35de10bdb65e72b184309497">rb</a>
-, <a class="el" href="structxyz.html#a56ed84df35de10bdb65e72b184309497">xyz</a>
+: <a class="el" href="structrb.html#accbd37a5392972b0c7ccb67428d96eb4">rb</a>
 </li>
 </ul>
 
 
 <h3><a id="index_c"></a>- c -</h3><ul>
+<li>c
+: <a class="el" href="unionce__data.html#a1986738736ebe497e50051698c2cc3e2">ce_data</a>
+</li>
+<li>ce
+: <a class="el" href="structce__driver__faf__data.html#a092d554e75347704db7e58862fc46c5f">ce_driver_faf_data</a>
+</li>
+<li>codec
+: <a class="el" href="structce__channel.html#a46a2db4bd09c03f440b4c79a761f5a07">ce_channel</a>
+</li>
+<li>codec_sizeof
+: <a class="el" href="structce__codec.html#ac5f6ca73458b46b307e801a12427e866">ce_codec</a>
+</li>
+<li>command
+: <a class="el" href="structce__codec__decoder.html#a68f209264f2d71069fac9724bbf8e5b4">ce_codec_decoder</a>
+, <a class="el" href="structce__codec__encoder.html#a5a5917ea4604877af8abdc95ac1723ed">ce_codec_encoder</a>
+, <a class="el" href="structce__command__subset.html#a504f9842a4306eeca2d543f3293d1933">ce_command_subset</a>
+</li>
+<li>command_set
+: <a class="el" href="structce__channel.html#acf95ac3a916f66950cefb082be8e1d60">ce_channel</a>
+</li>
 <li>config
-: <a class="el" href="structfsm.html#a7947c7e436bdd1bbe498d0ae1eb37490">fsm</a>
+: <a class="el" href="structfsm.html#ad3ff924c93b584807923163f0e78d09a">fsm</a>
 </li>
 <li>cycles
-: <a class="el" href="structfsm__simple__data.html#a33ab808baaa3acb0d60bbca385a8e362">fsm_simple_data</a>
+: <a class="el" href="structfsm__driver__simple__data.html#a206fdc27e90187ffe76d4bcffc1b350f">fsm_driver_simple_data</a>
 </li>
 </ul>
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
+<li>d
+: <a class="el" href="unionce__data.html#a98f8c0085690fa624713f48f66cc473f">ce_data</a>
+</li>
 <li>data
-: <a class="el" href="structfsm.html#a735984d41155bc1032e09bece8f8d66d">fsm</a>
+: <a class="el" href="structce__channel.html#a2e03252ccb2371ca6f458ba51c4238e9">ce_channel</a>
+, <a class="el" href="structce__codec__decoder.html#a00caa22bc155263c8595f40bd120edc3">ce_codec_decoder</a>
+, <a class="el" href="structce__codec__encoder.html#a94597816b8db6b2679594fd01437a784">ce_codec_encoder</a>
+, <a class="el" href="structce__command__argument.html#a996009e222d65deefea3a7500ecaed73">ce_command_argument</a>
+, <a class="el" href="structfsm.html#ab9121e3f52f8e4266e4140b19cc143d4">fsm</a>
+</li>
+<li>decode
+: <a class="el" href="structce__codec.html#a71c5d8c8ae892846e8fbddcada33a1fe">ce_codec</a>
+</li>
+<li>driver
+: <a class="el" href="structce.html#afccc8a827af75859d0224266d6086094">ce</a>
+, <a class="el" href="structfsm.html#aaa873845d802d73aad142f07bb6cd91b">fsm</a>
+, <a class="el" href="structrb.html#aa13fca92d5c397ccbc8d62e391f84a5d">rb</a>
+</li>
+</ul>
+
+
+<h3><a id="index_e"></a>- e -</h3><ul>
+<li>encode
+: <a class="el" href="structce__codec.html#ab4296a83ca49575728417c43acfacfd1">ce_codec</a>
 </li>
 </ul>
 
 
 <h3><a id="index_f"></a>- f -</h3><ul>
-<li>fn_pt
-: <a class="el" href="structnice__structure.html#a7c9382f3c479c9850f22b012d54959ef">nice_structure</a>
-, <a class="el" href="structxyz.html#a7c9382f3c479c9850f22b012d54959ef">xyz</a>
+<li>f
+: <a class="el" href="unionce__data.html#ab59d9ed20e2c1f4f3b46b25583a643ce">ce_data</a>
+</li>
+<li>fsm
+: <a class="el" href="structce__driver.html#a3183ee1a6e1c9b0e1d500db60748ceb4">ce_driver</a>
 </li>
 <li>full
-: <a class="el" href="structrb__op.html#af583516db7851f21dffb09377e681eac">rb_op</a>
+: <a class="el" href="structrb__driver.html#a76b26c48be53436c5a8db5aea54355bc">rb_driver</a>
 </li>
 </ul>
 
 
 <h3><a id="index_h"></a>- h -</h3><ul>
 <li>head
-: <a class="el" href="structrb.html#a75844ce74940ef333d11ae090e07c9af">rb</a>
+: <a class="el" href="structrb.html#acb9ab3c61315d86b80936e432a064333">rb</a>
 </li>
 <li>head_of
-: <a class="el" href="structrb.html#a24739de82db358dbccd56b12644868e6">rb</a>
+: <a class="el" href="structrb.html#a2d04204442ab0315ce601549312a5203">rb</a>
+</li>
+</ul>
+
+
+<h3><a id="index_i"></a>- i -</h3><ul>
+<li>i16
+: <a class="el" href="unionce__data.html#ab889a13082f255d06684f34442d250fe">ce_data</a>
+</li>
+<li>i32
+: <a class="el" href="unionce__data.html#a74281f12c5106cc3772cb8c865ffb5a4">ce_data</a>
+</li>
+<li>i64
+: <a class="el" href="unionce__data.html#ae22323dd80031879b632527b8a3ccd70">ce_data</a>
+</li>
+<li>i8
+: <a class="el" href="unionce__data.html#a7d0ad4dee1f8be8ea379ad30f144383b">ce_data</a>
+</li>
+<li>id
+: <a class="el" href="structce__command.html#af0f9e5d5f16660fb0bde0e81ec045cc2">ce_command</a>
+</li>
+<li>in
+: <a class="el" href="structce.html#a42ecc101b267836bee8cf85dfdff26f0">ce</a>
 </li>
 </ul>
 
 
 <h3><a id="index_l"></a>- l -</h3><ul>
 <li>last
-: <a class="el" href="structfsm.html#a4ebcdc3985e11f82dbf302bc744ee2e0">fsm</a>
+: <a class="el" href="structfsm.html#a686272ade2d5bbf77270af7d22c544de">fsm</a>
 </li>
 <li>len
-: <a class="el" href="structnice__structure.html#a7360b55975153b822efc5217b7734e6a">nice_structure</a>
-, <a class="el" href="structrb__op.html#a16078a5395556e4daabe7070103aa68d">rb_op</a>
-, <a class="el" href="structxyz.html#a7360b55975153b822efc5217b7734e6a">xyz</a>
+: <a class="el" href="structrb__driver.html#ac9cb60c88ad5cb8c597da85ea3d7a22f">rb_driver</a>
+</li>
+<li>listener
+: <a class="el" href="structce__command.html#a3d147c285e037c09bc44374b4037bb04">ce_command</a>
+, <a class="el" href="structce__command__listener.html#ae6b879943f46f262b654236e3978e5ff">ce_command_listener</a>
+</li>
+</ul>
+
+
+<h3><a id="index_m"></a>- m -</h3><ul>
+<li>message
+: <a class="el" href="structce__channel.html#a57e26d5e2c9099eb3b15e04283dd5f21">ce_channel</a>
+, <a class="el" href="structce__codec__decoder.html#ac436df74701a5f5ca56ff9af4ffbd585">ce_codec_decoder</a>
+, <a class="el" href="structce__codec__encoder.html#a9824424e009cc6350236bb8fa5018f2d">ce_codec_encoder</a>
 </li>
 </ul>
 
 
 <h3><a id="index_n"></a>- n -</h3><ul>
 <li>name
-: <a class="el" href="structfsm.html#a5ac083a645d964373f022d03df4849c8">fsm</a>
+: <a class="el" href="structce.html#ad1965dfacd6d0856080781fd0ad9d918">ce</a>
+, <a class="el" href="structce__codec.html#adf13f437ac197dcb129e650b889f4477">ce_codec</a>
+, <a class="el" href="structce__command.html#a82b675b56c34d72bd221cacc7bf7d7d7">ce_command</a>
+, <a class="el" href="structce__command__set.html#a0ac7cc6477ea9144daaf131fb5a1122f">ce_command_set</a>
+, <a class="el" href="structce__command__subset.html#adfefd855185c9e8f49838000a8143ede">ce_command_subset</a>
+, <a class="el" href="structfsm.html#a16cc12ff9432f46f97d94a43929b86fb">fsm</a>
+, <a class="el" href="structrb__driver.html#aac0cb09773c871ae4ed4e5794a0e7669">rb_driver</a>
 </li>
 <li>next
-: <a class="el" href="structfsm.html#a0e33dcce93ccfaabc827b34982854395">fsm</a>
+: <a class="el" href="structfsm.html#a824487123ba83f7bfadd68d09e496726">fsm</a>
 </li>
 <li>now
-: <a class="el" href="structfsm.html#a2e1864f3bce30c4bb471c1f62da2ba37">fsm</a>
+: <a class="el" href="structfsm.html#afedd0b48b7df9a3a33ae1366551e6e83">fsm</a>
 </li>
 </ul>
 
 
 <h3><a id="index_o"></a>- o -</h3><ul>
-<li>op
-: <a class="el" href="structrb.html#accc5dee2c374ebafadac8460cc2e686d">rb</a>
+<li>out
+: <a class="el" href="structce.html#ae55d7af9cd06625c10c4c410ef84ccb5">ce</a>
 </li>
 </ul>
 
 
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>pull
-: <a class="el" href="structrb__op.html#ac70f69a14c9966045637112b96616047">rb_op</a>
+: <a class="el" href="structrb__driver.html#a27f94a4ff7b5e09cb4b49ce1bbfef073">rb_driver</a>
 </li>
 <li>push
-: <a class="el" href="structrb__op.html#aac4134a9d6bf931c8a59da43b020710e">rb_op</a>
+: <a class="el" href="structrb__driver.html#a99cc11b4046e4a09bff74d47b21ac61d">rb_driver</a>
 </li>
 </ul>
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
 <li>read
-: <a class="el" href="structrb__op.html#acb79ebdbf886c9ebf832bdecce02234e">rb_op</a>
+: <a class="el" href="structrb__driver.html#a62511d7be7d8f122bb3267b10663f7ff">rb_driver</a>
 </li>
 <li>reset
-: <a class="el" href="structrb__op.html#a1e7bc55b0ae915ec3efbb307e719148e">rb_op</a>
+: <a class="el" href="structrb__driver.html#aa08dae61c0b00e958fec3c4992cb27b6">rb_driver</a>
 </li>
 </ul>
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>send_command
+: <a class="el" href="structce__driver.html#a934ee8d4413cd20a3b8ba79e2a40cb26">ce_driver</a>
+</li>
+<li>signature
+: <a class="el" href="structce__command.html#a95c8e2c4fc339c3dbeac10b94ad00f59">ce_command</a>
+</li>
 <li>size
-: <a class="el" href="structrb.html#a854352f53b148adc24983a58a1866d66">rb</a>
-, <a class="el" href="structrb__op.html#a8cf559b837b7bd049596de5f0819fa76">rb_op</a>
+: <a class="el" href="structrb.html#a04577a711cec0d310cb97de73fc7448a">rb</a>
+, <a class="el" href="structrb__driver.html#a5cdc29a6f54f87e648fe12b5a281347a">rb_driver</a>
 </li>
 <li>start
-: <a class="el" href="structfsm.html#a67b885f396c6f92a0b27c59b1889fda3">fsm</a>
+: <a class="el" href="structfsm__driver.html#aaf325b8e7b35c6b02b51a6deacf0ff59">fsm_driver</a>
 </li>
 <li>state
-: <a class="el" href="structfsm.html#a8dd36c00b35d784325119fd455fbc229">fsm</a>
+: <a class="el" href="structfsm.html#af9d16880cccf03c4397040ea561ee646">fsm</a>
 </li>
 <li>stats
-: <a class="el" href="structfsm.html#af1b5fc503fc92298d099a6422efdb1c5">fsm</a>
+: <a class="el" href="structfsm.html#a077f59eab6724f38478fe15cfbe1133d">fsm</a>
 </li>
 <li>stop
-: <a class="el" href="structfsm.html#a3439b7f4984ccff5892001d77a0d4472">fsm</a>
+: <a class="el" href="structfsm__driver.html#aac37b0c1bdd76ae80fa2d3435999b28a">fsm_driver</a>
+</li>
+<li>subset
+: <a class="el" href="structce__command__set.html#ad1341328df5238875046827ce5dd56e7">ce_command_set</a>
 </li>
 </ul>
 
 
 <h3><a id="index_t"></a>- t -</h3><ul>
 <li>tail
-: <a class="el" href="structrb.html#ad71c3da585299fa719501f5149814fd7">rb</a>
+: <a class="el" href="structrb.html#a424fc0fc147631ae1731e8076034e034">rb</a>
+</li>
+<li>type
+: <a class="el" href="structce__command__argument.html#afa112cbe3e55adabe83602c400f857cf">ce_command_argument</a>
+</li>
+</ul>
+
+
+<h3><a id="index_u"></a>- u -</h3><ul>
+<li>u16
+: <a class="el" href="unionce__data.html#a94fb849f59ac20f2250bb867d29f41e9">ce_data</a>
+</li>
+<li>u32
+: <a class="el" href="unionce__data.html#a9c7e462c6a1c5d4dbfe0d35fe6dacf5b">ce_data</a>
+</li>
+<li>u64
+: <a class="el" href="unionce__data.html#a166f886e224b6d506328677114a964bc">ce_data</a>
+</li>
+<li>u8
+: <a class="el" href="unionce__data.html#a5add2eb6cedf3fcd711b147167346a2e">ce_data</a>
 </li>
 </ul>
 
 
 <h3><a id="index_v"></a>- v -</h3><ul>
 <li>validate
-: <a class="el" href="structrb__op.html#ad86adc8632900f5d8528f27b85641e38">rb_op</a>
+: <a class="el" href="structrb__driver.html#a3e9d63f0027115dcc3b7384de89428a8">rb_driver</a>
 </li>
 </ul>
 
 
 <h3><a id="index_w"></a>- w -</h3><ul>
+<li>wait_command
+: <a class="el" href="structce__driver.html#a275459ce62e205f796ba982b8dd59c53">ce_driver</a>
+</li>
 <li>write
-: <a class="el" href="structrb__op.html#a4bb4d0dddc63950b9abc6f4118233055">rb_op</a>
+: <a class="el" href="structrb__driver.html#a5510bdfb78d7850c22f2c1656ddd7a8d">rb_driver</a>
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.14-->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.18
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+</div>
 </body>
 </html>

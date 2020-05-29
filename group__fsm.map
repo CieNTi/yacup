@@ -1,5 +1,6 @@
-<map id="Finite state machines" name="Finite state machines">
-<area shape="rect" id="node1" href="$group__fsm__available.html" title="Already made and tested FSM for different purposes." alt="" coords="199,5,305,31"/>
-<area shape="rect" id="node2" href="$group__fsm__api.html" title="Operations over fsm instances." alt="" coords="215,55,289,80"/>
-<area shape="rect" id="node3" title="Yet another finite&#45;state machine implementation." alt="" coords="5,31,151,56"/>
+<map id="Finite state machine" name="Finite state machine">
+<area shape="rect" id="node1" href="$group__fsm__driver.html" title="Already made and tested FSM drivers for different purposes." alt="" coords="307,5,424,31"/>
+<area shape="rect" id="node2" href="$group__util.html" title="Available utilities and implementations documentation." alt="" coords="5,31,72,56"/>
+<area shape="rect" id="node4" title="Yet another finite&#45;state machine implementation." alt="" coords="120,31,259,56"/>
+<area shape="rect" id="node3" href="$group__fsm__api.html" title="Complete API documentation for finite state machine setup, instantiation and usage." alt="" coords="329,55,402,80"/>
 </map>

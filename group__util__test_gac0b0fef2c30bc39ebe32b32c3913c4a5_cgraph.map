@@ -1,0 +1,14 @@
+<map id="test_fsm_driver_simple" name="test_fsm_driver_simple">
+<area shape="rect" id="node1" title="Test to check fsm functionality using a single fsm." alt="" coords="5,183,163,209"/>
+<area shape="rect" id="node2" href="$group__fsm__api.html#ga70f7cb5af8edb9f5ef7b1886182e69fa" title="Stepper function (single cycle and exit, need outside controller loop)" alt="" coords="223,5,326,32"/>
+<area shape="rect" id="node3" href="$group__fsm__driver__simple.html#gafe2ceb792d2af033d9a995862b8187ee" title="Driver initializer function for fsm_driver_simple type FSM." alt="" coords="211,56,339,83"/>
+<area shape="rect" id="node7" href="$group__fsm__api.html#ga3f0b160b17b7b1809b86263deeec7018" title="Sets the enable bit, allowing this fsm to perform actions." alt="" coords="230,107,319,133"/>
+<area shape="rect" id="node8" href="$group__fsm__api.html#ga80a7cd6ad51eb499760bea73e57b91b3" title="Initializes a fsm" alt="" coords="241,157,309,184"/>
+<area shape="rect" id="node9" href="$group__debug__functions.html#gaac151a69cbeac42fe57c80678a213091" title="Print fsm information to STDOUT (name, config, state, ...)" alt="" coords="223,208,327,235"/>
+<area shape="rect" id="node10" href="$group__debug__functions.html#gaae5cd87a7d9e7456aa3621903525bc94" title="Print fsm stats to STDOUT (how many times each run&#45;state has been executed/cycled)" alt="" coords="219,259,331,285"/>
+<area shape="rect" id="node11" href="$group__fsm__api.html#ga9daef78018976b8d023bd3bc8ab6e432" title="Sets the started bit, making this fsm to start the next valid cycle." alt="" coords="211,309,338,336"/>
+<area shape="rect" id="node12" href="$group__fsm__api.html#ga7ba31afb84115630277099eb27f4136b" title="Sets the auto&#45;restart bit, making this fsm to start again once completed." alt="" coords="225,360,325,387"/>
+<area shape="rect" id="node4" href="$group__fsm__driver__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Prepare cycles variable." alt="" coords="387,31,435,57"/>
+<area shape="rect" id="node6" href="$group__fsm__driver__simple.html#ga25fe6c2909fa4cd77ce624d0eddeb22e" title="Prepare anything before stopping the FSM." alt="" coords="596,56,643,83"/>
+<area shape="rect" id="node5" href="$group__fsm__driver__simple.html#ga253319d2ba5ab00042c9f91e37a39b72" title="Stay here during 5 counts of cycles variable." alt="" coords="483,31,548,57"/>
+</map>

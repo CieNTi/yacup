@@ -1,6 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- HTML header for doxygen 1.8.14-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="cache-control" content="max-age=86400"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
@@ -9,10 +11,20 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen_extra.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,6 +38,21 @@
    </div>
    <div id="projectbrief">Yet Another C Utilities Package</div>
   </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -37,17 +64,23 @@
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
-</div><!-- top -->
+$(document).ready(function(){initNavTree('group__util__test.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -66,47 +99,56 @@ $(function() {
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Utilities tests<div class="ingroups"><a class="el" href="group__tests.html">Tests and Debugging</a></div></div>  </div>
+<div class="title">Utilities tests<div class="ingroups"><a class="el" href="group__test.html">Tests</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Available tests for utilities (<code>util</code> folder)  
-<a href="#details">More...</a></p>
+<a name="details" id="details"></a><h2 class="groupheader">Description</h2>
+<p>Available tests for utilities (<em>util</em> folder) </p>
+<p>Utilities are found inside <em>util</em> folder and it will depends only on foreign libraries or something found inside <em>util</em> folder, but not from <em>src</em> one (as this is an application) </p><dl class="section author"><dt>Author</dt><dd>CieNTi <a href="#" onclick="location.href='mai'+'lto:'+'cie'+'nt'+'i@c'+'ie'+'nti'+'.c'+'om'; return false;">cient<span style="display: none;">.nosp@m.</span>i@ci<span style="display: none;">.nosp@m.</span>enti.<span style="display: none;">.nosp@m.</span>com</a> </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2020 </dd></dl>
 <div class="dynheader">
 Collaboration diagram for Utilities tests:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__util__test.png" border="0" usemap="#group____util____test" alt=""/></div>
 <map name="group____util____test" id="group____util____test">
-<area shape="rect" href="group__tests.html" title="This module contains all available tests and all available debug functions published by the developer..." alt="" coords="5,5,148,31"/>
-<area shape="rect" title="Available tests for utilities (util folder)" alt="" coords="196,5,295,31"/>
+<area shape="rect" href="group__test.html" title="This module contains all available tests and all available debug functions published by the developer..." alt="" coords="5,5,60,31"/>
+<area shape="rect" title="Available tests for utilities (util folder)" alt="" coords="108,5,207,31"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ga3e06cc2add22474e6d4eb9a5ee7876d6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util__test.html#ga3e06cc2add22474e6d4eb9a5ee7876d6">test_xyz_testname</a> (int argc, const char *argv[])</td></tr>
-<tr class="memdesc:ga3e06cc2add22474e6d4eb9a5ee7876d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test to check <code>xyz</code> functionality using a single xyz.  <a href="group__util__test.html#ga3e06cc2add22474e6d4eb9a5ee7876d6">More...</a><br /></td></tr>
-<tr class="separator:ga3e06cc2add22474e6d4eb9a5ee7876d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf61fd93462287a7fc619259729cc1b18"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18">test_fsm_simple</a> (int argc, const char *argv[])</td></tr>
-<tr class="memdesc:gaf61fd93462287a7fc619259729cc1b18"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test to check <code>fsm</code> functionality using a single fsm.  <a href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18">More...</a><br /></td></tr>
-<tr class="separator:gaf61fd93462287a7fc619259729cc1b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0d6706a9d8bb1cfe78fc205f278f4088"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util__test.html#ga0d6706a9d8bb1cfe78fc205f278f4088">test_rb_driver_v1</a> (int argc, const char *argv[])</td></tr>
-<tr class="memdesc:ga0d6706a9d8bb1cfe78fc205f278f4088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests driver_v1 API and functionality.  <a href="group__util__test.html#ga0d6706a9d8bb1cfe78fc205f278f4088">More...</a><br /></td></tr>
-<tr class="separator:ga0d6706a9d8bb1cfe78fc205f278f4088"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf1c6352c9937f842ff04407ff284311"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util__test.html#gadf1c6352c9937f842ff04407ff284311">test_ce_codec_B416K</a> (int argc, const char *argv[])</td></tr>
+<tr class="memdesc:gadf1c6352c9937f842ff04407ff284311"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test to check <code>ce</code> functionality using a single ce.  <a href="group__util__test.html#gadf1c6352c9937f842ff04407ff284311">More...</a><br /></td></tr>
+<tr class="separator:gadf1c6352c9937f842ff04407ff284311"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae131f9bd4ca899feccfa9fb1ac089582"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util__test.html#gae131f9bd4ca899feccfa9fb1ac089582">test_ce_command_codec_B416K</a> (int argc, const char *argv[])</td></tr>
+<tr class="memdesc:gae131f9bd4ca899feccfa9fb1ac089582"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test to check <code>ce</code> functionality using a single ce.  <a href="group__util__test.html#gae131f9bd4ca899feccfa9fb1ac089582">More...</a><br /></td></tr>
+<tr class="separator:gae131f9bd4ca899feccfa9fb1ac089582"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadb0bf1c3d5da6582a4c94df5552450ae"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util__test.html#gadb0bf1c3d5da6582a4c94df5552450ae">test_ce_command_validate</a> (int argc, const char *argv[])</td></tr>
+<tr class="memdesc:gadb0bf1c3d5da6582a4c94df5552450ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test to check <code>ce</code> functionality using a single ce.  <a href="group__util__test.html#gadb0bf1c3d5da6582a4c94df5552450ae">More...</a><br /></td></tr>
+<tr class="separator:gadb0bf1c3d5da6582a4c94df5552450ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1f21c0ee86f3ad81bf839a26939b7012"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012">test_ce_driver_faf</a> (int argc, const char *argv[])</td></tr>
+<tr class="memdesc:ga1f21c0ee86f3ad81bf839a26939b7012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test to check <em>ce</em> functionality using a single CE.  <a href="group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012">More...</a><br /></td></tr>
+<tr class="separator:ga1f21c0ee86f3ad81bf839a26939b7012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga6e86cfc140feceb78cfada190974e34d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util__test.html#ga6e86cfc140feceb78cfada190974e34d">test_ce_initialization</a> (int argc, const char *argv[])</td></tr>
+<tr class="memdesc:ga6e86cfc140feceb78cfada190974e34d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test to check <code>ce</code> functionality using a single ce.  <a href="group__util__test.html#ga6e86cfc140feceb78cfada190974e34d">More...</a><br /></td></tr>
+<tr class="separator:ga6e86cfc140feceb78cfada190974e34d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac0b0fef2c30bc39ebe32b32c3913c4a5"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util__test.html#gac0b0fef2c30bc39ebe32b32c3913c4a5">test_fsm_driver_simple</a> (int argc, const char *argv[])</td></tr>
+<tr class="memdesc:gac0b0fef2c30bc39ebe32b32c3913c4a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test to check <code>fsm</code> functionality using a single fsm.  <a href="group__util__test.html#gac0b0fef2c30bc39ebe32b32c3913c4a5">More...</a><br /></td></tr>
+<tr class="separator:gac0b0fef2c30bc39ebe32b32c3913c4a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga77ce368a66704591607832adb1811334"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__util__test.html#ga77ce368a66704591607832adb1811334">test_rb_driver_overwrite</a> (int argc, const char *argv[])</td></tr>
+<tr class="memdesc:ga77ce368a66704591607832adb1811334"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tests <code>overwrite</code> driver API and functionality.  <a href="group__util__test.html#ga77ce368a66704591607832adb1811334">More...</a><br /></td></tr>
+<tr class="separator:ga77ce368a66704591607832adb1811334"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Available tests for utilities (<code>util</code> folder) </p>
-<p>Utilities are found inside <code>util</code> folder and it will depends only on foreign libraries or something found inside <code>util</code> folder, but not from <code>src</code> one (as this is an application) </p><dl class="section author"><dt>Author</dt><dd>CieNTi <a href="#" onclick="location.href='mai'+'lto:'+'cie'+'nt'+'i@c'+'ie'+'nti'+'.c'+'om'; return false;">cient<span style="display: none;">.nosp@m.</span>i@ci<span style="display: none;">.nosp@m.</span>enti.<span style="display: none;">.nosp@m.</span>com</a> </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2020 </dd></dl>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="gaf61fd93462287a7fc619259729cc1b18"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf61fd93462287a7fc619259729cc1b18">&#9670;&nbsp;</a></span>test_fsm_simple()</h2>
+<a id="gadf1c6352c9937f842ff04407ff284311"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadf1c6352c9937f842ff04407ff284311">&#9670;&nbsp;</a></span>test_ce_codec_B416K()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int test_fsm_simple </td>
+          <td class="memname">int test_ce_codec_B416K </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>argc</em>, </td>
@@ -125,7 +167,402 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;test_fsm_simple.c&gt;</code></p>
+<p><code>#include &lt;test_ce_codec_B416K.c&gt;</code></p>
+
+<p>Test to check <code>ce</code> functionality using a single ce. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">argc</td><td>The count of arguments </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">argv</td><td>The arguments array</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
+</table>
+</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>v1.0.0 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="test__ce__codec___b416_k_8c_source.html#l00216">216</a> of file <a class="el" href="test__ce__codec___b416_k_8c_source.html">test_ce_codec_B416K.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00069">rb::buffer</a>, <a class="el" href="_b416_k_8c_source.html#l00509">ce_codec_B416K()</a>, <a class="el" href="codec_8c_source.html#l00029">ce_codec_init()</a>, <a class="el" href="debug__codec_8c_source.html#l00032">ce_codec_print_info()</a>, <a class="el" href="overwrite_8c_source.html#l00207">rb_driver_overwrite()</a>, and <a class="el" href="rb_8c_source.html#l00031">rb_init()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__yacup_8c_source.html#l00051">test_yacup()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__util__test_gadf1c6352c9937f842ff04407ff284311_cgraph.png" border="0" usemap="#group__util__test_gadf1c6352c9937f842ff04407ff284311_cgraph" alt=""/></div>
+<map name="group__util__test_gadf1c6352c9937f842ff04407ff284311_cgraph" id="group__util__test_gadf1c6352c9937f842ff04407ff284311_cgraph">
+<area shape="rect" title="Test to check ce functionality using a single ce." alt="" coords="5,107,159,133"/>
+<area shape="rect" href="group__ce__codec___b416_k.html#ga8e0dbd7208c177ee308f553fbb3d9fc6" title="Codec initializer function for B416K type ce codec." alt="" coords="214,5,338,32"/>
+<area shape="rect" href="group__ce__api.html#ga5d72caee899ca86438c14fd306cfcbd7" title="Initializes a ce_codec" alt="" coords="225,56,327,83"/>
+<area shape="rect" href="group__debug__functions.html#ga54840693fa63ba913580aa09dc89b4f2" title="Print ce_codec information to STDOUT (encode/decode functions)" alt="" coords="207,107,345,133"/>
+<area shape="rect" href="group__rb__driver__overwrite.html#gaa92eeb40417d4a01549764cffd7a27c3" title="Driver initializer function for overwrite RB driver." alt="" coords="210,157,342,184"/>
+<area shape="rect" href="group__rb__api.html#gae1cc4cfbb8efee193a67c897bba751d6" title="Initializes a rb" alt="" coords="247,208,305,235"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__util__test_gadf1c6352c9937f842ff04407ff284311_icgraph.png" border="0" usemap="#group__util__test_gadf1c6352c9937f842ff04407ff284311_icgraph" alt=""/></div>
+<map name="group__util__test_gadf1c6352c9937f842ff04407ff284311_icgraph" id="group__util__test_gadf1c6352c9937f842ff04407ff284311_icgraph">
+<area shape="rect" title="Test to check ce functionality using a single ce." alt="" coords="139,5,292,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gae131f9bd4ca899feccfa9fb1ac089582"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae131f9bd4ca899feccfa9fb1ac089582">&#9670;&nbsp;</a></span>test_ce_command_codec_B416K()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int test_ce_command_codec_B416K </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>argv</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;test_ce_command_codec_B416K.c&gt;</code></p>
+
+<p>Test to check <code>ce</code> functionality using a single ce. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">argc</td><td>The count of arguments </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">argv</td><td>The arguments array</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
+</table>
+</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>v1.0.0 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="test__ce__command__codec___b416_k_8c_source.html#l00050">50</a> of file <a class="el" href="test__ce__command__codec___b416_k_8c_source.html">test_ce_command_codec_B416K.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00069">rb::buffer</a>, <a class="el" href="_b416_k_8c_source.html#l00509">ce_codec_B416K()</a>, <a class="el" href="codec_8c_source.html#l00029">ce_codec_init()</a>, <a class="el" href="set__test_8h_source.html#l00068">CE_COMMAND_SET_TEST_CMD5</a>, <a class="el" href="command_8c_source.html#l00081">ce_command_validate()</a>, <a class="el" href="codec_8h_source.html#l00073">ce_codec_encoder::command</a>, <a class="el" href="codec_8h_source.html#l00177">ce_codec::encode</a>, <a class="el" href="command_8h_source.html#l00130">ce_command_set::name</a>, <a class="el" href="codec_8h_source.html#l00159">ce_codec::name</a>, <a class="el" href="overwrite_8c_source.html#l00207">rb_driver_overwrite()</a>, <a class="el" href="rb_8c_source.html#l00031">rb_init()</a>, <a class="el" href="rb_2debug_8c_source.html#l00033">rb_print_info()</a>, <a class="el" href="set__test_8c_source.html#l00111">test_command_subset_part_A</a>, <a class="el" href="set__test_8c_source.html#l00145">test_command_subset_part_B</a>, and <a class="el" href="command_8h_source.html#l00043">ce_command_argument::type</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__yacup_8c_source.html#l00051">test_yacup()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__util__test_gae131f9bd4ca899feccfa9fb1ac089582_cgraph.png" border="0" usemap="#group__util__test_gae131f9bd4ca899feccfa9fb1ac089582_cgraph" alt=""/></div>
+<map name="group__util__test_gae131f9bd4ca899feccfa9fb1ac089582_cgraph" id="group__util__test_gae131f9bd4ca899feccfa9fb1ac089582_cgraph">
+<area shape="rect" title="Test to check ce functionality using a single ce." alt="" coords="5,125,176,166"/>
+<area shape="rect" href="group__ce__codec___b416_k.html#ga8e0dbd7208c177ee308f553fbb3d9fc6" title="Codec initializer function for B416K type ce codec." alt="" coords="238,5,362,32"/>
+<area shape="rect" href="group__ce__api.html#ga5d72caee899ca86438c14fd306cfcbd7" title="Initializes a ce_codec" alt="" coords="249,56,351,83"/>
+<area shape="rect" href="group__ce__api.html#ga518296b367f5d7d290abf4f333cc918c" title="Checks if passed command is found on set and has valid arguments." alt="" coords="224,107,376,133"/>
+<area shape="rect" href="group__rb__driver__overwrite.html#gaa92eeb40417d4a01549764cffd7a27c3" title="Driver initializer function for overwrite RB driver." alt="" coords="234,157,366,184"/>
+<area shape="rect" href="group__rb__api.html#gae1cc4cfbb8efee193a67c897bba751d6" title="Initializes a rb" alt="" coords="271,208,329,235"/>
+<area shape="rect" href="group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="253,259,347,285"/>
+<area shape="rect" href="group__ce__api.html#gaea3edf5686bd9f619d31d901e341da50" title="Locate a command in a set by its unique identifier." alt="" coords="424,107,603,133"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__util__test_gae131f9bd4ca899feccfa9fb1ac089582_icgraph.png" border="0" usemap="#group__util__test_gae131f9bd4ca899feccfa9fb1ac089582_icgraph" alt=""/></div>
+<map name="group__util__test_gae131f9bd4ca899feccfa9fb1ac089582_icgraph" id="group__util__test_gae131f9bd4ca899feccfa9fb1ac089582_icgraph">
+<area shape="rect" title="Test to check ce functionality using a single ce." alt="" coords="139,5,309,47"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,13,91,39"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gadb0bf1c3d5da6582a4c94df5552450ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gadb0bf1c3d5da6582a4c94df5552450ae">&#9670;&nbsp;</a></span>test_ce_command_validate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int test_ce_command_validate </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>argv</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;test_ce_command_validate.c&gt;</code></p>
+
+<p>Test to check <code>ce</code> functionality using a single ce. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">argc</td><td>The count of arguments </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">argv</td><td>The arguments array</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
+</table>
+</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>v1.0.0 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="test__ce__command__validate_8c_source.html#l00044">44</a> of file <a class="el" href="test__ce__command__validate_8c_source.html">test_ce_command_validate.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="command_8h_source.html#l00130">ce_command_set::name</a>, <a class="el" href="set__test_8c_source.html#l00111">test_command_subset_part_A</a>, <a class="el" href="set__test_8c_source.html#l00145">test_command_subset_part_B</a>, and <a class="el" href="command_8h_source.html#l00043">ce_command_argument::type</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__yacup_8c_source.html#l00051">test_yacup()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__util__test_gadb0bf1c3d5da6582a4c94df5552450ae_icgraph.png" border="0" usemap="#group__util__test_gadb0bf1c3d5da6582a4c94df5552450ae_icgraph" alt=""/></div>
+<map name="group__util__test_gadb0bf1c3d5da6582a4c94df5552450ae_icgraph" id="group__util__test_gadb0bf1c3d5da6582a4c94df5552450ae_icgraph">
+<area shape="rect" title="Test to check ce functionality using a single ce." alt="" coords="139,5,320,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ga1f21c0ee86f3ad81bf839a26939b7012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga1f21c0ee86f3ad81bf839a26939b7012">&#9670;&nbsp;</a></span>test_ce_driver_faf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int test_ce_driver_faf </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>argv</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;test_ce_driver_faf.c&gt;</code></p>
+
+<p>Test to check <em>ce</em> functionality using a single CE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">argc</td><td>The count of arguments </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">argv</td><td>The arguments array</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
+</table>
+</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>v1.0.0 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="test__ce__driver__faf_8c_source.html#l00052">52</a> of file <a class="el" href="test__ce__driver__faf_8c_source.html">test_ce_driver_faf.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="_b416_k_8c_source.html#l00509">ce_codec_B416K()</a>, <a class="el" href="command_8c_source.html#l00161">ce_command_set_listener()</a>, <a class="el" href="set__test_8h_source.html#l00047">CE_COMMAND_SET_TEST_CMD1</a>, <a class="el" href="fire-and-forget_8c_source.html#l00567">ce_driver_faf()</a>, <a class="el" href="ce_8c_source.html#l00029">ce_init()</a>, <a class="el" href="channel_8h_source.html#l00056">ce_channel::data</a>, <a class="el" href="ce_8h_source.html#l00099">ce::name</a>, <a class="el" href="ce_8h_source.html#l00109">ce::out</a>, <a class="el" href="overwrite_8c_source.html#l00207">rb_driver_overwrite()</a>, <a class="el" href="rb_2debug_8c_source.html#l00033">rb_print_info()</a>, <a class="el" href="set__test_8c_source.html#l00057">test_cmd1_listener</a>, <a class="el" href="set__test_8c_source.html#l00190">test_command_set</a>, and <a class="el" href="command_8h_source.html#l00043">ce_command_argument::type</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__yacup_8c_source.html#l00051">test_yacup()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__util__test_ga1f21c0ee86f3ad81bf839a26939b7012_cgraph.png" border="0" usemap="#group__util__test_ga1f21c0ee86f3ad81bf839a26939b7012_cgraph" alt=""/></div>
+<map name="group__util__test_ga1f21c0ee86f3ad81bf839a26939b7012_cgraph" id="group__util__test_ga1f21c0ee86f3ad81bf839a26939b7012_cgraph">
+<area shape="rect" title="Test to check ce functionality using a single CE." alt="" coords="5,183,132,209"/>
+<area shape="rect" href="group__ce__codec___b416_k.html#ga8e0dbd7208c177ee308f553fbb3d9fc6" title="Codec initializer function for B416K type ce codec." alt="" coords="205,56,329,83"/>
+<area shape="rect" href="group__ce__api.html#ga5c2e0fc1f08d034c2c408be028e69349" title="Set a command listener, if found in a set." alt="" coords="180,107,355,133"/>
+<area shape="rect" href="group__ce__driver__faf.html#gac3b5320f6ad6971924d1273064579f15" title="Driver initializer function for ce_driver_faf type CE." alt="" coords="219,157,316,184"/>
+<area shape="rect" href="group__ce__api.html#gaa038ff9be1d1df5fa24bbfbb4fa69f93" title="Initializes a command engine referenced by a ce pointer." alt="" coords="237,208,297,235"/>
+<area shape="rect" href="group__rb__driver__overwrite.html#gaa92eeb40417d4a01549764cffd7a27c3" title="Driver initializer function for overwrite RB driver." alt="" coords="201,259,333,285"/>
+<area shape="rect" href="group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="221,309,314,336"/>
+<area shape="rect" href="group__ce__api.html#ga518296b367f5d7d290abf4f333cc918c" title="Checks if passed command is found on set and has valid arguments." alt="" coords="403,5,555,32"/>
+<area shape="rect" href="group__ce__api.html#gaea3edf5686bd9f619d31d901e341da50" title="Locate a command in a set by its unique identifier." alt="" coords="603,5,781,32"/>
+<area shape="rect" href="group__fsm__api.html#ga3f0b160b17b7b1809b86263deeec7018" title="Sets the enable bit, allowing this fsm to perform actions." alt="" coords="434,56,523,83"/>
+<area shape="rect" href="group__fsm__api.html#ga80a7cd6ad51eb499760bea73e57b91b3" title="Initializes a fsm" alt="" coords="445,107,513,133"/>
+<area shape="rect" href="group__debug__functions.html#gaac151a69cbeac42fe57c80678a213091" title="Print fsm information to STDOUT (name, config, state, ...)" alt="" coords="427,157,531,184"/>
+<area shape="rect" href="group__fsm__api.html#ga9daef78018976b8d023bd3bc8ab6e432" title="Sets the started bit, making this fsm to start the next valid cycle." alt="" coords="415,208,542,235"/>
+<area shape="rect" href="group__fsm__api.html#ga7ba31afb84115630277099eb27f4136b" title="Sets the auto&#45;restart bit, making this fsm to start again once completed." alt="" coords="429,259,529,285"/>
+<area shape="rect" href="group__ce__api.html#ga03012ca16c931a830c75d8f43ac6c4bb" title="Initializes a command engine channel using lower level inits." alt="" coords="423,309,535,336"/>
+<area shape="rect" href="group__ce__api.html#ga5d72caee899ca86438c14fd306cfcbd7" title="Initializes a ce_codec" alt="" coords="641,284,743,311"/>
+<area shape="rect" href="group__rb__api.html#gae1cc4cfbb8efee193a67c897bba751d6" title="Initializes a rb" alt="" coords="663,335,721,361"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__util__test_ga1f21c0ee86f3ad81bf839a26939b7012_icgraph.png" border="0" usemap="#group__util__test_ga1f21c0ee86f3ad81bf839a26939b7012_icgraph" alt=""/></div>
+<map name="group__util__test_ga1f21c0ee86f3ad81bf839a26939b7012_icgraph" id="group__util__test_ga1f21c0ee86f3ad81bf839a26939b7012_icgraph">
+<area shape="rect" title="Test to check ce functionality using a single CE." alt="" coords="139,5,265,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ga6e86cfc140feceb78cfada190974e34d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6e86cfc140feceb78cfada190974e34d">&#9670;&nbsp;</a></span>test_ce_initialization()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int test_ce_initialization </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>argv</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;test_ce_initialization.c&gt;</code></p>
+
+<p>Test to check <code>ce</code> functionality using a single ce. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">argc</td><td>The count of arguments </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">argv</td><td>The arguments array</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
+</table>
+</dd></dl>
+<dl class="section version"><dt>Version</dt><dd>v1.0.0 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="test__ce__initialization_8c_source.html#l00050">50</a> of file <a class="el" href="test__ce__initialization_8c_source.html">test_ce_initialization.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="_b416_k_8c_source.html#l00509">ce_codec_B416K()</a>, <a class="el" href="command_8c_source.html#l00161">ce_command_set_listener()</a>, <a class="el" href="set__test_8h_source.html#l00047">CE_COMMAND_SET_TEST_CMD1</a>, <a class="el" href="fire-and-forget_8c_source.html#l00567">ce_driver_faf()</a>, <a class="el" href="ce_8c_source.html#l00029">ce_init()</a>, <a class="el" href="ce_8h_source.html#l00099">ce::name</a>, <a class="el" href="overwrite_8c_source.html#l00207">rb_driver_overwrite()</a>, <a class="el" href="set__test_8c_source.html#l00057">test_cmd1_listener</a>, <a class="el" href="set__test_8c_source.html#l00190">test_command_set</a>, and <a class="el" href="command_8h_source.html#l00043">ce_command_argument::type</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__yacup_8c_source.html#l00051">test_yacup()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__util__test_ga6e86cfc140feceb78cfada190974e34d_cgraph.png" border="0" usemap="#group__util__test_ga6e86cfc140feceb78cfada190974e34d_cgraph" alt=""/></div>
+<map name="group__util__test_ga6e86cfc140feceb78cfada190974e34d_cgraph" id="group__util__test_ga6e86cfc140feceb78cfada190974e34d_cgraph">
+<area shape="rect" title="Test to check ce functionality using a single ce." alt="" coords="5,157,144,184"/>
+<area shape="rect" href="group__ce__codec___b416_k.html#ga8e0dbd7208c177ee308f553fbb3d9fc6" title="Codec initializer function for B416K type ce codec." alt="" coords="217,56,341,83"/>
+<area shape="rect" href="group__ce__api.html#ga5c2e0fc1f08d034c2c408be028e69349" title="Set a command listener, if found in a set." alt="" coords="192,107,367,133"/>
+<area shape="rect" href="group__ce__driver__faf.html#gac3b5320f6ad6971924d1273064579f15" title="Driver initializer function for ce_driver_faf type CE." alt="" coords="231,157,328,184"/>
+<area shape="rect" href="group__ce__api.html#gaa038ff9be1d1df5fa24bbfbb4fa69f93" title="Initializes a command engine referenced by a ce pointer." alt="" coords="249,208,309,235"/>
+<area shape="rect" href="group__rb__driver__overwrite.html#gaa92eeb40417d4a01549764cffd7a27c3" title="Driver initializer function for overwrite RB driver." alt="" coords="213,259,345,285"/>
+<area shape="rect" href="group__ce__api.html#ga518296b367f5d7d290abf4f333cc918c" title="Checks if passed command is found on set and has valid arguments." alt="" coords="415,5,567,32"/>
+<area shape="rect" href="group__ce__api.html#gaea3edf5686bd9f619d31d901e341da50" title="Locate a command in a set by its unique identifier." alt="" coords="615,5,793,32"/>
+<area shape="rect" href="group__fsm__api.html#ga3f0b160b17b7b1809b86263deeec7018" title="Sets the enable bit, allowing this fsm to perform actions." alt="" coords="446,56,535,83"/>
+<area shape="rect" href="group__fsm__api.html#ga80a7cd6ad51eb499760bea73e57b91b3" title="Initializes a fsm" alt="" coords="457,107,525,133"/>
+<area shape="rect" href="group__debug__functions.html#gaac151a69cbeac42fe57c80678a213091" title="Print fsm information to STDOUT (name, config, state, ...)" alt="" coords="439,157,543,184"/>
+<area shape="rect" href="group__fsm__api.html#ga9daef78018976b8d023bd3bc8ab6e432" title="Sets the started bit, making this fsm to start the next valid cycle." alt="" coords="427,208,554,235"/>
+<area shape="rect" href="group__fsm__api.html#ga7ba31afb84115630277099eb27f4136b" title="Sets the auto&#45;restart bit, making this fsm to start again once completed." alt="" coords="441,259,541,285"/>
+<area shape="rect" href="group__ce__api.html#ga03012ca16c931a830c75d8f43ac6c4bb" title="Initializes a command engine channel using lower level inits." alt="" coords="435,309,547,336"/>
+<area shape="rect" href="group__ce__api.html#ga5d72caee899ca86438c14fd306cfcbd7" title="Initializes a ce_codec" alt="" coords="653,284,755,311"/>
+<area shape="rect" href="group__rb__api.html#gae1cc4cfbb8efee193a67c897bba751d6" title="Initializes a rb" alt="" coords="675,335,733,361"/>
+</map>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__util__test_ga6e86cfc140feceb78cfada190974e34d_icgraph.png" border="0" usemap="#group__util__test_ga6e86cfc140feceb78cfada190974e34d_icgraph" alt=""/></div>
+<map name="group__util__test_ga6e86cfc140feceb78cfada190974e34d_icgraph" id="group__util__test_ga6e86cfc140feceb78cfada190974e34d_icgraph">
+<area shape="rect" title="Test to check ce functionality using a single ce." alt="" coords="139,5,277,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gac0b0fef2c30bc39ebe32b32c3913c4a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gac0b0fef2c30bc39ebe32b32c3913c4a5">&#9670;&nbsp;</a></span>test_fsm_driver_simple()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int test_fsm_driver_simple </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>argv</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;test_fsm_driver_simple.c&gt;</code></p>
 
 <p>Test to check <code>fsm</code> functionality using a single fsm. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -146,45 +583,50 @@ Functions</h2></td></tr>
 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>v1.0.0 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="test__fsm__simple_8c_source.html#l00052">52</a> of file <a class="el" href="test__fsm__simple_8c_source.html">test_fsm_simple.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="test__fsm__driver__simple_8c_source.html#l00046">46</a> of file <a class="el" href="test__fsm__driver__simple_8c_source.html">test_fsm_driver_simple.c</a>.</p>
 
-<p class="reference">References <a class="el" href="fsm_8c_source.html#l00092">fsm_do_cycle()</a>, <a class="el" href="fsm_8c_source.html#l00044">fsm_enable()</a>, <a class="el" href="util_2fsm_2debug_8c_source.html#l00036">fsm_print_info()</a>, <a class="el" href="util_2fsm_2debug_8c_source.html#l00052">fsm_print_stats()</a>, <a class="el" href="fsm_8c_source.html#l00076">fsm_request_start()</a>, <a class="el" href="fsm_8c_source.html#l00068">fsm_set_loop()</a>, and <a class="el" href="fsm_8h_source.html#l00097">fsm::name</a>.</p>
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="fsm_8c_source.html#l00128">fsm_do_cycle()</a>, <a class="el" href="simple_8c_source.html#l00146">fsm_driver_simple()</a>, <a class="el" href="fsm_8c_source.html#l00080">fsm_enable()</a>, <a class="el" href="fsm_8c_source.html#l00034">fsm_init()</a>, <a class="el" href="fsm_2debug_8c_source.html#l00033">fsm_print_info()</a>, <a class="el" href="fsm_2debug_8c_source.html#l00055">fsm_print_stats()</a>, <a class="el" href="fsm_8c_source.html#l00112">fsm_request_start()</a>, <a class="el" href="fsm_8c_source.html#l00104">fsm_set_loop()</a>, and <a class="el" href="fsm_8h_source.html#l00101">fsm::name</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="test__yacup_8c_source.html#l00056">test_yacup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="test__yacup_8c_source.html#l00051">test_yacup()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__util__test_gaf61fd93462287a7fc619259729cc1b18_cgraph.png" border="0" usemap="#group__util__test_gaf61fd93462287a7fc619259729cc1b18_cgraph" alt=""/></div>
-<map name="group__util__test_gaf61fd93462287a7fc619259729cc1b18_cgraph" id="group__util__test_gaf61fd93462287a7fc619259729cc1b18_cgraph">
-<area shape="rect" title="Test to check fsm functionality using a single fsm." alt="" coords="5,132,124,159"/>
-<area shape="rect" href="group__fsm__api.html#ga70f7cb5af8edb9f5ef7b1886182e69fa" title="Stepper function (single cycle and exit, need outside controller loop)" alt="" coords="184,5,287,32"/>
-<area shape="rect" href="group__fsm__api.html#ga3f0b160b17b7b1809b86263deeec7018" title="Sets the enable bit, allowing this fsm to perform actions." alt="" coords="191,56,280,83"/>
-<area shape="rect" href="group__debug__functions.html#gaac151a69cbeac42fe57c80678a213091" title="Print fsm information to STDOUT (name, config, state, ...)" alt="" coords="183,107,287,133"/>
-<area shape="rect" href="group__debug__functions.html#gaae5cd87a7d9e7456aa3621903525bc94" title="Print fsm stats to STDOUT (how many times each run&#45;state has been executed/cycled)" alt="" coords="179,157,291,184"/>
-<area shape="rect" href="group__fsm__api.html#ga9daef78018976b8d023bd3bc8ab6e432" title="Sets the started bit, making this fsm to start the next valid cycle." alt="" coords="172,208,299,235"/>
-<area shape="rect" href="group__fsm__api.html#ga7ba31afb84115630277099eb27f4136b" title="Sets the auto&#45;restart bit, making this fsm to start again once completed." alt="" coords="185,259,285,285"/>
+<div class="center"><img src="group__util__test_gac0b0fef2c30bc39ebe32b32c3913c4a5_cgraph.png" border="0" usemap="#group__util__test_gac0b0fef2c30bc39ebe32b32c3913c4a5_cgraph" alt=""/></div>
+<map name="group__util__test_gac0b0fef2c30bc39ebe32b32c3913c4a5_cgraph" id="group__util__test_gac0b0fef2c30bc39ebe32b32c3913c4a5_cgraph">
+<area shape="rect" title="Test to check fsm functionality using a single fsm." alt="" coords="5,183,163,209"/>
+<area shape="rect" href="group__fsm__api.html#ga70f7cb5af8edb9f5ef7b1886182e69fa" title="Stepper function (single cycle and exit, need outside controller loop)" alt="" coords="223,5,326,32"/>
+<area shape="rect" href="group__fsm__driver__simple.html#gafe2ceb792d2af033d9a995862b8187ee" title="Driver initializer function for fsm_driver_simple type FSM." alt="" coords="211,56,339,83"/>
+<area shape="rect" href="group__fsm__api.html#ga3f0b160b17b7b1809b86263deeec7018" title="Sets the enable bit, allowing this fsm to perform actions." alt="" coords="230,107,319,133"/>
+<area shape="rect" href="group__fsm__api.html#ga80a7cd6ad51eb499760bea73e57b91b3" title="Initializes a fsm" alt="" coords="241,157,309,184"/>
+<area shape="rect" href="group__debug__functions.html#gaac151a69cbeac42fe57c80678a213091" title="Print fsm information to STDOUT (name, config, state, ...)" alt="" coords="223,208,327,235"/>
+<area shape="rect" href="group__debug__functions.html#gaae5cd87a7d9e7456aa3621903525bc94" title="Print fsm stats to STDOUT (how many times each run&#45;state has been executed/cycled)" alt="" coords="219,259,331,285"/>
+<area shape="rect" href="group__fsm__api.html#ga9daef78018976b8d023bd3bc8ab6e432" title="Sets the started bit, making this fsm to start the next valid cycle." alt="" coords="211,309,338,336"/>
+<area shape="rect" href="group__fsm__api.html#ga7ba31afb84115630277099eb27f4136b" title="Sets the auto&#45;restart bit, making this fsm to start again once completed." alt="" coords="225,360,325,387"/>
+<area shape="rect" href="group__fsm__driver__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Prepare cycles variable." alt="" coords="387,31,435,57"/>
+<area shape="rect" href="group__fsm__driver__simple.html#ga25fe6c2909fa4cd77ce624d0eddeb22e" title="Prepare anything before stopping the FSM." alt="" coords="596,56,643,83"/>
+<area shape="rect" href="group__fsm__driver__simple.html#ga253319d2ba5ab00042c9f91e37a39b72" title="Stay here during 5 counts of cycles variable." alt="" coords="483,31,548,57"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__util__test_gaf61fd93462287a7fc619259729cc1b18_icgraph.png" border="0" usemap="#group__util__test_gaf61fd93462287a7fc619259729cc1b18_icgraph" alt=""/></div>
-<map name="group__util__test_gaf61fd93462287a7fc619259729cc1b18_icgraph" id="group__util__test_gaf61fd93462287a7fc619259729cc1b18_icgraph">
-<area shape="rect" title="Test to check fsm functionality using a single fsm." alt="" coords="139,5,257,32"/>
+<div class="center"><img src="group__util__test_gac0b0fef2c30bc39ebe32b32c3913c4a5_icgraph.png" border="0" usemap="#group__util__test_gac0b0fef2c30bc39ebe32b32c3913c4a5_icgraph" alt=""/></div>
+<map name="group__util__test_gac0b0fef2c30bc39ebe32b32c3913c4a5_icgraph" id="group__util__test_gac0b0fef2c30bc39ebe32b32c3913c4a5_icgraph">
+<area shape="rect" title="Test to check fsm functionality using a single fsm." alt="" coords="139,5,296,32"/>
 <area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
 </map>
 </div>
 
 </div>
 </div>
-<a id="ga0d6706a9d8bb1cfe78fc205f278f4088"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0d6706a9d8bb1cfe78fc205f278f4088">&#9670;&nbsp;</a></span>test_rb_driver_v1()</h2>
+<a id="ga77ce368a66704591607832adb1811334"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga77ce368a66704591607832adb1811334">&#9670;&nbsp;</a></span>test_rb_driver_overwrite()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int test_rb_driver_v1 </td>
+          <td class="memname">int test_rb_driver_overwrite </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>argc</em>, </td>
@@ -203,9 +645,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p><code>#include &lt;test_rb_driver_v1.c&gt;</code></p>
+<p><code>#include &lt;test_rb_driver_overwrite.c&gt;</code></p>
 
-<p>Tests driver_v1 API and functionality. </p>
+<p>Tests <code>overwrite</code> driver API and functionality. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">argc</td><td>The count of arguments </td></tr>
@@ -224,100 +666,35 @@ Here is the caller graph for this function:</div>
 </dd></dl>
 <dl class="section version"><dt>Version</dt><dd>v1.0.0 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="test__rb__driver__v1_8c_source.html#l00049">49</a> of file <a class="el" href="test__rb__driver__v1_8c_source.html">test_rb_driver_v1.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="test__rb__driver__overwrite_8c_source.html#l00046">46</a> of file <a class="el" href="test__rb__driver__overwrite_8c_source.html">test_rb_driver_overwrite.c</a>.</p>
 
-<p class="reference">References <a class="el" href="driver__v1_8c_source.html#l00206">rb_driver_v1()</a>, and <a class="el" href="util_2rb_2debug_8c_source.html#l00037">rb_print_info()</a>.</p>
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00069">rb::buffer</a>, <a class="el" href="overwrite_8c_source.html#l00207">rb_driver_overwrite()</a>, <a class="el" href="rb_8c_source.html#l00247">rb_full()</a>, <a class="el" href="rb_8c_source.html#l00031">rb_init()</a>, <a class="el" href="rb_8c_source.html#l00226">rb_len()</a>, <a class="el" href="rb_2debug_8c_source.html#l00033">rb_print_info()</a>, <a class="el" href="rb_8c_source.html#l00142">rb_pull()</a>, <a class="el" href="rb_8c_source.html#l00121">rb_push()</a>, <a class="el" href="rb_8c_source.html#l00184">rb_read()</a>, <a class="el" href="rb_8c_source.html#l00097">rb_reset()</a>, and <a class="el" href="rb_8c_source.html#l00163">rb_write()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="test__yacup_8c_source.html#l00056">test_yacup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="test__yacup_8c_source.html#l00051">test_yacup()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__util__test_ga0d6706a9d8bb1cfe78fc205f278f4088_cgraph.png" border="0" usemap="#group__util__test_ga0d6706a9d8bb1cfe78fc205f278f4088_cgraph" alt=""/></div>
-<map name="group__util__test_ga0d6706a9d8bb1cfe78fc205f278f4088_cgraph" id="group__util__test_ga0d6706a9d8bb1cfe78fc205f278f4088_cgraph">
-<area shape="rect" title="Tests driver_v1 API and functionality." alt="" coords="5,31,128,57"/>
-<area shape="rect" href="group__rb__driver__v1.html#ga2677aa065ac57faf87002c11c5a73871" title="Ring&#45;buffer operations driver v1." alt="" coords="176,5,269,32"/>
-<area shape="rect" href="group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="176,56,269,83"/>
+<div class="center"><img src="group__util__test_ga77ce368a66704591607832adb1811334_cgraph.png" border="0" usemap="#group__util__test_ga77ce368a66704591607832adb1811334_cgraph" alt=""/></div>
+<map name="group__util__test_ga77ce368a66704591607832adb1811334_cgraph" id="group__util__test_ga77ce368a66704591607832adb1811334_cgraph">
+<area shape="rect" title="Tests overwrite driver API and functionality." alt="" coords="5,233,167,260"/>
+<area shape="rect" href="group__rb__driver__overwrite.html#gaa92eeb40417d4a01549764cffd7a27c3" title="Driver initializer function for overwrite RB driver." alt="" coords="215,5,347,32"/>
+<area shape="rect" href="group__rb__api.html#gaceac7bcf58fd1c07fba15782ee62e158" title="Check if a ring&#45;buffer is full or not." alt="" coords="252,56,309,83"/>
+<area shape="rect" href="group__rb__api.html#gae1cc4cfbb8efee193a67c897bba751d6" title="Initializes a rb" alt="" coords="252,107,309,133"/>
+<area shape="rect" href="group__rb__api.html#ga41b099989b3349b04773ceadf276f470" title="Returns available data size inside a ring&#45;buffer." alt="" coords="252,157,309,184"/>
+<area shape="rect" href="group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="234,208,327,235"/>
+<area shape="rect" href="group__rb__api.html#gad4a09b70178f9e847a660c51b1170aef" title="Read and delete a byte from a ring&#45;buffer tail." alt="" coords="251,259,311,285"/>
+<area shape="rect" href="group__rb__api.html#gafbfb992566219b55192d15ac6df26e80" title="Add a byte to a ring&#45;buffer head, overwritting if needed." alt="" coords="247,309,315,336"/>
+<area shape="rect" href="group__rb__api.html#gafdb7caa667d6371c53b02b73cdad85ca" title="Read a byte by position from a ring&#45;buffer, without updating head/tail." alt="" coords="248,360,313,387"/>
+<area shape="rect" href="group__rb__api.html#ga7872afd788d2f46f71a85acaa6e095f4" title="Reset a ring&#45;buffer by cleaning its content and making it empty." alt="" coords="246,411,315,437"/>
+<area shape="rect" href="group__rb__api.html#gad5afa11ed29c92c613138d041955d947" title="Write a byte by position on a ring&#45;buffer, without updating head/tail." alt="" coords="247,461,315,488"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__util__test_ga0d6706a9d8bb1cfe78fc205f278f4088_icgraph.png" border="0" usemap="#group__util__test_ga0d6706a9d8bb1cfe78fc205f278f4088_icgraph" alt=""/></div>
-<map name="group__util__test_ga0d6706a9d8bb1cfe78fc205f278f4088_icgraph" id="group__util__test_ga0d6706a9d8bb1cfe78fc205f278f4088_icgraph">
-<area shape="rect" title="Tests driver_v1 API and functionality." alt="" coords="139,5,261,32"/>
-<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="ga3e06cc2add22474e6d4eb9a5ee7876d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga3e06cc2add22474e6d4eb9a5ee7876d6">&#9670;&nbsp;</a></span>test_xyz_testname()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int test_xyz_testname </td>
-          <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>argc</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>argv</em>[]&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;test_xyz_testname.c&gt;</code></p>
-
-<p>Test to check <code>xyz</code> functionality using a single xyz. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">argc</td><td>The count of arguments </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">argv</td><td>The arguments array</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
-<tr class="markdownTableHead">
-<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
-<tr class="markdownTableRowOdd">
-<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
-<tr class="markdownTableRowEven">
-<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
-</table>
-</dd></dl>
-<dl class="section version"><dt>Version</dt><dd>v1.0.0 </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="test__xyz__testname_8c_source.html#l00052">52</a> of file <a class="el" href="test__xyz__testname_8c_source.html">test_xyz_testname.c</a>.</p>
-
-<p class="reference">References <a class="el" href="rb_8h_source.html#l00066">rb::buffer</a>, <a class="el" href="xyz_8h_source.html#l00066">xyz::buffer</a>, and <a class="el" href="template_2util__xyz_2debug_8c_source.html#l00036">xyz_print_info()</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="test__yacup_8c_source.html#l00056">test_yacup()</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__util__test_ga3e06cc2add22474e6d4eb9a5ee7876d6_cgraph.png" border="0" usemap="#group__util__test_ga3e06cc2add22474e6d4eb9a5ee7876d6_cgraph" alt=""/></div>
-<map name="group__util__test_ga3e06cc2add22474e6d4eb9a5ee7876d6_cgraph" id="group__util__test_ga3e06cc2add22474e6d4eb9a5ee7876d6_cgraph">
-<area shape="rect" title="Test to check xyz functionality using a single xyz." alt="" coords="5,5,136,32"/>
-<area shape="rect" href="group__debug__functions.html#gaf911273b3f88cbcdc578ca2351204038" title="Print xyz information to STDOUT (name, config, state, ...)" alt="" coords="184,5,284,32"/>
-</map>
-</div>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__util__test_ga3e06cc2add22474e6d4eb9a5ee7876d6_icgraph.png" border="0" usemap="#group__util__test_ga3e06cc2add22474e6d4eb9a5ee7876d6_icgraph" alt=""/></div>
-<map name="group__util__test_ga3e06cc2add22474e6d4eb9a5ee7876d6_icgraph" id="group__util__test_ga3e06cc2add22474e6d4eb9a5ee7876d6_icgraph">
-<area shape="rect" title="Test to check xyz functionality using a single xyz." alt="" coords="139,5,269,32"/>
+<div class="center"><img src="group__util__test_ga77ce368a66704591607832adb1811334_icgraph.png" border="0" usemap="#group__util__test_ga77ce368a66704591607832adb1811334_icgraph" alt=""/></div>
+<map name="group__util__test_ga77ce368a66704591607832adb1811334_icgraph" id="group__util__test_ga77ce368a66704591607832adb1811334_icgraph">
+<area shape="rect" title="Tests overwrite driver API and functionality." alt="" coords="139,5,300,32"/>
 <area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
 </map>
 </div>
@@ -325,11 +702,10 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.14-->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.18
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+</div>
 </body>
 </html>

@@ -1,0 +1,8 @@
+<map id="s_error" name="s_error">
+<area shape="rect" id="node1" title="Some error happened. Wops!" alt="" coords="509,56,572,83"/>
+<area shape="rect" id="node2" href="$group__ce__driver__faf.html#ga75b2211d25646d4f04074d7cf40b144b" title="Encode command + data as a message." alt="" coords="383,56,461,83"/>
+<area shape="rect" id="node5" href="$group__ce__driver__faf.html#gaaa17c3b3157d99ae8a3c297628b3ff62" title="Prepare extra variable." alt="" coords="5,81,68,108"/>
+<area shape="rect" id="node6" href="$group__ce__driver__faf.html#ga4aaa2bc5f11fd18aef218450ecd391ba" title="Encode command + data as a message." alt="" coords="256,5,335,32"/>
+<area shape="rect" id="node3" href="$group__ce__driver__faf.html#gac82b54c4541dbc919353205c3fa001e7" title="Receive data and saves it." alt="" coords="256,56,335,83"/>
+<area shape="rect" id="node4" href="$group__ce__driver__faf.html#ga344123d202bd63edb92107e4a1c2f1a2" title="Stay here during 5 counts of extra variable." alt="" coords="116,56,208,83"/>
+</map>

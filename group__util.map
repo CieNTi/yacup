@@ -1,0 +1,6 @@
+<map id="Utilities" name="Utilities">
+<area shape="rect" id="node1" title="Available utilities and implementations documentation." alt="" coords="5,55,72,80"/>
+<area shape="rect" id="node2" href="$group__ce.html" title="Yet another command engine implementation." alt="" coords="128,5,251,31"/>
+<area shape="rect" id="node3" href="$group__fsm.html" title="Yet another finite&#45;state machine implementation." alt="" coords="120,55,259,80"/>
+<area shape="rect" id="node4" href="$group__rb.html" title="Yet another ring&#45;buffer implementation." alt="" coords="147,104,231,129"/>
+</map>

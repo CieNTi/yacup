@@ -1,0 +1,5 @@
+<map id="Available codecs" name="Available codecs">
+<area shape="rect" id="node1" href="$group__ce__codec___b416_k.html" title="Binary 4&#45;byte + CRC&#45;16/Kermit codec for ce util." alt="" coords="344,5,405,31"/>
+<area shape="rect" id="node2" title="Already made and tested codecs for commands, data and messages for different purposes." alt="" coords="176,5,296,31"/>
+<area shape="rect" id="node3" href="$group__ce.html" title="Yet another command engine implementation." alt="" coords="5,5,128,31"/>
+</map>

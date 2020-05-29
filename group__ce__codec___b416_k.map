@@ -1,0 +1,4 @@
+<map id="B416K" name="B416K">
+<area shape="rect" id="node1" title="Binary 4&#45;byte + CRC&#45;16/Kermit codec for ce util." alt="" coords="173,5,235,31"/>
+<area shape="rect" id="node2" href="$group__ce__codec.html" title="Already made and tested codecs for commands, data and messages for different purposes." alt="" coords="5,5,125,31"/>
+</map>

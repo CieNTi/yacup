@@ -1,6 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- HTML header for doxygen 1.8.14-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="cache-control" content="max-age=86400"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
@@ -9,10 +11,20 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen_extra.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,6 +38,21 @@
    </div>
    <div id="projectbrief">Yet Another C Utilities Package</div>
   </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -37,17 +64,23 @@
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
-</div><!-- top -->
+$(document).ready(function(){initNavTree('group__debug__functions.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -63,26 +96,41 @@ $(function() {
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Debug functions<div class="ingroups"><a class="el" href="group__tests.html">Tests and Debugging</a></div></div>  </div>
+<div class="title">Debug functions<div class="ingroups"><a class="el" href="group__debug.html">Debug and development</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Debugging helper functions to ease the development flow.  
-<a href="#details">More...</a></p>
+<a name="details" id="details"></a><h2 class="groupheader">Description</h2>
+<p>Debugging helper functions to ease the development flow. </p>
+<p>Each <em>util</em> or <em>app</em> is responsible of create or not a debug function, but it is recommended to invest a bit of time to create them, and the more the verbose, the better </p><dl class="section author"><dt>Author</dt><dd>CieNTi <a href="#" onclick="location.href='mai'+'lto:'+'cie'+'nt'+'i@c'+'ie'+'nti'+'.c'+'om'; return false;">cient<span style="display: none;">.nosp@m.</span>i@ci<span style="display: none;">.nosp@m.</span>enti.<span style="display: none;">.nosp@m.</span>com</a> </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2020 </dd></dl>
 <div class="dynheader">
 Collaboration diagram for Debug functions:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__debug__functions.png" border="0" usemap="#group____debug____functions" alt=""/></div>
 <map name="group____debug____functions" id="group____debug____functions">
-<area shape="rect" href="group__tests.html" title="This module contains all available tests and all available debug functions published by the developer..." alt="" coords="5,5,148,31"/>
-<area shape="rect" title="Debugging helper functions to ease the development flow." alt="" coords="196,5,311,31"/>
+<area shape="rect" title="Debugging helper functions to ease the development flow." alt="" coords="213,5,328,31"/>
+<area shape="rect" href="group__debug.html" title=" " alt="" coords="5,5,165,31"/>
 </map>
 </div>
 <table class="memberdecls">
-<tr class="memitem:gaf911273b3f88cbcdc578ca2351204038"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug__functions.html#gaf911273b3f88cbcdc578ca2351204038">xyz_print_info</a> (struct <a class="el" href="structxyz.html">xyz</a> *<a class="el" href="structxyz.html">xyz</a>)</td></tr>
-<tr class="memdesc:gaf911273b3f88cbcdc578ca2351204038"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print <code>xyz</code> information to STDOUT (name, config, state, ...)  <a href="group__debug__functions.html#gaf911273b3f88cbcdc578ca2351204038">More...</a><br /></td></tr>
-<tr class="separator:gaf911273b3f88cbcdc578ca2351204038"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ga5f3b54a93643253eea569e18b617dcb1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug__functions.html#ga5f3b54a93643253eea569e18b617dcb1">_dbg</a>(...)</td></tr>
+<tr class="memdesc:ga5f3b54a93643253eea569e18b617dcb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro used to unify debugging messages.  <a href="group__debug__functions.html#ga5f3b54a93643253eea569e18b617dcb1">More...</a><br /></td></tr>
+<tr class="separator:ga5f3b54a93643253eea569e18b617dcb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gad895f02945d48bf55ca1982a19258f1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug__functions.html#gad895f02945d48bf55ca1982a19258f1f">ce_print_info</a> (struct <a class="el" href="structce.html">ce</a> *<a class="el" href="structce.html">ce</a>)</td></tr>
+<tr class="memdesc:gad895f02945d48bf55ca1982a19258f1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print <code>ce</code> information to STDOUT.  <a href="group__debug__functions.html#gad895f02945d48bf55ca1982a19258f1f">More...</a><br /></td></tr>
+<tr class="separator:gad895f02945d48bf55ca1982a19258f1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga54840693fa63ba913580aa09dc89b4f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug__functions.html#ga54840693fa63ba913580aa09dc89b4f2">ce_codec_print_info</a> (struct <a class="el" href="structce__codec.html">ce_codec</a> *codec)</td></tr>
+<tr class="memdesc:ga54840693fa63ba913580aa09dc89b4f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print <code><a class="el" href="structce__codec.html" title="Structure that defines a ce codec operations.">ce_codec</a></code> information to STDOUT (encode/decode functions)  <a href="group__debug__functions.html#ga54840693fa63ba913580aa09dc89b4f2">More...</a><br /></td></tr>
+<tr class="separator:ga54840693fa63ba913580aa09dc89b4f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaac151a69cbeac42fe57c80678a213091"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug__functions.html#gaac151a69cbeac42fe57c80678a213091">fsm_print_info</a> (struct <a class="el" href="structfsm.html">fsm</a> *<a class="el" href="structfsm.html">fsm</a>)</td></tr>
 <tr class="memdesc:gaac151a69cbeac42fe57c80678a213091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print <code>fsm</code> information to STDOUT (name, config, state, ...)  <a href="group__debug__functions.html#gaac151a69cbeac42fe57c80678a213091">More...</a><br /></td></tr>
 <tr class="separator:gaac151a69cbeac42fe57c80678a213091"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -93,11 +141,118 @@ Collaboration diagram for Debug functions:</div>
 <tr class="memdesc:ga6f3629bbf2e4772601d46ddfd5941e30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Print <code>rb</code> information to STDOUT (size, head, tail, ...)  <a href="group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30">More...</a><br /></td></tr>
 <tr class="separator:ga6f3629bbf2e4772601d46ddfd5941e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Debugging helper functions to ease the development flow. </p>
-<p>Each <code>util</code> or <code>app</code> is responsible of create or not a debug function, but it is recommended to invest a bit of time to create them, and the more the verbose, the better </p><dl class="section author"><dt>Author</dt><dd>CieNTi <a href="#" onclick="location.href='mai'+'lto:'+'cie'+'nt'+'i@c'+'ie'+'nti'+'.c'+'om'; return false;">cient<span style="display: none;">.nosp@m.</span>i@ci<span style="display: none;">.nosp@m.</span>enti.<span style="display: none;">.nosp@m.</span>com</a> </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2020 </dd></dl>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ga5f3b54a93643253eea569e18b617dcb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga5f3b54a93643253eea569e18b617dcb1">&#9670;&nbsp;</a></span>_dbg</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _dbg</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;debug.h&gt;</code></p>
+
+<p>Macro used to unify debugging messages. </p>
+<p>This is a configurable macro:</p>
+<ul>
+<li>If <code>YACUP_DEBUG</code> is defined, <code>PRINTF</code> macro will be used.<ul>
+<li>If <code>PRINTF</code> is not defined, standard <code>printf</code> will be used.</li>
+<li>User can define <code>PRINTF</code> as a custom function. As example, instead of print to stdout, the string is sent through a serial port.</li>
+</ul>
+</li>
+<li>If <code>YACUP_DEBUG</code> is not defined, no debug function is used and no string storage allocation is performed.</li>
+</ul>
+<dl class="section note"><dt>Note</dt><dd>Read <code><a class="el" href="common_2yacup_2debug_8h_source.html">yacup/debug.h</a></code> for complete information </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="common_2yacup_2debug_8h_source.html#l00061">61</a> of file <a class="el" href="common_2yacup_2debug_8h_source.html">common/yacup/debug.h</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="gad895f02945d48bf55ca1982a19258f1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad895f02945d48bf55ca1982a19258f1f">&#9670;&nbsp;</a></span>ce_print_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce_print_info </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structce.html">ce</a> *&#160;</td>
+          <td class="paramname"><em>ce</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;debug.h&gt;</code></p>
+
+<p>Print <code>ce</code> information to STDOUT. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ce</td><td>Pointer to a valid <code>ce</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="ce_2debug_8c_source.html#l00033">33</a> of file <a class="el" href="ce_2debug_8c_source.html">ce/debug.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>.</p>
+
+</div>
+</div>
+<a id="ga54840693fa63ba913580aa09dc89b4f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga54840693fa63ba913580aa09dc89b4f2">&#9670;&nbsp;</a></span>ce_codec_print_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ce_codec_print_info </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structce__codec.html">ce_codec</a> *&#160;</td>
+          <td class="paramname"><em>codec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;debug_codec.h&gt;</code></p>
+
+<p>Print <code><a class="el" href="structce__codec.html" title="Structure that defines a ce codec operations.">ce_codec</a></code> information to STDOUT (encode/decode functions) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">codec</td><td>Pointer to a valid <code><a class="el" href="structce__codec.html" title="Structure that defines a ce codec operations.">ce_codec</a></code> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="debug__codec_8c_source.html#l00032">32</a> of file <a class="el" href="debug__codec_8c_source.html">debug_codec.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__ce__codec___b416_k_8c_source.html#l00216">test_ce_codec_B416K()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__debug__functions_ga54840693fa63ba913580aa09dc89b4f2_icgraph.png" border="0" usemap="#group__debug__functions_ga54840693fa63ba913580aa09dc89b4f2_icgraph" alt=""/></div>
+<map name="group__debug__functions_ga54840693fa63ba913580aa09dc89b4f2_icgraph" id="group__debug__functions_ga54840693fa63ba913580aa09dc89b4f2_icgraph">
+<area shape="rect" title="Print ce_codec information to STDOUT (encode/decode functions)" alt="" coords="340,5,479,32"/>
+<area shape="rect" href="group__util__test.html#gadf1c6352c9937f842ff04407ff284311" title="Test to check ce functionality using a single ce." alt="" coords="139,5,292,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
 <a id="gaac151a69cbeac42fe57c80678a213091"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#gaac151a69cbeac42fe57c80678a213091">&#9670;&nbsp;</a></span>fsm_print_info()</h2>
 
@@ -124,19 +279,22 @@ Collaboration diagram for Debug functions:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2fsm_2debug_8c_source.html#l00036">36</a> of file <a class="el" href="util_2fsm_2debug_8c_source.html">util/fsm/debug.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fsm_2debug_8c_source.html#l00033">33</a> of file <a class="el" href="fsm_2debug_8c_source.html">fsm/debug.c</a>.</p>
 
-<p class="reference">References <a class="el" href="fsm_8h_source.html#l00102">fsm::config</a>, <a class="el" href="fsm_8h_source.html#l00131">fsm::last</a>, <a class="el" href="fsm_8h_source.html#l00097">fsm::name</a>, <a class="el" href="fsm_8h_source.html#l00139">fsm::next</a>, <a class="el" href="fsm_8h_source.html#l00135">fsm::now</a>, <a class="el" href="fsm_8h_source.html#l00123">fsm::start</a>, <a class="el" href="fsm_8h_source.html#l00107">fsm::state</a>, and <a class="el" href="fsm_8h_source.html#l00127">fsm::stop</a>.</p>
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="fsm_8h_source.html#l00106">fsm::config</a>, <a class="el" href="fsm_8h_source.html#l00141">fsm::driver</a>, <a class="el" href="fsm_8h_source.html#l00126">fsm::last</a>, <a class="el" href="fsm_8h_source.html#l00101">fsm::name</a>, <a class="el" href="fsm_8h_source.html#l00136">fsm::next</a>, <a class="el" href="fsm_8h_source.html#l00131">fsm::now</a>, <a class="el" href="fsm_2yacup_2fsm_2driver_8h_source.html#l00045">fsm_driver::start</a>, <a class="el" href="fsm_8h_source.html#l00111">fsm::state</a>, and <a class="el" href="fsm_2yacup_2fsm_2driver_8h_source.html#l00050">fsm_driver::stop</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="test__fsm__simple_8c_source.html#l00052">test_fsm_simple()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="fire-and-forget_8c_source.html#l00567">ce_driver_faf()</a>, and <a class="el" href="test__fsm__driver__simple_8c_source.html#l00046">test_fsm_driver_simple()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__debug__functions_gaac151a69cbeac42fe57c80678a213091_icgraph.png" border="0" usemap="#group__debug__functions_gaac151a69cbeac42fe57c80678a213091_icgraph" alt=""/></div>
 <map name="group__debug__functions_gaac151a69cbeac42fe57c80678a213091_icgraph" id="group__debug__functions_gaac151a69cbeac42fe57c80678a213091_icgraph">
-<area shape="rect" title="Print fsm information to STDOUT (name, config, state, ...)" alt="" coords="305,5,409,32"/>
-<area shape="rect" href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18" title="Test to check fsm functionality using a single fsm." alt="" coords="139,5,257,32"/>
-<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+<area shape="rect" title="Print fsm information to STDOUT (name, config, state, ...)" alt="" coords="531,81,635,108"/>
+<area shape="rect" href="group__ce__driver__faf.html#gac3b5320f6ad6971924d1273064579f15" title="Driver initializer function for ce_driver_faf type CE." alt="" coords="355,56,453,83"/>
+<area shape="rect" href="group__util__test.html#gac0b0fef2c30bc39ebe32b32c3913c4a5" title="Test to check fsm functionality using a single fsm." alt="" coords="325,107,483,133"/>
+<area shape="rect" href="group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012" title="Test to check ce functionality using a single CE." alt="" coords="145,5,271,32"/>
+<area shape="rect" href="group__util__test.html#ga6e86cfc140feceb78cfada190974e34d" title="Test to check ce functionality using a single ce." alt="" coords="139,56,277,83"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,56,91,83"/>
 </map>
 </div>
 
@@ -168,18 +326,18 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2fsm_2debug_8c_source.html#l00052">52</a> of file <a class="el" href="util_2fsm_2debug_8c_source.html">util/fsm/debug.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="fsm_2debug_8c_source.html#l00055">55</a> of file <a class="el" href="fsm_2debug_8c_source.html">fsm/debug.c</a>.</p>
 
-<p class="reference">References <a class="el" href="fsm_8h_source.html#l00086">FSM_ALL</a>, <a class="el" href="fsm_8h_source.html#l00082">FSM_ERROR</a>, <a class="el" href="fsm_8h_source.html#l00069">FSM_NEW</a>, <a class="el" href="fsm_8h_source.html#l00074">FSM_PAUSE</a>, <a class="el" href="fsm_8h_source.html#l00078">FSM_RUN</a>, and <a class="el" href="fsm_8h_source.html#l00112">fsm::stats</a>.</p>
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="fsm_8h_source.html#l00090">FSM_ALL</a>, <a class="el" href="fsm_8h_source.html#l00085">FSM_ERROR</a>, <a class="el" href="fsm_8h_source.html#l00069">FSM_NEW</a>, <a class="el" href="fsm_8h_source.html#l00075">FSM_PAUSE</a>, <a class="el" href="fsm_8h_source.html#l00080">FSM_RUN</a>, and <a class="el" href="fsm_8h_source.html#l00116">fsm::stats</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="test__fsm__simple_8c_source.html#l00052">test_fsm_simple()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="test__fsm__driver__simple_8c_source.html#l00046">test_fsm_driver_simple()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__debug__functions_gaae5cd87a7d9e7456aa3621903525bc94_icgraph.png" border="0" usemap="#group__debug__functions_gaae5cd87a7d9e7456aa3621903525bc94_icgraph" alt=""/></div>
 <map name="group__debug__functions_gaae5cd87a7d9e7456aa3621903525bc94_icgraph" id="group__debug__functions_gaae5cd87a7d9e7456aa3621903525bc94_icgraph">
-<area shape="rect" title="Print fsm stats to STDOUT (how many times each run&#45;state has been executed/cycled)" alt="" coords="305,5,417,32"/>
-<area shape="rect" href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18" title="Test to check fsm functionality using a single fsm." alt="" coords="139,5,257,32"/>
+<area shape="rect" title="Print fsm stats to STDOUT (how many times each run&#45;state has been executed/cycled)" alt="" coords="344,5,456,32"/>
+<area shape="rect" href="group__util__test.html#gac0b0fef2c30bc39ebe32b32c3913c4a5" title="Test to check fsm functionality using a single fsm." alt="" coords="139,5,296,32"/>
 <area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
 </map>
 </div>
@@ -212,74 +370,36 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="util_2rb_2debug_8c_source.html#l00037">37</a> of file <a class="el" href="util_2rb_2debug_8c_source.html">util/rb/debug.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="rb_2debug_8c_source.html#l00033">33</a> of file <a class="el" href="rb_2debug_8c_source.html">rb/debug.c</a>.</p>
 
-<p class="reference">References <a class="el" href="rb_8h_source.html#l00066">rb::buffer</a>, <a class="el" href="rb_8h_source.html#l00076">rb::head</a>, <a class="el" href="rb_8h_source.html#l00086">rb::head_of</a>, <a class="el" href="op_8h_source.html#l00151">rb_op::len</a>, <a class="el" href="rb_8h_source.html#l00091">rb::op</a>, <a class="el" href="rb_8h_source.html#l00071">rb::size</a>, <a class="el" href="rb_8h_source.html#l00081">rb::tail</a>, and <a class="el" href="op_8h_source.html#l00054">rb_op::validate</a>.</p>
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00069">rb::buffer</a>, <a class="el" href="rb_8h_source.html#l00094">rb::driver</a>, <a class="el" href="rb_8h_source.html#l00079">rb::head</a>, <a class="el" href="rb_8h_source.html#l00089">rb::head_of</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00155">rb_driver::len</a>, <a class="el" href="rb_8h_source.html#l00074">rb::size</a>, <a class="el" href="rb_8h_source.html#l00084">rb::tail</a>, and <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00058">rb_driver::validate</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="test__rb__driver__v1_8c_source.html#l00049">test_rb_driver_v1()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="fire-and-forget_8c_source.html#l00202">s_decode()</a>, <a class="el" href="fire-and-forget_8c_source.html#l00150">s_encode()</a>, <a class="el" href="test__ce__command__codec___b416_k_8c_source.html#l00050">test_ce_command_codec_B416K()</a>, <a class="el" href="test__ce__driver__faf_8c_source.html#l00052">test_ce_driver_faf()</a>, and <a class="el" href="test__rb__driver__overwrite_8c_source.html#l00046">test_rb_driver_overwrite()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__debug__functions_ga6f3629bbf2e4772601d46ddfd5941e30_icgraph.png" border="0" usemap="#group__debug__functions_ga6f3629bbf2e4772601d46ddfd5941e30_icgraph" alt=""/></div>
 <map name="group__debug__functions_ga6f3629bbf2e4772601d46ddfd5941e30_icgraph" id="group__debug__functions_ga6f3629bbf2e4772601d46ddfd5941e30_icgraph">
-<area shape="rect" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="309,5,403,32"/>
-<area shape="rect" href="group__util__test.html#ga0d6706a9d8bb1cfe78fc205f278f4088" title="Tests driver_v1 API and functionality." alt="" coords="139,5,261,32"/>
-<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
-</map>
-</div>
-
-</div>
-</div>
-<a id="gaf911273b3f88cbcdc578ca2351204038"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf911273b3f88cbcdc578ca2351204038">&#9670;&nbsp;</a></span>xyz_print_info()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void xyz_print_info </td>
-          <td>(</td>
-          <td class="paramtype">struct <a class="el" href="structxyz.html">xyz</a> *&#160;</td>
-          <td class="paramname"><em>xyz</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><code>#include &lt;debug.h&gt;</code></p>
-
-<p>Print <code>xyz</code> information to STDOUT (name, config, state, ...) </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">xyz</td><td>Pointer to a valid <code>xyz</code> </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="template_2util__xyz_2debug_8c_source.html#l00036">36</a> of file <a class="el" href="template_2util__xyz_2debug_8c_source.html">template/util_xyz/debug.c</a>.</p>
-
-<p class="reference">References <a class="el" href="xyz_8h_source.html#l00070">xyz::len</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="test__xyz__testname_8c_source.html#l00052">test_xyz_testname()</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__debug__functions_gaf911273b3f88cbcdc578ca2351204038_icgraph.png" border="0" usemap="#group__debug__functions_gaf911273b3f88cbcdc578ca2351204038_icgraph" alt=""/></div>
-<map name="group__debug__functions_gaf911273b3f88cbcdc578ca2351204038_icgraph" id="group__debug__functions_gaf911273b3f88cbcdc578ca2351204038_icgraph">
-<area shape="rect" title="Print xyz information to STDOUT (name, config, state, ...)" alt="" coords="317,5,417,32"/>
-<area shape="rect" href="group__util__test.html#ga3e06cc2add22474e6d4eb9a5ee7876d6" title="Test to check xyz functionality using a single xyz." alt="" coords="139,5,269,32"/>
-<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+<area shape="rect" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="608,115,701,141"/>
+<area shape="rect" href="group__ce__driver__faf.html#ga75b2211d25646d4f04074d7cf40b144b" title="Encode command + data as a message." alt="" coords="435,5,514,32"/>
+<area shape="rect" href="group__ce__driver__faf.html#ga4aaa2bc5f11fd18aef218450ecd391ba" title="Encode command + data as a message." alt="" coords="259,56,338,83"/>
+<area shape="rect" href="group__util__test.html#gae131f9bd4ca899feccfa9fb1ac089582" title="Test to check ce functionality using a single ce." alt="" coords="389,107,560,149"/>
+<area shape="rect" href="group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012" title="Test to check ce functionality using a single CE." alt="" coords="411,173,538,200"/>
+<area shape="rect" href="group__util__test.html#ga77ce368a66704591607832adb1811334" title="Tests overwrite driver API and functionality." alt="" coords="394,224,555,251"/>
+<area shape="rect" href="group__ce__driver__faf.html#gac82b54c4541dbc919353205c3fa001e7" title="Receive data and saves it." alt="" coords="259,5,338,32"/>
+<area shape="rect" href="group__ce__driver__faf.html#ga344123d202bd63edb92107e4a1c2f1a2" title="Stay here during 5 counts of extra variable." alt="" coords="116,31,208,57"/>
+<area shape="rect" href="group__ce__driver__faf.html#gaaa17c3b3157d99ae8a3c297628b3ff62" title="Prepare extra variable." alt="" coords="5,31,68,57"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="256,173,341,200"/>
 </map>
 </div>
 
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.14-->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.18
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+</div>
 </body>
 </html>

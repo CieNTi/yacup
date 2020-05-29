@@ -1,0 +1,4 @@
+<map id="s_wait_cmd" name="s_wait_cmd">
+<area shape="rect" id="node1" title="Stay here during 5 counts of extra variable." alt="" coords="116,5,208,32"/>
+<area shape="rect" id="node2" href="$group__ce__driver__faf.html#gaaa17c3b3157d99ae8a3c297628b3ff62" title="Prepare extra variable." alt="" coords="5,5,68,32"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="fsm_driver_simple" name="fsm_driver_simple">
+<area shape="rect" id="node1" title="Driver initializer function for fsm_driver_simple type FSM." alt="" coords="5,31,133,57"/>
+<area shape="rect" id="node2" href="$group__fsm__driver__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Prepare cycles variable." alt="" coords="181,5,229,32"/>
+<area shape="rect" id="node4" href="$group__fsm__driver__simple.html#ga25fe6c2909fa4cd77ce624d0eddeb22e" title="Prepare anything before stopping the FSM." alt="" coords="391,31,437,57"/>
+<area shape="rect" id="node3" href="$group__fsm__driver__simple.html#ga253319d2ba5ab00042c9f91e37a39b72" title="Stay here during 5 counts of cycles variable." alt="" coords="277,5,343,32"/>
+</map>

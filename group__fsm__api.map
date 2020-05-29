@@ -1,4 +1,4 @@
 <map id="Interface" name="Interface">
-<area shape="rect" id="node1" title="Operations over fsm instances." alt="" coords="199,5,272,31"/>
-<area shape="rect" id="node2" href="$group__fsm.html" title="Yet another finite&#45;state machine implementation." alt="" coords="5,5,151,31"/>
+<area shape="rect" id="node1" title="Complete API documentation for finite state machine setup, instantiation and usage." alt="" coords="192,5,265,31"/>
+<area shape="rect" id="node2" href="$group__fsm.html" title="Yet another finite&#45;state machine implementation." alt="" coords="5,5,144,31"/>
 </map>

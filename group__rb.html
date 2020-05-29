@@ -1,18 +1,30 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- HTML header for doxygen 1.8.14-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="cache-control" content="max-age=86400"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>yacup: Ring-buffers</title>
+<title>yacup: Ring-buffer</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen_extra.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,6 +38,21 @@
    </div>
    <div id="projectbrief">Yet Another C Utilities Package</div>
   </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -37,17 +64,23 @@
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
-</div><!-- top -->
+$(document).ready(function(){initNavTree('group__rb.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -66,42 +99,40 @@ $(function() {
   <div class="summary">
 <a href="#groups">Modules</a>  </div>
   <div class="headertitle">
-<div class="title">Ring-buffers</div>  </div>
+<div class="title">Ring-buffer<div class="ingroups"><a class="el" href="group__util.html">Utilities</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Yet another ring-buffer implementation.  
-<a href="#details">More...</a></p>
+<a name="details" id="details"></a><h2 class="groupheader">Description</h2>
+<p>Yet another ring-buffer implementation. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>Write a description/@details </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>CieNTi <a href="#" onclick="location.href='mai'+'lto:'+'cie'+'nt'+'i@c'+'ie'+'nti'+'.c'+'om'; return false;">cient<span style="display: none;">.nosp@m.</span>i@ci<span style="display: none;">.nosp@m.</span>enti.<span style="display: none;">.nosp@m.</span>com</a> </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2020 </dd></dl>
 <div class="dynheader">
-Collaboration diagram for Ring-buffers:</div>
+Collaboration diagram for Ring-buffer:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__rb.png" border="0" usemap="#group____rb" alt=""/></div>
 <map name="group____rb" id="group____rb">
-<area shape="rect" href="group__rb__driver.html" title="Operations driver for rb instances." alt="" coords="149,5,212,31"/>
-<area shape="rect" href="group__rb__api.html" title="Operations over rb instances." alt="" coords="144,55,217,80"/>
-<area shape="rect" title="Yet another ring&#45;buffer implementation." alt="" coords="5,31,96,56"/>
+<area shape="rect" href="group__util.html" title="Available utilities and implementations documentation." alt="" coords="5,31,72,56"/>
+<area shape="rect" title="Yet another ring&#45;buffer implementation." alt="" coords="120,31,204,56"/>
+<area shape="rect" href="group__rb__driver.html" title="Already made and tested RB drivers for different purposes." alt="" coords="252,5,369,31"/>
+<area shape="rect" href="group__rb__api.html" title="Complete API documentation for ring buffers setup, instantiation and usage." alt="" coords="274,55,347,80"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
 Modules</h2></td></tr>
 <tr class="memitem:group__rb__api"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__api.html">Interface</a></td></tr>
-<tr class="memdesc:group__rb__api"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operations over <code>rb</code> instances. <br /></td></tr>
+<tr class="memdesc:group__rb__api"><td class="mdescLeft">&#160;</td><td class="mdescRight">Complete API documentation for ring buffers setup, instantiation and usage. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:group__rb__driver"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__driver.html">Drivers</a></td></tr>
-<tr class="memdesc:group__rb__driver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Operations driver for <code>rb</code> instances. <br /></td></tr>
+<tr class="memitem:group__rb__driver"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__driver.html">Available drivers</a></td></tr>
+<tr class="memdesc:group__rb__driver"><td class="mdescLeft">&#160;</td><td class="mdescRight">Already made and tested RB drivers for different purposes. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Yet another ring-buffer implementation. </p>
-<p>Ring buffer made easy (for me xD) </p><dl class="section author"><dt>Author</dt><dd>CieNTi <a href="#" onclick="location.href='mai'+'lto:'+'cie'+'nt'+'i@c'+'ie'+'nti'+'.c'+'om'; return false;">cient<span style="display: none;">.nosp@m.</span>i@ci<span style="display: none;">.nosp@m.</span>enti.<span style="display: none;">.nosp@m.</span>com</a> </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2020 </dd></dl>
 </div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.14-->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.18
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+</div>
 </body>
 </html>

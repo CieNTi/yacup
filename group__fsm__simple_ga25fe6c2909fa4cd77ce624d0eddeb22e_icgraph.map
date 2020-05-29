@@ -1,5 +1,0 @@
-<map id="stop" name="stop">
-<area shape="rect" id="node1" title="State stop: Prepare anything before stopping the fsm." alt="" coords="215,5,261,32"/>
-<area shape="rect" id="node2" href="$group__fsm__simple.html#ga253319d2ba5ab00042c9f91e37a39b72" title="State state_1: Stay here during 5 cycles variable counts." alt="" coords="101,5,167,32"/>
-<area shape="rect" id="node3" href="$group__fsm__simple.html#ga91de23a291e42ae3c732d32547944e63" title="Sate start: Prepare cycles variable." alt="" coords="5,5,53,32"/>
-</map>

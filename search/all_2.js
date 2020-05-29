@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['config_3',['config',['../structfsm.html#a7947c7e436bdd1bbe498d0ae1eb37490',1,'fsm']]],
-  ['cycles_4',['cycles',['../structfsm__simple__data.html#a33ab808baaa3acb0d60bbca385a8e362',1,'fsm_simple_data']]],
-  ['code_20templates_5',['Code templates',['../group__template.html',1,'']]]
+  ['buffer_8',['buffer',['../structrb.html#accbd37a5392972b0c7ccb67428d96eb4',1,'rb']]],
+  ['b416k_9',['B416K',['../group__ce__codec___b416_k.html',1,'']]]
 ];

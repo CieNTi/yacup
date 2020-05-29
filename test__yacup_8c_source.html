@@ -1,6 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- HTML header for doxygen 1.8.14-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="cache-control" content="max-age=86400"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
@@ -9,10 +11,20 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen_extra.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,6 +38,21 @@
    </div>
    <div id="projectbrief">Yet Another C Utilities Package</div>
   </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -37,16 +64,23 @@
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
+$(document).ready(function(){initNavTree('test__yacup_8c_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +95,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_120ed4da3e3217b1e7fc0b4f48568e79.html">test</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">test_yacup.c</div>  </div>
@@ -90,65 +119,68 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#undef YCP_NAME</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define YCP_NAME &quot;app/test/test_yacup&quot;</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#ifdef YACUP_DEBUG</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">  #include &lt;time.h&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">  #include &lt;stdio.h&gt;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">  #include &lt;string.h&gt;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">  #ifndef _dbg</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">    #define _dbg(...) printf(YCP_NAME&quot; | &quot;__VA_ARGS__)</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">  #endif</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">  #ifndef _dbg</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">    #define _dbg(...)</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">  #endif</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">/* Pre-declare required tests here (there is no header for them!) */</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__util__test.html#ga3e06cc2add22474e6d4eb9a5ee7876d6">test_xyz_testname</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__util__test.html#ga0d6706a9d8bb1cfe78fc205f278f4088">test_rb_driver_v1</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18">test_fsm_simple</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"></span> </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment">/**</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> * @brief      The main of the mains</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * @param[in]  argc  The count of arguments</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * @param      argv  The arguments array</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * @return     One of:</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> *             | Value  | Meaning          |</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> *             | :----: | :--------------- |</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> *             | `== 0` | Ok               |</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> *             | `!= 0` | Error            |</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> *</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> * @ingroup    app_test</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> * @version    v1.0.0</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"> */</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710">   56</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710">test_yacup</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[])</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordtype">int</span> _test_xyz_testname = <a class="code" href="group__util__test.html#ga3e06cc2add22474e6d4eb9a5ee7876d6">test_xyz_testname</a>(argc, argv);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordtype">int</span> _test_rb_driver_v1 = <a class="code" href="group__util__test.html#ga0d6706a9d8bb1cfe78fc205f278f4088">test_rb_driver_v1</a>(argc, argv);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordtype">int</span> _test_fsm_simple   = <a class="code" href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18">test_fsm_simple</a>(argc, argv);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_xyz_testname() = %i\n&quot;</span>, _test_xyz_testname);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_rb_driver_v1() = %i\n&quot;</span>, _test_rb_driver_v1);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_fsm_simple() = %i\n&quot;</span>, _test_fsm_simple);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  printf(<span class="stringliteral">&quot;Hi! from &quot;</span>__FILE__<span class="stringliteral">&quot;\n&quot;</span>);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#undef YCP_NAME</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define YCP_FORCE_DEBUG</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#include &quot;yacup/debug.h&quot;</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#undef YCP_NAME</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#define YCP_NAME &quot;app/test/test_yacup&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">/* Pre-declare required tests here (there is no header for them!) */</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">int</span> test_xyz_testname(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__util__test.html#ga77ce368a66704591607832adb1811334">test_rb_driver_overwrite</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__util__test.html#gac0b0fef2c30bc39ebe32b32c3913c4a5">test_fsm_driver_simple</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__util__test.html#gadf1c6352c9937f842ff04407ff284311">test_ce_codec_B416K</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__util__test.html#gadb0bf1c3d5da6582a4c94df5552450ae">test_ce_command_validate</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__util__test.html#gae131f9bd4ca899feccfa9fb1ac089582">test_ce_command_codec_B416K</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__util__test.html#ga6e86cfc140feceb78cfada190974e34d">test_ce_initialization</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012">test_ce_driver_faf</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[]);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710">   51</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710">test_yacup</a>(<span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>* argv[])</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;{</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="comment">/* Configure _dbg() */</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">  #define YCP_FNAME &quot;test_yacup&quot;</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="group__debug__functions.html#ga5f3b54a93643253eea569e18b617dcb1">_dbg</a>(<span class="stringliteral">&quot;Hi! from &quot;</span>__FILE__<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_xyz_testname() = %i\n&quot;</span>, </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;         test_xyz_testname(argc, argv));</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_rb_driver_overwrite() = %i\n&quot;</span>, </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;         <a class="code" href="group__util__test.html#ga77ce368a66704591607832adb1811334">test_rb_driver_overwrite</a>(argc, argv));</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_fsm_driver_simple() = %i\n&quot;</span>, </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;         <a class="code" href="group__util__test.html#gac0b0fef2c30bc39ebe32b32c3913c4a5">test_fsm_driver_simple</a>(argc, argv));</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_ce_codec_B416K() = %i\n&quot;</span>, </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;         <a class="code" href="group__util__test.html#gadf1c6352c9937f842ff04407ff284311">test_ce_codec_B416K</a>(argc, argv));</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_ce_command_validate() = %i\n&quot;</span>, </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;         <a class="code" href="group__util__test.html#gadb0bf1c3d5da6582a4c94df5552450ae">test_ce_command_validate</a>(argc, argv));</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_ce_command_codec_B416K() = %i\n&quot;</span>, </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;         <a class="code" href="group__util__test.html#gae131f9bd4ca899feccfa9fb1ac089582">test_ce_command_codec_B416K</a>(argc, argv));</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_ce_initialization() = %i\n&quot;</span>, </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;         <a class="code" href="group__util__test.html#ga6e86cfc140feceb78cfada190974e34d">test_ce_initialization</a>(argc, argv));</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  printf(<span class="stringliteral">&quot;Result from test_ce_driver_faf() = %i\n&quot;</span>, </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;         <a class="code" href="group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012">test_ce_driver_faf</a>(argc, argv));</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="group__debug__functions.html#ga5f3b54a93643253eea569e18b617dcb1">_dbg</a>(<span class="stringliteral">&quot;Hi! from &quot;</span>__FILE__<span class="stringliteral">&quot;\n&quot;</span>);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="comment">/* Free _dbg() config */</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">  #undef YCP_FNAME</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#undef YCP_NAME</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#undef YCP_FORCE_DEBUG</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="agroup__util__test_html_ga0d6706a9d8bb1cfe78fc205f278f4088"><div class="ttname"><a href="group__util__test.html#ga0d6706a9d8bb1cfe78fc205f278f4088">test_rb_driver_v1</a></div><div class="ttdeci">int test_rb_driver_v1(int argc, const char *argv[])</div><div class="ttdoc">Tests driver_v1 API and functionality.</div><div class="ttdef"><b>Definition:</b> <a href="test__rb__driver__v1_8c_source.html#l00049">test_rb_driver_v1.c:49</a></div></div>
-<div class="ttc" id="agroup__util__test_html_gaf61fd93462287a7fc619259729cc1b18"><div class="ttname"><a href="group__util__test.html#gaf61fd93462287a7fc619259729cc1b18">test_fsm_simple</a></div><div class="ttdeci">int test_fsm_simple(int argc, const char *argv[])</div><div class="ttdoc">Test to check fsm functionality using a single fsm.</div><div class="ttdef"><b>Definition:</b> <a href="test__fsm__simple_8c_source.html#l00052">test_fsm_simple.c:52</a></div></div>
-<div class="ttc" id="agroup__util__test_html_ga3e06cc2add22474e6d4eb9a5ee7876d6"><div class="ttname"><a href="group__util__test.html#ga3e06cc2add22474e6d4eb9a5ee7876d6">test_xyz_testname</a></div><div class="ttdeci">int test_xyz_testname(int argc, const char *argv[])</div><div class="ttdoc">Test to check xyz functionality using a single xyz.</div><div class="ttdef"><b>Definition:</b> <a href="test__xyz__testname_8c_source.html#l00052">test_xyz_testname.c:52</a></div></div>
-<div class="ttc" id="agroup__app__test_html_ga359133e06980852b4c9e92359e20a710"><div class="ttname"><a href="group__app__test.html#ga359133e06980852b4c9e92359e20a710">test_yacup</a></div><div class="ttdeci">int test_yacup(int argc, const char *argv[])</div><div class="ttdoc">The main of the mains.</div><div class="ttdef"><b>Definition:</b> <a href="test__yacup_8c_source.html#l00056">test_yacup.c:56</a></div></div>
+</div><!-- doc-content -->
+<div class="ttc" id="agroup__util__test_html_gadf1c6352c9937f842ff04407ff284311"><div class="ttname"><a href="group__util__test.html#gadf1c6352c9937f842ff04407ff284311">test_ce_codec_B416K</a></div><div class="ttdeci">int test_ce_codec_B416K(int argc, const char *argv[])</div><div class="ttdoc">Test to check ce functionality using a single ce.</div><div class="ttdef"><b>Definition:</b> <a href="test__ce__codec___b416_k_8c_source.html#l00216">test_ce_codec_B416K.c:216</a></div></div>
+<div class="ttc" id="agroup__util__test_html_ga77ce368a66704591607832adb1811334"><div class="ttname"><a href="group__util__test.html#ga77ce368a66704591607832adb1811334">test_rb_driver_overwrite</a></div><div class="ttdeci">int test_rb_driver_overwrite(int argc, const char *argv[])</div><div class="ttdoc">Tests overwrite driver API and functionality.</div><div class="ttdef"><b>Definition:</b> <a href="test__rb__driver__overwrite_8c_source.html#l00046">test_rb_driver_overwrite.c:46</a></div></div>
+<div class="ttc" id="agroup__util__test_html_gae131f9bd4ca899feccfa9fb1ac089582"><div class="ttname"><a href="group__util__test.html#gae131f9bd4ca899feccfa9fb1ac089582">test_ce_command_codec_B416K</a></div><div class="ttdeci">int test_ce_command_codec_B416K(int argc, const char *argv[])</div><div class="ttdoc">Test to check ce functionality using a single ce.</div><div class="ttdef"><b>Definition:</b> <a href="test__ce__command__codec___b416_k_8c_source.html#l00050">test_ce_command_codec_B416K.c:50</a></div></div>
+<div class="ttc" id="agroup__util__test_html_gac0b0fef2c30bc39ebe32b32c3913c4a5"><div class="ttname"><a href="group__util__test.html#gac0b0fef2c30bc39ebe32b32c3913c4a5">test_fsm_driver_simple</a></div><div class="ttdeci">int test_fsm_driver_simple(int argc, const char *argv[])</div><div class="ttdoc">Test to check fsm functionality using a single fsm.</div><div class="ttdef"><b>Definition:</b> <a href="test__fsm__driver__simple_8c_source.html#l00046">test_fsm_driver_simple.c:46</a></div></div>
+<div class="ttc" id="agroup__debug__functions_html_ga5f3b54a93643253eea569e18b617dcb1"><div class="ttname"><a href="group__debug__functions.html#ga5f3b54a93643253eea569e18b617dcb1">_dbg</a></div><div class="ttdeci">#define _dbg(...)</div><div class="ttdoc">Macro used to unify debugging messages.</div><div class="ttdef"><b>Definition:</b> <a href="common_2yacup_2debug_8h_source.html#l00061">common/yacup/debug.h:60</a></div></div>
+<div class="ttc" id="agroup__app__test_html_ga359133e06980852b4c9e92359e20a710"><div class="ttname"><a href="group__app__test.html#ga359133e06980852b4c9e92359e20a710">test_yacup</a></div><div class="ttdeci">int test_yacup(int argc, const char *argv[])</div><div class="ttdoc">The main of the mains.</div><div class="ttdef"><b>Definition:</b> <a href="test__yacup_8c_source.html#l00051">test_yacup.c:51</a></div></div>
+<div class="ttc" id="agroup__util__test_html_gadb0bf1c3d5da6582a4c94df5552450ae"><div class="ttname"><a href="group__util__test.html#gadb0bf1c3d5da6582a4c94df5552450ae">test_ce_command_validate</a></div><div class="ttdeci">int test_ce_command_validate(int argc, const char *argv[])</div><div class="ttdoc">Test to check ce functionality using a single ce.</div><div class="ttdef"><b>Definition:</b> <a href="test__ce__command__validate_8c_source.html#l00044">test_ce_command_validate.c:44</a></div></div>
+<div class="ttc" id="agroup__util__test_html_ga6e86cfc140feceb78cfada190974e34d"><div class="ttname"><a href="group__util__test.html#ga6e86cfc140feceb78cfada190974e34d">test_ce_initialization</a></div><div class="ttdeci">int test_ce_initialization(int argc, const char *argv[])</div><div class="ttdoc">Test to check ce functionality using a single ce.</div><div class="ttdef"><b>Definition:</b> <a href="test__ce__initialization_8c_source.html#l00050">test_ce_initialization.c:50</a></div></div>
+<div class="ttc" id="agroup__util__test_html_ga1f21c0ee86f3ad81bf839a26939b7012"><div class="ttname"><a href="group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012">test_ce_driver_faf</a></div><div class="ttdeci">int test_ce_driver_faf(int argc, const char *argv[])</div><div class="ttdoc">Test to check ce functionality using a single CE.</div><div class="ttdef"><b>Definition:</b> <a href="test__ce__driver__faf_8c_source.html#l00052">test_ce_driver_faf.c:52</a></div></div>
+<!-- HTML footer for doxygen 1.8.14-->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.18
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+</div>
 </body>
 </html>

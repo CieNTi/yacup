@@ -1,6 +1,0 @@
-<map id="X Y Z" name="X Y Z">
-<area shape="rect" id="node1" href="$group__template.html" title="Template module from template files xD." alt="" coords="5,31,117,56"/>
-<area shape="rect" id="node2" title="xyz description, seen on modules view" alt="" coords="165,31,220,56"/>
-<area shape="rect" id="node3" href="$group__xyz__driver.html" title="Operations driver for xyz instances." alt="" coords="273,5,336,31"/>
-<area shape="rect" id="node4" href="$group__xyz__api.html" title="Operations over xyz instances." alt="" coords="268,55,341,80"/>
-</map>

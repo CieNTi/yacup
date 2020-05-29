@@ -1,4 +1,4 @@
 <map id="Application tests" name="Application tests">
-<area shape="rect" id="node1" title="Available tests for applications (src folder)" alt="" coords="196,5,315,31"/>
-<area shape="rect" id="node2" href="$group__tests.html" title="This module contains all available tests and all available debug functions published by the developer..." alt="" coords="5,5,148,31"/>
+<area shape="rect" id="node1" title="Available tests for applications (src folder)" alt="" coords="108,5,227,31"/>
+<area shape="rect" id="node2" href="$group__test.html" title="This module contains all available tests and all available debug functions published by the developer..." alt="" coords="5,5,60,31"/>
 </map>

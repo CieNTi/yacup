@@ -1,0 +1,5 @@
+<map id="ce_codec" name="ce_codec">
+<area shape="rect" id="node1" title="Structure that defines a ce codec operations." alt="" coords="109,95,187,121"/>
+<area shape="rect" id="node2" href="$structce__codec__encoder.html" title="Structure that defines a ce codec encoder operations." alt="" coords="5,5,136,32"/>
+<area shape="rect" id="node3" href="$structce__codec__decoder.html" title="Structure that defines a ce codec encoder operations." alt="" coords="160,5,291,32"/>
+</map>

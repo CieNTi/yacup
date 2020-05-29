@@ -1,0 +1,7 @@
+<map id="s_receive" name="s_receive">
+<area shape="rect" id="node1" title="Receive data and saves it." alt="" coords="5,56,84,83"/>
+<area shape="rect" id="node2" href="$group__ce__driver__faf.html#ga75b2211d25646d4f04074d7cf40b144b" title="Encode command + data as a message." alt="" coords="132,56,211,83"/>
+<area shape="rect" id="node3" href="$group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="259,5,352,32"/>
+<area shape="rect" id="node4" href="$group__ce__driver__faf.html#ga6a371da66f51d6d7514fec766ebdbe6e" title="Some error happened. Wops!" alt="" coords="274,56,337,83"/>
+<area shape="rect" id="node5" href="$group__ce__driver__faf.html#ga5bfda57807190367c47a7f3694f2203a" title="Prepare anything before stopping the fsm." alt="" coords="400,81,461,108"/>
+</map>

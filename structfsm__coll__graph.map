@@ -1,0 +1,4 @@
+<map id="fsm" name="fsm">
+<area shape="rect" id="node1" title="Structure that defines a finite state machine." alt="" coords="25,95,69,121"/>
+<area shape="rect" id="node2" href="$structfsm__driver.html" title="Structure that defines valid operations on ring buffers." alt="" coords="5,5,88,32"/>
+</map>

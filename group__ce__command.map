@@ -1,0 +1,5 @@
+<map id="Available commands" name="Available commands">
+<area shape="rect" id="node1" href="$group__ce__command__set__test.html" title="Some commands for testing purposes." alt="" coords="367,5,481,31"/>
+<area shape="rect" id="node2" title="Already made and tested commands, subsets, and listeners, packed as command sets for different purpos..." alt="" coords="176,5,319,31"/>
+<area shape="rect" id="node3" href="$group__ce.html" title="Yet another command engine implementation." alt="" coords="5,5,128,31"/>
+</map>

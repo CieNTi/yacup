@@ -1,0 +1,19 @@
+<map id="ce_driver_faf_data" name="ce_driver_faf_data">
+<area shape="rect" id="node1" title="Internal data ce_driver_faf will use." alt="" coords="209,749,339,776"/>
+<area shape="rect" id="node2" href="$structce.html" title="Structure that defines a command engine." alt="" coords="255,660,293,687"/>
+<area shape="rect" id="node3" href="$structce__channel.html" title="Structure that defines a command engine channel." alt="" coords="286,556,374,583"/>
+<area shape="rect" id="node4" href="$structrb.html" title="Structure that defines a ring buffer." alt="" coords="231,452,269,479"/>
+<area shape="rect" id="node5" href="$structrb__driver.html" title="Structure that defines valid operations on ring buffers." alt="" coords="209,363,281,389"/>
+<area shape="rect" id="node6" href="$structce__codec.html" title="Structure that defines a ce codec operations." alt="" coords="331,452,409,479"/>
+<area shape="rect" id="node7" href="$structce__codec__encoder.html" title="Structure that defines a ce codec encoder operations." alt="" coords="459,363,590,389"/>
+<area shape="rect" id="node8" href="$structce__codec__decoder.html" title="Structure that defines a ce codec encoder operations." alt="" coords="305,363,435,389"/>
+<area shape="rect" id="node9" href="$structce__command__set.html" title="Structure that defines a set of commands (composed by subsets)" alt="" coords="537,452,662,479"/>
+<area shape="rect" id="node10" href="$structce__command__subset.html" title="Structure that defines a subset of commands." alt="" coords="614,363,761,389"/>
+<area shape="rect" id="node11" href="$structce__command.html" title="Structure that defines a command." alt="" coords="637,273,737,300"/>
+<area shape="rect" id="node12" href="$structce__command__listener.html" title="Structure that defines a command listener with its storage." alt="" coords="357,184,506,211"/>
+<area shape="rect" id="node13" href="$structce__command__argument.html" title="Structure that defines a command argument." alt="" coords="5,95,167,121"/>
+<area shape="rect" id="node14" href="$unionce__data.html" title="Storage and namings for supported data types in a command engine." alt="" coords="52,5,120,32"/>
+<area shape="rect" id="node15" href="$structce__driver.html" title="Structure that defines the input/output chat between parties (communication protocol)" alt="" coords="127,556,202,583"/>
+<area shape="rect" id="node16" href="$structfsm.html" title="Structure that defines a finite state machine." alt="" coords="135,452,179,479"/>
+<area shape="rect" id="node17" href="$structfsm__driver.html" title="Structure that defines valid operations on ring buffers." alt="" coords="102,363,185,389"/>
+</map>

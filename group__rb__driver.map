@@ -1,5 +1,5 @@
-<map id="Drivers" name="Drivers">
-<area shape="rect" id="node1" href="$group__rb__driver__v1.html" title="First rb driver implementation, overwrite if full." alt="" coords="255,5,355,31"/>
-<area shape="rect" id="node2" title="Operations driver for rb instances." alt="" coords="144,5,207,31"/>
-<area shape="rect" id="node3" href="$group__rb.html" title="Yet another ring&#45;buffer implementation." alt="" coords="5,5,96,31"/>
+<map id="Available drivers" name="Available drivers">
+<area shape="rect" id="node1" href="$group__rb__driver__overwrite.html" title="First rb driver implementation, overwrite if full." alt="" coords="303,5,381,31"/>
+<area shape="rect" id="node2" title="Already made and tested RB drivers for different purposes." alt="" coords="137,5,255,31"/>
+<area shape="rect" id="node3" href="$group__rb.html" title="Yet another ring&#45;buffer implementation." alt="" coords="5,5,89,31"/>
 </map>

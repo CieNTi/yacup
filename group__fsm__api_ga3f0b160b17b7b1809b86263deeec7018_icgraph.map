@@ -1,5 +1,8 @@
 <map id="fsm_enable" name="fsm_enable">
-<area shape="rect" id="node1" title="Sets the enable bit, allowing this fsm to perform actions." alt="" coords="305,5,395,32"/>
-<area shape="rect" id="node2" href="$group__util__test.html#gaf61fd93462287a7fc619259729cc1b18" title="Test to check fsm functionality using a single fsm." alt="" coords="139,5,257,32"/>
-<area shape="rect" id="node3" href="$group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+<area shape="rect" id="node1" title="Sets the enable bit, allowing this fsm to perform actions." alt="" coords="531,81,620,108"/>
+<area shape="rect" id="node2" href="$group__ce__driver__faf.html#gac3b5320f6ad6971924d1273064579f15" title="Driver initializer function for ce_driver_faf type CE." alt="" coords="355,56,453,83"/>
+<area shape="rect" id="node6" href="$group__util__test.html#gac0b0fef2c30bc39ebe32b32c3913c4a5" title="Test to check fsm functionality using a single fsm." alt="" coords="325,107,483,133"/>
+<area shape="rect" id="node3" href="$group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012" title="Test to check ce functionality using a single CE." alt="" coords="145,5,271,32"/>
+<area shape="rect" id="node5" href="$group__util__test.html#ga6e86cfc140feceb78cfada190974e34d" title="Test to check ce functionality using a single ce." alt="" coords="139,56,277,83"/>
+<area shape="rect" id="node4" href="$group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,56,91,83"/>
 </map>

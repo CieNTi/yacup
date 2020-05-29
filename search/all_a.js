@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['op_43',['op',['../structrb.html#accc5dee2c374ebafadac8460cc2e686d',1,'rb']]]
+  ['message_96',['message',['../structce__channel.html#a57e26d5e2c9099eb3b15e04283dd5f21',1,'ce_channel::message()'],['../structce__codec__encoder.html#a9824424e009cc6350236bb8fa5018f2d',1,'ce_codec_encoder::message()'],['../structce__codec__decoder.html#ac436df74701a5f5ca56ff9af4ffbd585',1,'ce_codec_decoder::message()']]]
 ];

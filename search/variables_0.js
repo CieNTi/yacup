@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buffer_100',['buffer',['../structnice__structure.html#a56ed84df35de10bdb65e72b184309497',1,'nice_structure::buffer()'],['../structxyz.html#a56ed84df35de10bdb65e72b184309497',1,'xyz::buffer()'],['../structrb.html#a56ed84df35de10bdb65e72b184309497',1,'rb::buffer()']]]
+  ['argument_236',['argument',['../structce__command__listener.html#a44f66a8cc6c8c3f4f0ed4c3d79163334',1,'ce_command_listener']]]
 ];

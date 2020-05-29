@@ -1,0 +1,9 @@
+<map id="ce_command_validate" name="ce_command_validate">
+<area shape="rect" id="node1" title="Checks if passed command is found on set and has valid arguments." alt="" coords="580,64,732,91"/>
+<area shape="rect" id="node2" href="$group__ce__api.html#ga5c2e0fc1f08d034c2c408be028e69349" title="Set a command listener, if found in a set." alt="" coords="357,13,532,40"/>
+<area shape="rect" id="node6" href="$group__ce__api.html#ga713974077242f97d4e555ff6fe3ac046" title="Validates if a command is found in a set, and if it pass the signature check, then encode its data in..." alt="" coords="377,64,512,91"/>
+<area shape="rect" id="node7" href="$group__util__test.html#gae131f9bd4ca899feccfa9fb1ac089582" title="Test to check ce functionality using a single ce." alt="" coords="139,107,309,149"/>
+<area shape="rect" id="node3" href="$group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012" title="Test to check ce functionality using a single CE." alt="" coords="161,5,287,32"/>
+<area shape="rect" id="node5" href="$group__util__test.html#ga6e86cfc140feceb78cfada190974e34d" title="Test to check ce functionality using a single ce." alt="" coords="155,56,293,83"/>
+<area shape="rect" id="node4" href="$group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,56,91,83"/>
+</map>

@@ -1,5 +1,0 @@
-<map id="test_rb_driver_v1" name="test_rb_driver_v1">
-<area shape="rect" id="node1" title="Tests driver_v1 API and functionality." alt="" coords="5,31,128,57"/>
-<area shape="rect" id="node2" href="$group__rb__driver__v1.html#ga2677aa065ac57faf87002c11c5a73871" title="Ring&#45;buffer operations driver v1." alt="" coords="176,5,269,32"/>
-<area shape="rect" id="node3" href="$group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="176,56,269,83"/>
-</map>

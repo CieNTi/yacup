@@ -1,0 +1,6 @@
+<map id="ce_init" name="ce_init">
+<area shape="rect" id="node1" title="Initializes a command engine referenced by a ce pointer." alt="" coords="5,31,65,57"/>
+<area shape="rect" id="node2" href="$group__ce__api.html#ga03012ca16c931a830c75d8f43ac6c4bb" title="Initializes a command engine channel using lower level inits." alt="" coords="113,31,225,57"/>
+<area shape="rect" id="node3" href="$group__ce__api.html#ga5d72caee899ca86438c14fd306cfcbd7" title="Initializes a ce_codec" alt="" coords="273,5,376,32"/>
+<area shape="rect" id="node4" href="$group__rb__api.html#gae1cc4cfbb8efee193a67c897bba751d6" title="Initializes a rb" alt="" coords="296,56,353,83"/>
+</map>

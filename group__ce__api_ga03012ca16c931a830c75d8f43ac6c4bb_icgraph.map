@@ -1,0 +1,7 @@
+<map id="ce_channel_init" name="ce_channel_init">
+<area shape="rect" id="node1" title="Initializes a command engine channel using lower level inits." alt="" coords="433,31,545,57"/>
+<area shape="rect" id="node2" href="$group__ce__api.html#gaa038ff9be1d1df5fa24bbfbb4fa69f93" title="Initializes a command engine referenced by a ce pointer." alt="" coords="325,31,385,57"/>
+<area shape="rect" id="node3" href="$group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012" title="Test to check ce functionality using a single CE." alt="" coords="145,5,271,32"/>
+<area shape="rect" id="node5" href="$group__util__test.html#ga6e86cfc140feceb78cfada190974e34d" title="Test to check ce functionality using a single ce." alt="" coords="139,56,277,83"/>
+<area shape="rect" id="node4" href="$group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,31,91,57"/>
+</map>

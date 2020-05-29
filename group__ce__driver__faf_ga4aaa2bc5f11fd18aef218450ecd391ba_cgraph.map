@@ -1,0 +1,7 @@
+<map id="s_encode" name="s_encode">
+<area shape="rect" id="node1" title="Encode command + data as a message." alt="" coords="5,56,84,83"/>
+<area shape="rect" id="node2" href="$group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="132,5,225,32"/>
+<area shape="rect" id="node3" href="$group__ce__driver__faf.html#ga6a371da66f51d6d7514fec766ebdbe6e" title="Some error happened. Wops!" alt="" coords="147,56,210,83"/>
+<area shape="rect" id="node5" href="$group__ce__driver__faf.html#gad343376c5ccea220af240415169605a0" title="Send the message to the outside world." alt="" coords="147,107,211,133"/>
+<area shape="rect" id="node4" href="$group__ce__driver__faf.html#ga5bfda57807190367c47a7f3694f2203a" title="Prepare anything before stopping the fsm." alt="" coords="273,81,335,108"/>
+</map>

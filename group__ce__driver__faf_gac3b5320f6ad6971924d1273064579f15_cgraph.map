@@ -1,0 +1,8 @@
+<map id="ce_driver_faf" name="ce_driver_faf">
+<area shape="rect" id="node1" title="Driver initializer function for ce_driver_faf type CE." alt="" coords="5,107,103,133"/>
+<area shape="rect" id="node2" href="$group__fsm__api.html#ga3f0b160b17b7b1809b86263deeec7018" title="Sets the enable bit, allowing this fsm to perform actions." alt="" coords="169,5,259,32"/>
+<area shape="rect" id="node3" href="$group__fsm__api.html#ga80a7cd6ad51eb499760bea73e57b91b3" title="Initializes a fsm" alt="" coords="180,56,248,83"/>
+<area shape="rect" id="node4" href="$group__debug__functions.html#gaac151a69cbeac42fe57c80678a213091" title="Print fsm information to STDOUT (name, config, state, ...)" alt="" coords="162,107,266,133"/>
+<area shape="rect" id="node5" href="$group__fsm__api.html#ga9daef78018976b8d023bd3bc8ab6e432" title="Sets the started bit, making this fsm to start the next valid cycle." alt="" coords="151,157,277,184"/>
+<area shape="rect" id="node6" href="$group__fsm__api.html#ga7ba31afb84115630277099eb27f4136b" title="Sets the auto&#45;restart bit, making this fsm to start again once completed." alt="" coords="164,208,264,235"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="s_decode" name="s_decode">
+<area shape="rect" id="node1" title="Encode command + data as a message." alt="" coords="383,5,461,32"/>
+<area shape="rect" id="node2" href="$group__ce__driver__faf.html#gac82b54c4541dbc919353205c3fa001e7" title="Receive data and saves it." alt="" coords="256,5,335,32"/>
+<area shape="rect" id="node3" href="$group__ce__driver__faf.html#ga344123d202bd63edb92107e4a1c2f1a2" title="Stay here during 5 counts of extra variable." alt="" coords="116,5,208,32"/>
+<area shape="rect" id="node4" href="$group__ce__driver__faf.html#gaaa17c3b3157d99ae8a3c297628b3ff62" title="Prepare extra variable." alt="" coords="5,5,68,32"/>
+</map>

@@ -1,5 +1,12 @@
 <map id="rb_print_info" name="rb_print_info">
-<area shape="rect" id="node1" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="309,5,403,32"/>
-<area shape="rect" id="node2" href="$group__util__test.html#ga0d6706a9d8bb1cfe78fc205f278f4088" title="Tests driver_v1 API and functionality." alt="" coords="139,5,261,32"/>
-<area shape="rect" id="node3" href="$group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+<area shape="rect" id="node1" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="608,115,701,141"/>
+<area shape="rect" id="node2" href="$group__ce__driver__faf.html#ga75b2211d25646d4f04074d7cf40b144b" title="Encode command + data as a message." alt="" coords="435,5,514,32"/>
+<area shape="rect" id="node6" href="$group__ce__driver__faf.html#ga4aaa2bc5f11fd18aef218450ecd391ba" title="Encode command + data as a message." alt="" coords="259,56,338,83"/>
+<area shape="rect" id="node7" href="$group__util__test.html#gae131f9bd4ca899feccfa9fb1ac089582" title="Test to check ce functionality using a single ce." alt="" coords="389,107,560,149"/>
+<area shape="rect" id="node9" href="$group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012" title="Test to check ce functionality using a single CE." alt="" coords="411,173,538,200"/>
+<area shape="rect" id="node10" href="$group__util__test.html#ga77ce368a66704591607832adb1811334" title="Tests overwrite driver API and functionality." alt="" coords="394,224,555,251"/>
+<area shape="rect" id="node3" href="$group__ce__driver__faf.html#gac82b54c4541dbc919353205c3fa001e7" title="Receive data and saves it." alt="" coords="259,5,338,32"/>
+<area shape="rect" id="node4" href="$group__ce__driver__faf.html#ga344123d202bd63edb92107e4a1c2f1a2" title="Stay here during 5 counts of extra variable." alt="" coords="116,31,208,57"/>
+<area shape="rect" id="node5" href="$group__ce__driver__faf.html#gaaa17c3b3157d99ae8a3c297628b3ff62" title="Prepare extra variable." alt="" coords="5,31,68,57"/>
+<area shape="rect" id="node8" href="$group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="256,173,341,200"/>
 </map>

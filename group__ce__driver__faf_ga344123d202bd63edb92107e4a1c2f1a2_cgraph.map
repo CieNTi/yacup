@@ -1,0 +1,10 @@
+<map id="s_wait_cmd" name="s_wait_cmd">
+<area shape="rect" id="node1" title="Stay here during 5 counts of extra variable." alt="" coords="5,52,97,79"/>
+<area shape="rect" id="node2" href="$group__ce__driver__faf.html#ga4aaa2bc5f11fd18aef218450ecd391ba" title="Encode command + data as a message." alt="" coords="272,78,351,104"/>
+<area shape="rect" id="node7" href="$group__ce__driver__faf.html#gac82b54c4541dbc919353205c3fa001e7" title="Receive data and saves it." alt="" coords="145,27,224,54"/>
+<area shape="rect" id="node3" href="$group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="399,27,492,54"/>
+<area shape="rect" id="node4" href="$group__ce__driver__faf.html#ga6a371da66f51d6d7514fec766ebdbe6e" title="Some error happened. Wops!" alt="" coords="414,78,477,104"/>
+<area shape="rect" id="node6" href="$group__ce__driver__faf.html#gad343376c5ccea220af240415169605a0" title="Send the message to the outside world." alt="" coords="413,128,477,155"/>
+<area shape="rect" id="node5" href="$group__ce__driver__faf.html#ga5bfda57807190367c47a7f3694f2203a" title="Prepare anything before stopping the fsm." alt="" coords="540,78,601,104"/>
+<area shape="rect" id="node8" href="$group__ce__driver__faf.html#ga75b2211d25646d4f04074d7cf40b144b" title="Encode command + data as a message." alt="" coords="272,27,351,54"/>
+</map>

@@ -1,6 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- HTML header for doxygen 1.8.14-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="cache-control" content="max-age=86400"/>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
@@ -9,10 +11,20 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+  $(document).ready(function() { init_search(); });
+/* @license-end */
+</script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="doxygen_extra.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -26,6 +38,21 @@
    </div>
    <div id="projectbrief">Yet Another C Utilities Package</div>
   </td>
+   <td>        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Search" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+</td>
  </tr>
  </tbody>
 </table>
@@ -37,17 +64,23 @@
 var searchBox = new SearchBox("searchBox", "search",false,'Search');
 /* @license-end */
 </script>
-<script type="text/javascript" src="menudata.js"></script>
-<script type="text/javascript" src="menu.js"></script>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(function() {
-  initMenu('',true,false,'search.php','Search');
-  $(document).ready(function() { init_search(); });
-});
-/* @license-end */</script>
-<div id="main-nav"></div>
-</div><!-- top -->
+$(document).ready(function(){initNavTree('group__rb__api.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -64,40 +97,604 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Data Structures</a>  </div>
+<a href="#nested-classes">Data Structures</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Interface<div class="ingroups"><a class="el" href="group__rb.html">Ring-buffers</a></div></div>  </div>
+<div class="title">Interface<div class="ingroups"><a class="el" href="group__util.html">Utilities</a> &raquo; <a class="el" href="group__rb.html">Ring-buffer</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Operations over <code>rb</code> instances.  
-<a href="#details">More...</a></p>
+<a name="details" id="details"></a><h2 class="groupheader">Description</h2>
+<p>Complete API documentation for ring buffers setup, instantiation and usage. </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>Write a description/@details </dd></dl>
+<dl class="section author"><dt>Author</dt><dd>CieNTi <a href="#" onclick="location.href='mai'+'lto:'+'cie'+'nt'+'i@c'+'ie'+'nti'+'.c'+'om'; return false;">cient<span style="display: none;">.nosp@m.</span>i@ci<span style="display: none;">.nosp@m.</span>enti.<span style="display: none;">.nosp@m.</span>com</a> </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2020 </dd></dl>
 <div class="dynheader">
 Collaboration diagram for Interface:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__rb__api.png" border="0" usemap="#group____rb____api" alt=""/></div>
 <map name="group____rb____api" id="group____rb____api">
-<area shape="rect" title="Operations over rb instances." alt="" coords="144,5,217,31"/>
-<area shape="rect" href="group__rb.html" title="Yet another ring&#45;buffer implementation." alt="" coords="5,5,96,31"/>
+<area shape="rect" title="Complete API documentation for ring buffers setup, instantiation and usage." alt="" coords="137,5,211,31"/>
+<area shape="rect" href="group__rb.html" title="Yet another ring&#45;buffer implementation." alt="" coords="5,5,89,31"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb__driver.html">rb_driver</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure that defines valid operations on ring buffers.  <a href="structrb__driver.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrb.html">rb</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure that defines a ring buffer.  <a href="structrb.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gae1cc4cfbb8efee193a67c897bba751d6"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__api.html#gae1cc4cfbb8efee193a67c897bba751d6">rb_init</a> (struct <a class="el" href="structrb.html">rb</a> *<a class="el" href="structrb.html">rb</a>, int(*rb_driver_init)(struct <a class="el" href="structrb.html">rb</a> *))</td></tr>
+<tr class="memdesc:gae1cc4cfbb8efee193a67c897bba751d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes a <code>rb</code>  <a href="group__rb__api.html#gae1cc4cfbb8efee193a67c897bba751d6">More...</a><br /></td></tr>
+<tr class="separator:gae1cc4cfbb8efee193a67c897bba751d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7872afd788d2f46f71a85acaa6e095f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__api.html#ga7872afd788d2f46f71a85acaa6e095f4">rb_reset</a> (struct <a class="el" href="structrb.html">rb</a> *<a class="el" href="structrb.html">rb</a>)</td></tr>
+<tr class="memdesc:ga7872afd788d2f46f71a85acaa6e095f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reset a ring-buffer by cleaning its content and making it empty.  <a href="group__rb__api.html#ga7872afd788d2f46f71a85acaa6e095f4">More...</a><br /></td></tr>
+<tr class="separator:ga7872afd788d2f46f71a85acaa6e095f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafbfb992566219b55192d15ac6df26e80"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__api.html#gafbfb992566219b55192d15ac6df26e80">rb_push</a> (struct <a class="el" href="structrb.html">rb</a> *<a class="el" href="structrb.html">rb</a>, uint8_t byte)</td></tr>
+<tr class="memdesc:gafbfb992566219b55192d15ac6df26e80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a byte to a ring-buffer head, overwritting if needed.  <a href="group__rb__api.html#gafbfb992566219b55192d15ac6df26e80">More...</a><br /></td></tr>
+<tr class="separator:gafbfb992566219b55192d15ac6df26e80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad4a09b70178f9e847a660c51b1170aef"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__api.html#gad4a09b70178f9e847a660c51b1170aef">rb_pull</a> (struct <a class="el" href="structrb.html">rb</a> *<a class="el" href="structrb.html">rb</a>, uint8_t *byte)</td></tr>
+<tr class="memdesc:gad4a09b70178f9e847a660c51b1170aef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read and delete a byte from a ring-buffer tail.  <a href="group__rb__api.html#gad4a09b70178f9e847a660c51b1170aef">More...</a><br /></td></tr>
+<tr class="separator:gad4a09b70178f9e847a660c51b1170aef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gad5afa11ed29c92c613138d041955d947"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__api.html#gad5afa11ed29c92c613138d041955d947">rb_write</a> (struct <a class="el" href="structrb.html">rb</a> *<a class="el" href="structrb.html">rb</a>, uint8_t byte, size_t position)</td></tr>
+<tr class="memdesc:gad5afa11ed29c92c613138d041955d947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write a byte by position on a ring-buffer, without updating head/tail.  <a href="group__rb__api.html#gad5afa11ed29c92c613138d041955d947">More...</a><br /></td></tr>
+<tr class="separator:gad5afa11ed29c92c613138d041955d947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gafdb7caa667d6371c53b02b73cdad85ca"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__api.html#gafdb7caa667d6371c53b02b73cdad85ca">rb_read</a> (struct <a class="el" href="structrb.html">rb</a> *<a class="el" href="structrb.html">rb</a>, uint8_t *byte, size_t position)</td></tr>
+<tr class="memdesc:gafdb7caa667d6371c53b02b73cdad85ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read a byte by position from a ring-buffer, without updating head/tail.  <a href="group__rb__api.html#gafdb7caa667d6371c53b02b73cdad85ca">More...</a><br /></td></tr>
+<tr class="separator:gafdb7caa667d6371c53b02b73cdad85ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga001d75253c4e70d85222d440695fdc08"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__api.html#ga001d75253c4e70d85222d440695fdc08">rb_size</a> (struct <a class="el" href="structrb.html">rb</a> *<a class="el" href="structrb.html">rb</a>)</td></tr>
+<tr class="memdesc:ga001d75253c4e70d85222d440695fdc08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns max available size of a ring-buffer buffer.  <a href="group__rb__api.html#ga001d75253c4e70d85222d440695fdc08">More...</a><br /></td></tr>
+<tr class="separator:ga001d75253c4e70d85222d440695fdc08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga41b099989b3349b04773ceadf276f470"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__api.html#ga41b099989b3349b04773ceadf276f470">rb_len</a> (struct <a class="el" href="structrb.html">rb</a> *<a class="el" href="structrb.html">rb</a>)</td></tr>
+<tr class="memdesc:ga41b099989b3349b04773ceadf276f470"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns available data size inside a ring-buffer.  <a href="group__rb__api.html#ga41b099989b3349b04773ceadf276f470">More...</a><br /></td></tr>
+<tr class="separator:ga41b099989b3349b04773ceadf276f470"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaceac7bcf58fd1c07fba15782ee62e158"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__rb__api.html#gaceac7bcf58fd1c07fba15782ee62e158">rb_full</a> (struct <a class="el" href="structrb.html">rb</a> *<a class="el" href="structrb.html">rb</a>)</td></tr>
+<tr class="memdesc:gaceac7bcf58fd1c07fba15782ee62e158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if a ring-buffer is full or not.  <a href="group__rb__api.html#gaceac7bcf58fd1c07fba15782ee62e158">More...</a><br /></td></tr>
+<tr class="separator:gaceac7bcf58fd1c07fba15782ee62e158"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Operations over <code>rb</code> instances. </p>
-<p>Centralized functions to allow multiple implementations </p><dl class="section author"><dt>Author</dt><dd>CieNTi <a href="#" onclick="location.href='mai'+'lto:'+'cie'+'nt'+'i@c'+'ie'+'nti'+'.c'+'om'; return false;">cient<span style="display: none;">.nosp@m.</span>i@ci<span style="display: none;">.nosp@m.</span>enti.<span style="display: none;">.nosp@m.</span>com</a> </dd></dl>
-<dl class="section date"><dt>Date</dt><dd>2020 </dd></dl>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="gae1cc4cfbb8efee193a67c897bba751d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gae1cc4cfbb8efee193a67c897bba751d6">&#9670;&nbsp;</a></span>rb_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rb_init </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structrb.html">rb</a> *&#160;</td>
+          <td class="paramname"><em>rb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int(*)(struct <a class="el" href="structrb.html">rb</a> *)&#160;</td>
+          <td class="paramname"><em>rb_driver_init</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;rb.h&gt;</code></p>
+
+<p>Initializes a <code>rb</code> </p>
+<p>Checks and initializes <code>rb</code> common data, then calls the lower level init function passed by argument.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rb</td><td>Pointer to a RB to initialize </td></tr>
+    <tr><td class="paramname">rb_driver_init</td><td>Pointer to a driver initializer function</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>struct rb *</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>NULL</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
+</table>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rb_8c_source.html#l00031">31</a> of file <a class="el" href="rb_8c_source.html">rb.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00069">rb::buffer</a>, <a class="el" href="rb_8h_source.html#l00094">rb::driver</a>, <a class="el" href="rb_8h_source.html#l00079">rb::head</a>, <a class="el" href="rb_8h_source.html#l00089">rb::head_of</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00045">rb_driver::name</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00065">rb_driver::reset</a>, <a class="el" href="rb_8h_source.html#l00074">rb::size</a>, <a class="el" href="rb_8h_source.html#l00084">rb::tail</a>, and <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00058">rb_driver::validate</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="channel_8c_source.html#l00029">ce_channel_init()</a>, <a class="el" href="test__ce__codec___b416_k_8c_source.html#l00216">test_ce_codec_B416K()</a>, <a class="el" href="test__ce__command__codec___b416_k_8c_source.html#l00050">test_ce_command_codec_B416K()</a>, and <a class="el" href="test__rb__driver__overwrite_8c_source.html#l00046">test_rb_driver_overwrite()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__rb__api_gae1cc4cfbb8efee193a67c897bba751d6_icgraph.png" border="0" usemap="#group__rb__api_gae1cc4cfbb8efee193a67c897bba751d6_icgraph" alt=""/></div>
+<map name="group__rb__api_gae1cc4cfbb8efee193a67c897bba751d6_icgraph" id="group__rb__api_gae1cc4cfbb8efee193a67c897bba751d6_icgraph">
+<area shape="rect" title="Initializes a rb" alt="" coords="745,139,803,165"/>
+<area shape="rect" href="group__ce__api.html#ga03012ca16c931a830c75d8f43ac6c4bb" title="Initializes a command engine channel using lower level inits." alt="" coords="565,57,677,84"/>
+<area shape="rect" href="group__util__test.html#gadf1c6352c9937f842ff04407ff284311" title="Test to check ce functionality using a single ce." alt="" coords="544,109,697,136"/>
+<area shape="rect" href="group__util__test.html#gae131f9bd4ca899feccfa9fb1ac089582" title="Test to check ce functionality using a single ce." alt="" coords="325,158,496,199"/>
+<area shape="rect" href="group__util__test.html#ga77ce368a66704591607832adb1811334" title="Tests overwrite driver API and functionality." alt="" coords="330,224,491,251"/>
+<area shape="rect" href="group__ce__api.html#gaa038ff9be1d1df5fa24bbfbb4fa69f93" title="Initializes a command engine referenced by a ce pointer." alt="" coords="381,56,441,83"/>
+<area shape="rect" href="group__util__test.html#ga1f21c0ee86f3ad81bf839a26939b7012" title="Test to check ce functionality using a single CE." alt="" coords="145,5,271,32"/>
+<area shape="rect" href="group__util__test.html#ga6e86cfc140feceb78cfada190974e34d" title="Test to check ce functionality using a single ce." alt="" coords="139,56,277,83"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,107,91,133"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ga7872afd788d2f46f71a85acaa6e095f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga7872afd788d2f46f71a85acaa6e095f4">&#9670;&nbsp;</a></span>rb_reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rb_reset </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structrb.html">rb</a> *&#160;</td>
+          <td class="paramname"><em>rb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;rb.h&gt;</code></p>
+
+<p>Reset a ring-buffer by cleaning its content and making it empty. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rb</td><td>Pointer to a correctly initialized RB </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="rb_8c_source.html#l00097">97</a> of file <a class="el" href="rb_8c_source.html">rb.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00094">rb::driver</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00065">rb_driver::reset</a>, and <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00058">rb_driver::validate</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__rb__driver__overwrite_8c_source.html#l00046">test_rb_driver_overwrite()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__rb__api_ga7872afd788d2f46f71a85acaa6e095f4_icgraph.png" border="0" usemap="#group__rb__api_ga7872afd788d2f46f71a85acaa6e095f4_icgraph" alt=""/></div>
+<map name="group__rb__api_ga7872afd788d2f46f71a85acaa6e095f4_icgraph" id="group__rb__api_ga7872afd788d2f46f71a85acaa6e095f4_icgraph">
+<area shape="rect" title="Reset a ring&#45;buffer by cleaning its content and making it empty." alt="" coords="348,5,417,32"/>
+<area shape="rect" href="group__util__test.html#ga77ce368a66704591607832adb1811334" title="Tests overwrite driver API and functionality." alt="" coords="139,5,300,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gafbfb992566219b55192d15ac6df26e80"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafbfb992566219b55192d15ac6df26e80">&#9670;&nbsp;</a></span>rb_push()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rb_push </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structrb.html">rb</a> *&#160;</td>
+          <td class="paramname"><em>rb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>byte</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;rb.h&gt;</code></p>
+
+<p>Add a byte to a ring-buffer head, overwritting if needed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">rb</td><td>Pointer to a correctly initialized RB </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">byte</td><td>Byte to be pushed into the ring-buffer</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
+</table>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rb_8c_source.html#l00121">121</a> of file <a class="el" href="rb_8c_source.html">rb.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00094">rb::driver</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00079">rb_driver::push</a>, and <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00058">rb_driver::validate</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__rb__driver__overwrite_8c_source.html#l00046">test_rb_driver_overwrite()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__rb__api_gafbfb992566219b55192d15ac6df26e80_icgraph.png" border="0" usemap="#group__rb__api_gafbfb992566219b55192d15ac6df26e80_icgraph" alt=""/></div>
+<map name="group__rb__api_gafbfb992566219b55192d15ac6df26e80_icgraph" id="group__rb__api_gafbfb992566219b55192d15ac6df26e80_icgraph">
+<area shape="rect" title="Add a byte to a ring&#45;buffer head, overwritting if needed." alt="" coords="348,5,416,32"/>
+<area shape="rect" href="group__util__test.html#ga77ce368a66704591607832adb1811334" title="Tests overwrite driver API and functionality." alt="" coords="139,5,300,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gad4a09b70178f9e847a660c51b1170aef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad4a09b70178f9e847a660c51b1170aef">&#9670;&nbsp;</a></span>rb_pull()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rb_pull </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structrb.html">rb</a> *&#160;</td>
+          <td class="paramname"><em>rb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>byte</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;rb.h&gt;</code></p>
+
+<p>Read and delete a byte from a ring-buffer tail. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rb</td><td>Pointer to a correctly initialized RB </td></tr>
+    <tr><td class="paramname">byte</td><td>Pointer to byte where to write the pushed value</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
+</table>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rb_8c_source.html#l00142">142</a> of file <a class="el" href="rb_8c_source.html">rb.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00094">rb::driver</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00093">rb_driver::pull</a>, and <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00058">rb_driver::validate</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__rb__driver__overwrite_8c_source.html#l00046">test_rb_driver_overwrite()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__rb__api_gad4a09b70178f9e847a660c51b1170aef_icgraph.png" border="0" usemap="#group__rb__api_gad4a09b70178f9e847a660c51b1170aef_icgraph" alt=""/></div>
+<map name="group__rb__api_gad4a09b70178f9e847a660c51b1170aef_icgraph" id="group__rb__api_gad4a09b70178f9e847a660c51b1170aef_icgraph">
+<area shape="rect" title="Read and delete a byte from a ring&#45;buffer tail." alt="" coords="348,5,408,32"/>
+<area shape="rect" href="group__util__test.html#ga77ce368a66704591607832adb1811334" title="Tests overwrite driver API and functionality." alt="" coords="139,5,300,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gad5afa11ed29c92c613138d041955d947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gad5afa11ed29c92c613138d041955d947">&#9670;&nbsp;</a></span>rb_write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rb_write </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structrb.html">rb</a> *&#160;</td>
+          <td class="paramname"><em>rb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>byte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;rb.h&gt;</code></p>
+
+<p>Write a byte by position on a ring-buffer, without updating head/tail. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">rb</td><td>Pointer to a correctly initialized RB </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">byte</td><td>Byte to be written into the ring-buffer </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">position</td><td>Position to read, thinking as if ring-buffer is linear</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
+</table>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rb_8c_source.html#l00163">163</a> of file <a class="el" href="rb_8c_source.html">rb.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00094">rb::driver</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00058">rb_driver::validate</a>, and <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00111">rb_driver::write</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__rb__driver__overwrite_8c_source.html#l00046">test_rb_driver_overwrite()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__rb__api_gad5afa11ed29c92c613138d041955d947_icgraph.png" border="0" usemap="#group__rb__api_gad5afa11ed29c92c613138d041955d947_icgraph" alt=""/></div>
+<map name="group__rb__api_gad5afa11ed29c92c613138d041955d947_icgraph" id="group__rb__api_gad5afa11ed29c92c613138d041955d947_icgraph">
+<area shape="rect" title="Write a byte by position on a ring&#45;buffer, without updating head/tail." alt="" coords="348,5,416,32"/>
+<area shape="rect" href="group__util__test.html#ga77ce368a66704591607832adb1811334" title="Tests overwrite driver API and functionality." alt="" coords="139,5,300,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gafdb7caa667d6371c53b02b73cdad85ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gafdb7caa667d6371c53b02b73cdad85ca">&#9670;&nbsp;</a></span>rb_read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int rb_read </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structrb.html">rb</a> *&#160;</td>
+          <td class="paramname"><em>rb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint8_t *&#160;</td>
+          <td class="paramname"><em>byte</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;rb.h&gt;</code></p>
+
+<p>Read a byte by position from a ring-buffer, without updating head/tail. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir"></td><td class="paramname">rb</td><td>Pointer to a correctly initialized RB </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">byte</td><td>Pointer to byte where to write the pushed value </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">position</td><td>Position to read, thinking as if ring-buffer is linear</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Ok  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Error  </td></tr>
+</table>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rb_8c_source.html#l00184">184</a> of file <a class="el" href="rb_8c_source.html">rb.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00094">rb::driver</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00129">rb_driver::read</a>, and <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00058">rb_driver::validate</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__rb__driver__overwrite_8c_source.html#l00046">test_rb_driver_overwrite()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__rb__api_gafdb7caa667d6371c53b02b73cdad85ca_icgraph.png" border="0" usemap="#group__rb__api_gafdb7caa667d6371c53b02b73cdad85ca_icgraph" alt=""/></div>
+<map name="group__rb__api_gafdb7caa667d6371c53b02b73cdad85ca_icgraph" id="group__rb__api_gafdb7caa667d6371c53b02b73cdad85ca_icgraph">
+<area shape="rect" title="Read a byte by position from a ring&#45;buffer, without updating head/tail." alt="" coords="348,5,413,32"/>
+<area shape="rect" href="group__util__test.html#ga77ce368a66704591607832adb1811334" title="Tests overwrite driver API and functionality." alt="" coords="139,5,300,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ga001d75253c4e70d85222d440695fdc08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga001d75253c4e70d85222d440695fdc08">&#9670;&nbsp;</a></span>rb_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t rb_size </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structrb.html">rb</a> *&#160;</td>
+          <td class="paramname"><em>rb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;rb.h&gt;</code></p>
+
+<p>Returns max available size of a ring-buffer buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rb</td><td>Pointer to a correctly initialized RB</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">0 or Error  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Valid size  </td></tr>
+</table>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rb_8c_source.html#l00205">205</a> of file <a class="el" href="rb_8c_source.html">rb.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00094">rb::driver</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00142">rb_driver::size</a>, and <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00058">rb_driver::validate</a>.</p>
+
+</div>
+</div>
+<a id="ga41b099989b3349b04773ceadf276f470"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga41b099989b3349b04773ceadf276f470">&#9670;&nbsp;</a></span>rb_len()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t rb_len </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structrb.html">rb</a> *&#160;</td>
+          <td class="paramname"><em>rb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;rb.h&gt;</code></p>
+
+<p>Returns available data size inside a ring-buffer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rb</td><td>Pointer to a correctly initialized RB</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">0 or Error  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Valid size  </td></tr>
+</table>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rb_8c_source.html#l00226">226</a> of file <a class="el" href="rb_8c_source.html">rb.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00094">rb::driver</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00155">rb_driver::len</a>, and <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00058">rb_driver::validate</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__rb__driver__overwrite_8c_source.html#l00046">test_rb_driver_overwrite()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__rb__api_ga41b099989b3349b04773ceadf276f470_icgraph.png" border="0" usemap="#group__rb__api_ga41b099989b3349b04773ceadf276f470_icgraph" alt=""/></div>
+<map name="group__rb__api_ga41b099989b3349b04773ceadf276f470_icgraph" id="group__rb__api_ga41b099989b3349b04773ceadf276f470_icgraph">
+<area shape="rect" title="Returns available data size inside a ring&#45;buffer." alt="" coords="348,5,405,32"/>
+<area shape="rect" href="group__util__test.html#ga77ce368a66704591607832adb1811334" title="Tests overwrite driver API and functionality." alt="" coords="139,5,300,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="gaceac7bcf58fd1c07fba15782ee62e158"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaceac7bcf58fd1c07fba15782ee62e158">&#9670;&nbsp;</a></span>rb_full()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t rb_full </td>
+          <td>(</td>
+          <td class="paramtype">struct <a class="el" href="structrb.html">rb</a> *&#160;</td>
+          <td class="paramname"><em>rb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p><code>#include &lt;rb.h&gt;</code></p>
+
+<p>Check if a ring-buffer is full or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rb</td><td>Pointer to a correctly initialized RB</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>One of: <table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadCenter">Value </th><th class="markdownTableHeadLeft">Meaning  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyCenter"><code>== 0</code> </td><td class="markdownTableBodyLeft">Not empty or Error  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyCenter"><code>!= 0</code> </td><td class="markdownTableBodyLeft">Empty  </td></tr>
+</table>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="rb_8c_source.html#l00247">247</a> of file <a class="el" href="rb_8c_source.html">rb.c</a>.</p>
+
+<p class="reference">References <a class="el" href="common_2yacup_2debug_8h_source.html#l00060">_dbg</a>, <a class="el" href="rb_8h_source.html#l00094">rb::driver</a>, <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00168">rb_driver::full</a>, and <a class="el" href="rb_2yacup_2rb_2driver_8h_source.html#l00058">rb_driver::validate</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="test__rb__driver__overwrite_8c_source.html#l00046">test_rb_driver_overwrite()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group__rb__api_gaceac7bcf58fd1c07fba15782ee62e158_icgraph.png" border="0" usemap="#group__rb__api_gaceac7bcf58fd1c07fba15782ee62e158_icgraph" alt=""/></div>
+<map name="group__rb__api_gaceac7bcf58fd1c07fba15782ee62e158_icgraph" id="group__rb__api_gaceac7bcf58fd1c07fba15782ee62e158_icgraph">
+<area shape="rect" title="Check if a ring&#45;buffer is full or not." alt="" coords="348,5,405,32"/>
+<area shape="rect" href="group__util__test.html#ga77ce368a66704591607832adb1811334" title="Tests overwrite driver API and functionality." alt="" coords="139,5,300,32"/>
+<area shape="rect" href="group__app__test.html#ga359133e06980852b4c9e92359e20a710" title="The main of the mains." alt="" coords="5,5,91,32"/>
+</map>
+</div>
+
+</div>
+</div>
 </div><!-- contents -->
+</div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.14-->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.18
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+</div>
 </body>
 </html>

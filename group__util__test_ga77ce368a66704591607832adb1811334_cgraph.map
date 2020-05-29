@@ -1,0 +1,13 @@
+<map id="test_rb_driver_overwrite" name="test_rb_driver_overwrite">
+<area shape="rect" id="node1" title="Tests overwrite driver API and functionality." alt="" coords="5,233,167,260"/>
+<area shape="rect" id="node2" href="$group__rb__driver__overwrite.html#gaa92eeb40417d4a01549764cffd7a27c3" title="Driver initializer function for overwrite RB driver." alt="" coords="215,5,347,32"/>
+<area shape="rect" id="node3" href="$group__rb__api.html#gaceac7bcf58fd1c07fba15782ee62e158" title="Check if a ring&#45;buffer is full or not." alt="" coords="252,56,309,83"/>
+<area shape="rect" id="node4" href="$group__rb__api.html#gae1cc4cfbb8efee193a67c897bba751d6" title="Initializes a rb" alt="" coords="252,107,309,133"/>
+<area shape="rect" id="node5" href="$group__rb__api.html#ga41b099989b3349b04773ceadf276f470" title="Returns available data size inside a ring&#45;buffer." alt="" coords="252,157,309,184"/>
+<area shape="rect" id="node6" href="$group__debug__functions.html#ga6f3629bbf2e4772601d46ddfd5941e30" title="Print rb information to STDOUT (size, head, tail, ...)" alt="" coords="234,208,327,235"/>
+<area shape="rect" id="node7" href="$group__rb__api.html#gad4a09b70178f9e847a660c51b1170aef" title="Read and delete a byte from a ring&#45;buffer tail." alt="" coords="251,259,311,285"/>
+<area shape="rect" id="node8" href="$group__rb__api.html#gafbfb992566219b55192d15ac6df26e80" title="Add a byte to a ring&#45;buffer head, overwritting if needed." alt="" coords="247,309,315,336"/>
+<area shape="rect" id="node9" href="$group__rb__api.html#gafdb7caa667d6371c53b02b73cdad85ca" title="Read a byte by position from a ring&#45;buffer, without updating head/tail." alt="" coords="248,360,313,387"/>
+<area shape="rect" id="node10" href="$group__rb__api.html#ga7872afd788d2f46f71a85acaa6e095f4" title="Reset a ring&#45;buffer by cleaning its content and making it empty." alt="" coords="246,411,315,437"/>
+<area shape="rect" id="node11" href="$group__rb__api.html#gad5afa11ed29c92c613138d041955d947" title="Write a byte by position on a ring&#45;buffer, without updating head/tail." alt="" coords="247,461,315,488"/>
+</map>

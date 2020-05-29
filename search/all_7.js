@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['last_34',['last',['../structfsm.html#a4ebcdc3985e11f82dbf302bc744ee2e0',1,'fsm']]],
-  ['len_35',['len',['../structnice__structure.html#a7360b55975153b822efc5217b7734e6a',1,'nice_structure::len()'],['../structxyz.html#a7360b55975153b822efc5217b7734e6a',1,'xyz::len()'],['../structrb__op.html#a16078a5395556e4daabe7070103aa68d',1,'rb_op::len()']]]
+  ['head_82',['head',['../structrb.html#acb9ab3c61315d86b80936e432a064333',1,'rb']]],
+  ['head_5fof_83',['head_of',['../structrb.html#a2d04204442ab0315ce601549312a5203',1,'rb']]]
 ];

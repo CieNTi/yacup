@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['write_125',['write',['../structrb__op.html#a4bb4d0dddc63950b9abc6f4118233055',1,'rb_op']]]
+  ['read_272',['read',['../structrb__driver.html#a62511d7be7d8f122bb3267b10663f7ff',1,'rb_driver']]],
+  ['reset_273',['reset',['../structrb__driver.html#aa08dae61c0b00e958fec3c4992cb27b6',1,'rb_driver']]]
 ];

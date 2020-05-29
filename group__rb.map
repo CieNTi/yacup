@@ -1,5 +1,6 @@
-<map id="Ring&#45;buffers" name="Ring&#45;buffers">
-<area shape="rect" id="node1" href="$group__rb__driver.html" title="Operations driver for rb instances." alt="" coords="149,5,212,31"/>
-<area shape="rect" id="node2" href="$group__rb__api.html" title="Operations over rb instances." alt="" coords="144,55,217,80"/>
-<area shape="rect" id="node3" title="Yet another ring&#45;buffer implementation." alt="" coords="5,31,96,56"/>
+<map id="Ring&#45;buffer" name="Ring&#45;buffer">
+<area shape="rect" id="node1" href="$group__util.html" title="Available utilities and implementations documentation." alt="" coords="5,31,72,56"/>
+<area shape="rect" id="node4" title="Yet another ring&#45;buffer implementation." alt="" coords="120,31,204,56"/>
+<area shape="rect" id="node2" href="$group__rb__driver.html" title="Already made and tested RB drivers for different purposes." alt="" coords="252,5,369,31"/>
+<area shape="rect" id="node3" href="$group__rb__api.html" title="Complete API documentation for ring buffers setup, instantiation and usage." alt="" coords="274,55,347,80"/>
 </map>
