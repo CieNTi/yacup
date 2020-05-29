@@ -362,6 +362,7 @@ static int encode_message(struct rb *rb_data, struct rb *rb_msg)
 
   uint8_t data_holder = 0;
   uint16_t crc_holder = 0;
+  size_t msg_len = rb_len(rb_msg);
 
   /* Push header */
   if (rb_push(rb_msg, CE_CODEC_B416K_START_BYTE) ||
@@ -386,8 +387,9 @@ static int encode_message(struct rb *rb_data, struct rb *rb_msg)
   }
 
   /* Calculate and save CRC */
-  if (crc16_kermit(rb_msg, 1, rb_len(rb_msg) - 1, &crc_holder) ||
-      rb_push(rb_msg, (uint8_t)(crc_holder >> 8))                  ||
+  if (crc16_kermit(rb_msg, msg_len + 1, rb_len(rb_msg) - msg_len - 1,
+                   &crc_holder)                                       ||
+      rb_push(rb_msg, (uint8_t)(crc_holder >> 8))                     ||
       rb_push(rb_msg, (uint8_t)(crc_holder)))
   {
     /* Fial! Out of destination space */
@@ -427,8 +429,18 @@ static int decode_message(struct rb *rb_msg, struct rb *rb_data)
     }
   }
 
-  /* Calculate and save CRC */
-  if (crc16_kermit(rb_msg, 1, rb_len(rb_msg) - 3, &crc_holder[0]))
+  /* Pre-read length, but not removing it as it is needed for CRC */
+  data_len = 0;
+  if (rb_read(rb_msg, (uint8_t *)&data_len + 1, 1) ||
+      rb_read(rb_msg, (uint8_t *)&data_len    , 2))
+  {
+    /* Cannot push, error */
+    _dbg("Error when pre-reading message length\n");
+    return 1;
+  }
+
+  /* Calculate and save CRC (all message but start flag and crc bytes) */
+  if (crc16_kermit(rb_msg, 1, 2 + data_len, &crc_holder[0]))
   {
     /* Error when calculating CRC */
     _dbg("Error when calculating message CRC\n");
@@ -436,8 +448,8 @@ static int decode_message(struct rb *rb_msg, struct rb *rb_data)
   }
 
   /* Read received CRC and compare it with calculated one */
-  if (rb_read(rb_msg, (uint8_t *)&crc_holder[1] + 1, rb_len(rb_msg) - 2) ||
-      rb_read(rb_msg, (uint8_t *)&crc_holder[1]    , rb_len(rb_msg) - 1))
+  if (rb_read(rb_msg, (uint8_t *)&crc_holder[1] + 1, 3 + data_len + 0) ||
+      rb_read(rb_msg, (uint8_t *)&crc_holder[1]    , 3 + data_len + 1))
   {
     /* Cannot push, error */
     _dbg("Error when reading message CRC\n");
@@ -456,8 +468,7 @@ static int decode_message(struct rb *rb_msg, struct rb *rb_data)
   data_len = 0;
   if (rb_pull(rb_msg, &data_holder) ||
       rb_pull(rb_msg, (uint8_t *)&data_len + 1) ||
-      rb_pull(rb_msg, (uint8_t *)&data_len)
-      )
+      rb_pull(rb_msg, (uint8_t *)&data_len))
   {
     /* Cannot push, error */
     _dbg("Error when pulling message length\n");
