@@ -18,6 +18,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "yacup/rb.h"
+#include "yacup/rb/debug.h"
 #include "yacup/fsm.h"
 #include "yacup/fsm/driver.h"
 #include "yacup/fsm/debug.h"
@@ -46,6 +47,7 @@ static int s_wait_cmd(struct fsm *fsm);
 static int s_encode(struct fsm *fsm);
 static int s_decode(struct fsm *fsm);
 static int s_send(struct fsm *fsm);
+static int s_receive(struct fsm *fsm);
 static int s_error(struct fsm *fsm);
 static int s_stop(struct fsm *fsm);
 /**  @}
@@ -126,7 +128,7 @@ static int s_wait_cmd(struct fsm *fsm)
   if (FSM_DATA(fsm)->request_to_receive == 1)
   {
     FSM_DATA(fsm)->message_decoded = 0;
-    fsm->next = s_decode;
+    fsm->next = s_receive;
   }
   return 0;
 
@@ -185,21 +187,39 @@ static int s_encode(struct fsm *fsm)
 static int s_decode(struct fsm *fsm)
 {
   /* Configure _dbg() */
-  #define YCP_FNAME "s_encode"
+  #define YCP_FNAME "s_decode"
 
   /* Default next state */
-  fsm->next = s_send;
+  fsm->next = s_stop;
 
-  /* Encode the command */
+  /* Decode the message into data payload */
+  if (FSM_DATA(fsm)->ce->in.codec.decode.message(&(FSM_DATA(fsm)->ce->in.message),
+                                                 &(FSM_DATA(fsm)->ce->in.data)))
+  {
+    fsm->next = s_error;
+
+    _dbg("Cannot decode message to payload\n");
+    return 1;
+  }
+
+  /* Print input buffer before using the data */
+  _dbg("Data buffer (should be still filled, but it will be erased now)\n");
+  rb_print_info(&(FSM_DATA(fsm)->ce->in.data));
+
+  /* Decode the payload into a command (saving data into listener argument, if
+   * present */
   if (FSM_DATA(fsm)->ce->in.codec.decode.command(&(FSM_DATA(fsm)->ce->in.data),
                                              FSM_DATA(fsm)->ce->in.command_set,
                                                  &FSM_DATA(fsm)->command))
   {
     fsm->next = s_error;
 
-    _dbg("Cannot decode command\n");
+    _dbg("Cannot decode payload to command\n");
     return 1;
   }
+
+  /* Flag it and go */
+  FSM_DATA(fsm)->message_decoded = 1;
 
   /* Decoded, so go back now */
   return 0;
@@ -232,6 +252,37 @@ static int s_send(struct fsm *fsm)
   // Code here to actually send the data, if required
   //
   FSM_DATA(fsm)->message_sent = 1;
+
+  return 0;
+
+  /* Free _dbg() config */
+  #undef YCP_FNAME
+}
+
+/**
+ * @brief      Receive data and saves it
+ *
+ * @param      fsm   Pointer to a FSM. Use dedicated fsm setup function before
+ *
+ * @return     One of:
+ *             | Value  | Meaning          |
+ *             | :----: | :--------------- |
+ *             | `== 0` | Ok               |
+ *             | `!= 0` | Warning          |
+ */
+static int s_receive(struct fsm *fsm)
+{
+  /* Configure _dbg() */
+  #define YCP_FNAME "s_receive"
+
+  /* Default next state */
+  fsm->next = s_decode;
+
+  /* Receive the message */
+  //
+  // Code here to actually receive the data, if required
+  //
+  _dbg("Go receive .. brrrrrrrr\n");
 
   return 0;
 
