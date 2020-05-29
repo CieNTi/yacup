@@ -199,12 +199,12 @@ int test_ce_driver_faf(int argc, const char* argv[])
   /* Compose arguments */
   size_t read_cmd1_id = 0;
   struct ce_command_argument **read_cmd1_args;
-  /* Call for command send */
+  /* Call for command receive */
   _dbg("Should receive a command 0x%02lX with a uint8_t argument\n",
        CE_COMMAND_SET_TEST_CMD1);
   if (ce_wait_command(&ce0, &read_cmd1_id, &read_cmd1_args))
   {
-    /* Cannot send, error */
+    /* Cannot receive, error */
     _dbg("Error when receiving CE_COMMAND_SET_TEST_CMD1\n");
     return 1;
   }
@@ -224,28 +224,120 @@ int test_ce_driver_faf(int argc, const char* argv[])
   }
   _dbg("Ok\n");
 
-  /* Print output buffer info and content after sending a message */
+  /* Print output buffer info and content after receiving a message */
   rb_print_info(&ce0.out.data);
 
   /* 
-   * Receive a command with 2 argument
+   * Receive a command with 2 argument (with no listener)
    */
   /* Compose arguments */
   size_t read_cmd2_id = 0;
   struct ce_command_argument **read_cmd2_args;
+  /* Call for command receive */
+  _dbg("Should receive a command 0x%02lX with a uint8_t + double arguments\n",
+       CE_COMMAND_SET_TEST_CMD2);
+  if (ce_wait_command(&ce0, &read_cmd2_id, &read_cmd2_args) == 0)
+  {
+    /* Cannot receive, error */
+    _dbg("Error when waiting for command, should fail but was ok!!\n");
+    return 1;
+  }
+  _dbg("Error when receiving CE_COMMAND_SET_TEST_CMD2, as expected\n");
+  _dbg("Ok\n");
+
+  /* Print output buffer info and content after sending a message */
+  _dbg("Data now should be empty (not listener, discarded data)\n");
+  rb_print_info(&ce0.in.data);
+
+
+  /* Set a command listener */
+  _dbg("Should set listener to command 0x%02lX\n", CE_COMMAND_SET_TEST_CMD2);
+  if (ce_command_set_listener(&test_command_set,
+                              CE_COMMAND_SET_TEST_CMD2,
+                              &test_cmd2_listener))
+  {
+    /* Cannot set it, error */
+    _dbg("Error when setting listener for CE_COMMAND_SET_TEST_CMD2\n");
+    return 1;
+  }
+  _dbg("Ok\n");
+
+  /* 
+   * Send a command with 2 argument
+   */
   /* Call for command send */
+  _dbg("Should send a command 0x%02lX with a uint8_t + double arguments\n",
+       CE_COMMAND_SET_TEST_CMD2);
+  if (ce_send_command(&ce0, CE_COMMAND_SET_TEST_CMD2, cmd2_args))
+  {
+    /* Cannot send, error */
+    _dbg("Error when sending CE_COMMAND_SET_TEST_CMD2\n");
+    return 1;
+  }
+  _dbg("Ok\n");
+
+  /* Print output buffer info and content after sending a message */
+  _dbg("Data buffer (should be empty, but with used indices)\n");
+  rb_print_info(&ce0.out.data);
+  _dbg("Message buffer (should hold 1 outgoing message)\n");
+  rb_print_info(&ce0.out.message);
+
+  /* At this point, there is a message waiting to be delivered, so we simulate
+   * a transmission by blindly moving the data from out to in */
+  abyte = 0;
+  while (rb_pull(&ce0.out.message, &abyte) == 0)
+  {
+    if (rb_push(&ce0.in.message, abyte))
+    {
+      _dbg("Error when pushing a byte\n");
+      return 1;
+    }
+  }
+  _dbg("Transmission simulation finished, outgoing data is now received\n");
+
+  /* Print input buffer info and content before receiving a message */
+  _dbg("Message buffer (should hold 1 incoming message)\n");
+  rb_print_info(&ce0.in.message);
+
+  /* 
+   * Receive a command with 2 argument (with listener this time)
+   */
+  /* Compose arguments */
+  read_cmd2_id = 0;
+  read_cmd2_args = NULL;
+  /* Call for command receive */
   _dbg("Should receive a command 0x%02lX with a uint8_t + double arguments\n",
        CE_COMMAND_SET_TEST_CMD2);
   if (ce_wait_command(&ce0, &read_cmd2_id, &read_cmd2_args))
   {
-    /* Cannot send, error */
+    /* Cannot receive, error */
     _dbg("Error when receiving CE_COMMAND_SET_TEST_CMD2\n");
     return 1;
   }
   _dbg("Ok\n");
 
   /* Print output buffer info and content after sending a message */
-  rb_print_info(&ce0.out.data);
+  _dbg("Data now should be empty (listener consumed data)\n");
+  rb_print_info(&ce0.in.data);
+
+  _dbg("Received command id: 0x%02lX (should be 0x%02lX)\n",
+       read_cmd2_id,
+       CE_COMMAND_SET_TEST_CMD2);
+  _dbg("Received command argument: 0x%02X (should be uint8_t 0x%02X)\n",
+       read_cmd2_args[0]->data.u8,
+       250);
+  _dbg("Received command argument: %2.3f (should be double %2.3f)\n",
+       read_cmd2_args[1]->data.d,
+       2.3);
+
+  if ((read_cmd2_id != CE_COMMAND_SET_TEST_CMD2) ||
+      (read_cmd2_args[0]->data.u8 != 250)        ||
+      (read_cmd2_args[1]->data.d != 2.3))
+  {
+    _dbg("Something is not working in the guts ... ouch!\n");
+    return 1;
+  }
+  _dbg("Ok\n");
 
   /* Cya! */
   _dbg("If you are reading this, everything went correctly :_)\n");

@@ -20,7 +20,7 @@ graph LR
 ```
 
 ```mermaid
-graph TB
+graph LR
     subgraph "Command engine driver initialization"
     	ce_new(New 'ce')
     	ce_new --> ce_new_name(Name)
@@ -40,13 +40,13 @@ graph TB
         ce_listener_previous_listener(Listener)
         ce_listener_previous_set --> ce_set_listener_call(call to 'ce_command_set_listener')
         ce_listener_previous_cmd --> ce_set_listener_call
-    	ce_listener_previous --> ce_set_listener_call
+    	ce_listener_previous_listener --> ce_set_listener_call
     end
-    subgraph "Last"
-    	ce_last(Next 'struct ce')
-		ce_last --> ce_new_c
-		ce_new_c --> ce_new_c1
+    subgraph "Send commands"
+        ce_send_previous_args(Args)
+    	ce_send_previous_args --> ce_send(call to 'ce_send_command')
     end
-ce_init_call --> ce_set_listener_call
+    ce_init_call --> ce_set_listener_call
+    ce_set_listener_call --> ce_send
 ```
 

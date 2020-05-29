@@ -37,8 +37,19 @@ extern "C" {
 #include "yacup/ce.h"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/**
+ * @brief Dead time applied when cycling the fsm so the CPU is not locked
+ */
 #define CE_DRIVER_FAF_FSM_DELAY_MS 50
+
+/**
+ * @brief Timeout when sending
+ */
 #define CE_DRIVER_FAF_SEND_TIMEOUT_MS 1000
+
+/**
+ * @brief Timeout when receiving
+ */
 #define CE_DRIVER_FAF_RECEIVE_TIMEOUT_MS 1000
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
